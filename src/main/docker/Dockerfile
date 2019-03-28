@@ -1,7 +1,7 @@
 #Get ThingML (at a given commit) and compile it
 FROM maven:3-jdk-8-slim
 
-ARG SHA=d8dd5f5b11c3cabe5017d2aab371f58d34d68f7b
+ARG SHA=30d4c4dd6f5986d190412bc3a19f5517c956b6d7
 
 COPY ./settings.xml settings.xml
 
