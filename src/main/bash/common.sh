@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-N=10
+N=100
 
 LANGUAGES=(java nodejs go) # Languages to use
 
