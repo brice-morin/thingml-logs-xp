@@ -1,6 +1,7 @@
 'use strict';
 
 const Enum = require('./enums');
+const Event = require('./events');
 const StateJS = require('@steelbreeze/state');
 const EventEmitter = require('events').EventEmitter;
 
@@ -25,18 +26,18 @@ TimerNodeJS.prototype.build = function(session) {
 	let _initial_TimerNodeJS_SoftTimer = new StateJS.PseudoState('_initial', this._statemachine, StateJS.PseudoStateKind.Initial);
 	let TimerNodeJS_SoftTimer_default = new StateJS.State('default', this._statemachine);
 	_initial_TimerNodeJS_SoftTimer.to(TimerNodeJS_SoftTimer_default);
-	TimerNodeJS_SoftTimer_default.to(null).when((timer_start) => {
-		return timer_start._port === 'timer' && timer_start._msg === 'timer_start' && (timer_start.time > 0);
+	TimerNodeJS_SoftTimer_default.on(Event.Timer_start).when((timer_start) => {
+		return timer_start.port === 'timer' && timer_start.type === 'timer_start' && (timer_start.time > 0);
 	}).effect((timer_start) => {
 		this.startTimer(timer_start.id, timer_start.time);
 	});
-	TimerNodeJS_SoftTimer_default.to(null).when((timer_start) => {
-		return timer_start._port === 'timer' && timer_start._msg === 'timer_start' && (timer_start.time === 0);
+	TimerNodeJS_SoftTimer_default.on(Event.Timer_start).when((timer_start) => {
+		return timer_start.port === 'timer' && timer_start.type === 'timer_start' && (timer_start.time === 0);
 	}).effect((timer_start) => {
-		setImmediate(() => {this.bus.emit('timer?timer_timeout', timer_start.id)});
+		setImmediate(() => {this.bus.emit('timer', new Event.Timer_timeout('timer', timer_start.id))});
 	});
-	TimerNodeJS_SoftTimer_default.to(null).when((timer_cancel) => {
-		return timer_cancel._port === 'timer' && timer_cancel._msg === 'timer_cancel';
+	TimerNodeJS_SoftTimer_default.on(Event.Timer_cancel).when((timer_cancel) => {
+		return timer_cancel.port === 'timer' && timer_cancel.type === 'timer_cancel';
 	}).effect((timer_cancel) => {
 		this.cancel(timer_cancel.id);
 	});
@@ -51,7 +52,7 @@ TimerNodeJS.prototype.startTimer = function(TimerNodeJS_startTimer_id_var, Timer
 	
 		this.TimerNodeJS_Timeouts_var[TimerNodeJS_startTimer_id_var] = this.TimerNodeJS_driftless_var.setDriftlessTimeout(() => {
 	
-	setImmediate(() => {this.bus.emit('timer?timer_timeout', TimerNodeJS_startTimer_id_var)});
+	setImmediate(() => {this.bus.emit('timer', new Event.Timer_timeout('timer', TimerNodeJS_startTimer_id_var))});
 	
 		this.TimerNodeJS_Timeouts_var[TimerNodeJS_startTimer_id_var] = undefined;
 	}, TimerNodeJS_startTimer_delay_var);
@@ -84,28 +85,11 @@ TimerNodeJS.prototype._init = function() {
 }
 
 TimerNodeJS.prototype._receive = function(msg) {
-	/*msg = {_port:myPort, _msg:myMessage, paramN=paramN, ...}*/
 	if (this.ready) {
 		this._SoftTimer_instance.evaluate(msg);
 	} else {
 		setTimeout(()=>this._receive(msg),0);
 	}
-}
-
-TimerNodeJS.prototype.receivetimer_startOntimer = function(id, time) {
-	this._receive({_port:"timer", _msg:"timer_start", id:id, time:time});
-}
-
-TimerNodeJS.prototype.receivetimer_cancelOntimer = function(id) {
-	this._receive({_port:"timer", _msg:"timer_cancel", id:id});
-}
-
-TimerNodeJS.prototype.initTimerNodeJS_Timeouts_var = function(TimerNodeJS_Timeouts_var) {
-	this.TimerNodeJS_Timeouts_var = TimerNodeJS_Timeouts_var;
-}
-
-TimerNodeJS.prototype.initTimerNodeJS_driftless_var = function(TimerNodeJS_driftless_var) {
-	this.TimerNodeJS_driftless_var = TimerNodeJS_driftless_var;
 }
 
 TimerNodeJS.prototype.toString = function() {

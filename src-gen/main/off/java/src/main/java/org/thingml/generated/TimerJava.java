@@ -77,30 +77,30 @@ return timer_port;
 }
 private CompositeState buildTimerJava_SoftTimer(){
 final AtomicState state_TimerJava_SoftTimer_default = new AtomicState("default");
-Handler h713765818 = new Handler();
-h713765818.from(state_TimerJava_SoftTimer_default);
-h713765818.event(timer_startType);
-h713765818.guard((Event e)->{
-final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
-return timer_start.time > 0;
-});
-
-h713765818.port(timer_port);
-h713765818.action((Event e)->{
-final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
-startTimer((int) (timer_start.id), (int) (timer_start.time));
-});
-
 Handler h709853193 = new Handler();
 h709853193.from(state_TimerJava_SoftTimer_default);
 h709853193.event(timer_startType);
 h709853193.guard((Event e)->{
 final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
-return timer_start.time == 0;
+return timer_start.time > 0;
 });
 
 h709853193.port(timer_port);
 h709853193.action((Event e)->{
+final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
+startTimer((int) (timer_start.id), (int) (timer_start.time));
+});
+
+Handler h968238821 = new Handler();
+h968238821.from(state_TimerJava_SoftTimer_default);
+h968238821.event(timer_startType);
+h968238821.guard((Event e)->{
+final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
+return timer_start.time == 0;
+});
+
+h968238821.port(timer_port);
+h968238821.action((Event e)->{
 final Timer_startMessageType.Timer_startMessage timer_start = (Timer_startMessageType.Timer_startMessage) e;
 sendTimer_timeout_via_timer((int) (timer_start.id));
 });
@@ -115,6 +115,8 @@ cancel((int) (timer_cancel.id));
 });
 
 final CompositeState state_TimerJava_SoftTimer = new CompositeState("SoftTimer");
+state_TimerJava_SoftTimer.onEntry(()->{
+});
 state_TimerJava_SoftTimer.add(state_TimerJava_SoftTimer_default);
 state_TimerJava_SoftTimer.initial(state_TimerJava_SoftTimer_default);
 return state_TimerJava_SoftTimer;

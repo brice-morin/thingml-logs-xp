@@ -1,5 +1,7 @@
-log: property_changed(game, startTime, UInt32, 0, 73339749)
+log: property_changed(game, startTime, UInt32, 0, 5174120)
 log: message_sent(game, display, create, xsize=160,ysize=128,)
+log: message_handled(game, SC, _, controller, position, x=0,y=0,)
+log: property_changed(game, padx, Int16, 4096, 5120)
 log: message_handled(game, SC.INIT, SC.LAUNCH, display, displayReady, _)
 log: message_sent(game, display, clear, )
 log: function_called(game, initColors, void_, , )
@@ -275,8 +277,6 @@ log: message_sent(game, display, fillRect, x=148,y=4,width=6,height=6,)
 log: message_sent(game, display, fillRect, x=136,y=4,width=6,height=6,)
 log: message_sent(game, display, fillRect, x=124,y=4,width=6,height=6,)
 log: message_sent(game, display, update, )
-log: message_handled(game, SC, _, controller, position, x=0,y=0,)
-log: property_changed(game, padx, Int16, 4096, 5120)
 log: message_handled(game, SC.LAUNCH, _, clock, timer_timeout, id=0,)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: function_called(game, drawPad, void_, , )
@@ -350,9 +350,9 @@ log: message_sent(game, display, fillRect, x=67,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=4985,bally=7648,padx=5120,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 0, 73339823)
+log: property_changed(game, lastTimestamp, UInt32, 0, 5174168)
 ts:0,lives:3,score:0,level:1,bx:4985,by:7648,padx:5120
-#usedMem:4845680
+#usedMem:4749592
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=0,y=0,)
@@ -1462,9 +1462,9 @@ log: message_sent(game, display, fillRect, x=3,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=617,bally=7427,padx=1035,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73339823, 73340048)
-ts:225,lives:3,score:10,level:1,bx:617,by:7427,padx:1035
-#usedMem:5075240
+log: property_changed(game, lastTimestamp, UInt32, 5174168, 5174373)
+ts:205,lives:3,score:10,level:1,bx:617,by:7427,padx:1035
+#usedMem:4981064
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-100,y=0,)
@@ -2582,9 +2582,9 @@ log: message_sent(game, display, fillRect, x=54,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=4665,bally=7020,padx=4269,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73340048, 73340266)
-ts:218,lives:3,score:19,level:1,bx:4665,by:7020,padx:4269
-#usedMem:5236136
+log: property_changed(game, lastTimestamp, UInt32, 5174373, 5174557)
+ts:184,lives:3,score:19,level:1,bx:4665,by:7020,padx:4269
+#usedMem:5050000
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-20,y=0,)
@@ -3694,9 +3694,9 @@ log: message_sent(game, display, fillRect, x=131,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=9685,bally=6799,padx=9205,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73340266, 73340496)
-ts:230,lives:3,score:29,level:1,bx:9685,by:6799,padx:9205
-#usedMem:5106280
+log: property_changed(game, lastTimestamp, UInt32, 5174557, 5174744)
+ts:187,lives:3,score:29,level:1,bx:9685,by:6799,padx:9205
+#usedMem:5070568
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=100,y=0,)
@@ -4814,9 +4814,9 @@ log: message_sent(game, display, fillRect, x=72,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=4927,bally=6392,padx=5460,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73340496, 73340709)
-ts:213,lives:3,score:38,level:1,bx:4927,by:6392,padx:5460
-#usedMem:5210320
+log: property_changed(game, lastTimestamp, UInt32, 5174744, 5174924)
+ts:180,lives:3,score:38,level:1,bx:4927,by:6392,padx:5460
+#usedMem:5098336
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=4,y=0,)
@@ -5936,9 +5936,9 @@ log: message_sent(game, display, fillRect, x=1,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=877,bally=6171,padx=864,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73340709, 73340911)
-ts:202,lives:3,score:47,level:1,bx:877,by:6171,padx:864
-#usedMem:5219760
+log: property_changed(game, lastTimestamp, UInt32, 5174924, 5175102)
+ts:178,lives:3,score:47,level:1,bx:877,by:6171,padx:864
+#usedMem:5169664
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-100,y=0,)
@@ -7068,9 +7068,9 @@ log: message_sent(game, display, fillRect, x=80,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=6598,bally=7020,padx=5971,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73340911, 73341121)
-ts:210,lives:3,score:57,level:1,bx:6598,by:7020,padx:5971
-#usedMem:5418008
+log: property_changed(game, lastTimestamp, UInt32, 5175102, 5175265)
+ts:163,lives:3,score:57,level:1,bx:6598,by:7020,padx:5971
+#usedMem:5152064
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=24,y=0,)
@@ -8190,9 +8190,9 @@ log: message_sent(game, display, fillRect, x=110,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=7204,bally=6799,padx=7843,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73341121, 73341318)
-ts:197,lives:3,score:66,level:1,bx:7204,by:6799,padx:7843
-#usedMem:5318088
+log: property_changed(game, lastTimestamp, UInt32, 5175265, 5175443)
+ts:178,lives:3,score:66,level:1,bx:7204,by:6799,padx:7843
+#usedMem:5199344
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=60,y=0,)
@@ -9319,9 +9319,9 @@ log: message_sent(game, display, fillRect, x=22,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=1066,bally=7584,padx=2226,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73341318, 73341530)
-ts:212,lives:3,score:76,level:1,bx:1066,by:7584,padx:2226
-#usedMem:5477808
+log: property_changed(game, lastTimestamp, UInt32, 5175443, 5175631)
+ts:188,lives:3,score:76,level:1,bx:1066,by:7584,padx:2226
+#usedMem:5235488
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-72,y=0,)
@@ -9546,9 +9546,9 @@ log: message_sent(game, display, fillRect, x=148,y=4,width=6,height=6,)
 log: message_sent(game, display, fillRect, x=136,y=4,width=6,height=6,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=true,)
-log: property_changed(game, lastTimestamp, UInt32, 73341530, 73341576)
-ts:46,lives:2,score:75,level:1,bx:562,by:8526,padx:1205
-#usedMem:5375888
+log: property_changed(game, lastTimestamp, UInt32, 5175631, 5175668)
+ts:37,lives:2,score:75,level:1,bx:562,by:8526,padx:1205
+#usedMem:5227232
 log: property_changed(game, counter, UInt8, 7, 8)
 log: message_handled(game, SC, _, controller, position, x=-96,y=0,)
 log: property_changed(game, padx, Int16, 1205, 1035)
@@ -10492,9 +10492,9 @@ log: message_sent(game, display, fillRect, x=1,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=590,bally=6549,padx=864,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73341576, 73341759)
-ts:183,lives:2,score:85,level:1,bx:590,by:6549,padx:864
-#usedMem:5477232
+log: property_changed(game, lastTimestamp, UInt32, 5175668, 5175848)
+ts:180,lives:2,score:85,level:1,bx:590,by:6549,padx:864
+#usedMem:5376952
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-100,y=0,)
@@ -11744,9 +11744,9 @@ log: message_sent(game, display, fillRect, x=22,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=2693,bally=4130,padx=2226,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73341759, 73341964)
-ts:205,lives:2,score:114,level:1,bx:2693,by:4130,padx:2226
-#usedMem:5632272
+log: property_changed(game, lastTimestamp, UInt32, 5175848, 5176040)
+ts:192,lives:2,score:114,level:1,bx:2693,by:4130,padx:2226
+#usedMem:5351344
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-64,y=0,)
@@ -12829,9 +12829,9 @@ log: message_sent(game, display, fillRect, x=80,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=6359,bally=5921,padx=5971,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73341964, 73342166)
-ts:202,lives:2,score:114,level:1,bx:6359,by:5921,padx:5971
-#usedMem:5546904
+log: property_changed(game, lastTimestamp, UInt32, 5176040, 5176221)
+ts:181,lives:2,score:114,level:1,bx:6359,by:5921,padx:5971
+#usedMem:5442264
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=20,y=0,)
@@ -13949,9 +13949,9 @@ log: message_sent(game, display, fillRect, x=134,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=9133,bally=5700,padx=9376,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73342166, 73342371)
-ts:205,lives:2,score:123,level:1,bx:9133,by:5700,padx:9376
-#usedMem:5600544
+log: property_changed(game, lastTimestamp, UInt32, 5176221, 5176390)
+ts:169,lives:2,score:123,level:1,bx:9133,by:5700,padx:9376
+#usedMem:5345320
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=100,y=0,)
@@ -15081,9 +15081,9 @@ log: message_sent(game, display, fillRect, x=62,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=4339,bally=6549,padx=4780,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73342371, 73342583)
-ts:212,lives:2,score:133,level:1,bx:4339,by:6549,padx:4780
-#usedMem:5628064
+log: property_changed(game, lastTimestamp, UInt32, 5176390, 5176554)
+ts:164,lives:2,score:133,level:1,bx:4339,by:6549,padx:4780
+#usedMem:5367040
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-12,y=0,)
@@ -16382,9 +16382,9 @@ log: message_sent(game, display, fillRect, x=3,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=1453,bally=5136,padx=1035,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73342583, 73342795)
-ts:212,lives:2,score:162,level:1,bx:1453,by:5136,padx:1035
-#usedMem:5757784
+log: property_changed(game, lastTimestamp, UInt32, 5176554, 5176738)
+ts:184,lives:2,score:162,level:1,bx:1453,by:5136,padx:1035
+#usedMem:5423944
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-92,y=0,)
@@ -17451,9 +17451,9 @@ log: message_sent(game, display, fillRect, x=80,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=6495,bally=4915,padx=5971,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73342795, 73343017)
-ts:222,lives:2,score:162,level:1,bx:6495,by:4915,padx:5971
-#usedMem:5635128
+log: property_changed(game, lastTimestamp, UInt32, 5176738, 5176911)
+ts:173,lives:2,score:162,level:1,bx:6495,by:4915,padx:5971
+#usedMem:5571880
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=24,y=0,)
@@ -18585,9 +18585,9 @@ log: message_sent(game, display, fillRect, x=128,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=8490,bally=5764,padx=9035,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73343017, 73343228)
-ts:211,lives:2,score:171,level:1,bx:8490,by:5764,padx:9035
-#usedMem:5781728
+log: property_changed(game, lastTimestamp, UInt32, 5176911, 5177077)
+ts:166,lives:2,score:171,level:1,bx:8490,by:5764,padx:9035
+#usedMem:5469296
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=88,y=0,)
@@ -19840,9 +19840,9 @@ log: message_sent(game, display, fillRect, x=43,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=3177,bally=7177,padx=3588,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73343228, 73343456)
-ts:228,lives:2,score:201,level:1,bx:3177,by:7177,padx:3588
-#usedMem:5719944
+log: property_changed(game, lastTimestamp, UInt32, 5177077, 5177256)
+ts:179,lives:2,score:201,level:1,bx:3177,by:7177,padx:3588
+#usedMem:5520856
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-40,y=0,)
@@ -21014,9 +21014,9 @@ log: message_sent(game, display, fillRect, x=27,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=3158,bally=4130,padx=2567,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73343456, 73343690)
-ts:234,lives:2,score:210,level:1,bx:3158,by:4130,padx:2567
-#usedMem:5834480
+log: property_changed(game, lastTimestamp, UInt32, 5177256, 5177429)
+ts:173,lives:2,score:210,level:1,bx:3158,by:4130,padx:2567
+#usedMem:5648384
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-56,y=0,)
@@ -22099,9 +22099,9 @@ log: message_sent(game, display, fillRect, x=115,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=9612,bally=5921,padx=8184,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73343690, 73343888)
-ts:198,lives:2,score:210,level:1,bx:9612,by:5921,padx:8184
-#usedMem:5755608
+log: property_changed(game, lastTimestamp, UInt32, 5177429, 5177599)
+ts:170,lives:2,score:210,level:1,bx:9612,by:5921,padx:8184
+#usedMem:5542168
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=76,y=0,)
@@ -23266,9 +23266,9 @@ log: message_sent(game, display, fillRect, x=62,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=2568,bally=7334,padx=4780,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73343888, 73344097)
-ts:209,lives:2,score:219,level:1,bx:2568,by:7334,padx:4780
-#usedMem:5919064
+log: property_changed(game, lastTimestamp, UInt32, 5177599, 5177764)
+ts:165,lives:2,score:219,level:1,bx:2568,by:7334,padx:4780
+#usedMem:5591240
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-12,y=0,)
@@ -23548,9 +23548,9 @@ log: message_sent(game, display, setColor, r=183,g=199,b=111,)
 log: message_sent(game, display, fillRect, x=148,y=4,width=6,height=6,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=true,)
-log: property_changed(game, lastTimestamp, UInt32, 73344097, 73344158)
-ts:61,lives:1,score:219,level:1,bx:680,by:8590,padx:3418
-#usedMem:5788440
+log: property_changed(game, lastTimestamp, UInt32, 5177764, 5177805)
+ts:41,lives:1,score:219,level:1,bx:680,by:8590,padx:3418
+#usedMem:5597472
 log: property_changed(game, counter, UInt8, 9, 10)
 log: message_handled(game, SC, _, controller, position, x=-44,y=0,)
 log: property_changed(game, padx, Int16, 3418, 3248)
@@ -24408,9 +24408,9 @@ log: message_sent(game, display, fillRect, x=67,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=5549,bally=4037,padx=5120,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73344158, 73344319)
-ts:161,lives:1,score:219,level:1,bx:5549,by:4037,padx:5120
-#usedMem:5905216
+log: property_changed(game, lastTimestamp, UInt32, 5177805, 5177956)
+ts:151,lives:1,score:219,level:1,bx:5549,by:4037,padx:5120
+#usedMem:5686768
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=4,y=0,)
@@ -25572,9 +25572,9 @@ log: message_sent(game, display, fillRect, x=118,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=8743,bally=7270,padx=8354,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73344319, 73344520)
-ts:201,lives:1,score:229,level:1,bx:8743,by:7270,padx:8354
-#usedMem:5906424
+log: property_changed(game, lastTimestamp, UInt32, 5177956, 5178124)
+ts:168,lives:1,score:229,level:1,bx:8743,by:7270,padx:8354
+#usedMem:5615752
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=76,y=0,)
@@ -26709,9 +26709,9 @@ log: message_sent(game, display, fillRect, x=112,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=7628,bally=7113,padx=8014,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73344520, 73344724)
-ts:204,lives:1,score:238,level:1,bx:7628,by:7113,padx:8014
-#usedMem:5869592
+log: property_changed(game, lastTimestamp, UInt32, 5178124, 5178302)
+ts:178,lives:1,score:238,level:1,bx:7628,by:7113,padx:8014
+#usedMem:5621096
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=68,y=0,)
@@ -27871,9 +27871,9 @@ log: message_sent(game, display, fillRect, x=40,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=2929,bally=5136,padx=3418,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73344724, 73344929)
-ts:205,lives:1,score:248,level:1,bx:2929,by:5136,padx:3418
-#usedMem:5992704
+log: property_changed(game, lastTimestamp, UInt32, 5178302, 5178463)
+ts:161,lives:1,score:248,level:1,bx:2929,by:5136,padx:3418
+#usedMem:5769920
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-44,y=0,)
@@ -28948,9 +28948,9 @@ log: message_sent(game, display, fillRect, x=19,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=2485,bally=4915,padx=2056,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73344929, 73345119)
-ts:190,lives:1,score:247,level:1,bx:2485,by:4915,padx:2056
-#usedMem:5898064
+log: property_changed(game, lastTimestamp, UInt32, 5178463, 5178634)
+ts:171,lives:1,score:247,level:1,bx:2485,by:4915,padx:2056
+#usedMem:5659960
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-68,y=0,)
@@ -30127,9 +30127,9 @@ log: message_sent(game, display, fillRect, x=96,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=7435,bally=7270,padx=6992,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73345119, 73345328)
-ts:209,lives:1,score:257,level:1,bx:7435,by:7270,padx:6992
-#usedMem:6031904
+log: property_changed(game, lastTimestamp, UInt32, 5178634, 5178797)
+ts:163,lives:1,score:257,level:1,bx:7435,by:7270,padx:6992
+#usedMem:5750216
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=48,y=0,)
@@ -31295,9 +31295,9 @@ log: message_sent(game, display, fillRect, x=120,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=8123,bally=5293,padx=8524,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73345328, 73345556)
-ts:228,lives:1,score:266,level:1,bx:8123,by:5293,padx:8524
-#usedMem:6025840
+log: property_changed(game, lastTimestamp, UInt32, 5178797, 5178970)
+ts:173,lives:1,score:266,level:1,bx:8123,by:5293,padx:8524
+#usedMem:5722560
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=76,y=0,)
@@ -32368,9 +32368,9 @@ log: message_sent(game, display, fillRect, x=46,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=3263,bally=4758,padx=3759,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73345556, 73345764)
-ts:208,lives:1,score:266,level:1,bx:3263,by:4758,padx:3759
-#usedMem:6068664
+log: property_changed(game, lastTimestamp, UInt32, 5178970, 5179146)
+ts:176,lives:1,score:266,level:1,bx:3263,by:4758,padx:3759
+#usedMem:5853056
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-36,y=0,)
@@ -33583,9 +33583,9 @@ log: message_sent(game, display, fillRect, x=19,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=2529,bally=6171,padx=2056,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73345764, 73345973)
-ts:209,lives:1,score:275,level:1,bx:2529,by:6171,padx:2056
-#usedMem:6068656
+log: property_changed(game, lastTimestamp, UInt32, 5179146, 5179333)
+ts:187,lives:1,score:275,level:1,bx:2529,by:6171,padx:2056
+#usedMem:5771816
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-68,y=0,)
@@ -34678,9 +34678,9 @@ log: message_sent(game, display, fillRect, x=104,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=8154,bally=3880,padx=7503,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73345973, 73346179)
-ts:206,lives:1,score:275,level:1,bx:8154,by:3880,padx:7503
-#usedMem:6155664
+log: property_changed(game, lastTimestamp, UInt32, 5179333, 5179502)
+ts:169,lives:1,score:275,level:1,bx:8154,by:3880,padx:7503
+#usedMem:5905032
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=60,y=0,)
@@ -35846,9 +35846,9 @@ log: message_sent(game, display, fillRect, x=91,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=5988,bally=7113,padx=6652,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73346179, 73346373)
-ts:194,lives:1,score:284,level:1,bx:5988,by:7113,padx:6652
-#usedMem:6083472
+log: property_changed(game, lastTimestamp, UInt32, 5179502, 5179669)
+ts:167,lives:1,score:284,level:1,bx:5988,by:7113,padx:6652
+#usedMem:5825352
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=32,y=0,)
@@ -36996,9 +36996,9 @@ log: message_sent(game, display, fillRect, x=3,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=860,bally=1932,padx=1035,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73346373, 73346585)
-ts:212,lives:1,score:283,level:1,bx:860,by:1932,padx:1035
-#usedMem:6274240
+log: property_changed(game, lastTimestamp, UInt32, 5179669, 5179852)
+ts:183,lives:1,score:283,level:1,bx:860,by:1932,padx:1035
+#usedMem:5825912
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-96,y=0,)
@@ -38513,9 +38513,9 @@ log: message_sent(game, display, fillRect, x=83,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=7196,bally=3345,padx=6141,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73346585, 73346807)
-ts:222,lives:1,score:353,level:1,bx:7196,by:3345,padx:6141
-#usedMem:6262512
+log: property_changed(game, lastTimestamp, UInt32, 5179852, 5180022)
+ts:170,lives:1,score:353,level:1,bx:7196,by:3345,padx:6141
+#usedMem:5897504
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=28,y=0,)
@@ -39626,9 +39626,9 @@ log: message_sent(game, display, fillRect, x=99,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=6386,bally=6706,padx=7162,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73346807, 73347003)
-ts:196,lives:1,score:352,level:1,bx:6386,by:6706,padx:7162
-#usedMem:6208768
+log: property_changed(game, lastTimestamp, UInt32, 5180022, 5180201)
+ts:179,lives:1,score:352,level:1,bx:6386,by:6706,padx:7162
+#usedMem:6003824
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=44,y=0,)
@@ -40782,9 +40782,9 @@ log: message_sent(game, display, fillRect, x=11,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=792,bally=1525,padx=1545,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73347003, 73347224)
-ts:221,lives:1,score:351,level:1,bx:792,by:1525,padx:1545
-#usedMem:6228752
+log: property_changed(game, lastTimestamp, UInt32, 5180201, 5180386)
+ts:185,lives:1,score:351,level:1,bx:792,by:1525,padx:1545
+#usedMem:5880056
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=-88,y=0,)
@@ -41938,9 +41938,9 @@ log: message_sent(game, display, fillRect, x=83,y=122,width=25,height=4,)
 log: message_sent(game, ia, updateIA, ballx=7458,bally=5832,padx=6141,pady=7808,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=false,)
-log: property_changed(game, lastTimestamp, UInt32, 73347224, 73347438)
-ts:214,lives:1,score:350,level:1,bx:7458,by:5832,padx:6141
-#usedMem:6291488
+log: property_changed(game, lastTimestamp, UInt32, 5180386, 5180569)
+ts:183,lives:1,score:350,level:1,bx:7458,by:5832,padx:6141
+#usedMem:5965280
 log: property_changed(game, counter, UInt8, 0, 1)
 log: message_sent(game, clock, timer_start, id=0,time=3,)
 log: message_handled(game, SC, _, controller, position, x=28,y=0,)
@@ -42547,9 +42547,9 @@ log: message_sent(game, display, fillRect, x=124,y=4,width=30,height=6,)
 log: message_sent(game, display, setColor, r=183,g=199,b=111,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=true,)
-log: property_changed(game, lastTimestamp, UInt32, 73347438, 73347560)
-ts:122,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
-#usedMem:6331416
+log: property_changed(game, lastTimestamp, UInt32, 5180569, 5180664)
+ts:95,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
+#usedMem:6010776
 log: property_changed(game, counter, UInt8, 19, 20)
 log: message_handled(game, SC, _, controller, position, x=92,y=0,)
 log: property_changed(game, padx, Int16, 9035, 9035)
@@ -42570,14 +42570,14 @@ log: message_sent(game, display, drawInteger, x=23,y=40,v=349,digits=5,scale=6,)
 log: message_sent(game, display, drawThingML, x=26,y=87,)
 log: message_sent(game, display, update, )
 log: function_called(game, log, void_, , logMem=true,)
-log: property_changed(game, lastTimestamp, UInt32, 73347560, 73347569)
-ts:9,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
-#usedMem:6154696
+log: property_changed(game, lastTimestamp, UInt32, 5180664, 5180674)
+ts:10,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
+#usedMem:5886792
 log: property_changed(game, counter, UInt8, 20, 21)
-log: property_changed(game, stopTime, UInt32, 0, 73347573)
->done in 7824ms!
+log: property_changed(game, stopTime, UInt32, 0, 5180677)
+>done in 6557ms!
 log: function_called(game, log, void_, , logMem=true,)
-log: property_changed(game, lastTimestamp, UInt32, 73347569, 73347576)
-ts:7,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
-#usedMem:6144792
+log: property_changed(game, lastTimestamp, UInt32, 5180674, 5180680)
+ts:6,lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
+#usedMem:5890752
 log: property_changed(game, counter, UInt8, 21, 22)

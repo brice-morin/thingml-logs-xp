@@ -1,6 +1,7 @@
 'use strict';
 
 const Enum = require('./enums');
+const Event = require('./events');
 const StateJS = require('@steelbreeze/state');
 const EventEmitter = require('events').EventEmitter;
 
@@ -24,11 +25,11 @@ BasicIAController.prototype.build = function(session) {
 	this._statemachine = new StateJS.State('SC');
 	let _initial_BasicIAController_SC = new StateJS.PseudoState('_initial', this._statemachine, StateJS.PseudoStateKind.Initial);
 	let BasicIAController_SC_Following = new StateJS.State('Following', this._statemachine).entry(() => {
-		setImmediate(() => {this.bus.emit('controls?position', this.BasicIAController_ctrlx_var, 0)});
+		setImmediate(() => {this.bus.emit('controls', new Event.Position('controls', this.BasicIAController_ctrlx_var, 0))});
 	});
 	_initial_BasicIAController_SC.to(BasicIAController_SC_Following);
-	BasicIAController_SC_Following.to(BasicIAController_SC_Following).when((updateIA) => {
-		return updateIA._port === 'game' && updateIA._msg === 'updateIA';
+	BasicIAController_SC_Following.to(BasicIAController_SC_Following).on(Event.UpdateIA).when((updateIA) => {
+		return updateIA.port === 'game' && updateIA.type === 'updateIA';
 	}).effect((updateIA) => {
 		if(updateIA.ballx > updateIA.padx + 400) {
 		this.BasicIAController_ctrlx_var = this.BasicIAController_ctrlx_var + 4;
@@ -69,20 +70,11 @@ BasicIAController.prototype._init = function() {
 }
 
 BasicIAController.prototype._receive = function(msg) {
-	/*msg = {_port:myPort, _msg:myMessage, paramN=paramN, ...}*/
 	if (this.ready) {
 		this._SC_instance.evaluate(msg);
 	} else {
 		setTimeout(()=>this._receive(msg),0);
 	}
-}
-
-BasicIAController.prototype.receiveupdateIAOngame = function(ballx, bally, padx, pady) {
-	this._receive({_port:"game", _msg:"updateIA", ballx:ballx, bally:bally, padx:padx, pady:pady});
-}
-
-BasicIAController.prototype.initBasicIAController_ctrlx_var = function(BasicIAController_ctrlx_var) {
-	this.BasicIAController_ctrlx_var = BasicIAController_ctrlx_var;
 }
 
 BasicIAController.prototype.toString = function() {

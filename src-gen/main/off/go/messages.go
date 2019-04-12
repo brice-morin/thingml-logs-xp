@@ -1,6 +1,14 @@
 package main
 
 /* -- Messages -- */
+type FragmentDisplayMsgsMsgdrawThingML struct {
+
+X uint8
+
+Y uint8
+
+}
+
 type FragmentDisplayMsgsMsgdisplayReady struct {
 
 }
@@ -10,10 +18,6 @@ type FragmentTimerMsgsMsgtimer_start struct {
 Id uint8
 
 Time uint16
-
-}
-
-type FragmentLogMsgsMsglog_on struct {
 
 }
 
@@ -27,63 +31,15 @@ B uint8
 
 }
 
-type FragmentDisplayMsgsMsgdrawInteger struct {
+type FragmentControllerMsgsMsgposition struct {
 
-X uint8
+X int16
 
-Y uint8
-
-V int16
-
-Digits uint8
-
-Scale uint8
+Y int16
 
 }
 
-type FragmentDisplayMsgsMsgclear struct {
-
-}
-
-type FragmentLogMsgsMsgfunction_called struct {
-
-Inst string
-
-Fn_name string
-
-Ty string
-
-Returns string
-
-Params string
-
-}
-
-type FragmentLogMsgsMsgmessage_sent struct {
-
-Inst string
-
-Port_name string
-
-Msg_name string
-
-Params string
-
-}
-
-type FragmentLogMsgsMsglog_off struct {
-
-}
-
-type FragmentDisplayMsgsMsgdrawRect struct {
-
-X uint8
-
-Y uint8
-
-Width uint8
-
-Height uint8
+type FragmentLogMsgsMsglog_on struct {
 
 }
 
@@ -92,36 +48,6 @@ type FragmentControllerMsgsMsgvelocity struct {
 Dx int16
 
 Dy int16
-
-}
-
-type FragmentDisplayMsgsMsgdrawThingML struct {
-
-X uint8
-
-Y uint8
-
-}
-
-type FragmentLogMsgsMsgmessage_lost struct {
-
-Inst string
-
-Port_name string
-
-Msg_name string
-
-Params string
-
-}
-
-type FragmentDisplayMsgsMsgsetBGColor struct {
-
-R uint8
-
-G uint8
-
-B uint8
 
 }
 
@@ -139,17 +65,21 @@ Ysize uint8
 
 }
 
-type FragmentLogMsgsMsgproperty_changed struct {
+type FragmentDisplayMsgsMsgsetBGColor struct {
 
-Inst string
+R uint8
 
-Prop_name string
+G uint8
 
-Ty string
+B uint8
 
-Old_value string
+}
 
-New_value string
+type FragmentBreakoutGameMsglostBall struct {
+
+}
+
+type FragmentLogMsgsMsglog_off struct {
 
 }
 
@@ -159,15 +89,27 @@ Id uint8
 
 }
 
-type FragmentControllerMsgsMsgposition struct {
+type FragmentLogMsgsMsgmessage_handled struct {
 
-X int16
+Inst string
 
-Y int16
+Source string
+
+Target string
+
+Port_name string
+
+Msg_name string
+
+Params string
 
 }
 
-type FragmentDisplayMsgsMsgfillRect struct {
+type FragmentBreakoutGameMsgnextLevel struct {
+
+}
+
+type FragmentDisplayMsgsMsgdrawRect struct {
 
 X uint8
 
@@ -179,21 +121,9 @@ Height uint8
 
 }
 
-type FragmentBreakoutGameMsgnextLevel struct {
-
-}
-
-type FragmentDisplayMsgsMsgupdate struct {
-
-}
-
-type FragmentLogMsgsMsgmessage_handled struct {
+type FragmentLogMsgsMsgmessage_lost struct {
 
 Inst string
-
-Source string
-
-Target string
 
 Port_name string
 
@@ -219,7 +149,77 @@ type FragmentDisplayMsgsMsgdestroy struct {
 
 }
 
-type FragmentBreakoutGameMsglostBall struct {
+type FragmentDisplayMsgsMsgclear struct {
+
+}
+
+type FragmentLogMsgsMsgmessage_sent struct {
+
+Inst string
+
+Port_name string
+
+Msg_name string
+
+Params string
+
+}
+
+type FragmentDisplayMsgsMsgdrawInteger struct {
+
+X uint8
+
+Y uint8
+
+V int16
+
+Digits uint8
+
+Scale uint8
+
+}
+
+type FragmentLogMsgsMsgfunction_called struct {
+
+Inst string
+
+Fn_name string
+
+Ty string
+
+Returns string
+
+Params string
+
+}
+
+type FragmentDisplayMsgsMsgupdate struct {
+
+}
+
+type FragmentDisplayMsgsMsgfillRect struct {
+
+X uint8
+
+Y uint8
+
+Width uint8
+
+Height uint8
+
+}
+
+type FragmentLogMsgsMsgproperty_changed struct {
+
+Inst string
+
+Prop_name string
+
+Ty string
+
+Old_value string
+
+New_value string
 
 }
 

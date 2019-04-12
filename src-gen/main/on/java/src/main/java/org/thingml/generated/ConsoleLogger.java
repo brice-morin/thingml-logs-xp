@@ -107,72 +107,74 @@ private CompositeState buildLogger(){
 final AtomicState state_Logger_null_STARTUP = new AtomicState("STARTUP");
 final AtomicState state_Logger_null_ON = new AtomicState("ON");
 final AtomicState state_Logger_null_OFF = new AtomicState("OFF");
-Transition h8633103 = new Transition();
-h8633103.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
-h8633103.guard((Event e)->{
+Transition h2034610694 = new Transition();
+h2034610694.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
+h2034610694.guard((Event e)->{
 return getLogger_ACTIVATE_ON_STARTUP_var();
 });
 
-Transition h1792826268 = new Transition();
-h1792826268.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
-h1792826268.guard((Event e)->{
+Transition h1292487390 = new Transition();
+h1292487390.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
+h1292487390.guard((Event e)->{
 return  !(getLogger_ACTIVATE_ON_STARTUP_var());
 });
 
-Handler h1993836574 = new Handler();
-h1993836574.from(state_Logger_null_ON);
-h1993836574.event(function_calledType);
-h1993836574.port(log_port);
-h1993836574.action((Event e)->{
+Handler h1252165500 = new Handler();
+h1252165500.from(state_Logger_null_ON);
+h1252165500.event(function_calledType);
+h1252165500.port(log_port);
+h1252165500.action((Event e)->{
 final Function_calledMessageType.Function_calledMessage function_called = (Function_calledMessageType.Function_calledMessage) e;
 log_function_called((String) (function_called.inst), (String) (function_called.fn_name), (String) (function_called.ty), (String) (function_called.returns), (String) (function_called.params));
 });
 
-Handler h1342198213 = new Handler();
-h1342198213.from(state_Logger_null_ON);
-h1342198213.event(property_changedType);
-h1342198213.port(log_port);
-h1342198213.action((Event e)->{
+Handler h1914538677 = new Handler();
+h1914538677.from(state_Logger_null_ON);
+h1914538677.event(property_changedType);
+h1914538677.port(log_port);
+h1914538677.action((Event e)->{
 final Property_changedMessageType.Property_changedMessage property_changed = (Property_changedMessageType.Property_changedMessage) e;
 log_property_changed((String) (property_changed.inst), (String) (property_changed.prop_name), (String) (property_changed.ty), (String) (property_changed.old_value), (String) (property_changed.new_value));
 });
 
-Handler h1791280119 = new Handler();
-h1791280119.from(state_Logger_null_ON);
-h1791280119.event(message_lostType);
-h1791280119.port(log_port);
-h1791280119.action((Event e)->{
+Handler h379963364 = new Handler();
+h379963364.from(state_Logger_null_ON);
+h379963364.event(message_lostType);
+h379963364.port(log_port);
+h379963364.action((Event e)->{
 final Message_lostMessageType.Message_lostMessage message_lost = (Message_lostMessageType.Message_lostMessage) e;
 log_message_lost((String) (message_lost.inst), (String) (message_lost.port_name), (String) (message_lost.msg_name), (String) (message_lost.params));
 });
 
-Handler h505567264 = new Handler();
-h505567264.from(state_Logger_null_ON);
-h505567264.event(message_sentType);
-h505567264.port(log_port);
-h505567264.action((Event e)->{
+Handler h1618230491 = new Handler();
+h1618230491.from(state_Logger_null_ON);
+h1618230491.event(message_sentType);
+h1618230491.port(log_port);
+h1618230491.action((Event e)->{
 final Message_sentMessageType.Message_sentMessage message_sent = (Message_sentMessageType.Message_sentMessage) e;
 log_message_sent((String) (message_sent.inst), (String) (message_sent.port_name), (String) (message_sent.msg_name), (String) (message_sent.params));
 });
 
-Handler h201484047 = new Handler();
-h201484047.from(state_Logger_null_ON);
-h201484047.event(message_handledType);
-h201484047.port(log_port);
-h201484047.action((Event e)->{
+Handler h513113647 = new Handler();
+h513113647.from(state_Logger_null_ON);
+h513113647.event(message_handledType);
+h513113647.port(log_port);
+h513113647.action((Event e)->{
 final Message_handledMessageType.Message_handledMessage message_handled = (Message_handledMessageType.Message_handledMessage) e;
 log_message_handled((String) (message_handled.inst), (String) (message_handled.source), (String) (message_handled.target), (String) (message_handled.port_name), (String) (message_handled.msg_name), (String) (message_handled.params));
 });
 
-Transition h245386411 = new Transition();
-h245386411.from(state_Logger_null_ON).to(state_Logger_null_OFF);
-h245386411.event(log_offType);
-h245386411.port(log_port);
-Transition h1781668126 = new Transition();
-h1781668126.from(state_Logger_null_OFF).to(state_Logger_null_ON);
-h1781668126.event(log_onType);
-h1781668126.port(log_port);
+Transition h2139431292 = new Transition();
+h2139431292.from(state_Logger_null_ON).to(state_Logger_null_OFF);
+h2139431292.event(log_offType);
+h2139431292.port(log_port);
+Transition h1487424018 = new Transition();
+h1487424018.from(state_Logger_null_OFF).to(state_Logger_null_ON);
+h1487424018.event(log_onType);
+h1487424018.port(log_port);
 final CompositeState state_Logger = new CompositeState("null");
+state_Logger.onEntry(()->{
+});
 state_Logger.add(state_Logger_null_STARTUP);
 state_Logger.add(state_Logger_null_ON);
 state_Logger.add(state_Logger_null_OFF);

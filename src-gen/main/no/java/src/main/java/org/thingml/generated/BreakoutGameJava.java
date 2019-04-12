@@ -170,41 +170,41 @@ req_game_port.send(nextLevelType.instantiate());
 }
 
 //Attributes
-private int BreakoutGame_LEFT_var;
 private int BreakoutGame_XMAX_var;
-private int BreakoutGame_SCALE_var;
+private int BreakoutGame_counter_var;
+private long BreakoutGame_lastTimestamp_var;
+private int BreakoutGame_TOP_var;
+private int BreakoutGame_prevPX_var;
 private int BreakoutGame_br_var;
-private long BreakoutGame_stopTime_var;
-private int BreakoutGame_dy_var;
+private int BreakoutGame_RIGHT_var;
+private int BreakoutGame_lives_var;
+private int BreakoutGame_bx_var;
+private int BreakoutGame_prevBX_var;
 private int BreakoutGame_dx_var;
 private int BreakoutGame_padx_var;
-private int BreakoutGame_period_var;
-private int BreakoutGame_padlen_var;
-private long BreakoutGame_lastTimestamp_var;
-private int BreakoutGame_prevBY_var;
-private int BreakoutGame_bx_var;
-private int BreakoutGame_counter_var;
-private int BreakoutGame_BRICK_ROWS_var;
-private int BreakoutGame_prevBX_var;
-private int BreakoutGame_TOP_var;
-private int BreakoutGame_prevPY_var;
-private int BreakoutGame_prevPX_var;
+private int BreakoutGame_BOTTOM_var;
+private int[] BreakoutGame_fgcolor_var;
+private int BreakoutGame_dy_var;
 private int BreakoutGame_YDISPSIZE_var;
 private int[] BreakoutGame_bgcolor_var;
-private int[] BreakoutGame_fgcolor_var;
-private int[] BreakoutGame_bricks_var;
-private int BreakoutGame_XDISPSIZE_var;
-private int BreakoutGame_YMAX_var;
-private long BreakoutGame_startTime_var;
-private int BreakoutGame_BRICK_HEIGHT_var;
-private int BreakoutGame_by_var;
-private int BreakoutGame_score_var;
-private int BreakoutGame_pady_var;
-private int BreakoutGame_lives_var;
-private int BreakoutGame_BOTTOM_var;
-private int BreakoutGame_RIGHT_var;
 private int BreakoutGame_level_var;
+private int BreakoutGame_prevBY_var;
+private long BreakoutGame_startTime_var;
+private int BreakoutGame_pady_var;
+private int[] BreakoutGame_bricks_var;
+private int BreakoutGame_padlen_var;
+private int BreakoutGame_XDISPSIZE_var;
+private long BreakoutGame_stopTime_var;
+private int BreakoutGame_period_var;
+private int BreakoutGame_prevPY_var;
+private int BreakoutGame_BRICK_ROWS_var;
+private int BreakoutGame_LEFT_var;
+private int BreakoutGame_by_var;
 private int BreakoutGame_SC_LAUNCH_countdown_var;
+private int BreakoutGame_score_var;
+private int BreakoutGame_SCALE_var;
+private int BreakoutGame_YMAX_var;
+private int BreakoutGame_BRICK_HEIGHT_var;
 //Ports
 private Port clock_port;
 private Port display_port;
@@ -239,15 +239,6 @@ super();
 }
 
 //Getters and Setters for non readonly/final attributes
-public int getBreakoutGame_LEFT_var() {
-return BreakoutGame_LEFT_var;
-}
-
-public BreakoutGameJava initBreakoutGame_LEFT_var(int BreakoutGame_LEFT_var) {
-this.BreakoutGame_LEFT_var = BreakoutGame_LEFT_var;
-return this;
-}
-
 public int getBreakoutGame_XMAX_var() {
 return BreakoutGame_XMAX_var;
 }
@@ -257,12 +248,51 @@ this.BreakoutGame_XMAX_var = BreakoutGame_XMAX_var;
 return this;
 }
 
-public int getBreakoutGame_SCALE_var() {
-return BreakoutGame_SCALE_var;
+public int getBreakoutGame_counter_var() {
+return BreakoutGame_counter_var;
 }
 
-public BreakoutGameJava initBreakoutGame_SCALE_var(int BreakoutGame_SCALE_var) {
-this.BreakoutGame_SCALE_var = BreakoutGame_SCALE_var;
+public void setBreakoutGame_counter_var(int BreakoutGame_counter_var) {
+this.BreakoutGame_counter_var = BreakoutGame_counter_var;
+}
+
+public BreakoutGameJava initBreakoutGame_counter_var(int BreakoutGame_counter_var) {
+this.BreakoutGame_counter_var = BreakoutGame_counter_var;
+return this;
+}
+
+public long getBreakoutGame_lastTimestamp_var() {
+return BreakoutGame_lastTimestamp_var;
+}
+
+public void setBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
+this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+}
+
+public BreakoutGameJava initBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
+this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+return this;
+}
+
+public int getBreakoutGame_TOP_var() {
+return BreakoutGame_TOP_var;
+}
+
+public BreakoutGameJava initBreakoutGame_TOP_var(int BreakoutGame_TOP_var) {
+this.BreakoutGame_TOP_var = BreakoutGame_TOP_var;
+return this;
+}
+
+public int getBreakoutGame_prevPX_var() {
+return BreakoutGame_prevPX_var;
+}
+
+public void setBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
+this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
+this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
 return this;
 }
 
@@ -275,29 +305,51 @@ this.BreakoutGame_br_var = BreakoutGame_br_var;
 return this;
 }
 
-public long getBreakoutGame_stopTime_var() {
-return BreakoutGame_stopTime_var;
+public int getBreakoutGame_RIGHT_var() {
+return BreakoutGame_RIGHT_var;
 }
 
-public void setBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
-this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
-}
-
-public BreakoutGameJava initBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
-this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
+public BreakoutGameJava initBreakoutGame_RIGHT_var(int BreakoutGame_RIGHT_var) {
+this.BreakoutGame_RIGHT_var = BreakoutGame_RIGHT_var;
 return this;
 }
 
-public int getBreakoutGame_dy_var() {
-return BreakoutGame_dy_var;
+public int getBreakoutGame_lives_var() {
+return BreakoutGame_lives_var;
 }
 
-public void setBreakoutGame_dy_var(int BreakoutGame_dy_var) {
-this.BreakoutGame_dy_var = BreakoutGame_dy_var;
+public void setBreakoutGame_lives_var(int BreakoutGame_lives_var) {
+this.BreakoutGame_lives_var = BreakoutGame_lives_var;
 }
 
-public BreakoutGameJava initBreakoutGame_dy_var(int BreakoutGame_dy_var) {
-this.BreakoutGame_dy_var = BreakoutGame_dy_var;
+public BreakoutGameJava initBreakoutGame_lives_var(int BreakoutGame_lives_var) {
+this.BreakoutGame_lives_var = BreakoutGame_lives_var;
+return this;
+}
+
+public int getBreakoutGame_bx_var() {
+return BreakoutGame_bx_var;
+}
+
+public void setBreakoutGame_bx_var(int BreakoutGame_bx_var) {
+this.BreakoutGame_bx_var = BreakoutGame_bx_var;
+}
+
+public BreakoutGameJava initBreakoutGame_bx_var(int BreakoutGame_bx_var) {
+this.BreakoutGame_bx_var = BreakoutGame_bx_var;
+return this;
+}
+
+public int getBreakoutGame_prevBX_var() {
+return BreakoutGame_prevBX_var;
+}
+
+public void setBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
+this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
+this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
 return this;
 }
 
@@ -327,134 +379,38 @@ this.BreakoutGame_padx_var = BreakoutGame_padx_var;
 return this;
 }
 
-public int getBreakoutGame_period_var() {
-return BreakoutGame_period_var;
+public int getBreakoutGame_BOTTOM_var() {
+return BreakoutGame_BOTTOM_var;
 }
 
-public BreakoutGameJava initBreakoutGame_period_var(int BreakoutGame_period_var) {
-this.BreakoutGame_period_var = BreakoutGame_period_var;
+public BreakoutGameJava initBreakoutGame_BOTTOM_var(int BreakoutGame_BOTTOM_var) {
+this.BreakoutGame_BOTTOM_var = BreakoutGame_BOTTOM_var;
 return this;
 }
 
-public int getBreakoutGame_padlen_var() {
-return BreakoutGame_padlen_var;
+public int[] getBreakoutGame_fgcolor_var() {
+return BreakoutGame_fgcolor_var;
 }
 
-public void setBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
-this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+public void setBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
+this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
 }
 
-public BreakoutGameJava initBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
-this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+public BreakoutGameJava initBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
+this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
 return this;
 }
 
-public long getBreakoutGame_lastTimestamp_var() {
-return BreakoutGame_lastTimestamp_var;
+public int getBreakoutGame_dy_var() {
+return BreakoutGame_dy_var;
 }
 
-public void setBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
-this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+public void setBreakoutGame_dy_var(int BreakoutGame_dy_var) {
+this.BreakoutGame_dy_var = BreakoutGame_dy_var;
 }
 
-public BreakoutGameJava initBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
-this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
-return this;
-}
-
-public int getBreakoutGame_prevBY_var() {
-return BreakoutGame_prevBY_var;
-}
-
-public void setBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
-this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
-this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
-return this;
-}
-
-public int getBreakoutGame_bx_var() {
-return BreakoutGame_bx_var;
-}
-
-public void setBreakoutGame_bx_var(int BreakoutGame_bx_var) {
-this.BreakoutGame_bx_var = BreakoutGame_bx_var;
-}
-
-public BreakoutGameJava initBreakoutGame_bx_var(int BreakoutGame_bx_var) {
-this.BreakoutGame_bx_var = BreakoutGame_bx_var;
-return this;
-}
-
-public int getBreakoutGame_counter_var() {
-return BreakoutGame_counter_var;
-}
-
-public void setBreakoutGame_counter_var(int BreakoutGame_counter_var) {
-this.BreakoutGame_counter_var = BreakoutGame_counter_var;
-}
-
-public BreakoutGameJava initBreakoutGame_counter_var(int BreakoutGame_counter_var) {
-this.BreakoutGame_counter_var = BreakoutGame_counter_var;
-return this;
-}
-
-public int getBreakoutGame_BRICK_ROWS_var() {
-return BreakoutGame_BRICK_ROWS_var;
-}
-
-public BreakoutGameJava initBreakoutGame_BRICK_ROWS_var(int BreakoutGame_BRICK_ROWS_var) {
-this.BreakoutGame_BRICK_ROWS_var = BreakoutGame_BRICK_ROWS_var;
-return this;
-}
-
-public int getBreakoutGame_prevBX_var() {
-return BreakoutGame_prevBX_var;
-}
-
-public void setBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
-this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
-this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
-return this;
-}
-
-public int getBreakoutGame_TOP_var() {
-return BreakoutGame_TOP_var;
-}
-
-public BreakoutGameJava initBreakoutGame_TOP_var(int BreakoutGame_TOP_var) {
-this.BreakoutGame_TOP_var = BreakoutGame_TOP_var;
-return this;
-}
-
-public int getBreakoutGame_prevPY_var() {
-return BreakoutGame_prevPY_var;
-}
-
-public void setBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
-this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
-this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
-return this;
-}
-
-public int getBreakoutGame_prevPX_var() {
-return BreakoutGame_prevPX_var;
-}
-
-public void setBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
-this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
-this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
+public BreakoutGameJava initBreakoutGame_dy_var(int BreakoutGame_dy_var) {
+this.BreakoutGame_dy_var = BreakoutGame_dy_var;
 return this;
 }
 
@@ -480,47 +436,29 @@ this.BreakoutGame_bgcolor_var = BreakoutGame_bgcolor_var;
 return this;
 }
 
-public int[] getBreakoutGame_fgcolor_var() {
-return BreakoutGame_fgcolor_var;
+public int getBreakoutGame_level_var() {
+return BreakoutGame_level_var;
 }
 
-public void setBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
-this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
+public void setBreakoutGame_level_var(int BreakoutGame_level_var) {
+this.BreakoutGame_level_var = BreakoutGame_level_var;
 }
 
-public BreakoutGameJava initBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
-this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
+public BreakoutGameJava initBreakoutGame_level_var(int BreakoutGame_level_var) {
+this.BreakoutGame_level_var = BreakoutGame_level_var;
 return this;
 }
 
-public int[] getBreakoutGame_bricks_var() {
-return BreakoutGame_bricks_var;
+public int getBreakoutGame_prevBY_var() {
+return BreakoutGame_prevBY_var;
 }
 
-public void setBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
-this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
+public void setBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
+this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
 }
 
-public BreakoutGameJava initBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
-this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
-return this;
-}
-
-public int getBreakoutGame_XDISPSIZE_var() {
-return BreakoutGame_XDISPSIZE_var;
-}
-
-public BreakoutGameJava initBreakoutGame_XDISPSIZE_var(int BreakoutGame_XDISPSIZE_var) {
-this.BreakoutGame_XDISPSIZE_var = BreakoutGame_XDISPSIZE_var;
-return this;
-}
-
-public int getBreakoutGame_YMAX_var() {
-return BreakoutGame_YMAX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_YMAX_var(int BreakoutGame_YMAX_var) {
-this.BreakoutGame_YMAX_var = BreakoutGame_YMAX_var;
+public BreakoutGameJava initBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
+this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
 return this;
 }
 
@@ -537,12 +475,104 @@ this.BreakoutGame_startTime_var = BreakoutGame_startTime_var;
 return this;
 }
 
-public int getBreakoutGame_BRICK_HEIGHT_var() {
-return BreakoutGame_BRICK_HEIGHT_var;
+public int getBreakoutGame_pady_var() {
+return BreakoutGame_pady_var;
 }
 
-public BreakoutGameJava initBreakoutGame_BRICK_HEIGHT_var(int BreakoutGame_BRICK_HEIGHT_var) {
-this.BreakoutGame_BRICK_HEIGHT_var = BreakoutGame_BRICK_HEIGHT_var;
+public void setBreakoutGame_pady_var(int BreakoutGame_pady_var) {
+this.BreakoutGame_pady_var = BreakoutGame_pady_var;
+}
+
+public BreakoutGameJava initBreakoutGame_pady_var(int BreakoutGame_pady_var) {
+this.BreakoutGame_pady_var = BreakoutGame_pady_var;
+return this;
+}
+
+public int[] getBreakoutGame_bricks_var() {
+return BreakoutGame_bricks_var;
+}
+
+public void setBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
+this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
+}
+
+public BreakoutGameJava initBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
+this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
+return this;
+}
+
+public int getBreakoutGame_padlen_var() {
+return BreakoutGame_padlen_var;
+}
+
+public void setBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
+this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+}
+
+public BreakoutGameJava initBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
+this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+return this;
+}
+
+public int getBreakoutGame_XDISPSIZE_var() {
+return BreakoutGame_XDISPSIZE_var;
+}
+
+public BreakoutGameJava initBreakoutGame_XDISPSIZE_var(int BreakoutGame_XDISPSIZE_var) {
+this.BreakoutGame_XDISPSIZE_var = BreakoutGame_XDISPSIZE_var;
+return this;
+}
+
+public long getBreakoutGame_stopTime_var() {
+return BreakoutGame_stopTime_var;
+}
+
+public void setBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
+this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
+}
+
+public BreakoutGameJava initBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
+this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
+return this;
+}
+
+public int getBreakoutGame_period_var() {
+return BreakoutGame_period_var;
+}
+
+public BreakoutGameJava initBreakoutGame_period_var(int BreakoutGame_period_var) {
+this.BreakoutGame_period_var = BreakoutGame_period_var;
+return this;
+}
+
+public int getBreakoutGame_prevPY_var() {
+return BreakoutGame_prevPY_var;
+}
+
+public void setBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
+this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
+this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
+return this;
+}
+
+public int getBreakoutGame_BRICK_ROWS_var() {
+return BreakoutGame_BRICK_ROWS_var;
+}
+
+public BreakoutGameJava initBreakoutGame_BRICK_ROWS_var(int BreakoutGame_BRICK_ROWS_var) {
+this.BreakoutGame_BRICK_ROWS_var = BreakoutGame_BRICK_ROWS_var;
+return this;
+}
+
+public int getBreakoutGame_LEFT_var() {
+return BreakoutGame_LEFT_var;
+}
+
+public BreakoutGameJava initBreakoutGame_LEFT_var(int BreakoutGame_LEFT_var) {
+this.BreakoutGame_LEFT_var = BreakoutGame_LEFT_var;
 return this;
 }
 
@@ -559,6 +589,19 @@ this.BreakoutGame_by_var = BreakoutGame_by_var;
 return this;
 }
 
+public int getBreakoutGame_SC_LAUNCH_countdown_var() {
+return BreakoutGame_SC_LAUNCH_countdown_var;
+}
+
+public void setBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
+this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
+}
+
+public BreakoutGameJava initBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
+this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
+return this;
+}
+
 public int getBreakoutGame_score_var() {
 return BreakoutGame_score_var;
 }
@@ -572,73 +615,30 @@ this.BreakoutGame_score_var = BreakoutGame_score_var;
 return this;
 }
 
-public int getBreakoutGame_pady_var() {
-return BreakoutGame_pady_var;
+public int getBreakoutGame_SCALE_var() {
+return BreakoutGame_SCALE_var;
 }
 
-public void setBreakoutGame_pady_var(int BreakoutGame_pady_var) {
-this.BreakoutGame_pady_var = BreakoutGame_pady_var;
-}
-
-public BreakoutGameJava initBreakoutGame_pady_var(int BreakoutGame_pady_var) {
-this.BreakoutGame_pady_var = BreakoutGame_pady_var;
+public BreakoutGameJava initBreakoutGame_SCALE_var(int BreakoutGame_SCALE_var) {
+this.BreakoutGame_SCALE_var = BreakoutGame_SCALE_var;
 return this;
 }
 
-public int getBreakoutGame_lives_var() {
-return BreakoutGame_lives_var;
+public int getBreakoutGame_YMAX_var() {
+return BreakoutGame_YMAX_var;
 }
 
-public void setBreakoutGame_lives_var(int BreakoutGame_lives_var) {
-this.BreakoutGame_lives_var = BreakoutGame_lives_var;
-}
-
-public BreakoutGameJava initBreakoutGame_lives_var(int BreakoutGame_lives_var) {
-this.BreakoutGame_lives_var = BreakoutGame_lives_var;
+public BreakoutGameJava initBreakoutGame_YMAX_var(int BreakoutGame_YMAX_var) {
+this.BreakoutGame_YMAX_var = BreakoutGame_YMAX_var;
 return this;
 }
 
-public int getBreakoutGame_BOTTOM_var() {
-return BreakoutGame_BOTTOM_var;
+public int getBreakoutGame_BRICK_HEIGHT_var() {
+return BreakoutGame_BRICK_HEIGHT_var;
 }
 
-public BreakoutGameJava initBreakoutGame_BOTTOM_var(int BreakoutGame_BOTTOM_var) {
-this.BreakoutGame_BOTTOM_var = BreakoutGame_BOTTOM_var;
-return this;
-}
-
-public int getBreakoutGame_RIGHT_var() {
-return BreakoutGame_RIGHT_var;
-}
-
-public BreakoutGameJava initBreakoutGame_RIGHT_var(int BreakoutGame_RIGHT_var) {
-this.BreakoutGame_RIGHT_var = BreakoutGame_RIGHT_var;
-return this;
-}
-
-public int getBreakoutGame_level_var() {
-return BreakoutGame_level_var;
-}
-
-public void setBreakoutGame_level_var(int BreakoutGame_level_var) {
-this.BreakoutGame_level_var = BreakoutGame_level_var;
-}
-
-public BreakoutGameJava initBreakoutGame_level_var(int BreakoutGame_level_var) {
-this.BreakoutGame_level_var = BreakoutGame_level_var;
-return this;
-}
-
-public int getBreakoutGame_SC_LAUNCH_countdown_var() {
-return BreakoutGame_SC_LAUNCH_countdown_var;
-}
-
-public void setBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
-this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
-}
-
-public BreakoutGameJava initBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
-this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
+public BreakoutGameJava initBreakoutGame_BRICK_HEIGHT_var(int BreakoutGame_BRICK_HEIGHT_var) {
+this.BreakoutGame_BRICK_HEIGHT_var = BreakoutGame_BRICK_HEIGHT_var;
 return this;
 }
 
@@ -736,11 +736,11 @@ quit();
 stop();
 delete();
 });
-Transition h855501888 = new Transition();
-h855501888.from(state_BreakoutGame_SC_INIT).to(state_BreakoutGame_SC_LAUNCH);
-h855501888.event(displayReadyType);
-h855501888.port(display_port);
-h855501888.action((Event e)->{
+Transition h634156144 = new Transition();
+h634156144.from(state_BreakoutGame_SC_INIT).to(state_BreakoutGame_SC_LAUNCH);
+h634156144.event(displayReadyType);
+h634156144.port(display_port);
+h634156144.action((Event e)->{
 sendClear_via_display();
 initColors();
 sendSetColor_via_display((int) (BreakoutGame_bgcolor_var[0]
@@ -758,16 +758,16 @@ createBricks();
 drawLevel();
 });
 
-Handler h1093441885 = new Handler();
-h1093441885.from(state_BreakoutGame_SC_LAUNCH);
-h1093441885.event(timer_timeoutType);
-h1093441885.guard((Event e)->{
+Handler h778337881 = new Handler();
+h778337881.from(state_BreakoutGame_SC_LAUNCH);
+h778337881.event(timer_timeoutType);
+h778337881.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_SC_LAUNCH_countdown_var() > 0;
 });
 
-h1093441885.port(clock_port);
-h1093441885.action((Event e)->{
+h778337881.port(clock_port);
+h778337881.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 sendTimer_start_via_clock((int) (0), (int) (getBreakoutGame_period_var()));
 drawPad();
@@ -779,32 +779,32 @@ BreakoutGame_SC_LAUNCH_countdown_var = (int) (getBreakoutGame_SC_LAUNCH_countdow
 sendUpdate_via_display();
 });
 
-Transition h2076829355 = new Transition();
-h2076829355.from(state_BreakoutGame_SC_LAUNCH).to(state_BreakoutGame_SC_PLAY);
-h2076829355.event(timer_timeoutType);
-h2076829355.guard((Event e)->{
+Transition h1776486598 = new Transition();
+h1776486598.from(state_BreakoutGame_SC_LAUNCH).to(state_BreakoutGame_SC_PLAY);
+h1776486598.event(timer_timeoutType);
+h1776486598.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_SC_LAUNCH_countdown_var() == 0;
 });
 
-h2076829355.port(clock_port);
-h2076829355.action((Event e)->{
+h1776486598.port(clock_port);
+h1776486598.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 drawCountDown((int) (0));
 resetBall();
 sendUpdate_via_display();
 });
 
-Handler h1649498695 = new Handler();
-h1649498695.from(state_BreakoutGame_SC_PLAY);
-h1649498695.event(timer_timeoutType);
-h1649498695.guard((Event e)->{
+Handler h510368405 = new Handler();
+h510368405.from(state_BreakoutGame_SC_PLAY);
+h510368405.event(timer_timeoutType);
+h510368405.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0;
 });
 
-h1649498695.port(clock_port);
-h1649498695.action((Event e)->{
+h510368405.port(clock_port);
+h510368405.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 BreakoutGame_bx_var = (int) (getBreakoutGame_bx_var() + getBreakoutGame_dx_var());
 BreakoutGame_by_var = (int) (getBreakoutGame_by_var() + getBreakoutGame_dy_var());
@@ -875,71 +875,73 @@ log((boolean) (false));
 sendTimer_start_via_clock((int) (0), (int) (getBreakoutGame_period_var()));
 });
 
-Transition h1555793073 = new Transition();
-h1555793073.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
-h1555793073.event(lostBallType);
-h1555793073.port(game_port);
-h1555793073.action((Event e)->{
+Transition h1534655921 = new Transition();
+h1534655921.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
+h1534655921.event(lostBallType);
+h1534655921.port(game_port);
+h1534655921.action((Event e)->{
 sendTimer_cancel_via_clock((int) (0));
 });
 
-Transition h1747721875 = new Transition();
-h1747721875.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
-h1747721875.event(nextLevelType);
-h1747721875.port(game_port);
-h1747721875.action((Event e)->{
+Transition h777190206 = new Transition();
+h777190206.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
+h777190206.event(nextLevelType);
+h777190206.port(game_port);
+h777190206.action((Event e)->{
 sendTimer_cancel_via_clock((int) (0));
 });
 
-Transition h1220524164 = new Transition();
-h1220524164.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
-h1220524164.event(lostBallType);
-h1220524164.port(pro_game_port);
-h1220524164.action((Event e)->{
+Transition h518692141 = new Transition();
+h518692141.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
+h518692141.event(lostBallType);
+h518692141.port(pro_game_port);
+h518692141.action((Event e)->{
 sendTimer_cancel_via_clock((int) (0));
 });
 
-Transition h385784873 = new Transition();
-h385784873.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
-h385784873.event(nextLevelType);
-h385784873.port(pro_game_port);
-h385784873.action((Event e)->{
+Transition h2000410491 = new Transition();
+h2000410491.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
+h2000410491.event(nextLevelType);
+h2000410491.port(pro_game_port);
+h2000410491.action((Event e)->{
 sendTimer_cancel_via_clock((int) (0));
 });
 
-Transition h922992444 = new Transition();
-h922992444.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_LAUNCH);
-h922992444.event(timer_timeoutType);
-h922992444.guard((Event e)->{
+Transition h1592712032 = new Transition();
+h1592712032.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_LAUNCH);
+h1592712032.event(timer_timeoutType);
+h1592712032.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_lives_var() > 0;
 });
 
-h922992444.port(clock_port);
-Transition h1682157864 = new Transition();
-h1682157864.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_GAMEOVER);
-h1682157864.event(timer_timeoutType);
-h1682157864.guard((Event e)->{
+h1592712032.port(clock_port);
+Transition h642538759 = new Transition();
+h642538759.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_GAMEOVER);
+h642538759.event(timer_timeoutType);
+h642538759.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_lives_var() == 0;
 });
 
-h1682157864.port(clock_port);
-Transition h570422884 = new Transition();
-h570422884.from(state_BreakoutGame_SC_NEXTLEVEL).to(state_BreakoutGame_SC_LAUNCH);
-h570422884.event(timer_timeoutType);
-h570422884.guard((Event e)->{
+h642538759.port(clock_port);
+Transition h2017380745 = new Transition();
+h2017380745.from(state_BreakoutGame_SC_NEXTLEVEL).to(state_BreakoutGame_SC_LAUNCH);
+h2017380745.event(timer_timeoutType);
+h2017380745.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0;
 });
 
-h570422884.port(clock_port);
+h2017380745.port(clock_port);
 final CompositeState state_BreakoutGame_SC = new CompositeState("SC");
-Handler h1677984391 = new Handler();
-h1677984391.from(state_BreakoutGame_SC);
-h1677984391.event(positionType);
-h1677984391.port(controller_port);
-h1677984391.action((Event e)->{
+state_BreakoutGame_SC.onEntry(()->{
+});
+Handler h211199210 = new Handler();
+h211199210.from(state_BreakoutGame_SC);
+h211199210.event(positionType);
+h211199210.port(controller_port);
+h211199210.action((Event e)->{
 final PositionMessageType.PositionMessage position = (PositionMessageType.PositionMessage) e;
 long center_var = (long) ((getBreakoutGame_RIGHT_var() - getBreakoutGame_LEFT_var() - getBreakoutGame_padlen_var()));
 

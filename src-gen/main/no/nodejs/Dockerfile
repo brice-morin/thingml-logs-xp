@@ -17,7 +17,7 @@
 
 FROM node:lts-alpine
 
-RUN npm install @steelbreeze/state@7.2.2
+RUN npm install @steelbreeze/state@8.0.0
 FROM node:lts-alpine
 COPY --from=0 /node_modules .
 COPY package.json package.json
