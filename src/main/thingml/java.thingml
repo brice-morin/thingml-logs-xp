@@ -3,16 +3,16 @@ import "pim/BreakoutGame.thingml"
 thing BreakoutGameJava includes BreakoutGame 
 @stdout_sync "true"
 {	
-	function quit() do
+	function quit() @monitor "not" do
 		`System.gc();`
 		println ">done in ", stopTime-startTime, "ms!"
 		log(true)
 		`System.exit(0);`
 	end
 	
-	function timestamp() : UInt32 return `System.currentTimeMillis()` as UInt32
+	function timestamp() : UInt32 @monitor "not" return `System.currentTimeMillis()` as UInt32
 	
-	function usedMemory() : UInt32 do
+	function usedMemory() : UInt32 @monitor "not" do
 		`System.gc();`
 		return `Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()` as UInt32
 	end

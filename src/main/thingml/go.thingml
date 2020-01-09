@@ -5,16 +5,16 @@ thing BreakoutGameGo includes BreakoutGame
 @go_import `time`
 @go_import `runtime`
 {	
-	function quit() do
+	function quit() @monitor "not" do
 		`runtime.GC();`
 		println ">done in ", stopTime-startTime, "ms!"
 		log(true)
 		`os.Exit(0);`
 	end
 	
-	function timestamp() : UInt32 return `uint32(time.Now().UnixNano() / int64(time.Millisecond))` as UInt32
+	function timestamp() : UInt32 @monitor "not" return `uint32(time.Now().UnixNano() / int64(time.Millisecond))` as UInt32
 	
-	function usedMemory() : UInt32 do
+	function usedMemory() : UInt32 @monitor "not" do
 		`runtime.GC();`
 		`var m runtime.MemStats
 		runtime.ReadMemStats(&m)`

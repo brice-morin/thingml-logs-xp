@@ -10,16 +10,16 @@ thing fragment BreakoutGame includes TimerMsgs, DisplayMsgs, ControllerMsgs, IAC
 	message lostBall()
 	message nextLevel()
 
-	property startTime : UInt32
-	property stopTime : UInt32
-	property lastTimestamp : UInt32 = 0
+	property startTime : UInt32         @monitor "not"
+	property stopTime : UInt32          @monitor "not"
+	property lastTimestamp : UInt32 = 0 @monitor "not"
 	property counter : UInt8 = 0
 	
-	abstract function quit()
-	abstract function timestamp() : UInt32
-	abstract function usedMemory() : UInt32
+	abstract function quit() @monitor "not" 
+	abstract function timestamp() : UInt32 @monitor "not" 
+	abstract function usedMemory() : UInt32 @monitor "not" 
 
-	function log(logMem : Boolean) do
+	function log(logMem : Boolean) @monitor "not" do
 		if (counter == 0 or logMem) do
 			var ts : UInt32
 			if (lastTimestamp == 0) do

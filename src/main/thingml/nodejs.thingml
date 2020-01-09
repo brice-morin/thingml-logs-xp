@@ -1,7 +1,7 @@
 import "pim/BreakoutGame.thingml"
 
 thing BreakoutGameNodeJS includes BreakoutGame {	
-	function quit() do
+	function quit() @monitor "not" do
 		`if (global.gc) {
 			global.gc();
 		}`
@@ -10,9 +10,9 @@ thing BreakoutGameNodeJS includes BreakoutGame {
 		`process.exitCode = 1;`
 	end
 	
-	function timestamp() : UInt32 return `process.hrtime.bigint()/BigInt(1000000)` as UInt32
+	function timestamp() : UInt32 @monitor "not" return `process.hrtime.bigint()/BigInt(1000000)` as UInt32
 	
-	function usedMemory() : UInt32 do
+	function usedMemory() : UInt32 @monitor "not" do
 		`if (global.gc) {
 			global.gc();
 		}`
