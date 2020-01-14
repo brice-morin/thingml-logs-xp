@@ -2,7 +2,7 @@ import "Display.thingml"
 import "Controller.thingml"
 
 thing fragment BreakoutGame includes TimerMsgs, DisplayMsgs, ControllerMsgs, IAControllerMsg 
-@stdout_sync "true"
+//@stdout_sync "true"
 @monitor "functions"
 @monitor "properties"
 @monitor "events"
@@ -10,10 +10,12 @@ thing fragment BreakoutGame includes TimerMsgs, DisplayMsgs, ControllerMsgs, IAC
 	message lostBall()
 	message nextLevel()
 
+	readonly property QUIET : Boolean = true	@monitor "not"
+
 	property startTime : UInt32         @monitor "not"
 	property stopTime : UInt32          @monitor "not"
 	property lastTimestamp : UInt32 = 0 @monitor "not"
-	property counter : UInt8 = 0
+	property counter : UInt8 = 0		@monitor "not"
 	
 	abstract function quit() @monitor "not" 
 	abstract function timestamp() : UInt32 @monitor "not" 
@@ -30,8 +32,10 @@ thing fragment BreakoutGame includes TimerMsgs, DisplayMsgs, ControllerMsgs, IAC
 				ts = t - lastTimestamp
 				lastTimestamp = t
 			end
-			println "ts:", ts, ",lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
-			println "#usedMem:", usedMemory()
+			if (not QUIET) do
+				println "ts:", ts, ",lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
+				println "#usedMem:", usedMemory()
+			end
 		end
 		counter++
 		if (counter == 33) counter = 0

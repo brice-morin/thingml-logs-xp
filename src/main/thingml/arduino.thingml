@@ -1,38 +1,23 @@
 import "pim/BreakoutGame.thingml"
 
 thing BreakoutGameArduino includes BreakoutGame 
-/* @c_header "#include <time.h>
-#include <stdlib.h>"
-@c_global "struct timespec t;
-
-typedef struct {
-	unsigned long size,resident,share,text,lib,data,dt;
-} statm_t;"*/
+@c_global "extern char *__brkval;"
 {	
+	readonly property RAM_SIZE : Integer = 2048
+	
 	function quit() @monitor "not" do
-		log(true)
-		/*println ">done in ", stopTime-startTime, "ms!"
-		`exit(0);`*/
+		println ">done in ", stopTime-startTime, "ms!"
+		println ">lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
+		println ">usedMem:", usedMemory()
 	end
 	
 	function timestamp() : UInt32 @monitor "not" do
-		/*`clock_gettime(CLOCK_REALTIME, &t);`
-		return `t.tv_sec*1000 + t.tv_nsec/1000000` as UInt32*/
-		return 0
+		return `millis()` as UInt32
 	end
 	
 	function usedMemory() : UInt32 @monitor "not" do
-		/*`statm_t result;
-		const char* statm_path = "/proc/self/statm";
-		FILE *f = fopen(statm_path, "r");
-		if (!f) {`
-			return -1	
-		`}
-		if (7 != fscanf(f, "%ld %ld %ld %ld %ld %ld %ld", &result.size, &result.resident, &result.share, &result.text, &result.lib, &result.data, &result.dt)) {`
-			return -1
-		`}`
-		return `result.size` as UInt32*/
-		return 0
+		`char top;`
+		return RAM_SIZE - `(__brkval ? &top - __brkval : &top - __malloc_heap_start)` as UInt32
 	end
 	
 	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 return (``&variable&` & ~(1 << `& bit &`)`) as UInt8

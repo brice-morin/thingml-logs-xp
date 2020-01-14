@@ -6,7 +6,8 @@ thing BreakoutGameJava includes BreakoutGame
 	function quit() @monitor "not" do
 		`System.gc();`
 		println ">done in ", stopTime-startTime, "ms!"
-		log(true)
+		println ">lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
+		println ">usedMem:", usedMemory()
 		`System.exit(0);`
 	end
 	

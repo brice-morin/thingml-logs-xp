@@ -23,7 +23,7 @@ thing fragment IAController includes Controller, IAControllerMsg {
 }
 
 thing BasicIAController includes IAController 
-@stdout_sync "true"
+//@stdout_sync "true"
 {
 
 	property ctrlx : Int16 = 0
