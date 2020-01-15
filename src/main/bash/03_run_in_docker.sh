@@ -9,11 +9,11 @@ function run_in_mode
  
   echo "--- $LANG$i in mode $mode ---"
  
-  cd $TARGETDIR/main/$mode/$LANG
-  docker build -t thingml-$LANG-log-$mode .
-  docker run --name thingml-$LANG-log-$mode_container thingml-$LANG-log-$mode &> $TARGETDIR/logs/$mode/thingml-$LANG-log$i.log
-  docker rm -f thingml-$LANG-log-$mode_container
-  docker rmi thingml-$LANG-log-$mode
+  cd $TARGETDIR/main/$TOOL/$mode/$LANG
+  docker build -t thingml-$TOOL-$LANG-log-$mode .
+  docker run --name thingml-$TOOL-$LANG-log-$mode_container thingml-$TOOL-$LANG-log-$mode &> $TARGETDIR/logs/$TOOL/$mode/thingml-$LANG-log$i.log
+  docker rm -f thingml-$TOOL-$LANG-log-$mode_container
+  docker rmi thingml-$TOOL-$LANG-log-$mode
 }
 
 function run
@@ -25,10 +25,10 @@ function run
   done
 }
 
-mkdir $TARGETDIR/logs
-mkdir $TARGETDIR/logs/on
-mkdir $TARGETDIR/logs/off
-mkdir $TARGETDIR/logs/no
+mkdir -p $TARGETDIR/logs/$TOOL
+mkdir $TARGETDIR/logs/$TOOL/on
+mkdir $TARGETDIR/logs/$TOOL/off
+mkdir $TARGETDIR/logs/$TOOL/no
 
 for i in `seq 0 $((N-1))`; do
   for j in $(shuf --input-range=0-$(( ${#LANGUAGES[@]} - 1 ))); do

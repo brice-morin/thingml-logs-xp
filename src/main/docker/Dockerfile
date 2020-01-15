@@ -1,10 +1,11 @@
 #Get ThingML (at a given commit) and compile it
 FROM maven:3-jdk-8-slim
 
-ARG SHA=7db8763a6ab0be99eb570eb915ef9b64e43ec3fa
+ARG SHA=430bf444a8274d92bd8132d67f0be3d6bd550dd6
 
 COPY ./settings.xml settings.xml
 
+RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
 RUN curl --silent -O -J -L https://github.com/TelluIoT/ThingML/archive/$SHA.zip && unzip -qq ThingML-$SHA.zip -d . && rm ThingML-$SHA.zip
 
 WORKDIR ThingML-$SHA

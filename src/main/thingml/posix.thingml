@@ -10,8 +10,9 @@ typedef struct {
 } statm_t;"
 {	
 	function quit() @monitor "not" do
-		log(true)
 		println ">done in ", stopTime-startTime, "ms!"
+		println ">lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
+		println ">usedMem:", usedMemory()
 		`exit(0);`
 	end
 	

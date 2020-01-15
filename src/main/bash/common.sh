@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-N=100
+N=1
 
-LANGUAGES=(java nodejs go) # Languages to use
+BINARY=0
+((BINARY)) && TOOL=monitor-bin
+((!BINARY)) && TOOL=monitor		 # posix/arduino cannot use string logging
+
+#LANGUAGES=(java nodejs go posix) # Languages to use
+LANGUAGES=(java nodejs go)
 MODES=(on off no) # Logging modes
 
 
