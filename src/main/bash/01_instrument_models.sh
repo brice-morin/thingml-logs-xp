@@ -5,7 +5,9 @@ function instrument
 {
   LANG=$1
   
-  docker run -v $BASEDIR:/thingml-logs-xp thingml --tool $TOOL --output /thingml-logs-xp/src-gen/main/thingml --source /thingml-logs-xp/src/main/thingml/$LANG.thingml
+  echo $BASEDIR
+  
+  _docker run -v $BASEDIR:/thingml-logs-xp thingml --tool $TOOL --output /thingml-logs-xp/src-gen/main/thingml --source /thingml-logs-xp/src/main/thingml/$LANG.thingml
 
   cd $TARGETDIR/main/thingml/monitor/
 
@@ -21,8 +23,8 @@ function instrument
   fi
 
   #simulate a user instantiating the console logger
-  configure $TOOL-$LANG.thingml "true"
-  configure $TOOL-$LANG-off.thingml "false"
+  configure $TARGETDIR/main/thingml/monitor/$TOOL-$LANG.thingml "true"
+  configure $TARGETDIR/main/thingml/monitor/$TOOL-$LANG-off.thingml "false"
 }
 
 function configure
