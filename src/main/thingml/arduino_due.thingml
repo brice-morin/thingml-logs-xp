@@ -1,9 +1,9 @@
 import "pim/BreakoutGame.thingml"
 
 thing BreakoutGameArduino includes BreakoutGame 
-@c_global "extern char *__brkval;"
+@c_global `extern "C" char* sbrk(int incr);`
 {	
-	readonly property RAM_SIZE : Integer = 2048
+	readonly property RAM_SIZE : UInt32 = 98304 //96kB
 	
 	function quit() @monitor "not" do
 		println ">done in ", stopTime-startTime, "ms!"
@@ -17,7 +17,7 @@ thing BreakoutGameArduino includes BreakoutGame
 	
 	function usedMemory() : UInt32 @monitor "not" do
 		`char top;`
-		return RAM_SIZE - `(__brkval ? &top - __brkval : &top - __malloc_heap_start)` as UInt32
+		return RAM_SIZE - `(&top - reinterpret_cast<char*>(sbrk(0)))` as UInt32
 	end
 	
 	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 return (``&variable&` & ~(1 << `& bit &`)`) as UInt8
@@ -25,7 +25,7 @@ thing BreakoutGameArduino includes BreakoutGame
 
 configuration test
 @arduino_stdout "Serial"
-@arduino_stdout_baudrate "115200"
+@arduino_stdout_baudrate "250000"
 {		
 	instance game : BreakoutGameArduino
 	instance disp : HeadlessDisplay

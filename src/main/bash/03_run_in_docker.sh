@@ -10,8 +10,8 @@ function run_in_mode
   echo "--- $LANG$i in mode $mode ---"
  
   cd $TARGETDIR/main/$TOOL/$mode/$LANG
-  docker build -t thingml-$TOOL-$LANG-log-$mode .
-  docker run --name thingml-$TOOL-$LANG-log-$mode_container thingml-$TOOL-$LANG-log-$mode &> $TARGETDIR/logs/$TOOL/$mode/thingml-$LANG-log$i.log
+  timeout -k 120s 240s docker build -t thingml-$TOOL-$LANG-log-$mode .
+  timeout -k 120s 240s docker run --rm --name thingml-$TOOL-$LANG-log-$mode_container thingml-$TOOL-$LANG-log-$mode &> $TARGETDIR/logs/$TOOL/$mode/thingml-$LANG-log$i.log
   docker rm -f thingml-$TOOL-$LANG-log-$mode_container
   docker rmi thingml-$TOOL-$LANG-log-$mode
 }

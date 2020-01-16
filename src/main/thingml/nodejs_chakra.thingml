@@ -1,0 +1,46 @@
+import "pim/BreakoutGame.thingml"
+
+object Performance
+
+thing BreakoutGameNodeJS includes BreakoutGame 
+@js_dep "performance-now:2.1.0"
+{
+	
+	readonly property now : Performance = `require("performance-now")` as Performance
+		
+	function quit() @monitor "not" do
+		`if (global.gc) {
+			global.gc();
+		}`
+		println ">done in ", (`Number(` & stopTime & `)` - `Number(` & startTime & `)`), "ms!"
+		println ">lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
+		println ">usedMem:", usedMemory()
+		`process.exitCode = 1;`
+	end
+	
+	function timestamp() : UInt32 @monitor "not" return (`` & now & `()`) as UInt32
+	
+	function usedMemory() : UInt32 @monitor "not" do
+		`if (global.gc) {
+			global.gc();
+		}`
+		return `process.memoryUsage().heapUsed` as UInt32 //does not work, see https://github.com/nodejs/node-chakracore/issues/563
+	end
+	
+	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 return (``&variable&` & ~(1 << `& bit &`)`) as UInt8
+}
+
+configuration test
+@docker_js "chakra"
+@docker
+{
+	instance game : BreakoutGameNodeJS
+	instance disp : HeadlessDisplay
+	instance timer : TimerNodeJS
+	instance ctrl : BasicIAController
+
+	connector game.clock => timer.timer
+	connector game.display => disp.display
+	connector game.controller => ctrl.controls
+	connector ctrl.game => game.ia
+}
