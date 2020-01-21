@@ -1,0 +1,1867 @@
+thing BreakoutGameArduino includes BreakoutGame @c_global `extern char *__brkval;` {
+	readonly property RAM_SIZE : Integer = 2048
+	function quit() @monitor `not` do
+		println ">done in " , stopTime - startTime , "ms!"
+		println ">lives:" , lives , ",score:" , score , ",level:" , level , ",bx:" , bx , ",by:" , by , ",padx:" , padx
+		println ">usedMem:" , usedMemory()
+	end
+	function timestamp() : UInt32 @monitor `not` do
+		return `millis()` as UInt32
+	end
+	function usedMemory() : UInt32 @monitor `not` do
+	`char top;`
+		return RAM_SIZE - `(__brkval ? &top - __brkval : &top - __malloc_heap_start)` as UInt32
+	end
+	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 return (`` & variable & ` & ~(1 << ` & bit & `)`) as UInt8
+}
+thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , IAControllerMsg , WithLog @monitor `functions` @monitor `properties` @monitor `events` {
+	message lostBall()
+	message nextLevel()
+	required port clock {
+		sends timer_start sends timer_cancel receives timer_timeout
+	}
+	optional required port display @sync_send `true` {
+		sends create sends fillRect sends drawRect sends clear sends setColor sends setBGColor sends drawInteger sends update sends drawThingML receives displayReady
+	}
+	required port controller {
+		receives position
+	}
+	provided port ia {
+		sends updateIA
+	}
+	internal port game {
+		sends lostBall sends nextLevel receives lostBall receives nextLevel
+	}
+	optional required port req_game {
+		sends lostBall sends nextLevel
+	}
+	provided port pro_game {
+		receives lostBall receives nextLevel
+	}
+	readonly property QUIET : Boolean = true @monitor `not`
+	property startTime : UInt32 @monitor `not`
+	property stopTime : UInt32 @monitor `not`
+	property lastTimestamp : UInt32 = 0 @monitor `not`
+	property counter : UInt8 = 0 @monitor `not`
+	readonly property XDISPSIZE : UInt8 = 160
+	readonly property YDISPSIZE : UInt8 = 128
+	readonly property SCALE : Int16 = 64
+	readonly property XMAX : Int16 = XDISPSIZE as Int16 * SCALE
+	readonly property YMAX : Int16 = YDISPSIZE as Int16 * SCALE
+	readonly property TOP : Int16 = 14 * SCALE
+	readonly property BOTTOM : Int16 = YMAX + 8 * SCALE
+	readonly property LEFT : Int16 = 1 * SCALE
+	readonly property RIGHT : Int16 = XMAX - 1 * SCALE
+	readonly property br : Int16 = 3 * SCALE
+	property bx : Int16 = XMAX / 2
+	property by : Int16 = YMAX
+	property dx : Int16 = XMAX / 98
+	property dy : Int16 = -XMAX / 65
+	property padx : Int16 = YMAX / 2
+	property pady : Int16 = YMAX - 6 * SCALE
+	property padlen : Int16 = 25 * SCALE
+	property prevBX : Int16 = -1
+	property prevBY : Int16 = -1
+	property bgcolor : UInt8 [ 3 ]
+	property fgcolor : UInt8 [ 3 ]
+	readonly property period : UInt16 = 3
+	property prevPX : Int16 = -1
+	property prevPY : Int16 = -1
+	readonly property BRICK_ROWS : UInt8 = 5
+	readonly property BRICK_HEIGHT : UInt8 = 9
+	property bricks : UInt8 [ BRICK_ROWS ]
+	property score : Int16 = 0
+	property lives : UInt8 = 3
+	property level : UInt8 = 1
+	abstract function quit() @monitor `not`
+
+	abstract function timestamp() : UInt32 @monitor `not`
+
+	abstract function usedMemory() : UInt32 @monitor `not`
+
+	function log(logMem : Boolean) @monitor `not` do
+		if (counter == 0 or logMem) do
+			var ts : UInt32
+			if (lastTimestamp == 0) do
+				ts = 0
+				lastTimestamp = timestamp()
+			end
+			else do
+				var t : UInt32 = timestamp()
+				ts = t - lastTimestamp
+				lastTimestamp = t
+			end
+			if (not QUIET) do
+				println "ts:" , ts , ",lives:" , lives , ",score:" , score , ",level:" , level , ",bx:" , bx , ",by:" , by , ",padx:" , padx
+				println "#usedMem:" , usedMemory()
+			end
+		end
+		counter ++
+		if (counter == 33) counter = 0
+	end
+	function initColors() do
+		log!function_called(DEBUG_ID, "initColors", "void_", "", "")
+		bgcolor[0] = 53
+		bgcolor[1] = 40
+		bgcolor[2] = 120
+		fgcolor[0] = 107
+		fgcolor[1] = 94
+		fgcolor[2] = 174
+		do
+			readonly var r_259 : UInt8 = bgcolor [0]
+			readonly var g_260 : UInt8 = bgcolor [1]
+			readonly var b_261 : UInt8 = bgcolor [2]
+			display!setBGColor(r_259, g_260, b_261)
+			readonly var params_262 : String = "" + ("r=" + (r_259 as String + ",")) + ("g=" + (g_260 as String + ",")) + ("b=" + (b_261 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setBGColor", params_262)
+		end
+		do
+			readonly var r_263 : UInt8 = fgcolor [0]
+			readonly var g_264 : UInt8 = fgcolor [1]
+			readonly var b_265 : UInt8 = fgcolor [2]
+			display!setColor(r_263, g_264, b_265)
+			readonly var params_266 : String = "" + ("r=" + (r_263 as String + ",")) + ("g=" + (g_264 as String + ",")) + ("b=" + (b_265 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_266)
+		end
+	end
+	function resetBall() do
+		log!function_called(DEBUG_ID, "resetBall", "void_", "", "")
+		do
+			readonly var old_bx_4 : String = "" + bx as String
+			bx = padx - br / SCALE
+			readonly var new_bx_4 : String = "" + bx as String
+			log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_4, new_bx_4)
+		end
+		do
+			readonly var old_by_27 : String = "" + by as String
+			by = pady - br / SCALE
+			readonly var new_by_27 : String = "" + by as String
+			log!property_changed(DEBUG_ID, "by", "Int16", old_by_27, new_by_27)
+		end
+		do
+			readonly var old_dx_19 : String = "" + dx as String
+			dx = (padx + prevBX + prevBY) % 300 - 150
+			readonly var new_dx_19 : String = "" + dx as String
+			log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_19, new_dx_19)
+		end
+		if (dy > 0) do
+			readonly var old_dy_8 : String = "" + dy as String
+			dy = -dy
+			readonly var new_dy_8 : String = "" + dy as String
+			log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_8, new_dy_8)
+		end
+		do
+			readonly var old_prevBX_16 : String = "" + prevBX as String
+			prevBX = -1
+			readonly var new_prevBX_16 : String = "" + prevBX as String
+			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_16, new_prevBX_16)
+		end
+		do
+			readonly var old_prevBY_23 : String = "" + prevBY as String
+			prevBY = -1
+			readonly var new_prevBY_23 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_23, new_prevBY_23)
+		end
+	end
+	function eraseBall() do
+		log!function_called(DEBUG_ID, "eraseBall", "void_", "", "")
+		var bs : Int16 = (br * 2) / SCALE
+		if (prevBX > 0) do
+			do
+				readonly var r_267 : UInt8 = bgcolor [0]
+				readonly var g_268 : UInt8 = bgcolor [1]
+				readonly var b_269 : UInt8 = bgcolor [2]
+				display!setColor(r_267, g_268, b_269)
+				readonly var params_270 : String = "" + ("r=" + (r_267 as String + ",")) + ("g=" + (g_268 as String + ",")) + ("b=" + (b_269 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "setColor", params_270)
+			end
+			do
+				readonly var x_271 : UInt8 = prevBX as UInt8
+				readonly var y_272 : UInt8 = prevBY as UInt8
+				readonly var width_273 : UInt8 = bs as UInt8
+				readonly var height_274 : UInt8 = bs as UInt8
+				display!fillRect(x_271, y_272, width_273, height_274)
+				readonly var params_275 : String = "" + ("x=" + (x_271 as String + ",")) + ("y=" + (y_272 as String + ",")) + ("width=" + (width_273 as String + ",")) + ("height=" + (height_274 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "fillRect", params_275)
+			end
+		end
+		do
+			readonly var old_prevBX_17 : String = "" + prevBX as String
+			prevBX = -1
+			readonly var new_prevBX_17 : String = "" + prevBX as String
+			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_17, new_prevBX_17)
+		end
+		do
+			readonly var old_prevBY_24 : String = "" + prevBY as String
+			prevBY = -1
+			readonly var new_prevBY_24 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_24, new_prevBY_24)
+		end
+	end
+	function drawBall() do
+		log!function_called(DEBUG_ID, "drawBall", "void_", "", "")
+		var bs : Int16 = (br * 2) / SCALE
+		eraseBall()
+		do
+			readonly var old_prevBX_18 : String = "" + prevBX as String
+			prevBX = (bx - br) / SCALE
+			readonly var new_prevBX_18 : String = "" + prevBX as String
+			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_18, new_prevBX_18)
+		end
+		do
+			readonly var old_prevBY_25 : String = "" + prevBY as String
+			prevBY = (by - br) / SCALE
+			readonly var new_prevBY_25 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_25, new_prevBY_25)
+		end
+		do
+			readonly var r_276 : UInt8 = 183
+			readonly var g_277 : UInt8 = 199
+			readonly var b_278 : UInt8 = 111
+			display!setColor(r_276, g_277, b_278)
+			readonly var params_279 : String = "" + ("r=" + (r_276 as String + ",")) + ("g=" + (g_277 as String + ",")) + ("b=" + (b_278 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_279)
+		end
+		do
+			readonly var x_280 : UInt8 = prevBX as UInt8
+			readonly var y_281 : UInt8 = prevBY as UInt8
+			readonly var width_282 : UInt8 = bs as UInt8
+			readonly var height_283 : UInt8 = bs as UInt8
+			display!fillRect(x_280, y_281, width_282, height_283)
+			readonly var params_284 : String = "" + ("x=" + (x_280 as String + ",")) + ("y=" + (y_281 as String + ",")) + ("width=" + (width_282 as String + ",")) + ("height=" + (height_283 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_284)
+		end
+	end
+	function erasePad() do
+		log!function_called(DEBUG_ID, "erasePad", "void_", "", "")
+		var ps : Int16 = padlen / SCALE
+		if (prevPX > 0) do
+			do
+				readonly var r_285 : UInt8 = bgcolor [0]
+				readonly var g_286 : UInt8 = bgcolor [1]
+				readonly var b_287 : UInt8 = bgcolor [2]
+				display!setColor(r_285, g_286, b_287)
+				readonly var params_288 : String = "" + ("r=" + (r_285 as String + ",")) + ("g=" + (g_286 as String + ",")) + ("b=" + (b_287 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "setColor", params_288)
+			end
+			do
+				readonly var x_289 : UInt8 = prevPX as UInt8
+				readonly var y_290 : UInt8 = prevPY as UInt8
+				readonly var width_291 : UInt8 = ps as UInt8
+				readonly var height_292 : UInt8 = 4
+				display!fillRect(x_289, y_290, width_291, height_292)
+				readonly var params_293 : String = "" + ("x=" + (x_289 as String + ",")) + ("y=" + (y_290 as String + ",")) + ("width=" + (width_291 as String + ",")) + ("height=" + (height_292 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "fillRect", params_293)
+			end
+		end
+	end
+	function drawPad() do
+		log!function_called(DEBUG_ID, "drawPad", "void_", "", "")
+		var ps : Int16 = padlen / SCALE
+		erasePad()
+		do
+			readonly var old_prevPX_13 : String = "" + prevPX as String
+			prevPX = (padx - (padlen / 2)) / SCALE
+			readonly var new_prevPX_13 : String = "" + prevPX as String
+			log!property_changed(DEBUG_ID, "prevPX", "Int16", old_prevPX_13, new_prevPX_13)
+		end
+		do
+			readonly var old_prevPY_14 : String = "" + prevPY as String
+			prevPY = pady / SCALE
+			readonly var new_prevPY_14 : String = "" + prevPY as String
+			log!property_changed(DEBUG_ID, "prevPY", "Int16", old_prevPY_14, new_prevPY_14)
+		end
+		do
+			readonly var r_294 : UInt8 = fgcolor [0]
+			readonly var g_295 : UInt8 = fgcolor [1]
+			readonly var b_296 : UInt8 = fgcolor [2]
+			display!setColor(r_294, g_295, b_296)
+			readonly var params_297 : String = "" + ("r=" + (r_294 as String + ",")) + ("g=" + (g_295 as String + ",")) + ("b=" + (b_296 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_297)
+		end
+		do
+			readonly var x_298 : UInt8 = prevPX as UInt8
+			readonly var y_299 : UInt8 = prevPY as UInt8
+			readonly var width_300 : UInt8 = ps as UInt8
+			readonly var height_301 : UInt8 = 4
+			display!fillRect(x_298, y_299, width_300, height_301)
+			readonly var params_302 : String = "" + ("x=" + (x_298 as String + ",")) + ("y=" + (y_299 as String + ",")) + ("width=" + (width_300 as String + ",")) + ("height=" + (height_301 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_302)
+		end
+	end
+	function drawCountDown(c : Int16) do
+		do
+			readonly var params : String = "" + ("c=" + (c as String + ","))
+			log!function_called(DEBUG_ID, "drawCountDown", "void_", "", params)
+		end
+		do
+			readonly var r_303 : UInt8 = fgcolor [0]
+			readonly var g_304 : UInt8 = fgcolor [1]
+			readonly var b_305 : UInt8 = fgcolor [2]
+			display!setColor(r_303, g_304, b_305)
+			readonly var params_306 : String = "" + ("r=" + (r_303 as String + ",")) + ("g=" + (g_304 as String + ",")) + ("b=" + (b_305 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_306)
+		end
+		if (c > 0) do
+			do
+				readonly var r_307 : UInt8 = fgcolor [0]
+				readonly var g_308 : UInt8 = fgcolor [1]
+				readonly var b_309 : UInt8 = fgcolor [2]
+				display!setColor(r_307, g_308, b_309)
+				readonly var params_310 : String = "" + ("r=" + (r_307 as String + ",")) + ("g=" + (g_308 as String + ",")) + ("b=" + (b_309 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "setColor", params_310)
+			end
+			do
+				readonly var r_311 : UInt8 = bgcolor [0]
+				readonly var g_312 : UInt8 = bgcolor [1]
+				readonly var b_313 : UInt8 = bgcolor [2]
+				display!setBGColor(r_311, g_312, b_313)
+				readonly var params_314 : String = "" + ("r=" + (r_311 as String + ",")) + ("g=" + (g_312 as String + ",")) + ("b=" + (b_313 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "setBGColor", params_314)
+			end
+			do
+				readonly var x_315 : UInt8 = 80 - 6
+				readonly var y_316 : UInt8 = 90
+				readonly var v_317 : Int16 = c
+				readonly var digits_318 : UInt8 = 1
+				readonly var scale_319 : UInt8 = 4
+				display!drawInteger(x_315, y_316, v_317, digits_318, scale_319)
+				readonly var params_320 : String = "" + ("x=" + (x_315 as String + ",")) + ("y=" + (y_316 as String + ",")) + ("v=" + (v_317 as String + ",")) + ("digits=" + (digits_318 as String + ",")) + ("scale=" + (scale_319 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "drawInteger", params_320)
+			end
+		end
+		else do
+			do
+				readonly var r_321 : UInt8 = bgcolor [0]
+				readonly var g_322 : UInt8 = bgcolor [1]
+				readonly var b_323 : UInt8 = bgcolor [2]
+				display!setColor(r_321, g_322, b_323)
+				readonly var params_324 : String = "" + ("r=" + (r_321 as String + ",")) + ("g=" + (g_322 as String + ",")) + ("b=" + (b_323 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "setColor", params_324)
+			end
+			do
+				readonly var x_325 : UInt8 = 80 - 6
+				readonly var y_326 : UInt8 = 90
+				readonly var width_327 : UInt8 = 12
+				readonly var height_328 : UInt8 = 20
+				display!fillRect(x_325, y_326, width_327, height_328)
+				readonly var params_329 : String = "" + ("x=" + (x_325 as String + ",")) + ("y=" + (y_326 as String + ",")) + ("width=" + (width_327 as String + ",")) + ("height=" + (height_328 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "fillRect", params_329)
+			end
+		end
+	end
+	function drawWalls() do
+		log!function_called(DEBUG_ID, "drawWalls", "void_", "", "")
+		do
+			readonly var r_330 : UInt8 = fgcolor [0]
+			readonly var g_331 : UInt8 = fgcolor [1]
+			readonly var b_332 : UInt8 = fgcolor [2]
+			display!setColor(r_330, g_331, b_332)
+			readonly var params_333 : String = "" + ("r=" + (r_330 as String + ",")) + ("g=" + (g_331 as String + ",")) + ("b=" + (b_332 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_333)
+		end
+		readonly var left : UInt8 = (LEFT / SCALE) as UInt8
+		readonly var right : UInt8 = (RIGHT / SCALE) as UInt8
+		readonly var top : UInt8 = (TOP / SCALE) as UInt8
+		readonly var bottom : UInt8 = (BOTTOM / SCALE) as UInt8
+		readonly var xcenter : UInt8 = ((RIGHT - LEFT) / SCALE) as UInt8
+		readonly var ycenter : UInt8 = ((BOTTOM - TOP) / SCALE) as UInt8
+		do
+			readonly var x_334 : UInt8 = left - 1
+			readonly var y_335 : UInt8 = top - 1
+			readonly var width_336 : UInt8 = xcenter + 1
+			readonly var height_337 : UInt8 = 1
+			display!fillRect(x_334, y_335, width_336, height_337)
+			readonly var params_338 : String = "" + ("x=" + (x_334 as String + ",")) + ("y=" + (y_335 as String + ",")) + ("width=" + (width_336 as String + ",")) + ("height=" + (height_337 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_338)
+		end
+		do
+			readonly var x_339 : UInt8 = left - 1
+			readonly var y_340 : UInt8 = bottom
+			readonly var width_341 : UInt8 = xcenter + 1
+			readonly var height_342 : UInt8 = 1
+			display!fillRect(x_339, y_340, width_341, height_342)
+			readonly var params_343 : String = "" + ("x=" + (x_339 as String + ",")) + ("y=" + (y_340 as String + ",")) + ("width=" + (width_341 as String + ",")) + ("height=" + (height_342 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_343)
+		end
+		do
+			readonly var x_344 : UInt8 = left - 1
+			readonly var y_345 : UInt8 = top
+			readonly var width_346 : UInt8 = 1
+			readonly var height_347 : UInt8 = ycenter
+			display!fillRect(x_344, y_345, width_346, height_347)
+			readonly var params_348 : String = "" + ("x=" + (x_344 as String + ",")) + ("y=" + (y_345 as String + ",")) + ("width=" + (width_346 as String + ",")) + ("height=" + (height_347 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_348)
+		end
+		do
+			readonly var x_349 : UInt8 = right
+			readonly var y_350 : UInt8 = top
+			readonly var width_351 : UInt8 = 1
+			readonly var height_352 : UInt8 = ycenter
+			display!fillRect(x_349, y_350, width_351, height_352)
+			readonly var params_353 : String = "" + ("x=" + (x_349 as String + ",")) + ("y=" + (y_350 as String + ",")) + ("width=" + (width_351 as String + ",")) + ("height=" + (height_352 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_353)
+		end
+	end
+	function bitIsSet(variable : UInt8, bit : UInt8) : Boolean do
+		readonly var return_0 : Boolean = (`((1 << ` & bit & `) & ` & variable & `) != 0`) as Boolean
+		readonly var return_as_string0 : String = "" + (return_0 as String)
+		do
+			readonly var params : String = "" + ("variable=" + (variable as String + ",")) + ("bit=" + (bit as String + ","))
+			log!function_called(DEBUG_ID, "bitIsSet", "Boolean", return_as_string0, params)
+		end
+		return return_0
+	end
+	abstract function unsetBit(variable : UInt8, bit : UInt8) : UInt8
+
+	function createBricks() do
+		log!function_called(DEBUG_ID, "createBricks", "void_", "", "")
+		var y : UInt8 = 0
+		while (y < BRICK_ROWS) do
+			bricks[y] = 0xFF
+			var x : UInt8 = 0
+			while (x < 8) do
+				if (bitIsSet(bricks [y], x)) do
+					drawBrick(x, y)
+				end
+				x = x + 1
+			end
+			y = y + 1
+		end
+	end
+	function bricksLeft() : UInt8 do
+		var result : UInt8 = 0
+		var y : UInt8 = 0
+		while (y < BRICK_ROWS) do
+			var x : UInt8 = 0
+			while (x < 8) do
+				if (bitIsSet(bricks [y], x)) do
+					result = result + 1
+				end
+				x = x + 1
+			end
+			y = y + 1
+		end
+		readonly var return_3 : UInt8 = result
+		readonly var return_as_string3 : String = "" + (return_3 as String)
+		log!function_called(DEBUG_ID, "bricksLeft", "UInt8", return_as_string3, "")
+		return return_3
+	end
+	function drawBrick(x : UInt8, y : UInt8) do
+		do
+			readonly var params : String = "" + ("x=" + (x as String + ",")) + ("y=" + (y as String + ","))
+			log!function_called(DEBUG_ID, "drawBrick", "void_", "", params)
+		end
+		readonly var bx : UInt8 = ((LEFT + ((RIGHT - LEFT) / 8) * x as Int16) / SCALE + 1) as UInt8
+		readonly var by : UInt8 = ((TOP + 20 * SCALE + BRICK_HEIGHT as Int16 * y as Int16 * SCALE) / SCALE + 1) as UInt8
+		readonly var w : UInt8 = (((RIGHT - LEFT) / 8) / SCALE - 2) as UInt8
+		readonly var h : UInt8 = (BRICK_HEIGHT - 2) as UInt8
+		do
+			readonly var r_354 : UInt8 = 155
+			readonly var g_355 : UInt8 = 103
+			readonly var b_356 : UInt8 = 89
+			display!setColor(r_354, g_355, b_356)
+			readonly var params_357 : String = "" + ("r=" + (r_354 as String + ",")) + ("g=" + (g_355 as String + ",")) + ("b=" + (b_356 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_357)
+		end
+		do
+			readonly var x_358 : UInt8 = bx
+			readonly var y_359 : UInt8 = by
+			readonly var width_360 : UInt8 = w
+			readonly var height_361 : UInt8 = h
+			display!fillRect(x_358, y_359, width_360, height_361)
+			readonly var params_362 : String = "" + ("x=" + (x_358 as String + ",")) + ("y=" + (y_359 as String + ",")) + ("width=" + (width_360 as String + ",")) + ("height=" + (height_361 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_362)
+		end
+		do
+			readonly var r_363 : UInt8 = 100
+			readonly var g_364 : UInt8 = 56
+			readonly var b_365 : UInt8 = 43
+			display!setColor(r_363, g_364, b_365)
+			readonly var params_366 : String = "" + ("r=" + (r_363 as String + ",")) + ("g=" + (g_364 as String + ",")) + ("b=" + (b_365 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_366)
+		end
+		do
+			readonly var x_367 : UInt8 = bx
+			readonly var y_368 : UInt8 = by
+			readonly var width_369 : UInt8 = w
+			readonly var height_370 : UInt8 = h
+			display!drawRect(x_367, y_368, width_369, height_370)
+			readonly var params_371 : String = "" + ("x=" + (x_367 as String + ",")) + ("y=" + (y_368 as String + ",")) + ("width=" + (width_369 as String + ",")) + ("height=" + (height_370 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "drawRect", params_371)
+		end
+	end
+	function removeBrick(x : UInt8, y : UInt8) do
+		do
+			readonly var params : String = "" + ("x=" + (x as String + ",")) + ("y=" + (y as String + ","))
+			log!function_called(DEBUG_ID, "removeBrick", "void_", "", params)
+		end
+		readonly var bx : UInt8 = ((LEFT + ((RIGHT - LEFT) / 8) * x as Int16) / SCALE + 1) as UInt8
+		readonly var by : UInt8 = ((TOP + 20 * SCALE + BRICK_HEIGHT as Int16 * y as Int16 * SCALE) / SCALE + 1) as UInt8
+		do
+			readonly var r_372 : UInt8 = bgcolor [0]
+			readonly var g_373 : UInt8 = bgcolor [1]
+			readonly var b_374 : UInt8 = bgcolor [2]
+			display!setColor(r_372, g_373, b_374)
+			readonly var params_375 : String = "" + ("r=" + (r_372 as String + ",")) + ("g=" + (g_373 as String + ",")) + ("b=" + (b_374 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_375)
+		end
+		do
+			readonly var x_376 : UInt8 = bx
+			readonly var y_377 : UInt8 = by
+			readonly var width_378 : UInt8 = (((RIGHT - LEFT) / 8) / SCALE - 2) as UInt8
+			readonly var height_379 : UInt8 = BRICK_HEIGHT - 2
+			display!fillRect(x_376, y_377, width_378, height_379)
+			readonly var params_380 : String = "" + ("x=" + (x_376 as String + ",")) + ("y=" + (y_377 as String + ",")) + ("width=" + (width_378 as String + ",")) + ("height=" + (height_379 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_380)
+		end
+		bricks[y] = unsetBit(bricks [y], x)
+	end
+	function collideBrick(xpos : Int16, ypos : Int16) : Boolean do
+		var bry : Int16 = (ypos as Int16 - TOP - 20 * SCALE) / (BRICK_HEIGHT as Int16 * SCALE)
+		var result : Boolean = false
+		if (bry >= 0 and bry < BRICK_ROWS as Int16) do
+			var brx : Int16 = (xpos as Int16 - LEFT) / ((RIGHT - LEFT) / 8)
+			if (bitIsSet(bricks [bry], brx as UInt8)) do
+				removeBrick(brx as UInt8, bry as UInt8)
+				result = true
+			end
+		end
+		readonly var return_3 : Boolean = result
+		readonly var return_as_string3 : String = "" + (return_3 as String)
+		do
+			readonly var params : String = "" + ("xpos=" + (xpos as String + ",")) + ("ypos=" + (ypos as String + ","))
+			log!function_called(DEBUG_ID, "collideBrick", "Boolean", return_as_string3, params)
+		end
+		return return_3
+	end
+	function drawLevel() do
+		log!function_called(DEBUG_ID, "drawLevel", "void_", "", "")
+		do
+			readonly var r_381 : UInt8 = 158
+			readonly var g_382 : UInt8 = 209
+			readonly var b_383 : UInt8 = 130
+			display!setColor(r_381, g_382, b_383)
+			readonly var params_384 : String = "" + ("r=" + (r_381 as String + ",")) + ("g=" + (g_382 as String + ",")) + ("b=" + (b_383 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_384)
+		end
+		do
+			readonly var r_385 : UInt8 = fgcolor [0]
+			readonly var g_386 : UInt8 = fgcolor [1]
+			readonly var b_387 : UInt8 = fgcolor [2]
+			display!setBGColor(r_385, g_386, b_387)
+			readonly var params_388 : String = "" + ("r=" + (r_385 as String + ",")) + ("g=" + (g_386 as String + ",")) + ("b=" + (b_387 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setBGColor", params_388)
+		end
+		do
+			readonly var r_389 : UInt8 = bgcolor [0]
+			readonly var g_390 : UInt8 = bgcolor [1]
+			readonly var b_391 : UInt8 = bgcolor [2]
+			display!setColor(r_389, g_390, b_391)
+			readonly var params_392 : String = "" + ("r=" + (r_389 as String + ",")) + ("g=" + (g_390 as String + ",")) + ("b=" + (b_391 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_392)
+		end
+		do
+			readonly var x_393 : UInt8 = 6
+			readonly var y_394 : UInt8 = 2
+			readonly var v_395 : Int16 = level as Int16
+			readonly var digits_396 : UInt8 = 2
+			readonly var scale_397 : UInt8 = 2
+			display!drawInteger(x_393, y_394, v_395, digits_396, scale_397)
+			readonly var params_398 : String = "" + ("x=" + (x_393 as String + ",")) + ("y=" + (y_394 as String + ",")) + ("v=" + (v_395 as String + ",")) + ("digits=" + (digits_396 as String + ",")) + ("scale=" + (scale_397 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "drawInteger", params_398)
+		end
+	end
+	function incrementScore(diff : Int8) do
+		do
+			readonly var params : String = "" + ("diff=" + (diff as String + ","))
+			log!function_called(DEBUG_ID, "incrementScore", "void_", "", params)
+		end
+		do
+			readonly var old_score_2 : String = "" + score as String
+			score = score + diff as Int16
+			readonly var new_score_2 : String = "" + score as String
+			log!property_changed(DEBUG_ID, "score", "Int16", old_score_2, new_score_2)
+		end
+		if (score < 0) do
+			readonly var old_score_3 : String = "" + score as String
+			score = 0
+			readonly var new_score_3 : String = "" + score as String
+			log!property_changed(DEBUG_ID, "score", "Int16", old_score_3, new_score_3)
+		end
+		drawScore()
+	end
+	function drawScore() do
+		log!function_called(DEBUG_ID, "drawScore", "void_", "", "")
+		do
+			readonly var r_399 : UInt8 = 158
+			readonly var g_400 : UInt8 = 209
+			readonly var b_401 : UInt8 = 130
+			display!setColor(r_399, g_400, b_401)
+			readonly var params_402 : String = "" + ("r=" + (r_399 as String + ",")) + ("g=" + (g_400 as String + ",")) + ("b=" + (b_401 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_402)
+		end
+		do
+			readonly var r_403 : UInt8 = fgcolor [0]
+			readonly var g_404 : UInt8 = fgcolor [1]
+			readonly var b_405 : UInt8 = fgcolor [2]
+			display!setBGColor(r_403, g_404, b_405)
+			readonly var params_406 : String = "" + ("r=" + (r_403 as String + ",")) + ("g=" + (g_404 as String + ",")) + ("b=" + (b_405 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setBGColor", params_406)
+		end
+		do
+			readonly var x_407 : UInt8 = 58
+			readonly var y_408 : UInt8 = 2
+			readonly var v_409 : Int16 = score
+			readonly var digits_410 : UInt8 = 5
+			readonly var scale_411 : UInt8 = 2
+			display!drawInteger(x_407, y_408, v_409, digits_410, scale_411)
+			readonly var params_412 : String = "" + ("x=" + (x_407 as String + ",")) + ("y=" + (y_408 as String + ",")) + ("v=" + (v_409 as String + ",")) + ("digits=" + (digits_410 as String + ",")) + ("scale=" + (scale_411 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "drawInteger", params_412)
+		end
+	end
+	function drawLives() do
+		log!function_called(DEBUG_ID, "drawLives", "void_", "", "")
+		do
+			readonly var r_413 : UInt8 = fgcolor [0]
+			readonly var g_414 : UInt8 = fgcolor [1]
+			readonly var b_415 : UInt8 = fgcolor [2]
+			display!setColor(r_413, g_414, b_415)
+			readonly var params_416 : String = "" + ("r=" + (r_413 as String + ",")) + ("g=" + (g_414 as String + ",")) + ("b=" + (b_415 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_416)
+		end
+		do
+			readonly var x_417 : UInt8 = 124
+			readonly var y_418 : UInt8 = 4
+			readonly var width_419 : UInt8 = 24 + 6
+			readonly var height_420 : UInt8 = 6
+			display!fillRect(x_417, y_418, width_419, height_420)
+			readonly var params_421 : String = "" + ("x=" + (x_417 as String + ",")) + ("y=" + (y_418 as String + ",")) + ("width=" + (width_419 as String + ",")) + ("height=" + (height_420 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "fillRect", params_421)
+		end
+		do
+			readonly var r_422 : UInt8 = 183
+			readonly var g_423 : UInt8 = 199
+			readonly var b_424 : UInt8 = 111
+			display!setColor(r_422, g_423, b_424)
+			readonly var params_425 : String = "" + ("r=" + (r_422 as String + ",")) + ("g=" + (g_423 as String + ",")) + ("b=" + (b_424 as String + ","))
+			log!message_sent(DEBUG_ID, "display", "setColor", params_425)
+		end
+		var i : UInt8 = 0
+		while (i < lives) do
+			do
+				readonly var x_426 : UInt8 = 124 + (2 - i) * 12
+				readonly var y_427 : UInt8 = 4
+				readonly var width_428 : UInt8 = 6
+				readonly var height_429 : UInt8 = 6
+				display!fillRect(x_426, y_427, width_428, height_429)
+				readonly var params_430 : String = "" + ("x=" + (x_426 as String + ",")) + ("y=" + (y_427 as String + ",")) + ("width=" + (width_428 as String + ",")) + ("height=" + (height_429 as String + ","))
+				log!message_sent(DEBUG_ID, "display", "fillRect", params_430)
+			end
+			i = i + 1
+		end
+	end
+	statechart SC init INIT {
+		state INIT {
+			on entry do
+				startTime = timestamp()
+				do
+					readonly var xsize_431 : UInt8 = XDISPSIZE
+					readonly var ysize_432 : UInt8 = YDISPSIZE
+					display!create(xsize_431, ysize_432)
+					readonly var params_433 : String = "" + ("xsize=" + (xsize_431 as String + ",")) + ("ysize=" + (ysize_432 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "create", params_433)
+				end
+			end
+			transition -> LAUNCH
+			event display?displayReady
+			action do
+				log!message_handled(DEBUG_ID, "SC.INIT", "SC.LAUNCH", "display", "displayReady", "_")
+				do
+					do
+						display!clear()
+						log!message_sent(DEBUG_ID, "display", "clear", "")
+					end
+					initColors()
+					do
+						readonly var r_434 : UInt8 = bgcolor [0]
+						readonly var g_435 : UInt8 = bgcolor [1]
+						readonly var b_436 : UInt8 = bgcolor [2]
+						display!setColor(r_434, g_435, b_436)
+						readonly var params_437 : String = "" + ("r=" + (r_434 as String + ",")) + ("g=" + (g_435 as String + ",")) + ("b=" + (b_436 as String + ","))
+						log!message_sent(DEBUG_ID, "display", "setColor", params_437)
+					end
+					do
+						readonly var x_438 : UInt8 = 0
+						readonly var y_439 : UInt8 = 0
+						readonly var width_440 : UInt8 = XDISPSIZE
+						readonly var height_441 : UInt8 = YDISPSIZE
+						display!fillRect(x_438, y_439, width_440, height_441)
+						readonly var params_442 : String = "" + ("x=" + (x_438 as String + ",")) + ("y=" + (y_439 as String + ",")) + ("width=" + (width_440 as String + ",")) + ("height=" + (height_441 as String + ","))
+						log!message_sent(DEBUG_ID, "display", "fillRect", params_442)
+					end
+					do
+						readonly var r_443 : UInt8 = fgcolor [0]
+						readonly var g_444 : UInt8 = fgcolor [1]
+						readonly var b_445 : UInt8 = fgcolor [2]
+						display!setColor(r_443, g_444, b_445)
+						readonly var params_446 : String = "" + ("r=" + (r_443 as String + ",")) + ("g=" + (g_444 as String + ",")) + ("b=" + (b_445 as String + ","))
+						log!message_sent(DEBUG_ID, "display", "setColor", params_446)
+					end
+					do
+						readonly var x_447 : UInt8 = 0
+						readonly var y_448 : UInt8 = 0
+						readonly var width_449 : UInt8 = XDISPSIZE
+						readonly var height_450 : UInt8 = 14
+						display!fillRect(x_447, y_448, width_449, height_450)
+						readonly var params_451 : String = "" + ("x=" + (x_447 as String + ",")) + ("y=" + (y_448 as String + ",")) + ("width=" + (width_449 as String + ",")) + ("height=" + (height_450 as String + ","))
+						log!message_sent(DEBUG_ID, "display", "fillRect", params_451)
+					end
+					drawWalls()
+					createBricks()
+					drawLevel()
+				end
+			end
+		}
+		state LAUNCH {
+			property countdown : UInt8
+			on entry do
+				do
+					readonly var id_452 : UInt8 = 0
+					readonly var time_453 : UInt16 = period
+					clock!timer_start(id_452, time_453)
+					readonly var params_454 : String = "" + ("id=" + (id_452 as String + ",")) + ("time=" + (time_453 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_start", params_454)
+				end
+				do
+					readonly var old_countdown_31 : String = "" + countdown as String
+					countdown = 3
+					readonly var new_countdown_31 : String = "" + countdown as String
+					log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_31, new_countdown_31)
+				end
+				drawScore()
+				drawLives()
+				do
+					display!update()
+					log!message_sent(DEBUG_ID, "display", "update", "")
+				end
+			end
+			internal
+			event t : clock?timer_timeout
+			guard t.id == 0 and countdown > 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.LAUNCH", "_", "clock", "timer_timeout", params)
+				do
+					do
+						readonly var id_455 : UInt8 = 0
+						readonly var time_456 : UInt16 = period
+						clock!timer_start(id_455, time_456)
+						readonly var params_457 : String = "" + ("id=" + (id_455 as String + ",")) + ("time=" + (time_456 as String + ","))
+						log!message_sent(DEBUG_ID, "clock", "timer_start", params_457)
+					end
+					drawPad()
+					if ((countdown % 30) == 0) drawCountDown(countdown as Int16 / 30)
+					do
+						readonly var old_countdown_32 : String = "" + countdown as String
+						countdown = countdown - 1
+						readonly var new_countdown_32 : String = "" + countdown as String
+						log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_32, new_countdown_32)
+					end
+					do
+						display!update()
+						log!message_sent(DEBUG_ID, "display", "update", "")
+					end
+				end
+			end
+			transition -> PLAY
+			event t : clock?timer_timeout
+			guard t.id == 0 and countdown == 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.LAUNCH", "SC.PLAY", "clock", "timer_timeout", params)
+				do
+					drawCountDown(0)
+					resetBall()
+					do
+						display!update()
+						log!message_sent(DEBUG_ID, "display", "update", "")
+					end
+				end
+			end
+		}
+		state PLAY {
+			on entry do
+				do
+					readonly var id_458 : UInt8 = 0
+					readonly var time_459 : UInt16 = period
+					clock!timer_start(id_458, time_459)
+					readonly var params_460 : String = "" + ("id=" + (id_458 as String + ",")) + ("time=" + (time_459 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_start", params_460)
+				end
+			end
+			internal
+			event t : clock?timer_timeout
+			guard t.id == 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.PLAY", "_", "clock", "timer_timeout", params)
+				do
+					do
+						readonly var old_bx_5 : String = "" + bx as String
+						bx = bx + dx
+						readonly var new_bx_5 : String = "" + bx as String
+						log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_5, new_bx_5)
+					end
+					do
+						readonly var old_by_28 : String = "" + by as String
+						by = by + dy
+						readonly var new_by_28 : String = "" + by as String
+						log!property_changed(DEBUG_ID, "by", "Int16", old_by_28, new_by_28)
+					end
+					var wl : Int16 = LEFT + br
+					var wr : Int16 = RIGHT - br
+					var wt : Int16 = TOP + br
+					var wb : Int16 = BOTTOM - br
+					if (bx < wl) do
+						do
+							readonly var old_dx_20 : String = "" + dx as String
+							dx = -dx
+							readonly var new_dx_20 : String = "" + dx as String
+							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_20, new_dx_20)
+						end
+						do
+							readonly var old_bx_6 : String = "" + bx as String
+							bx = 2 * wl - bx
+							readonly var new_bx_6 : String = "" + bx as String
+							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_6, new_bx_6)
+						end
+						incrementScore(-1)
+					end
+					else if (bx > wr) do
+						do
+							readonly var old_dx_21 : String = "" + dx as String
+							dx = -dx
+							readonly var new_dx_21 : String = "" + dx as String
+							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_21, new_dx_21)
+						end
+						do
+							readonly var old_bx_7 : String = "" + bx as String
+							bx = 2 * wr - bx
+							readonly var new_bx_7 : String = "" + bx as String
+							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_7, new_bx_7)
+						end
+						incrementScore(-1)
+					end
+					if (by < wt) do
+						do
+							readonly var old_dy_9 : String = "" + dy as String
+							dy = -dy
+							readonly var new_dy_9 : String = "" + dy as String
+							log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_9, new_dy_9)
+						end
+						do
+							readonly var old_by_29 : String = "" + by as String
+							by = 2 * wt - by
+							readonly var new_by_29 : String = "" + by as String
+							log!property_changed(DEBUG_ID, "by", "Int16", old_by_29, new_by_29)
+						end
+						incrementScore(-1)
+					end
+					else if (by > wb) do
+						do
+							game!lostBall()
+							log!message_sent(DEBUG_ID, "game", "lostBall", "")
+						end
+						do
+							req_game!lostBall()
+							log!message_sent(DEBUG_ID, "req_game", "lostBall", "")
+						end
+					end
+					if (dy > 0) do
+						if (by > pady - br and by < pady + br) do
+							if (bx > padx - padlen / 2 and bx < padx + padlen / 2) do
+								do
+									readonly var old_dy_10 : String = "" + dy as String
+									dy = -dy
+									readonly var new_dy_10 : String = "" + dy as String
+									log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_10, new_dy_10)
+								end
+								do
+									readonly var old_by_30 : String = "" + by as String
+									by = 2 * (pady - br) - by
+									readonly var new_by_30 : String = "" + by as String
+									log!property_changed(DEBUG_ID, "by", "Int16", old_by_30, new_by_30)
+								end
+								do
+									readonly var old_dx_22 : String = "" + dx as String
+									dx = dx / 4 + (bx - padx) / 4
+									readonly var new_dx_22 : String = "" + dx as String
+									log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_22, new_dx_22)
+								end
+							end
+						end
+					end
+					var collision : Boolean = collideBrick(bx - br, by - br)or collideBrick(bx + br, by - br)or collideBrick(bx + br, by + br)or collideBrick(bx - br, by + br)
+					if (collision) do
+						do
+							readonly var old_dy_11 : String = "" + dy as String
+							dy = -dy
+							readonly var new_dy_11 : String = "" + dy as String
+							log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_11, new_dy_11)
+						end
+						incrementScore(10)
+						if (bricksLeft()== 0) do
+							do
+								game!nextLevel()
+								log!message_sent(DEBUG_ID, "game", "nextLevel", "")
+							end
+							do
+								req_game!nextLevel()
+								log!message_sent(DEBUG_ID, "req_game", "nextLevel", "")
+							end
+						end
+					end
+					drawBall()
+					drawPad()
+					do
+						readonly var ballx_461 : Int16 = bx
+						readonly var bally_462 : Int16 = by
+						readonly var padx_463 : Int16 = padx
+						readonly var pady_464 : Int16 = pady
+						ia!updateIA(ballx_461, bally_462, padx_463, pady_464)
+						readonly var params_465 : String = "" + ("ballx=" + (ballx_461 as String + ",")) + ("bally=" + (bally_462 as String + ",")) + ("padx=" + (padx_463 as String + ",")) + ("pady=" + (pady_464 as String + ","))
+						log!message_sent(DEBUG_ID, "ia", "updateIA", params_465)
+					end
+					do
+						display!update()
+						log!message_sent(DEBUG_ID, "display", "update", "")
+					end
+					log(false)
+					do
+						readonly var id_466 : UInt8 = 0
+						readonly var time_467 : UInt16 = period
+						clock!timer_start(id_466, time_467)
+						readonly var params_468 : String = "" + ("id=" + (id_466 as String + ",")) + ("time=" + (time_467 as String + ","))
+						log!message_sent(DEBUG_ID, "clock", "timer_start", params_468)
+					end
+				end
+			end
+			transition -> LOSTBALL
+			event game?lostBall
+			action do
+				log!message_handled(DEBUG_ID, "SC.PLAY", "SC.LOSTBALL", "game", "lostBall", "_")
+				do
+					readonly var id_469 : UInt8 = 0
+					clock!timer_cancel(id_469)
+					readonly var params_470 : String = "" + ("id=" + (id_469 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_cancel", params_470)
+				end
+			end
+			transition -> NEXTLEVEL
+			event game?nextLevel
+			action do
+				log!message_handled(DEBUG_ID, "SC.PLAY", "SC.NEXTLEVEL", "game", "nextLevel", "_")
+				do
+					readonly var id_471 : UInt8 = 0
+					clock!timer_cancel(id_471)
+					readonly var params_472 : String = "" + ("id=" + (id_471 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_cancel", params_472)
+				end
+			end
+			transition -> LOSTBALL
+			event pro_game?lostBall
+			action do
+				log!message_handled(DEBUG_ID, "SC.PLAY", "SC.LOSTBALL", "pro_game", "lostBall", "_")
+				do
+					readonly var id_473 : UInt8 = 0
+					clock!timer_cancel(id_473)
+					readonly var params_474 : String = "" + ("id=" + (id_473 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_cancel", params_474)
+				end
+			end
+			transition -> NEXTLEVEL
+			event pro_game?nextLevel
+			action do
+				log!message_handled(DEBUG_ID, "SC.PLAY", "SC.NEXTLEVEL", "pro_game", "nextLevel", "_")
+				do
+					readonly var id_475 : UInt8 = 0
+					clock!timer_cancel(id_475)
+					readonly var params_476 : String = "" + ("id=" + (id_475 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_cancel", params_476)
+				end
+			end
+		}
+		state LOSTBALL {
+			on entry do
+				do
+					readonly var id_477 : UInt8 = 0
+					readonly var time_478 : UInt16 = period
+					clock!timer_start(id_477, time_478)
+					readonly var params_479 : String = "" + ("id=" + (id_477 as String + ",")) + ("time=" + (time_478 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_start", params_479)
+				end
+				do
+					readonly var old_lives_0 : String = "" + lives as String
+					lives = lives - 1
+					readonly var new_lives_0 : String = "" + lives as String
+					log!property_changed(DEBUG_ID, "lives", "UInt8", old_lives_0, new_lives_0)
+				end
+				eraseBall()
+				erasePad()
+				drawLives()
+				do
+					display!update()
+					log!message_sent(DEBUG_ID, "display", "update", "")
+				end
+				log(true)
+			end
+			transition -> LAUNCH
+			event t : clock?timer_timeout
+			guard t.id == 0 and lives > 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.LOSTBALL", "SC.LAUNCH", "clock", "timer_timeout", params)
+			end
+			transition -> GAMEOVER
+			event t : clock?timer_timeout
+			guard t.id == 0 and lives == 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.LOSTBALL", "SC.GAMEOVER", "clock", "timer_timeout", params)
+			end
+		}
+		state NEXTLEVEL {
+			on entry do
+				do
+					readonly var id_480 : UInt8 = 0
+					readonly var time_481 : UInt16 = period
+					clock!timer_start(id_480, time_481)
+					readonly var params_482 : String = "" + ("id=" + (id_480 as String + ",")) + ("time=" + (time_481 as String + ","))
+					log!message_sent(DEBUG_ID, "clock", "timer_start", params_482)
+				end
+				do
+					readonly var old_level_15 : String = "" + level as String
+					level = level + 1
+					readonly var new_level_15 : String = "" + level as String
+					log!property_changed(DEBUG_ID, "level", "UInt8", old_level_15, new_level_15)
+				end
+				drawLevel()
+				eraseBall()
+				erasePad()
+				if ((level % 2) == 0 and padlen > 5 * SCALE) do
+					readonly var old_padlen_1 : String = "" + padlen as String
+					padlen = padlen - (4 * SCALE)
+					readonly var new_padlen_1 : String = "" + padlen as String
+					log!property_changed(DEBUG_ID, "padlen", "Int16", old_padlen_1, new_padlen_1)
+				end
+				if ((level % 2) == 1) do
+					readonly var old_dy_12 : String = "" + dy as String
+					dy = (dy * 3) / 2
+					readonly var new_dy_12 : String = "" + dy as String
+					log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_12, new_dy_12)
+				end
+				drawLives()
+				createBricks()
+				do
+					display!update()
+					log!message_sent(DEBUG_ID, "display", "update", "")
+				end
+			end
+			transition -> LAUNCH
+			event t : clock?timer_timeout
+			guard t.id == 0
+			action do
+				readonly var params : String = "" + ("id=" + (t.id as String + ","))
+				log!message_handled(DEBUG_ID, "SC.NEXTLEVEL", "SC.LAUNCH", "clock", "timer_timeout", params)
+			end
+		}
+		final state GAMEOVER {
+			on entry do
+				eraseBall()
+				erasePad()
+				do
+					readonly var r_483 : UInt8 = 255
+					readonly var g_484 : UInt8 = 255
+					readonly var b_485 : UInt8 = 255
+					display!setColor(r_483, g_484, b_485)
+					readonly var params_486 : String = "" + ("r=" + (r_483 as String + ",")) + ("g=" + (g_484 as String + ",")) + ("b=" + (b_485 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "setColor", params_486)
+				end
+				do
+					readonly var x_487 : UInt8 = 8
+					readonly var y_488 : UInt8 = 30
+					readonly var width_489 : UInt8 = 142
+					readonly var height_490 : UInt8 = 76
+					display!fillRect(x_487, y_488, width_489, height_490)
+					readonly var params_491 : String = "" + ("x=" + (x_487 as String + ",")) + ("y=" + (y_488 as String + ",")) + ("width=" + (width_489 as String + ",")) + ("height=" + (height_490 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "fillRect", params_491)
+				end
+				do
+					readonly var r_492 : UInt8 = fgcolor [0]
+					readonly var g_493 : UInt8 = fgcolor [1]
+					readonly var b_494 : UInt8 = fgcolor [2]
+					display!setColor(r_492, g_493, b_494)
+					readonly var params_495 : String = "" + ("r=" + (r_492 as String + ",")) + ("g=" + (g_493 as String + ",")) + ("b=" + (b_494 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "setColor", params_495)
+				end
+				do
+					readonly var x_496 : UInt8 = 9
+					readonly var y_497 : UInt8 = 31
+					readonly var width_498 : UInt8 = 140
+					readonly var height_499 : UInt8 = 50
+					display!fillRect(x_496, y_497, width_498, height_499)
+					readonly var params_500 : String = "" + ("x=" + (x_496 as String + ",")) + ("y=" + (y_497 as String + ",")) + ("width=" + (width_498 as String + ",")) + ("height=" + (height_499 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "fillRect", params_500)
+				end
+				do
+					readonly var r_501 : UInt8 = fgcolor [0]
+					readonly var g_502 : UInt8 = fgcolor [1]
+					readonly var b_503 : UInt8 = fgcolor [2]
+					display!setBGColor(r_501, g_502, b_503)
+					readonly var params_504 : String = "" + ("r=" + (r_501 as String + ",")) + ("g=" + (g_502 as String + ",")) + ("b=" + (b_503 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "setBGColor", params_504)
+				end
+				do
+					readonly var r_505 : UInt8 = 158
+					readonly var g_506 : UInt8 = 209
+					readonly var b_507 : UInt8 = 130
+					display!setColor(r_505, g_506, b_507)
+					readonly var params_508 : String = "" + ("r=" + (r_505 as String + ",")) + ("g=" + (g_506 as String + ",")) + ("b=" + (b_507 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "setColor", params_508)
+				end
+				do
+					readonly var x_509 : UInt8 = 23
+					readonly var y_510 : UInt8 = 40
+					readonly var v_511 : Int16 = score
+					readonly var digits_512 : UInt8 = 5
+					readonly var scale_513 : UInt8 = 6
+					display!drawInteger(x_509, y_510, v_511, digits_512, scale_513)
+					readonly var params_514 : String = "" + ("x=" + (x_509 as String + ",")) + ("y=" + (y_510 as String + ",")) + ("v=" + (v_511 as String + ",")) + ("digits=" + (digits_512 as String + ",")) + ("scale=" + (scale_513 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "drawInteger", params_514)
+				end
+				do
+					readonly var x_515 : UInt8 = 26
+					readonly var y_516 : UInt8 = 87
+					display!drawThingML(x_515, y_516)
+					readonly var params_517 : String = "" + ("x=" + (x_515 as String + ",")) + ("y=" + (y_516 as String + ","))
+					log!message_sent(DEBUG_ID, "display", "drawThingML", params_517)
+				end
+				do
+					display!update()
+					log!message_sent(DEBUG_ID, "display", "update", "")
+				end
+				log(true)
+				stopTime = timestamp()
+				quit()
+			end
+		}
+		internal
+		event e : controller?position
+		action do
+			readonly var params : String = "" + ("x=" + (e.x as String + ",")) + ("y=" + (e.y as String + ","))
+			log!message_handled(DEBUG_ID, "SC", "_", "controller", "position", params)
+			do
+				var center : Int32 = (RIGHT as Int32 - LEFT as Int32 - padlen as Int32)
+				center = e.x as Int32 * center
+				center = center / 200
+				do
+					readonly var old_padx_26 : String = "" + padx as String
+					padx = (LEFT as Int32 + center + (RIGHT as Int32 - LEFT as Int32) / 2) as Int16
+					readonly var new_padx_26 : String = "" + padx as String
+					log!property_changed(DEBUG_ID, "padx", "Int16", old_padx_26, new_padx_26)
+				end
+			end
+		end
+		internal
+		event e : clock?timer_timeout
+		guard true
+		action do
+			readonly var params : String = "" + ("id=" + (e.id as String + ","))
+			log!message_lost(DEBUG_ID, "clock", "timer_timeout", params)
+		end
+		internal
+		event e : display?displayReady
+		guard true
+		action do
+			log!message_lost(DEBUG_ID, "display", "displayReady", "")
+		end
+		internal
+		event e : game?lostBall
+		guard true
+		action do
+			log!message_lost(DEBUG_ID, "game", "lostBall", "")
+		end
+		internal
+		event e : game?nextLevel
+		guard true
+		action do
+			log!message_lost(DEBUG_ID, "game", "nextLevel", "")
+		end
+		internal
+		event e : pro_game?lostBall
+		guard true
+		action do
+			log!message_lost(DEBUG_ID, "pro_game", "lostBall", "")
+		end
+		internal
+		event e : pro_game?nextLevel
+		guard true
+		action do
+			log!message_lost(DEBUG_ID, "pro_game", "nextLevel", "")
+		end
+	}
+}
+thing fragment LogMsgs {
+	message log_on()
+	message log_off()
+	message function_called(inst : String, fn_name : String, ty : String, returns : String, params : String)
+	message property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String)
+	message message_sent(inst : String, port_name : String, msg_name : String, params : String)
+	message message_lost(inst : String, port_name : String, msg_name : String, params : String)
+	message message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String)
+}
+thing fragment WithLog includes LogMsgs {
+	required port log @sync_send `true` {
+		sends function_called sends property_changed sends message_lost sends message_handled sends message_sent
+	}
+	readonly property DEBUG_ID : String
+}
+thing fragment Logger includes LogMsgs {
+	provided port log {
+		receives function_called receives property_changed receives message_lost receives message_handled receives message_sent receives log_on receives log_off
+	}
+	readonly property ACTIVATE_ON_STARTUP : Boolean
+	abstract function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String)
+
+	abstract function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String)
+
+	abstract function log_message_lost(inst : String, port_name : String, msg_name : String, params : String)
+
+	abstract function log_message_sent(inst : String, port_name : String, msg_name : String, params : String)
+
+	abstract function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String)
+
+	statechart init STARTUP {
+		state STARTUP {
+			transition -> ON guard ACTIVATE_ON_STARTUP
+			transition -> OFF guard not ACTIVATE_ON_STARTUP
+		}
+		state ON {
+			internal
+			event d : log?function_called
+			action log_function_called(d.inst, d.fn_name, d.ty, d.returns, d.params)
+			internal
+			event d : log?property_changed
+			action log_property_changed(d.inst, d.prop_name, d.ty, d.old_value, d.new_value)
+			internal
+			event d : log?message_lost
+			action log_message_lost(d.inst, d.port_name, d.msg_name, d.params)
+			internal
+			event d : log?message_sent
+			action log_message_sent(d.inst, d.port_name, d.msg_name, d.params)
+			internal
+			event d : log?message_handled
+			action log_message_handled(d.inst, d.source, d.target, d.port_name, d.msg_name, d.params)
+			transition -> OFF
+			event log?log_off
+		}
+		state OFF {
+			transition -> ON
+			event log?log_on
+		}
+	}
+}
+thing ConsoleLogger includes Logger @stdout_sync `true` {
+	function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String) println "function_called(" , inst , ", " , fn_name , ", " , ty , ", " , returns , ", " , params , ")"
+	function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String) println "property_changed(" , inst , ", " , prop_name , ", " , ty , ", " , old_value , ", " , new_value , ")"
+	function log_message_lost(inst : String, port_name : String, msg_name : String, params : String) println "message_lost(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
+	function log_message_sent(inst : String, port_name : String, msg_name : String, params : String) println "message_sent(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
+	function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String) println "message_handled(" , inst , ", " , source , ", " , target , ", " , port_name , ", " , msg_name , ", " , params , ")"
+}
+thing fragment DisplayMsgs {
+	message clear()
+	message setColor(r : UInt8, g : UInt8, b : UInt8)
+	message setBGColor(r : UInt8, g : UInt8, b : UInt8)
+	message drawRect(x : UInt8, y : UInt8, width : UInt8, height : UInt8)
+	message fillRect(x : UInt8, y : UInt8, width : UInt8, height : UInt8)
+	message drawInteger(x : UInt8, y : UInt8, v : Int16, digits : UInt8, scale : UInt8)
+	message drawThingML(x : UInt8, y : UInt8)
+	message create(xsize : UInt8, ysize : UInt8)
+	message destroy()
+	message update()
+	message displayReady()
+}
+thing HeadlessDisplay includes DisplayMsgs {
+	provided port display {
+		sends displayReady receives create receives destroy receives update receives clear receives setColor receives setBGColor receives drawRect receives fillRect receives drawInteger receives drawThingML
+	}
+	function mock() do
+	end
+	statechart init INIT {
+		state INIT {
+			on entry display!displayReady()
+			transition -> MOCK
+		}
+		state MOCK {
+			internal
+			event display?create
+			action mock()
+			internal
+			event display?destroy
+			action mock()
+			internal
+			event display?update
+			action mock()
+			internal
+			event display?clear
+			action mock()
+			internal
+			event display?setColor
+			action mock()
+			internal
+			event display?setBGColor
+			action mock()
+			internal
+			event display?drawRect
+			action mock()
+			internal
+			event display?fillRect
+			action mock()
+			internal
+			event display?drawInteger
+			action mock()
+			internal
+			event display?drawThingML
+			action mock()
+		}
+	}
+}
+thing fragment ControllerMsgs {
+	message velocity(dx : Int16, dy : Int16)
+	message position(x : Int16, y : Int16)
+}
+thing fragment Controller includes ControllerMsgs {
+	provided port controls {
+		sends position
+	}
+}
+thing fragment IAControllerMsg {
+	message updateIA(ballx : Int16, bally : Int16, padx : Int16, pady : Int16)
+}
+thing fragment IAController includes Controller , IAControllerMsg {
+	required port game {
+		receives updateIA
+	}
+}
+thing BasicIAController includes IAController {
+	property ctrlx : Int16 = 0
+	statechart SC init Following {
+		state Following {
+			on entry controls!position(ctrlx, 0)
+			transition -> Following
+			event e : game?updateIA
+			action do
+				if (e.ballx > e.padx + 400) ctrlx = ctrlx + 4
+				else if (e.ballx < e.padx - 400) ctrlx = ctrlx - 4
+				if (ctrlx < -100) ctrlx = -100
+				else if (ctrlx > 100) ctrlx = 100
+			end
+		}
+	}
+}
+datatype Byte<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+	@go_type `byte`
+datatype Char<1>
+	@type_checker `Integer`
+	@c_type `char`
+	@java_type `byte`
+	@js_type `byte`
+	@go_type `byte`
+datatype Boolean<1>
+	@type_checker `Boolean`
+	@c_type `bool`
+	@java_type `boolean`
+	@js_type `boolean`
+	@go_type `bool`
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `uint8`
+datatype Int8<1>
+	@type_checker `Integer`
+	@c_type `int8_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int8`
+datatype UInt16<2>
+	@type_checker `Integer`
+	@c_type `uint16_t`
+	@java_type `int`
+	@js_type `int`
+	@go_type `uint16`
+datatype Int16<2>
+	@type_checker `Integer`
+	@c_type `int16_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int16`
+datatype Int32<4>
+	@type_checker `Integer`
+	@c_type `int32_t`
+	@java_type `long`
+	@js_type `int`
+	@go_type `int32`
+datatype UInt32<4>
+	@type_checker `Integer`
+	@c_type `uint32_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint32`
+datatype Long<4>
+	@type_checker `Integer`
+	@c_type `uint32_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint32`
+datatype Int64<8>
+	@type_checker `Integer`
+	@c_type `int64_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `int64`
+datatype UInt64<8>
+	@type_checker `Integer`
+	@c_type `uint64_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint64`
+datatype Integer<2>
+	@type_checker `Integer`
+	@c_type `int16_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int16`
+datatype Float<4>
+	@type_checker `Real`
+	@c_type `float`
+	@java_type `float`
+	@js_type `float`
+	@go_type `float32`
+datatype Double<8>
+	@type_checker `Real`
+	@c_type `double`
+	@java_type `double`
+	@js_type `double`
+	@go_type `float64`
+object String
+	@serializable
+	@c_type `char *`
+	@arduino_type `String`
+	@java_type `String`
+	@js_type `String`
+	@go_type `string`
+enumeration DigitalState as UInt8 {
+	LOW = 0
+	HIGH = 1
+}
+thing fragment TimerMsgs @stl {
+	message timer_start(id : UInt8, time : UInt16)
+	message timer_cancel(id : UInt8)
+	message timer_timeout(id : UInt8)
+}
+thing fragment TimerClientPort includes TimerMsgs @stl {
+	required port timer {
+		sends timer_start sends timer_cancel receives timer_timeout
+	}
+}
+thing fragment Timer includes TimerMsgs @stl {
+	provided port timer {
+		sends timer_timeout receives timer_start receives timer_cancel
+	}
+}
+thing TimerJava includes Timer @stl @java_import `import java.util.*;` @java_features `
+	Hashtable<Integer, TimerTask> tasks = new Hashtable<Integer, TimerTask>();
+	Timer timer = new java.util.Timer();` {
+	function startTimer(id : UInt8, delay : UInt16) do
+		cancel(id)
+		`final int t_id = ` & id & `;`
+	`TimerTask t =  new TimerTask() { public void run(){`
+		timer!timer_timeout(`t_id` as UInt8)
+		`
+        } };
+        tasks.put(t_id, t);
+        timer.schedule(t, ` & delay & `);`
+	end
+	function cancel(id : UInt8) do
+		`TimerTask t = tasks.get(` & id & `);`
+	`if (t != null) t.cancel();`
+	`timer.purge();`
+	end
+	statechart SoftTimer init default {
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object JSArray
+thing TimerJS includes Timer @stl {
+	property Timeouts : JSArray = `{}` as JSArray
+	function startTimer(id : UInt8, delay : UInt16) do
+		`
+      if (` & Timeouts & `[` & id & `] != undefined) {
+        `
+		cancel(id)
+		`
+      }
+      
+      ` & Timeouts & `[` & id & `] = setTimeout(() => {
+        `
+		timer!timer_timeout(id)
+		`
+        ` & Timeouts & `[` & id & `] = undefined;
+      }, ` & delay & `);
+    `
+	end
+	function cancel(id : UInt8) do
+		`
+        if (` & Timeouts & `[` & id & `] != undefined) {
+          clearTimeout(` & Timeouts & `[` & id & `]);
+          ` & Timeouts & `[` & id & `] = undefined;
+        }
+      `
+	end
+	statechart SoftTimer init default {
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object DriftLess
+thing TimerNodeJS includes Timer @stl @js_dep `driftless:2.0.3` {
+	property Timeouts : JSArray = `{}` as JSArray
+	readonly property driftless : DriftLess = `require('driftless')` as DriftLess
+	function startTimer(id : UInt8, delay : UInt16) do
+		`
+      if (` & Timeouts & `[` & id & `] != undefined) {
+        `
+		cancel(id)
+		`
+      }
+      
+      ` & Timeouts & `[` & id & `] = ` & driftless & `.setDriftlessTimeout(() => {
+        `
+		timer!timer_timeout(id)
+		`
+        ` & Timeouts & `[` & id & `] = undefined;
+      }, ` & delay & `);
+    `
+	end
+	function cancel(id : UInt8) do
+		`
+        if (` & Timeouts & `[` & id & `] != undefined) {
+          ` & driftless & `.clearDriftless(` & Timeouts & `[` & id & `]);
+          ` & Timeouts & `[` & id & `] = undefined;
+        }
+      `
+	end
+	statechart SoftTimer init default {
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+thing TimerPosix includes Timer @stl @c_header `
+#include <time.h>
+#include <unistd.h>
+#include <pthread.h>
+
+#define NB_SOFT_TIMERS 16
+` @c_global `uint32_t Timer_timeouts[NB_SOFT_TIMERS];
+uint8_t  Timer_wraps[NB_SOFT_TIMERS];
+uint32_t Timer_prev;
+pthread_mutex_t Timer_mut;` {
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16
+	readonly property SOFT_TIMER_PERIOD : UInt16 = 50
+	function time_ms() : UInt32 do
+	`struct timespec current;
+		int res;
+		uint32_t millis = 0;
+		
+		res = clock_gettime(CLOCK_MONOTONIC, &current);
+		if (res != 0) {
+			  perror("[ERROR]: Could not get current time : ");
+		 } else {
+			  millis  =  current.tv_sec * 1000;
+			  millis += current.tv_nsec / 1000000;
+		}`
+		return `millis` as UInt32
+	end
+	function sleep_ms(timeout_ms : UInt16) do
+		`struct timeval tv;
+        tv.tv_sec = ` & timeout_ms & `/1000;
+        tv.tv_usec = (` & timeout_ms & `%1000) * 1000;
+        select(0, NULL, NULL, NULL, &tv);`
+	end
+	function initialize() do
+		`pthread_mutex_init(&Timer_mut, NULL);
+	    uint8_t i;
+	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	        Timer_timeouts[i] = 0;
+	        Timer_wraps[i] = 0;
+	    }`
+		start_soft_timer_process()
+	end
+	function start_soft_timer_process() @fork_linux_thread `true` do
+		`Timer_prev = ` & time_ms()& `;`
+		while (true) do
+			sleep_ms(SOFT_TIMER_PERIOD)
+			`pthread_mutex_lock(&Timer_mut);
+	        uint32_t current = ` & time_ms()& `;
+	        uint8_t i;
+	        for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	            if (Timer_timeouts[i] > 0) {
+	                if (current >= Timer_prev) {
+	                    // Normal time progression
+	                    if (current > Timer_timeouts[i] && Timer_wraps[i] == 0) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                        Timer_wraps[i] = 0;
+	                    }
+	                } else {
+	                    // A wraparound has occurred
+	                    if (Timer_wraps[i] == 0) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                    } else {
+	                        Timer_wraps[i] = 0;
+	                        if (current > Timer_timeouts[i]) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	        Timer_prev = current;
+	        pthread_mutex_unlock(&Timer_mut);`
+		end
+	end
+	function startTimer(id : UInt8, delay : UInt16) do
+		`
+    	if (` & id & ` < NB_SOFT_TIMERS) {
+	        uint32_t current = ` & time_ms()& `;
+	        uint32_t timeout = current + ` & delay & `;
+	        if (timeout == 0) timeout = 1;
+	
+	        pthread_mutex_lock(&Timer_mut);
+	        Timer_timeouts[` & id & `] = timeout;
+	        Timer_wraps[` & id & `] = (timeout > current) ? 0 : 1;
+	        pthread_mutex_unlock(&Timer_mut);
+	    }
+    `
+	end
+	function cancel(id : UInt8) do
+		`
+        if (` & id & ` < NB_SOFT_TIMERS) {
+	        pthread_mutex_lock(&Timer_mut);
+	        Timer_timeouts[` & id & `] = 0;
+	        Timer_wraps[` & id & `] = 0;
+	        pthread_mutex_unlock(&Timer_mut);
+	    }
+      `
+	end
+	statechart SoftTimer init default {
+		on entry start_soft_timer_process()
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+thing TimerArduino includes Timer @stl @c_header `
+#define NB_SOFT_TIMERS 32
+` @c_global `uint32_t Timer_timeouts[NB_SOFT_TIMERS];
+uint8_t  Timer_wraps[NB_SOFT_TIMERS];
+uint32_t Timer_prev;` {
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16
+	function time_ms() : UInt32 do
+		return `millis()` as UInt32
+	end
+	function init_arrays() do
+		`uint8_t i;
+	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	        Timer_timeouts[i] = 0;
+	        Timer_wraps[i] = 0;
+	    }
+	    Timer_prev = ` & time_ms()& `;`
+	end
+	function poll_soft_timers() @scheduler_polling `true` do
+		`uint32_t current = ` & time_ms()& `;
+		uint8_t i;
+		for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+		    if (Timer_timeouts[i] > 0) {
+		        if (current >= Timer_prev) {
+		            // Normal time progression
+		            if (current > Timer_timeouts[i] && Timer_wraps[i] == 0) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		                Timer_wraps[i] = 0;
+		            }
+		        } else {
+		            // A wraparound has occurred
+		            if (Timer_wraps[i] == 0) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		            } else {
+		                Timer_wraps[i] = 0;
+		                if (current > Timer_timeouts[i]) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		                }
+		            }
+		        }
+		    }
+		}`
+	end
+	function startTimer(id : UInt8, delay : UInt16) do
+		`
+    	if (` & id & ` < NB_SOFT_TIMERS) {
+	        uint32_t current = ` & time_ms()& `;
+	        uint32_t timeout = current + ` & delay & `;
+	        if (timeout == 0) timeout = 1;
+	
+	        Timer_timeouts[` & id & `] = timeout;
+	        Timer_wraps[` & id & `] = (timeout > current) ? 0 : 1;
+	    }
+    `
+	end
+	function cancel(id : UInt8) do
+		`
+        if (` & id & ` < NB_SOFT_TIMERS) {
+	        Timer_timeouts[` & id & `] = 0;
+	        Timer_wraps[` & id & `] = 0;
+	    }
+      `
+	end
+	statechart SoftTimer init default {
+		on entry init_arrays()
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object TimerMap @go_type `map[uint8]*time.Timer`
+thing TimerGo includes TimerMsgs @stl @go_import `time` {
+	provided port timer {
+		sends timer_timeout receives timer_start receives timer_cancel
+	}
+	property Timers : TimerMap
+	function initialize() do
+		Timers = `make(map[uint8]*time.Timer)` as TimerMap
+	end
+	function startTimer(id : UInt8, delay : UInt16) do
+		cancel(id)
+		`
+    	` & Timers & `[` & id & `] = time.AfterFunc(time.Millisecond*time.Duration(` & delay & `), func() {
+    		`
+		timer!timer_timeout(id)
+	`
+    	})
+    `
+	end
+	function cancel(id : UInt8) do
+		`
+    	if t, ok := ` & Timers & `[` & id & `]; ok {
+    		t.Stop()
+    		delete(` & Timers & `, ` & id & `)
+    	}
+    `
+	end
+	statechart SoftTimer init default {
+		on entry initialize()
+		state default {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+configuration test @arduino_stdout `Serial` @arduino_stdout_baudrate `250000` {
+	instance game : BreakoutGameArduino
+	instance log : ConsoleLogger
+	instance disp : HeadlessDisplay
+	instance timer : TimerArduino
+	instance ctrl : BasicIAController
+	connector game.log => log . log
+	connector game.clock => timer . timer
+	connector game.display => disp . display
+	connector game.req_game => game . pro_game
+	connector game.controller => ctrl . controls
+	connector ctrl.game => game . ia
+	set game.DEBUG_ID = "game"
+	set log.ACTIVATE_ON_STARTUP = true
+}

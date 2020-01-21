@@ -1,0 +1,1962 @@
+thing BreakoutGameArduino includes BreakoutGame @c_global `extern char *__brkval;` {
+	readonly property RAM_SIZE : Integer = 2048 @id `0`
+	function quit() @monitor `not` do
+		println ">done in " , stopTime - startTime , "ms!"
+		println ">lives:" , lives , ",score:" , score , ",level:" , level , ",bx:" , bx , ",by:" , by , ",padx:" , padx
+		println ">usedMem:" , usedMemory()
+	end
+	function timestamp() : UInt32 @monitor `not` do
+		return `millis()` as UInt32
+	end
+	function usedMemory() : UInt32 @monitor `not` do
+	`char top;`
+		return RAM_SIZE - `(__brkval ? &top - __brkval : &top - __malloc_heap_start)` as UInt32
+	end
+	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 @id `0` return (`` & variable & ` & ~(1 << ` & bit & `)`) as UInt8
+}
+thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , IAControllerMsg , WithBinaryLog @monitor `functions` @monitor `properties` @monitor `events` @id `0` {
+	message lostBall()
+	@id `1`
+	message nextLevel()
+	@id `2`
+	required port clock @id `1` {
+		sends timer_start sends timer_cancel receives timer_timeout
+	}
+	optional required port display @sync_send `true` @id `2` {
+		sends create sends fillRect sends drawRect sends clear sends setColor sends setBGColor sends drawInteger sends update sends drawThingML receives displayReady
+	}
+	required port controller @id `3` {
+		receives position
+	}
+	provided port ia @id `4` {
+		sends updateIA
+	}
+	internal port game @id `5` {
+		sends lostBall sends nextLevel receives lostBall receives nextLevel
+	}
+	optional required port req_game @id `6` {
+		sends lostBall sends nextLevel
+	}
+	provided port pro_game @id `7` {
+		receives lostBall receives nextLevel
+	}
+	readonly property QUIET : Boolean = true @monitor `not`
+	property startTime : UInt32 @monitor `not`
+	property stopTime : UInt32 @monitor `not`
+	property lastTimestamp : UInt32 = 0 @monitor `not`
+	property counter : UInt8 = 0 @monitor `not`
+	readonly property XDISPSIZE : UInt8 = 160 @id `1`
+	readonly property YDISPSIZE : UInt8 = 128 @id `2`
+	readonly property SCALE : Int16 = 64 @id `3`
+	readonly property XMAX : Int16 = XDISPSIZE as Int16 * SCALE @id `4`
+	readonly property YMAX : Int16 = YDISPSIZE as Int16 * SCALE @id `5`
+	readonly property TOP : Int16 = 14 * SCALE @id `6`
+	readonly property BOTTOM : Int16 = YMAX + 8 * SCALE @id `7`
+	readonly property LEFT : Int16 = 1 * SCALE @id `8`
+	readonly property RIGHT : Int16 = XMAX - 1 * SCALE @id `9`
+	readonly property br : Int16 = 3 * SCALE @id `10`
+	property bx : Int16 = XMAX / 2 @id `11`
+	property by : Int16 = YMAX @id `12`
+	property dx : Int16 = XMAX / 98 @id `13`
+	property dy : Int16 = -XMAX / 65 @id `14`
+	property padx : Int16 = YMAX / 2 @id `15`
+	property pady : Int16 = YMAX - 6 * SCALE @id `16`
+	property padlen : Int16 = 25 * SCALE @id `17`
+	property prevBX : Int16 = -1 @id `18`
+	property prevBY : Int16 = -1 @id `19`
+	property bgcolor : UInt8 [ 3 ] @id `20`
+	property fgcolor : UInt8 [ 3 ] @id `21`
+	readonly property period : UInt16 = 3 @id `22`
+	property prevPX : Int16 = -1 @id `23`
+	property prevPY : Int16 = -1 @id `24`
+	readonly property BRICK_ROWS : UInt8 = 5 @id `25`
+	readonly property BRICK_HEIGHT : UInt8 = 9 @id `26`
+	property bricks : UInt8 [ BRICK_ROWS ] @id `27`
+	property score : Int16 = 0 @id `28`
+	property lives : UInt8 = 3 @id `29`
+	property level : UInt8 = 1 @id `30`
+	abstract function quit() @monitor `not`
+
+	abstract function timestamp() : UInt32 @monitor `not`
+
+	abstract function usedMemory() : UInt32 @monitor `not`
+
+	function log(logMem : Boolean) @monitor `not` do
+		if (counter == 0 or logMem) do
+			var ts : UInt32
+			if (lastTimestamp == 0) do
+				ts = 0
+				lastTimestamp = timestamp()
+			end
+			else do
+				var t : UInt32 = timestamp()
+				ts = t - lastTimestamp
+				lastTimestamp = t
+			end
+			if (not QUIET) do
+				println "ts:" , ts , ",lives:" , lives , ",score:" , score , ",level:" , level , ",bx:" , bx , ",by:" , by , ",padx:" , padx
+				println "#usedMem:" , usedMemory()
+			end
+		end
+		counter ++
+		if (counter == 33) counter = 0
+	end
+	function initColors() @id `1` do
+		bgcolor[0] = 53
+		bgcolor[1] = 40
+		bgcolor[2] = 120
+		fgcolor[0] = 107
+		fgcolor[1] = 94
+		fgcolor[2] = 174
+		do
+			readonly var r_578 : UInt8 = bgcolor [0]
+			readonly var g_579 : UInt8 = bgcolor [1]
+			readonly var b_580 : UInt8 = bgcolor [2]
+			display!setBGColor(r_578, g_579, b_580)
+			readonly var setBGColorsent_log_581 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x08 , r_578 as Byte , g_579 as Byte , b_580 as Byte }
+			log!log(setBGColorsent_log_581, 7)
+		end
+		do
+			readonly var r_582 : UInt8 = fgcolor [0]
+			readonly var g_583 : UInt8 = fgcolor [1]
+			readonly var b_584 : UInt8 = fgcolor [2]
+			display!setColor(r_582, g_583, b_584)
+			readonly var setColorsent_log_585 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_582 as Byte , g_583 as Byte , b_584 as Byte }
+			log!log(setColorsent_log_585, 7)
+		end
+		readonly var initColors_log0 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x01 , 0x00 }
+		log!log(initColors_log0, 4)
+	end
+	function resetBall() @id `2` do
+		do
+			readonly var old_bx_16 : Int16 = bx
+			bx = padx - br / SCALE
+			readonly var new_bx_16 : Int16 = bx
+			readonly var bx_log_16 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_bx_16 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_16 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_16 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_16 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(bx_log_16, 7)
+		end
+		do
+			readonly var old_by_29 : Int16 = by
+			by = pady - br / SCALE
+			readonly var new_by_29 : Int16 = by
+			readonly var by_log_29 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_by_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_29 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_29 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(by_log_29, 7)
+		end
+		do
+			readonly var old_dx_22 : Int16 = dx
+			dx = (padx + prevBX + prevBY) % 300 - 150
+			readonly var new_dx_22 : Int16 = dx
+			readonly var dx_log_22 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dx_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_22 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_22 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(dx_log_22, 7)
+		end
+		if (dy > 0) do
+			readonly var old_dy_8 : Int16 = dy
+			dy = -dy
+			readonly var new_dy_8 : Int16 = dy
+			readonly var dy_log_8 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0E , (`((` & old_dy_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_8 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_8 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(dy_log_8, 7)
+		end
+		do
+			readonly var old_prevBX_1 : Int16 = prevBX
+			prevBX = -1
+			readonly var new_prevBX_1 : Int16 = prevBX
+			readonly var prevBX_log_1 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBX_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_1 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_1 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_1, 7)
+		end
+		do
+			readonly var old_prevBY_13 : Int16 = prevBY
+			prevBY = -1
+			readonly var new_prevBY_13 : Int16 = prevBY
+			readonly var prevBY_log_13 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x13 , (`((` & old_prevBY_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_13 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_13 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_13, 7)
+		end
+		readonly var resetBall_log1 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x02 , 0x00 }
+		log!log(resetBall_log1, 4)
+	end
+	function eraseBall() @id `3` do
+		var bs : Int16 = (br * 2) / SCALE
+		if (prevBX > 0) do
+			do
+				readonly var r_586 : UInt8 = bgcolor [0]
+				readonly var g_587 : UInt8 = bgcolor [1]
+				readonly var b_588 : UInt8 = bgcolor [2]
+				display!setColor(r_586, g_587, b_588)
+				readonly var setColorsent_log_589 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_586 as Byte , g_587 as Byte , b_588 as Byte }
+				log!log(setColorsent_log_589, 7)
+			end
+			do
+				readonly var x_590 : UInt8 = prevBX as UInt8
+				readonly var y_591 : UInt8 = prevBY as UInt8
+				readonly var width_592 : UInt8 = bs as UInt8
+				readonly var height_593 : UInt8 = bs as UInt8
+				display!fillRect(x_590, y_591, width_592, height_593)
+				readonly var fillRectsent_log_594 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_590 as Byte , y_591 as Byte , width_592 as Byte , height_593 as Byte }
+				log!log(fillRectsent_log_594, 8)
+			end
+		end
+		do
+			readonly var old_prevBX_2 : Int16 = prevBX
+			prevBX = -1
+			readonly var new_prevBX_2 : Int16 = prevBX
+			readonly var prevBX_log_2 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBX_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_2 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_2 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_2, 7)
+		end
+		do
+			readonly var old_prevBY_14 : Int16 = prevBY
+			prevBY = -1
+			readonly var new_prevBY_14 : Int16 = prevBY
+			readonly var prevBY_log_14 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x13 , (`((` & old_prevBY_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_14 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_14 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_14, 7)
+		end
+		readonly var eraseBall_log2 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x03 , 0x00 }
+		log!log(eraseBall_log2, 4)
+	end
+	function drawBall() @id `4` do
+		var bs : Int16 = (br * 2) / SCALE
+		eraseBall()
+		do
+			readonly var old_prevBX_3 : Int16 = prevBX
+			prevBX = (bx - br) / SCALE
+			readonly var new_prevBX_3 : Int16 = prevBX
+			readonly var prevBX_log_3 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBX_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_3 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_3 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_3, 7)
+		end
+		do
+			readonly var old_prevBY_15 : Int16 = prevBY
+			prevBY = (by - br) / SCALE
+			readonly var new_prevBY_15 : Int16 = prevBY
+			readonly var prevBY_log_15 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x13 , (`((` & old_prevBY_15 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_15 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_15 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_15 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_15, 7)
+		end
+		do
+			readonly var r_595 : UInt8 = 183
+			readonly var g_596 : UInt8 = 199
+			readonly var b_597 : UInt8 = 111
+			display!setColor(r_595, g_596, b_597)
+			readonly var setColorsent_log_598 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_595 as Byte , g_596 as Byte , b_597 as Byte }
+			log!log(setColorsent_log_598, 7)
+		end
+		do
+			readonly var x_599 : UInt8 = prevBX as UInt8
+			readonly var y_600 : UInt8 = prevBY as UInt8
+			readonly var width_601 : UInt8 = bs as UInt8
+			readonly var height_602 : UInt8 = bs as UInt8
+			display!fillRect(x_599, y_600, width_601, height_602)
+			readonly var fillRectsent_log_603 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_599 as Byte , y_600 as Byte , width_601 as Byte , height_602 as Byte }
+			log!log(fillRectsent_log_603, 8)
+		end
+		readonly var drawBall_log3 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x04 , 0x00 }
+		log!log(drawBall_log3, 4)
+	end
+	function erasePad() @id `5` do
+		var ps : Int16 = padlen / SCALE
+		if (prevPX > 0) do
+			do
+				readonly var r_604 : UInt8 = bgcolor [0]
+				readonly var g_605 : UInt8 = bgcolor [1]
+				readonly var b_606 : UInt8 = bgcolor [2]
+				display!setColor(r_604, g_605, b_606)
+				readonly var setColorsent_log_607 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_604 as Byte , g_605 as Byte , b_606 as Byte }
+				log!log(setColorsent_log_607, 7)
+			end
+			do
+				readonly var x_608 : UInt8 = prevPX as UInt8
+				readonly var y_609 : UInt8 = prevPY as UInt8
+				readonly var width_610 : UInt8 = ps as UInt8
+				readonly var height_611 : UInt8 = 4
+				display!fillRect(x_608, y_609, width_610, height_611)
+				readonly var fillRectsent_log_612 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_608 as Byte , y_609 as Byte , width_610 as Byte , height_611 as Byte }
+				log!log(fillRectsent_log_612, 8)
+			end
+		end
+		readonly var erasePad_log4 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x05 , 0x00 }
+		log!log(erasePad_log4, 4)
+	end
+	function drawPad() @id `6` do
+		var ps : Int16 = padlen / SCALE
+		erasePad()
+		do
+			readonly var old_prevPX_20 : Int16 = prevPX
+			prevPX = (padx - (padlen / 2)) / SCALE
+			readonly var new_prevPX_20 : Int16 = prevPX
+			readonly var prevPX_log_20 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x17 , (`((` & old_prevPX_20 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevPX_20 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevPX_20 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevPX_20 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevPX_log_20, 7)
+		end
+		do
+			readonly var old_prevPY_0 : Int16 = prevPY
+			prevPY = pady / SCALE
+			readonly var new_prevPY_0 : Int16 = prevPY
+			readonly var prevPY_log_0 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x18 , (`((` & old_prevPY_0 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevPY_0 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevPY_0 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevPY_0 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevPY_log_0, 7)
+		end
+		do
+			readonly var r_613 : UInt8 = fgcolor [0]
+			readonly var g_614 : UInt8 = fgcolor [1]
+			readonly var b_615 : UInt8 = fgcolor [2]
+			display!setColor(r_613, g_614, b_615)
+			readonly var setColorsent_log_616 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_613 as Byte , g_614 as Byte , b_615 as Byte }
+			log!log(setColorsent_log_616, 7)
+		end
+		do
+			readonly var x_617 : UInt8 = prevPX as UInt8
+			readonly var y_618 : UInt8 = prevPY as UInt8
+			readonly var width_619 : UInt8 = ps as UInt8
+			readonly var height_620 : UInt8 = 4
+			display!fillRect(x_617, y_618, width_619, height_620)
+			readonly var fillRectsent_log_621 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_617 as Byte , y_618 as Byte , width_619 as Byte , height_620 as Byte }
+			log!log(fillRectsent_log_621, 8)
+		end
+		readonly var drawPad_log5 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x06 , 0x00 }
+		log!log(drawPad_log5, 4)
+	end
+	function drawCountDown(c : Int16) @id `7` do
+		do
+			readonly var r_622 : UInt8 = fgcolor [0]
+			readonly var g_623 : UInt8 = fgcolor [1]
+			readonly var b_624 : UInt8 = fgcolor [2]
+			display!setColor(r_622, g_623, b_624)
+			readonly var setColorsent_log_625 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_622 as Byte , g_623 as Byte , b_624 as Byte }
+			log!log(setColorsent_log_625, 7)
+		end
+		if (c > 0) do
+			do
+				readonly var r_626 : UInt8 = fgcolor [0]
+				readonly var g_627 : UInt8 = fgcolor [1]
+				readonly var b_628 : UInt8 = fgcolor [2]
+				display!setColor(r_626, g_627, b_628)
+				readonly var setColorsent_log_629 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_626 as Byte , g_627 as Byte , b_628 as Byte }
+				log!log(setColorsent_log_629, 7)
+			end
+			do
+				readonly var r_630 : UInt8 = bgcolor [0]
+				readonly var g_631 : UInt8 = bgcolor [1]
+				readonly var b_632 : UInt8 = bgcolor [2]
+				display!setBGColor(r_630, g_631, b_632)
+				readonly var setBGColorsent_log_633 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x08 , r_630 as Byte , g_631 as Byte , b_632 as Byte }
+				log!log(setBGColorsent_log_633, 7)
+			end
+			do
+				readonly var x_634 : UInt8 = 80 - 6
+				readonly var y_635 : UInt8 = 90
+				readonly var v_636 : Int16 = c
+				readonly var digits_637 : UInt8 = 1
+				readonly var scale_638 : UInt8 = 4
+				display!drawInteger(x_634, y_635, v_636, digits_637, scale_638)
+				readonly var drawIntegersent_log_639 : Byte [ 10 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0B , x_634 as Byte , y_635 as Byte , (`((` & v_636 & ` >> 8) & 0xFF)`) as Byte , (`((` & v_636 & ` >> 0) & 0xFF)`) as Byte , digits_637 as Byte , scale_638 as Byte }
+				log!log(drawIntegersent_log_639, 10)
+			end
+		end
+		else do
+			do
+				readonly var r_640 : UInt8 = bgcolor [0]
+				readonly var g_641 : UInt8 = bgcolor [1]
+				readonly var b_642 : UInt8 = bgcolor [2]
+				display!setColor(r_640, g_641, b_642)
+				readonly var setColorsent_log_643 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_640 as Byte , g_641 as Byte , b_642 as Byte }
+				log!log(setColorsent_log_643, 7)
+			end
+			do
+				readonly var x_644 : UInt8 = 80 - 6
+				readonly var y_645 : UInt8 = 90
+				readonly var width_646 : UInt8 = 12
+				readonly var height_647 : UInt8 = 20
+				display!fillRect(x_644, y_645, width_646, height_647)
+				readonly var fillRectsent_log_648 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_644 as Byte , y_645 as Byte , width_646 as Byte , height_647 as Byte }
+				log!log(fillRectsent_log_648, 8)
+			end
+		end
+		readonly var drawCountDown_log6 : Byte [ 6 ] = { LogType : function_called , DEBUG_BIN_ID , 0x07 , 0x00 , (`((` & c & ` >> 8) & 0xFF)`) as Byte , (`((` & c & ` >> 0) & 0xFF)`) as Byte }
+		log!log(drawCountDown_log6, 6)
+	end
+	function drawWalls() @id `8` do
+		do
+			readonly var r_649 : UInt8 = fgcolor [0]
+			readonly var g_650 : UInt8 = fgcolor [1]
+			readonly var b_651 : UInt8 = fgcolor [2]
+			display!setColor(r_649, g_650, b_651)
+			readonly var setColorsent_log_652 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_649 as Byte , g_650 as Byte , b_651 as Byte }
+			log!log(setColorsent_log_652, 7)
+		end
+		readonly var left : UInt8 = (LEFT / SCALE) as UInt8
+		readonly var right : UInt8 = (RIGHT / SCALE) as UInt8
+		readonly var top : UInt8 = (TOP / SCALE) as UInt8
+		readonly var bottom : UInt8 = (BOTTOM / SCALE) as UInt8
+		readonly var xcenter : UInt8 = ((RIGHT - LEFT) / SCALE) as UInt8
+		readonly var ycenter : UInt8 = ((BOTTOM - TOP) / SCALE) as UInt8
+		do
+			readonly var x_653 : UInt8 = left - 1
+			readonly var y_654 : UInt8 = top - 1
+			readonly var width_655 : UInt8 = xcenter + 1
+			readonly var height_656 : UInt8 = 1
+			display!fillRect(x_653, y_654, width_655, height_656)
+			readonly var fillRectsent_log_657 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_653 as Byte , y_654 as Byte , width_655 as Byte , height_656 as Byte }
+			log!log(fillRectsent_log_657, 8)
+		end
+		do
+			readonly var x_658 : UInt8 = left - 1
+			readonly var y_659 : UInt8 = bottom
+			readonly var width_660 : UInt8 = xcenter + 1
+			readonly var height_661 : UInt8 = 1
+			display!fillRect(x_658, y_659, width_660, height_661)
+			readonly var fillRectsent_log_662 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_658 as Byte , y_659 as Byte , width_660 as Byte , height_661 as Byte }
+			log!log(fillRectsent_log_662, 8)
+		end
+		do
+			readonly var x_663 : UInt8 = left - 1
+			readonly var y_664 : UInt8 = top
+			readonly var width_665 : UInt8 = 1
+			readonly var height_666 : UInt8 = ycenter
+			display!fillRect(x_663, y_664, width_665, height_666)
+			readonly var fillRectsent_log_667 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_663 as Byte , y_664 as Byte , width_665 as Byte , height_666 as Byte }
+			log!log(fillRectsent_log_667, 8)
+		end
+		do
+			readonly var x_668 : UInt8 = right
+			readonly var y_669 : UInt8 = top
+			readonly var width_670 : UInt8 = 1
+			readonly var height_671 : UInt8 = ycenter
+			display!fillRect(x_668, y_669, width_670, height_671)
+			readonly var fillRectsent_log_672 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_668 as Byte , y_669 as Byte , width_670 as Byte , height_671 as Byte }
+			log!log(fillRectsent_log_672, 8)
+		end
+		readonly var drawWalls_log7 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x08 , 0x00 }
+		log!log(drawWalls_log7, 4)
+	end
+	function bitIsSet(variable : UInt8, bit : UInt8) : Boolean @id `9` do
+		readonly var return_0 : Boolean = (`((1 << ` & bit & `) & ` & variable & `) != 0`) as Boolean
+		readonly var bitIsSet_log8 : Byte [ 7 ] = { LogType : function_called , DEBUG_BIN_ID , 0x09 , 0x00 , variable as Byte , bit as Byte , return_0 as Byte }
+		log!log(bitIsSet_log8, 7)
+		return return_0
+	end
+	abstract function unsetBit(variable : UInt8, bit : UInt8) : UInt8
+
+	function createBricks() @id `10` do
+		var y : UInt8 = 0
+		while (y < BRICK_ROWS) do
+			bricks[y] = 0xFF
+			var x : UInt8 = 0
+			while (x < 8) do
+				if (bitIsSet(bricks [y], x)) do
+					drawBrick(x, y)
+				end
+				x = x + 1
+			end
+			y = y + 1
+		end
+		readonly var createBricks_log9 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0A , 0x00 }
+		log!log(createBricks_log9, 4)
+	end
+	function bricksLeft() : UInt8 @id `11` do
+		var result : UInt8 = 0
+		var y : UInt8 = 0
+		while (y < BRICK_ROWS) do
+			var x : UInt8 = 0
+			while (x < 8) do
+				if (bitIsSet(bricks [y], x)) do
+					result = result + 1
+				end
+				x = x + 1
+			end
+			y = y + 1
+		end
+		readonly var return_3 : UInt8 = result
+		readonly var bricksLeft_log10 : Byte [ 5 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0B , 0x00 , return_3 as Byte }
+		log!log(bricksLeft_log10, 5)
+		return return_3
+	end
+	function drawBrick(x : UInt8, y : UInt8) @id `12` do
+		readonly var bx : UInt8 = ((LEFT + ((RIGHT - LEFT) / 8) * x as Int16) / SCALE + 1) as UInt8
+		readonly var by : UInt8 = ((TOP + 20 * SCALE + BRICK_HEIGHT as Int16 * y as Int16 * SCALE) / SCALE + 1) as UInt8
+		readonly var w : UInt8 = (((RIGHT - LEFT) / 8) / SCALE - 2) as UInt8
+		readonly var h : UInt8 = (BRICK_HEIGHT - 2) as UInt8
+		do
+			readonly var r_673 : UInt8 = 155
+			readonly var g_674 : UInt8 = 103
+			readonly var b_675 : UInt8 = 89
+			display!setColor(r_673, g_674, b_675)
+			readonly var setColorsent_log_676 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_673 as Byte , g_674 as Byte , b_675 as Byte }
+			log!log(setColorsent_log_676, 7)
+		end
+		do
+			readonly var x_677 : UInt8 = bx
+			readonly var y_678 : UInt8 = by
+			readonly var width_679 : UInt8 = w
+			readonly var height_680 : UInt8 = h
+			display!fillRect(x_677, y_678, width_679, height_680)
+			readonly var fillRectsent_log_681 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_677 as Byte , y_678 as Byte , width_679 as Byte , height_680 as Byte }
+			log!log(fillRectsent_log_681, 8)
+		end
+		do
+			readonly var r_682 : UInt8 = 100
+			readonly var g_683 : UInt8 = 56
+			readonly var b_684 : UInt8 = 43
+			display!setColor(r_682, g_683, b_684)
+			readonly var setColorsent_log_685 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_682 as Byte , g_683 as Byte , b_684 as Byte }
+			log!log(setColorsent_log_685, 7)
+		end
+		do
+			readonly var x_686 : UInt8 = bx
+			readonly var y_687 : UInt8 = by
+			readonly var width_688 : UInt8 = w
+			readonly var height_689 : UInt8 = h
+			display!drawRect(x_686, y_687, width_688, height_689)
+			readonly var drawRectsent_log_690 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x09 , x_686 as Byte , y_687 as Byte , width_688 as Byte , height_689 as Byte }
+			log!log(drawRectsent_log_690, 8)
+		end
+		readonly var drawBrick_log11 : Byte [ 6 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0C , 0x00 , x as Byte , y as Byte }
+		log!log(drawBrick_log11, 6)
+	end
+	function removeBrick(x : UInt8, y : UInt8) @id `13` do
+		readonly var bx : UInt8 = ((LEFT + ((RIGHT - LEFT) / 8) * x as Int16) / SCALE + 1) as UInt8
+		readonly var by : UInt8 = ((TOP + 20 * SCALE + BRICK_HEIGHT as Int16 * y as Int16 * SCALE) / SCALE + 1) as UInt8
+		do
+			readonly var r_691 : UInt8 = bgcolor [0]
+			readonly var g_692 : UInt8 = bgcolor [1]
+			readonly var b_693 : UInt8 = bgcolor [2]
+			display!setColor(r_691, g_692, b_693)
+			readonly var setColorsent_log_694 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_691 as Byte , g_692 as Byte , b_693 as Byte }
+			log!log(setColorsent_log_694, 7)
+		end
+		do
+			readonly var x_695 : UInt8 = bx
+			readonly var y_696 : UInt8 = by
+			readonly var width_697 : UInt8 = (((RIGHT - LEFT) / 8) / SCALE - 2) as UInt8
+			readonly var height_698 : UInt8 = BRICK_HEIGHT - 2
+			display!fillRect(x_695, y_696, width_697, height_698)
+			readonly var fillRectsent_log_699 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_695 as Byte , y_696 as Byte , width_697 as Byte , height_698 as Byte }
+			log!log(fillRectsent_log_699, 8)
+		end
+		bricks[y] = unsetBit(bricks [y], x)
+		readonly var removeBrick_log12 : Byte [ 6 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0D , 0x00 , x as Byte , y as Byte }
+		log!log(removeBrick_log12, 6)
+	end
+	function collideBrick(xpos : Int16, ypos : Int16) : Boolean @id `14` do
+		var bry : Int16 = (ypos as Int16 - TOP - 20 * SCALE) / (BRICK_HEIGHT as Int16 * SCALE)
+		var result : Boolean = false
+		if (bry >= 0 and bry < BRICK_ROWS as Int16) do
+			var brx : Int16 = (xpos as Int16 - LEFT) / ((RIGHT - LEFT) / 8)
+			if (bitIsSet(bricks [bry], brx as UInt8)) do
+				removeBrick(brx as UInt8, bry as UInt8)
+				result = true
+			end
+		end
+		readonly var return_3 : Boolean = result
+		readonly var collideBrick_log13 : Byte [ 9 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0E , 0x00 , (`((` & xpos & ` >> 8) & 0xFF)`) as Byte , (`((` & xpos & ` >> 0) & 0xFF)`) as Byte , (`((` & ypos & ` >> 8) & 0xFF)`) as Byte , (`((` & ypos & ` >> 0) & 0xFF)`) as Byte , return_3 as Byte }
+		log!log(collideBrick_log13, 9)
+		return return_3
+	end
+	function drawLevel() @id `15` do
+		do
+			readonly var r_700 : UInt8 = 158
+			readonly var g_701 : UInt8 = 209
+			readonly var b_702 : UInt8 = 130
+			display!setColor(r_700, g_701, b_702)
+			readonly var setColorsent_log_703 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_700 as Byte , g_701 as Byte , b_702 as Byte }
+			log!log(setColorsent_log_703, 7)
+		end
+		do
+			readonly var r_704 : UInt8 = fgcolor [0]
+			readonly var g_705 : UInt8 = fgcolor [1]
+			readonly var b_706 : UInt8 = fgcolor [2]
+			display!setBGColor(r_704, g_705, b_706)
+			readonly var setBGColorsent_log_707 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x08 , r_704 as Byte , g_705 as Byte , b_706 as Byte }
+			log!log(setBGColorsent_log_707, 7)
+		end
+		do
+			readonly var r_708 : UInt8 = bgcolor [0]
+			readonly var g_709 : UInt8 = bgcolor [1]
+			readonly var b_710 : UInt8 = bgcolor [2]
+			display!setColor(r_708, g_709, b_710)
+			readonly var setColorsent_log_711 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_708 as Byte , g_709 as Byte , b_710 as Byte }
+			log!log(setColorsent_log_711, 7)
+		end
+		do
+			readonly var x_712 : UInt8 = 6
+			readonly var y_713 : UInt8 = 2
+			readonly var v_714 : Int16 = level as Int16
+			readonly var digits_715 : UInt8 = 2
+			readonly var scale_716 : UInt8 = 2
+			display!drawInteger(x_712, y_713, v_714, digits_715, scale_716)
+			readonly var drawIntegersent_log_717 : Byte [ 10 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0B , x_712 as Byte , y_713 as Byte , (`((` & v_714 & ` >> 8) & 0xFF)`) as Byte , (`((` & v_714 & ` >> 0) & 0xFF)`) as Byte , digits_715 as Byte , scale_716 as Byte }
+			log!log(drawIntegersent_log_717, 10)
+		end
+		readonly var drawLevel_log14 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x0F , 0x00 }
+		log!log(drawLevel_log14, 4)
+	end
+	function incrementScore(diff : Int8) @id `16` do
+		do
+			readonly var old_score_5 : Int16 = score
+			score = score + diff as Int16
+			readonly var new_score_5 : Int16 = score
+			readonly var score_log_5 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1C , (`((` & old_score_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_5 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_5 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(score_log_5, 7)
+		end
+		if (score < 0) do
+			readonly var old_score_6 : Int16 = score
+			score = 0
+			readonly var new_score_6 : Int16 = score
+			readonly var score_log_6 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1C , (`((` & old_score_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_6 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_6 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(score_log_6, 7)
+		end
+		drawScore()
+		readonly var incrementScore_log15 : Byte [ 5 ] = { LogType : function_called , DEBUG_BIN_ID , 0x10 , 0x00 , diff as Byte }
+		log!log(incrementScore_log15, 5)
+	end
+	function drawScore() @id `17` do
+		do
+			readonly var r_718 : UInt8 = 158
+			readonly var g_719 : UInt8 = 209
+			readonly var b_720 : UInt8 = 130
+			display!setColor(r_718, g_719, b_720)
+			readonly var setColorsent_log_721 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_718 as Byte , g_719 as Byte , b_720 as Byte }
+			log!log(setColorsent_log_721, 7)
+		end
+		do
+			readonly var r_722 : UInt8 = fgcolor [0]
+			readonly var g_723 : UInt8 = fgcolor [1]
+			readonly var b_724 : UInt8 = fgcolor [2]
+			display!setBGColor(r_722, g_723, b_724)
+			readonly var setBGColorsent_log_725 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x08 , r_722 as Byte , g_723 as Byte , b_724 as Byte }
+			log!log(setBGColorsent_log_725, 7)
+		end
+		do
+			readonly var x_726 : UInt8 = 58
+			readonly var y_727 : UInt8 = 2
+			readonly var v_728 : Int16 = score
+			readonly var digits_729 : UInt8 = 5
+			readonly var scale_730 : UInt8 = 2
+			display!drawInteger(x_726, y_727, v_728, digits_729, scale_730)
+			readonly var drawIntegersent_log_731 : Byte [ 10 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0B , x_726 as Byte , y_727 as Byte , (`((` & v_728 & ` >> 8) & 0xFF)`) as Byte , (`((` & v_728 & ` >> 0) & 0xFF)`) as Byte , digits_729 as Byte , scale_730 as Byte }
+			log!log(drawIntegersent_log_731, 10)
+		end
+		readonly var drawScore_log16 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x11 , 0x00 }
+		log!log(drawScore_log16, 4)
+	end
+	function drawLives() @id `18` do
+		do
+			readonly var r_732 : UInt8 = fgcolor [0]
+			readonly var g_733 : UInt8 = fgcolor [1]
+			readonly var b_734 : UInt8 = fgcolor [2]
+			display!setColor(r_732, g_733, b_734)
+			readonly var setColorsent_log_735 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_732 as Byte , g_733 as Byte , b_734 as Byte }
+			log!log(setColorsent_log_735, 7)
+		end
+		do
+			readonly var x_736 : UInt8 = 124
+			readonly var y_737 : UInt8 = 4
+			readonly var width_738 : UInt8 = 24 + 6
+			readonly var height_739 : UInt8 = 6
+			display!fillRect(x_736, y_737, width_738, height_739)
+			readonly var fillRectsent_log_740 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_736 as Byte , y_737 as Byte , width_738 as Byte , height_739 as Byte }
+			log!log(fillRectsent_log_740, 8)
+		end
+		do
+			readonly var r_741 : UInt8 = 183
+			readonly var g_742 : UInt8 = 199
+			readonly var b_743 : UInt8 = 111
+			display!setColor(r_741, g_742, b_743)
+			readonly var setColorsent_log_744 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_741 as Byte , g_742 as Byte , b_743 as Byte }
+			log!log(setColorsent_log_744, 7)
+		end
+		var i : UInt8 = 0
+		while (i < lives) do
+			do
+				readonly var x_745 : UInt8 = 124 + (2 - i) * 12
+				readonly var y_746 : UInt8 = 4
+				readonly var width_747 : UInt8 = 6
+				readonly var height_748 : UInt8 = 6
+				display!fillRect(x_745, y_746, width_747, height_748)
+				readonly var fillRectsent_log_749 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_745 as Byte , y_746 as Byte , width_747 as Byte , height_748 as Byte }
+				log!log(fillRectsent_log_749, 8)
+			end
+			i = i + 1
+		end
+		readonly var drawLives_log17 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x12 , 0x00 }
+		log!log(drawLives_log17, 4)
+	end
+	statechart SC init INIT @id `0` {
+		state INIT @id `1` {
+			on entry do
+				startTime = timestamp()
+				do
+					readonly var xsize_750 : UInt8 = XDISPSIZE
+					readonly var ysize_751 : UInt8 = YDISPSIZE
+					display!create(xsize_750, ysize_751)
+					readonly var createsent_log_752 : Byte [ 6 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0D , xsize_750 as Byte , ysize_751 as Byte }
+					log!log(createsent_log_752, 6)
+				end
+			end
+			transition -> LAUNCH
+			event display?displayReady
+			action do
+				readonly var displayReadyhandled_log_851 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x02 , 0x10 , 0x01 , 0x02 }
+				log!log(displayReadyhandled_log_851, 6)
+				do
+					do
+						display!clear()
+						readonly var clearsent_log_753 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x06 }
+						log!log(clearsent_log_753, 4)
+					end
+					initColors()
+					do
+						readonly var r_754 : UInt8 = bgcolor [0]
+						readonly var g_755 : UInt8 = bgcolor [1]
+						readonly var b_756 : UInt8 = bgcolor [2]
+						display!setColor(r_754, g_755, b_756)
+						readonly var setColorsent_log_757 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_754 as Byte , g_755 as Byte , b_756 as Byte }
+						log!log(setColorsent_log_757, 7)
+					end
+					do
+						readonly var x_758 : UInt8 = 0
+						readonly var y_759 : UInt8 = 0
+						readonly var width_760 : UInt8 = XDISPSIZE
+						readonly var height_761 : UInt8 = YDISPSIZE
+						display!fillRect(x_758, y_759, width_760, height_761)
+						readonly var fillRectsent_log_762 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_758 as Byte , y_759 as Byte , width_760 as Byte , height_761 as Byte }
+						log!log(fillRectsent_log_762, 8)
+					end
+					do
+						readonly var r_763 : UInt8 = fgcolor [0]
+						readonly var g_764 : UInt8 = fgcolor [1]
+						readonly var b_765 : UInt8 = fgcolor [2]
+						display!setColor(r_763, g_764, b_765)
+						readonly var setColorsent_log_766 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_763 as Byte , g_764 as Byte , b_765 as Byte }
+						log!log(setColorsent_log_766, 7)
+					end
+					do
+						readonly var x_767 : UInt8 = 0
+						readonly var y_768 : UInt8 = 0
+						readonly var width_769 : UInt8 = XDISPSIZE
+						readonly var height_770 : UInt8 = 14
+						display!fillRect(x_767, y_768, width_769, height_770)
+						readonly var fillRectsent_log_771 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_767 as Byte , y_768 as Byte , width_769 as Byte , height_770 as Byte }
+						log!log(fillRectsent_log_771, 8)
+					end
+					drawWalls()
+					createBricks()
+					drawLevel()
+				end
+			end
+		}
+		state LAUNCH @id `2` {
+			property countdown : UInt8 @id `31`
+			on entry do
+				do
+					readonly var id_772 : UInt8 = 0
+					readonly var time_773 : UInt16 = period
+					clock!timer_start(id_772, time_773)
+					readonly var timer_startsent_log_774 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_772 as Byte , (`((` & time_773 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_773 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(timer_startsent_log_774, 7)
+				end
+				do
+					readonly var old_countdown_26 : UInt8 = countdown
+					countdown = 3
+					readonly var new_countdown_26 : UInt8 = countdown
+					readonly var countdown_log_26 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1F , old_countdown_26 as Byte , new_countdown_26 as Byte }
+					log!log(countdown_log_26, 5)
+				end
+				drawScore()
+				drawLives()
+				do
+					display!update()
+					readonly var updatesent_log_775 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+					log!log(updatesent_log_775, 4)
+				end
+			end
+			internal
+			event t : clock?timer_timeout
+			guard t.id == 0 and countdown > 0
+			action do
+				readonly var timer_timeouthandled_log_858 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x02 , 0x00 , t.id as Byte }
+				log!log(timer_timeouthandled_log_858, 7)
+				do
+					do
+						readonly var id_776 : UInt8 = 0
+						readonly var time_777 : UInt16 = period
+						clock!timer_start(id_776, time_777)
+						readonly var timer_startsent_log_778 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_776 as Byte , (`((` & time_777 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_777 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(timer_startsent_log_778, 7)
+					end
+					drawPad()
+					if ((countdown % 30) == 0) drawCountDown(countdown as Int16 / 30)
+					do
+						readonly var old_countdown_27 : UInt8 = countdown
+						countdown = countdown - 1
+						readonly var new_countdown_27 : UInt8 = countdown
+						readonly var countdown_log_27 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1F , old_countdown_27 as Byte , new_countdown_27 as Byte }
+						log!log(countdown_log_27, 5)
+					end
+					do
+						display!update()
+						readonly var updatesent_log_779 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+						log!log(updatesent_log_779, 4)
+					end
+				end
+			end
+			transition -> PLAY
+			event t : clock?timer_timeout
+			guard t.id == 0 and countdown == 0
+			action do
+				readonly var timer_timeouthandled_log_857 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x02 , 0x03 , t.id as Byte }
+				log!log(timer_timeouthandled_log_857, 7)
+				do
+					drawCountDown(0)
+					resetBall()
+					do
+						display!update()
+						readonly var updatesent_log_780 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+						log!log(updatesent_log_780, 4)
+					end
+				end
+			end
+		}
+		state PLAY @id `3` {
+			on entry do
+				do
+					readonly var id_781 : UInt8 = 0
+					readonly var time_782 : UInt16 = period
+					clock!timer_start(id_781, time_782)
+					readonly var timer_startsent_log_783 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_781 as Byte , (`((` & time_782 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_782 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(timer_startsent_log_783, 7)
+				end
+			end
+			internal
+			event t : clock?timer_timeout
+			guard t.id == 0
+			action do
+				readonly var timer_timeouthandled_log_860 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x03 , 0x00 , t.id as Byte }
+				log!log(timer_timeouthandled_log_860, 7)
+				do
+					do
+						readonly var old_bx_17 : Int16 = bx
+						bx = bx + dx
+						readonly var new_bx_17 : Int16 = bx
+						readonly var bx_log_17 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_bx_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_17 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_17 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(bx_log_17, 7)
+					end
+					do
+						readonly var old_by_30 : Int16 = by
+						by = by + dy
+						readonly var new_by_30 : Int16 = by
+						readonly var by_log_30 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_by_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_30 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_30 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(by_log_30, 7)
+					end
+					var wl : Int16 = LEFT + br
+					var wr : Int16 = RIGHT - br
+					var wt : Int16 = TOP + br
+					var wb : Int16 = BOTTOM - br
+					if (bx < wl) do
+						do
+							readonly var old_dx_23 : Int16 = dx
+							dx = -dx
+							readonly var new_dx_23 : Int16 = dx
+							readonly var dx_log_23 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dx_23 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_23 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_23 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_23 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dx_log_23, 7)
+						end
+						do
+							readonly var old_bx_18 : Int16 = bx
+							bx = 2 * wl - bx
+							readonly var new_bx_18 : Int16 = bx
+							readonly var bx_log_18 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_bx_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_18 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_18 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(bx_log_18, 7)
+						end
+						incrementScore(-1)
+					end
+					else if (bx > wr) do
+						do
+							readonly var old_dx_24 : Int16 = dx
+							dx = -dx
+							readonly var new_dx_24 : Int16 = dx
+							readonly var dx_log_24 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dx_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_24 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_24 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dx_log_24, 7)
+						end
+						do
+							readonly var old_bx_19 : Int16 = bx
+							bx = 2 * wr - bx
+							readonly var new_bx_19 : Int16 = bx
+							readonly var bx_log_19 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_bx_19 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_19 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_19 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_19 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(bx_log_19, 7)
+						end
+						incrementScore(-1)
+					end
+					if (by < wt) do
+						do
+							readonly var old_dy_9 : Int16 = dy
+							dy = -dy
+							readonly var new_dy_9 : Int16 = dy
+							readonly var dy_log_9 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0E , (`((` & old_dy_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_9 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_9 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dy_log_9, 7)
+						end
+						do
+							readonly var old_by_31 : Int16 = by
+							by = 2 * wt - by
+							readonly var new_by_31 : Int16 = by
+							readonly var by_log_31 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_by_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_31 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_31 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(by_log_31, 7)
+						end
+						incrementScore(-1)
+					end
+					else if (by > wb) do
+						do
+							game!lostBall()
+							readonly var lostBallsent_log_784 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x05 , 0x01 }
+							log!log(lostBallsent_log_784, 4)
+						end
+						do
+							req_game!lostBall()
+							readonly var lostBallsent_log_785 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x06 , 0x01 }
+							log!log(lostBallsent_log_785, 4)
+						end
+					end
+					if (dy > 0) do
+						if (by > pady - br and by < pady + br) do
+							if (bx > padx - padlen / 2 and bx < padx + padlen / 2) do
+								do
+									readonly var old_dy_10 : Int16 = dy
+									dy = -dy
+									readonly var new_dy_10 : Int16 = dy
+									readonly var dy_log_10 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0E , (`((` & old_dy_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_10 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_10 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(dy_log_10, 7)
+								end
+								do
+									readonly var old_by_32 : Int16 = by
+									by = 2 * (pady - br) - by
+									readonly var new_by_32 : Int16 = by
+									readonly var by_log_32 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_by_32 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_32 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_32 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_32 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(by_log_32, 7)
+								end
+								do
+									readonly var old_dx_25 : Int16 = dx
+									dx = dx / 4 + (bx - padx) / 4
+									readonly var new_dx_25 : Int16 = dx
+									readonly var dx_log_25 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dx_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_25 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_25 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(dx_log_25, 7)
+								end
+							end
+						end
+					end
+					var collision : Boolean = collideBrick(bx - br, by - br)or collideBrick(bx + br, by - br)or collideBrick(bx + br, by + br)or collideBrick(bx - br, by + br)
+					if (collision) do
+						do
+							readonly var old_dy_11 : Int16 = dy
+							dy = -dy
+							readonly var new_dy_11 : Int16 = dy
+							readonly var dy_log_11 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0E , (`((` & old_dy_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_11 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_11 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dy_log_11, 7)
+						end
+						incrementScore(10)
+						if (bricksLeft()== 0) do
+							do
+								game!nextLevel()
+								readonly var nextLevelsent_log_786 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x05 , 0x02 }
+								log!log(nextLevelsent_log_786, 4)
+							end
+							do
+								req_game!nextLevel()
+								readonly var nextLevelsent_log_787 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x06 , 0x02 }
+								log!log(nextLevelsent_log_787, 4)
+							end
+						end
+					end
+					drawBall()
+					drawPad()
+					do
+						readonly var ballx_788 : Int16 = bx
+						readonly var bally_789 : Int16 = by
+						readonly var padx_790 : Int16 = padx
+						readonly var pady_791 : Int16 = pady
+						ia!updateIA(ballx_788, bally_789, padx_790, pady_791)
+						readonly var updateIAsent_log_792 : Byte [ 12 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x04 , 0x13 , (`((` & ballx_788 & ` >> 8) & 0xFF)`) as Byte , (`((` & ballx_788 & ` >> 0) & 0xFF)`) as Byte , (`((` & bally_789 & ` >> 8) & 0xFF)`) as Byte , (`((` & bally_789 & ` >> 0) & 0xFF)`) as Byte , (`((` & padx_790 & ` >> 8) & 0xFF)`) as Byte , (`((` & padx_790 & ` >> 0) & 0xFF)`) as Byte , (`((` & pady_791 & ` >> 8) & 0xFF)`) as Byte , (`((` & pady_791 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(updateIAsent_log_792, 12)
+					end
+					do
+						display!update()
+						readonly var updatesent_log_793 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+						log!log(updatesent_log_793, 4)
+					end
+					log(false)
+					do
+						readonly var id_794 : UInt8 = 0
+						readonly var time_795 : UInt16 = period
+						clock!timer_start(id_794, time_795)
+						readonly var timer_startsent_log_796 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_794 as Byte , (`((` & time_795 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_795 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(timer_startsent_log_796, 7)
+					end
+				end
+			end
+			transition -> LOSTBALL
+			event game?lostBall
+			action do
+				readonly var lostBallhandled_log_853 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x01 , 0x03 , 0x04 }
+				log!log(lostBallhandled_log_853, 6)
+				do
+					readonly var id_797 : UInt8 = 0
+					clock!timer_cancel(id_797)
+					readonly var timer_cancelsent_log_798 : Byte [ 5 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x15 , id_797 as Byte }
+					log!log(timer_cancelsent_log_798, 5)
+				end
+			end
+			transition -> NEXTLEVEL
+			event game?nextLevel
+			action do
+				readonly var nextLevelhandled_log_854 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x02 , 0x03 , 0x05 }
+				log!log(nextLevelhandled_log_854, 6)
+				do
+					readonly var id_799 : UInt8 = 0
+					clock!timer_cancel(id_799)
+					readonly var timer_cancelsent_log_800 : Byte [ 5 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x15 , id_799 as Byte }
+					log!log(timer_cancelsent_log_800, 5)
+				end
+			end
+			transition -> LOSTBALL
+			event pro_game?lostBall
+			action do
+				readonly var lostBallhandled_log_849 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x01 , 0x03 , 0x04 }
+				log!log(lostBallhandled_log_849, 6)
+				do
+					readonly var id_801 : UInt8 = 0
+					clock!timer_cancel(id_801)
+					readonly var timer_cancelsent_log_802 : Byte [ 5 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x15 , id_801 as Byte }
+					log!log(timer_cancelsent_log_802, 5)
+				end
+			end
+			transition -> NEXTLEVEL
+			event pro_game?nextLevel
+			action do
+				readonly var nextLevelhandled_log_850 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x02 , 0x03 , 0x05 }
+				log!log(nextLevelhandled_log_850, 6)
+				do
+					readonly var id_803 : UInt8 = 0
+					clock!timer_cancel(id_803)
+					readonly var timer_cancelsent_log_804 : Byte [ 5 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x15 , id_803 as Byte }
+					log!log(timer_cancelsent_log_804, 5)
+				end
+			end
+		}
+		state LOSTBALL @id `4` {
+			on entry do
+				do
+					readonly var id_805 : UInt8 = 0
+					readonly var time_806 : UInt16 = period
+					clock!timer_start(id_805, time_806)
+					readonly var timer_startsent_log_807 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_805 as Byte , (`((` & time_806 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_806 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(timer_startsent_log_807, 7)
+				end
+				do
+					readonly var old_lives_7 : UInt8 = lives
+					lives = lives - 1
+					readonly var new_lives_7 : UInt8 = lives
+					readonly var lives_log_7 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1D , old_lives_7 as Byte , new_lives_7 as Byte }
+					log!log(lives_log_7, 5)
+				end
+				eraseBall()
+				erasePad()
+				drawLives()
+				do
+					display!update()
+					readonly var updatesent_log_808 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+					log!log(updatesent_log_808, 4)
+				end
+				log(true)
+			end
+			transition -> LAUNCH
+			event t : clock?timer_timeout
+			guard t.id == 0 and lives > 0
+			action do
+				readonly var timer_timeouthandled_log_855 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x02 , t.id as Byte }
+				log!log(timer_timeouthandled_log_855, 7)
+			end
+			transition -> GAMEOVER
+			event t : clock?timer_timeout
+			guard t.id == 0 and lives == 0
+			action do
+				readonly var timer_timeouthandled_log_856 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x06 , t.id as Byte }
+				log!log(timer_timeouthandled_log_856, 7)
+			end
+		}
+		state NEXTLEVEL @id `5` {
+			on entry do
+				do
+					readonly var id_809 : UInt8 = 0
+					readonly var time_810 : UInt16 = period
+					clock!timer_start(id_809, time_810)
+					readonly var timer_startsent_log_811 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x01 , 0x14 , id_809 as Byte , (`((` & time_810 & ` >> 8) & 0xFF)`) as Byte , (`((` & time_810 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(timer_startsent_log_811, 7)
+				end
+				do
+					readonly var old_level_21 : UInt8 = level
+					level = level + 1
+					readonly var new_level_21 : UInt8 = level
+					readonly var level_log_21 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1E , old_level_21 as Byte , new_level_21 as Byte }
+					log!log(level_log_21, 5)
+				end
+				drawLevel()
+				eraseBall()
+				erasePad()
+				if ((level % 2) == 0 and padlen > 5 * SCALE) do
+					readonly var old_padlen_28 : Int16 = padlen
+					padlen = padlen - (4 * SCALE)
+					readonly var new_padlen_28 : Int16 = padlen
+					readonly var padlen_log_28 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_padlen_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_padlen_28 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_padlen_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_padlen_28 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(padlen_log_28, 7)
+				end
+				if ((level % 2) == 1) do
+					readonly var old_dy_12 : Int16 = dy
+					dy = (dy * 3) / 2
+					readonly var new_dy_12 : Int16 = dy
+					readonly var dy_log_12 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0E , (`((` & old_dy_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_12 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_12 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(dy_log_12, 7)
+				end
+				drawLives()
+				createBricks()
+				do
+					display!update()
+					readonly var updatesent_log_812 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+					log!log(updatesent_log_812, 4)
+				end
+			end
+			transition -> LAUNCH
+			event t : clock?timer_timeout
+			guard t.id == 0
+			action do
+				readonly var timer_timeouthandled_log_859 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x05 , 0x02 , t.id as Byte }
+				log!log(timer_timeouthandled_log_859, 7)
+			end
+		}
+		final state GAMEOVER @id `6` {
+			on entry do
+				eraseBall()
+				erasePad()
+				do
+					readonly var r_813 : UInt8 = 255
+					readonly var g_814 : UInt8 = 255
+					readonly var b_815 : UInt8 = 255
+					display!setColor(r_813, g_814, b_815)
+					readonly var setColorsent_log_816 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_813 as Byte , g_814 as Byte , b_815 as Byte }
+					log!log(setColorsent_log_816, 7)
+				end
+				do
+					readonly var x_817 : UInt8 = 8
+					readonly var y_818 : UInt8 = 30
+					readonly var width_819 : UInt8 = 142
+					readonly var height_820 : UInt8 = 76
+					display!fillRect(x_817, y_818, width_819, height_820)
+					readonly var fillRectsent_log_821 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_817 as Byte , y_818 as Byte , width_819 as Byte , height_820 as Byte }
+					log!log(fillRectsent_log_821, 8)
+				end
+				do
+					readonly var r_822 : UInt8 = fgcolor [0]
+					readonly var g_823 : UInt8 = fgcolor [1]
+					readonly var b_824 : UInt8 = fgcolor [2]
+					display!setColor(r_822, g_823, b_824)
+					readonly var setColorsent_log_825 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_822 as Byte , g_823 as Byte , b_824 as Byte }
+					log!log(setColorsent_log_825, 7)
+				end
+				do
+					readonly var x_826 : UInt8 = 9
+					readonly var y_827 : UInt8 = 31
+					readonly var width_828 : UInt8 = 140
+					readonly var height_829 : UInt8 = 50
+					display!fillRect(x_826, y_827, width_828, height_829)
+					readonly var fillRectsent_log_830 : Byte [ 8 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0A , x_826 as Byte , y_827 as Byte , width_828 as Byte , height_829 as Byte }
+					log!log(fillRectsent_log_830, 8)
+				end
+				do
+					readonly var r_831 : UInt8 = fgcolor [0]
+					readonly var g_832 : UInt8 = fgcolor [1]
+					readonly var b_833 : UInt8 = fgcolor [2]
+					display!setBGColor(r_831, g_832, b_833)
+					readonly var setBGColorsent_log_834 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x08 , r_831 as Byte , g_832 as Byte , b_833 as Byte }
+					log!log(setBGColorsent_log_834, 7)
+				end
+				do
+					readonly var r_835 : UInt8 = 158
+					readonly var g_836 : UInt8 = 209
+					readonly var b_837 : UInt8 = 130
+					display!setColor(r_835, g_836, b_837)
+					readonly var setColorsent_log_838 : Byte [ 7 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x07 , r_835 as Byte , g_836 as Byte , b_837 as Byte }
+					log!log(setColorsent_log_838, 7)
+				end
+				do
+					readonly var x_839 : UInt8 = 23
+					readonly var y_840 : UInt8 = 40
+					readonly var v_841 : Int16 = score
+					readonly var digits_842 : UInt8 = 5
+					readonly var scale_843 : UInt8 = 6
+					display!drawInteger(x_839, y_840, v_841, digits_842, scale_843)
+					readonly var drawIntegersent_log_844 : Byte [ 10 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0B , x_839 as Byte , y_840 as Byte , (`((` & v_841 & ` >> 8) & 0xFF)`) as Byte , (`((` & v_841 & ` >> 0) & 0xFF)`) as Byte , digits_842 as Byte , scale_843 as Byte }
+					log!log(drawIntegersent_log_844, 10)
+				end
+				do
+					readonly var x_845 : UInt8 = 26
+					readonly var y_846 : UInt8 = 87
+					display!drawThingML(x_845, y_846)
+					readonly var drawThingMLsent_log_847 : Byte [ 6 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0C , x_845 as Byte , y_846 as Byte }
+					log!log(drawThingMLsent_log_847, 6)
+				end
+				do
+					display!update()
+					readonly var updatesent_log_848 : Byte [ 4 ] = { LogType : message_sent , DEBUG_BIN_ID , 0x02 , 0x0F }
+					log!log(updatesent_log_848, 4)
+				end
+				log(true)
+				stopTime = timestamp()
+				quit()
+			end
+		}
+		internal
+		event e : controller?position
+		action do
+			readonly var positionhandled_log_852 : Byte [ 10 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x03 , 0x12 , 0x00 , 0x00 , (`((` & e.x & ` >> 8) & 0xFF)`) as Byte , (`((` & e.x & ` >> 0) & 0xFF)`) as Byte , (`((` & e.y & ` >> 8) & 0xFF)`) as Byte , (`((` & e.y & ` >> 0) & 0xFF)`) as Byte }
+			log!log(positionhandled_log_852, 10)
+			do
+				var center : Int32 = (RIGHT as Int32 - LEFT as Int32 - padlen as Int32)
+				center = e.x as Int32 * center
+				center = center / 200
+				do
+					readonly var old_padx_4 : Int16 = padx
+					padx = (LEFT as Int32 + center + (RIGHT as Int32 - LEFT as Int32) / 2) as Int16
+					readonly var new_padx_4 : Int16 = padx
+					readonly var padx_log_4 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0F , (`((` & old_padx_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_padx_4 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_padx_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_padx_4 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(padx_log_4, 7)
+				end
+			end
+		end
+		internal
+		event e : clock?timer_timeout
+		guard true
+		action do
+			readonly var timer_timeoutlost_log_861 : Byte [ 5 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x01 , 0x16 , e.id as Byte }
+			log!log(timer_timeoutlost_log_861, 5)
+		end
+		internal
+		event e : display?displayReady
+		guard true
+		action do
+			readonly var displayReadylost_log_862 : Byte [ 4 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x02 , 0x10 }
+			log!log(displayReadylost_log_862, 4)
+		end
+		internal
+		event e : game?lostBall
+		guard true
+		action do
+			readonly var lostBalllost_log_863 : Byte [ 4 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x05 , 0x01 }
+			log!log(lostBalllost_log_863, 4)
+		end
+		internal
+		event e : game?nextLevel
+		guard true
+		action do
+			readonly var nextLevellost_log_864 : Byte [ 4 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x05 , 0x02 }
+			log!log(nextLevellost_log_864, 4)
+		end
+		internal
+		event e : pro_game?lostBall
+		guard true
+		action do
+			readonly var lostBalllost_log_865 : Byte [ 4 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x07 , 0x01 }
+			log!log(lostBalllost_log_865, 4)
+		end
+		internal
+		event e : pro_game?nextLevel
+		guard true
+		action do
+			readonly var nextLevellost_log_866 : Byte [ 4 ] = { LogType : message_lost , DEBUG_BIN_ID , 0x07 , 0x02 }
+			log!log(nextLevellost_log_866, 4)
+		end
+	}
+}
+enumeration LogType as Byte @id `1`
+	{
+	function_called = 0
+	property_changed = 1
+	message_lost = 2
+	message_sent = 3
+	message_handled = 4
+}
+thing fragment LogMsgs {
+	message log_on()
+	@id `3`
+	message log_off()
+	@id `4`
+	message log(payload : Byte [ ], size : UInt8)
+	@id `5`
+}
+thing fragment WithBinaryLog includes LogMsgs {
+	required port log @sync_send `true` @id `8` {
+		sends log
+	}
+	readonly property DEBUG_BIN_ID : Byte @id `32`
+}
+thing fragment Logger includes LogMsgs {
+	provided port log @id `9` {
+		receives log_on receives log_off receives log
+	}
+	readonly property ACTIVATE_ON_STARTUP : Boolean @id `33`
+	readonly property HAS_SIGNED_BYTE : Boolean @id `34`
+	abstract function do_log(payload : Byte [ ], size : UInt8)
+
+	statechart init STARTUP @id `7` {
+		state STARTUP @id `8` {
+			transition -> ON guard ACTIVATE_ON_STARTUP
+			transition -> OFF guard not ACTIVATE_ON_STARTUP
+		}
+		state ON @id `9` {
+			internal
+			event d : log?log
+			action do_log(d.payload, d.size)
+			transition -> OFF
+			event log?log_off
+		}
+		state OFF @id `10` {
+			transition -> ON
+			event log?log_on
+		}
+	}
+}
+thing ConsoleLogger includes Logger {
+	readonly property QUIET : Boolean = true @id `35`
+	function do_log(payload : Byte [ ], size : UInt8) @id `19` do
+		if (not QUIET) do
+			readonly var log_type : Byte = payload [0]
+			if (log_type == LogType : function_called) print "log: function_called  ["
+			else if (log_type == LogType : property_changed) print "log: property_changed ["
+			else if (log_type == LogType : message_lost) print "log: message_lost     ["
+			else if (log_type == LogType : message_sent) print "log: message_sent     ["
+			else if (log_type == LogType : message_handled) print "log: message_handled  ["
+			else print "log: unknown          ["
+		end
+		var i : UInt8 = 0
+		while (i < size) do
+			readonly var v : Byte = payload [i]
+			if (HAS_SIGNED_BYTE) print (`` & v & ` & 0xFF`) as UInt8
+			else print v
+			if (not QUIET) print ","
+			i ++
+		end
+		if (not QUIET) println "]"
+		else println ""
+	end
+}
+thing fragment DisplayMsgs {
+	message clear()
+	@id `6`
+	message setColor(r : UInt8, g : UInt8, b : UInt8)
+	@id `7`
+	message setBGColor(r : UInt8, g : UInt8, b : UInt8)
+	@id `8`
+	message drawRect(x : UInt8, y : UInt8, width : UInt8, height : UInt8)
+	@id `9`
+	message fillRect(x : UInt8, y : UInt8, width : UInt8, height : UInt8)
+	@id `10`
+	message drawInteger(x : UInt8, y : UInt8, v : Int16, digits : UInt8, scale : UInt8)
+	@id `11`
+	message drawThingML(x : UInt8, y : UInt8)
+	@id `12`
+	message create(xsize : UInt8, ysize : UInt8)
+	@id `13`
+	message destroy()
+	@id `14`
+	message update()
+	@id `15`
+	message displayReady()
+	@id `16`
+}
+thing HeadlessDisplay includes DisplayMsgs {
+	provided port display @id `10` {
+		sends displayReady receives create receives destroy receives update receives clear receives setColor receives setBGColor receives drawRect receives fillRect receives drawInteger receives drawThingML
+	}
+	function mock() @id `20` do
+	end
+	statechart init INIT @id `11` {
+		state INIT @id `12` {
+			on entry display!displayReady()
+			transition -> MOCK
+		}
+		state MOCK @id `13` {
+			internal
+			event display?create
+			action mock()
+			internal
+			event display?destroy
+			action mock()
+			internal
+			event display?update
+			action mock()
+			internal
+			event display?clear
+			action mock()
+			internal
+			event display?setColor
+			action mock()
+			internal
+			event display?setBGColor
+			action mock()
+			internal
+			event display?drawRect
+			action mock()
+			internal
+			event display?fillRect
+			action mock()
+			internal
+			event display?drawInteger
+			action mock()
+			internal
+			event display?drawThingML
+			action mock()
+		}
+	}
+}
+thing fragment ControllerMsgs {
+	message velocity(dx : Int16, dy : Int16)
+	@id `17` message position(x : Int16, y : Int16)
+	@id `18`
+}
+thing fragment Controller includes ControllerMsgs {
+	provided port controls @id `11` {
+		sends position
+	}
+}
+thing fragment IAControllerMsg {
+	message updateIA(ballx : Int16, bally : Int16, padx : Int16, pady : Int16)
+	@id `19`
+}
+thing fragment IAController includes Controller , IAControllerMsg {
+	required port game @id `12` {
+		receives updateIA
+	}
+}
+thing BasicIAController includes IAController {
+	property ctrlx : Int16 = 0 @id `36`
+	statechart SC init Following @id `14` {
+		state Following @id `15` {
+			on entry controls!position(ctrlx, 0)
+			transition -> Following
+			event e : game?updateIA
+			action do
+				if (e.ballx > e.padx + 400) ctrlx = ctrlx + 4
+				else if (e.ballx < e.padx - 400) ctrlx = ctrlx - 4
+				if (ctrlx < -100) ctrlx = -100
+				else if (ctrlx > 100) ctrlx = 100
+			end
+		}
+	}
+}
+datatype Byte<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `byte`
+	@js_type `byte`
+	@go_type `byte`
+	@id `2`
+datatype Char<1>
+	@type_checker `Integer`
+	@c_type `char`
+	@java_type `byte`
+	@js_type `byte`
+	@go_type `byte`
+	@id `3`
+datatype Boolean<1>
+	@type_checker `Boolean`
+	@c_type `bool`
+	@java_type `boolean`
+	@js_type `boolean`
+	@go_type `bool`
+	@id `4`
+datatype UInt8<1>
+	@type_checker `Integer`
+	@c_type `uint8_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `uint8`
+	@id `5`
+datatype Int8<1>
+	@type_checker `Integer`
+	@c_type `int8_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int8`
+	@id `6`
+datatype UInt16<2>
+	@type_checker `Integer`
+	@c_type `uint16_t`
+	@java_type `int`
+	@js_type `int`
+	@go_type `uint16`
+	@id `7`
+datatype Int16<2>
+	@type_checker `Integer`
+	@c_type `int16_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int16`
+	@id `8`
+datatype Int32<4>
+	@type_checker `Integer`
+	@c_type `int32_t`
+	@java_type `long`
+	@js_type `int`
+	@go_type `int32`
+	@id `9`
+datatype UInt32<4>
+	@type_checker `Integer`
+	@c_type `uint32_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint32`
+	@id `10`
+datatype Long<4>
+	@type_checker `Integer`
+	@c_type `uint32_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint32`
+	@id `11`
+datatype Int64<8>
+	@type_checker `Integer`
+	@c_type `int64_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `int64`
+	@id `12`
+datatype UInt64<8>
+	@type_checker `Integer`
+	@c_type `uint64_t`
+	@java_type `long`
+	@js_type `long`
+	@go_type `uint64`
+	@id `13`
+datatype Integer<2>
+	@type_checker `Integer`
+	@c_type `int16_t`
+	@java_type `int`
+	@js_type `short`
+	@go_type `int16`
+	@id `14`
+datatype Float<4>
+	@type_checker `Real`
+	@c_type `float`
+	@java_type `float`
+	@js_type `float`
+	@go_type `float32`
+	@id `15`
+datatype Double<8>
+	@type_checker `Real`
+	@c_type `double`
+	@java_type `double`
+	@js_type `double`
+	@go_type `float64`
+	@id `16`
+object String
+	@serializable
+	@c_type `char *`
+	@arduino_type `String`
+	@java_type `String`
+	@js_type `String`
+	@go_type `string`
+	@id `17`
+enumeration DigitalState as UInt8 @id `18`
+	{
+	LOW = 0
+	HIGH = 1
+}
+thing fragment TimerMsgs @stl {
+	message timer_start(id : UInt8, time : UInt16)
+	@id `20`
+	message timer_cancel(id : UInt8)
+	@id `21`
+	message timer_timeout(id : UInt8)
+	@id `22`
+}
+thing fragment TimerClientPort includes TimerMsgs @stl {
+	required port timer @id `13` {
+		sends timer_start sends timer_cancel receives timer_timeout
+	}
+}
+thing fragment Timer includes TimerMsgs @stl {
+	provided port timer @id `14` {
+		sends timer_timeout receives timer_start receives timer_cancel
+	}
+}
+thing TimerJava includes Timer @stl @java_import `import java.util.*;` @java_features `
+	Hashtable<Integer, TimerTask> tasks = new Hashtable<Integer, TimerTask>();
+	Timer timer = new java.util.Timer();` {
+	function startTimer(id : UInt8, delay : UInt16) @id `21` do
+		cancel(id)
+		`final int t_id = ` & id & `;`
+	`TimerTask t =  new TimerTask() { public void run(){`
+		timer!timer_timeout(`t_id` as UInt8)
+		`
+        } };
+        tasks.put(t_id, t);
+        timer.schedule(t, ` & delay & `);`
+	end
+	function cancel(id : UInt8) @id `22` do
+		`TimerTask t = tasks.get(` & id & `);`
+	`if (t != null) t.cancel();`
+	`timer.purge();`
+	end
+	statechart SoftTimer init default @id `16` {
+		state default @id `17` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object JSArray @id `19`
+thing TimerJS includes Timer @stl {
+	property Timeouts : JSArray = `{}` as JSArray @id `37`
+	function startTimer(id : UInt8, delay : UInt16) @id `23` do
+		`
+      if (` & Timeouts & `[` & id & `] != undefined) {
+        `
+		cancel(id)
+		`
+      }
+      
+      ` & Timeouts & `[` & id & `] = setTimeout(() => {
+        `
+		timer!timer_timeout(id)
+		`
+        ` & Timeouts & `[` & id & `] = undefined;
+      }, ` & delay & `);
+    `
+	end
+	function cancel(id : UInt8) @id `24` do
+		`
+        if (` & Timeouts & `[` & id & `] != undefined) {
+          clearTimeout(` & Timeouts & `[` & id & `]);
+          ` & Timeouts & `[` & id & `] = undefined;
+        }
+      `
+	end
+	statechart SoftTimer init default @id `18` {
+		state default @id `19` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object DriftLess @id `20`
+thing TimerNodeJS includes Timer @stl @js_dep `driftless:2.0.3` {
+	property Timeouts : JSArray = `{}` as JSArray @id `38`
+	readonly property driftless : DriftLess = `require('driftless')` as DriftLess @id `39`
+	function startTimer(id : UInt8, delay : UInt16) @id `25` do
+		`
+      if (` & Timeouts & `[` & id & `] != undefined) {
+        `
+		cancel(id)
+		`
+      }
+      
+      ` & Timeouts & `[` & id & `] = ` & driftless & `.setDriftlessTimeout(() => {
+        `
+		timer!timer_timeout(id)
+		`
+        ` & Timeouts & `[` & id & `] = undefined;
+      }, ` & delay & `);
+    `
+	end
+	function cancel(id : UInt8) @id `26` do
+		`
+        if (` & Timeouts & `[` & id & `] != undefined) {
+          ` & driftless & `.clearDriftless(` & Timeouts & `[` & id & `]);
+          ` & Timeouts & `[` & id & `] = undefined;
+        }
+      `
+	end
+	statechart SoftTimer init default @id `20` {
+		state default @id `21` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+thing TimerPosix includes Timer @stl @c_header `
+#include <time.h>
+#include <unistd.h>
+#include <pthread.h>
+
+#define NB_SOFT_TIMERS 16
+` @c_global `uint32_t Timer_timeouts[NB_SOFT_TIMERS];
+uint8_t  Timer_wraps[NB_SOFT_TIMERS];
+uint32_t Timer_prev;
+pthread_mutex_t Timer_mut;` {
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `40`
+	readonly property SOFT_TIMER_PERIOD : UInt16 = 50 @id `41`
+	function time_ms() : UInt32 @id `27` do
+	`struct timespec current;
+		int res;
+		uint32_t millis = 0;
+		
+		res = clock_gettime(CLOCK_MONOTONIC, &current);
+		if (res != 0) {
+			  perror("[ERROR]: Could not get current time : ");
+		 } else {
+			  millis  =  current.tv_sec * 1000;
+			  millis += current.tv_nsec / 1000000;
+		}`
+		return `millis` as UInt32
+	end
+	function sleep_ms(timeout_ms : UInt16) @id `28` do
+		`struct timeval tv;
+        tv.tv_sec = ` & timeout_ms & `/1000;
+        tv.tv_usec = (` & timeout_ms & `%1000) * 1000;
+        select(0, NULL, NULL, NULL, &tv);`
+	end
+	function initialize() @id `29` do
+		`pthread_mutex_init(&Timer_mut, NULL);
+	    uint8_t i;
+	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	        Timer_timeouts[i] = 0;
+	        Timer_wraps[i] = 0;
+	    }`
+		start_soft_timer_process()
+	end
+	function start_soft_timer_process() @fork_linux_thread `true` @id `30` do
+		`Timer_prev = ` & time_ms()& `;`
+		while (true) do
+			sleep_ms(SOFT_TIMER_PERIOD)
+			`pthread_mutex_lock(&Timer_mut);
+	        uint32_t current = ` & time_ms()& `;
+	        uint8_t i;
+	        for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	            if (Timer_timeouts[i] > 0) {
+	                if (current >= Timer_prev) {
+	                    // Normal time progression
+	                    if (current > Timer_timeouts[i] && Timer_wraps[i] == 0) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                        Timer_wraps[i] = 0;
+	                    }
+	                } else {
+	                    // A wraparound has occurred
+	                    if (Timer_wraps[i] == 0) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                    } else {
+	                        Timer_wraps[i] = 0;
+	                        if (current > Timer_timeouts[i]) {`
+			timer!timer_timeout(`i` as UInt8)
+		`Timer_timeouts[i] = 0;
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	        Timer_prev = current;
+	        pthread_mutex_unlock(&Timer_mut);`
+		end
+	end
+	function startTimer(id : UInt8, delay : UInt16) @id `31` do
+		`
+    	if (` & id & ` < NB_SOFT_TIMERS) {
+	        uint32_t current = ` & time_ms()& `;
+	        uint32_t timeout = current + ` & delay & `;
+	        if (timeout == 0) timeout = 1;
+	
+	        pthread_mutex_lock(&Timer_mut);
+	        Timer_timeouts[` & id & `] = timeout;
+	        Timer_wraps[` & id & `] = (timeout > current) ? 0 : 1;
+	        pthread_mutex_unlock(&Timer_mut);
+	    }
+    `
+	end
+	function cancel(id : UInt8) @id `32` do
+		`
+        if (` & id & ` < NB_SOFT_TIMERS) {
+	        pthread_mutex_lock(&Timer_mut);
+	        Timer_timeouts[` & id & `] = 0;
+	        Timer_wraps[` & id & `] = 0;
+	        pthread_mutex_unlock(&Timer_mut);
+	    }
+      `
+	end
+	statechart SoftTimer init default @id `22` {
+		on entry start_soft_timer_process()
+		state default @id `23` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+thing TimerArduino includes Timer @stl @c_header `
+#define NB_SOFT_TIMERS 32
+` @c_global `uint32_t Timer_timeouts[NB_SOFT_TIMERS];
+uint8_t  Timer_wraps[NB_SOFT_TIMERS];
+uint32_t Timer_prev;` {
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `42`
+	function time_ms() : UInt32 @id `33` do
+		return `millis()` as UInt32
+	end
+	function init_arrays() @id `34` do
+		`uint8_t i;
+	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+	        Timer_timeouts[i] = 0;
+	        Timer_wraps[i] = 0;
+	    }
+	    Timer_prev = ` & time_ms()& `;`
+	end
+	function poll_soft_timers() @scheduler_polling `true` @id `35` do
+		`uint32_t current = ` & time_ms()& `;
+		uint8_t i;
+		for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
+		    if (Timer_timeouts[i] > 0) {
+		        if (current >= Timer_prev) {
+		            // Normal time progression
+		            if (current > Timer_timeouts[i] && Timer_wraps[i] == 0) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		                Timer_wraps[i] = 0;
+		            }
+		        } else {
+		            // A wraparound has occurred
+		            if (Timer_wraps[i] == 0) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		            } else {
+		                Timer_wraps[i] = 0;
+		                if (current > Timer_timeouts[i]) {`
+		timer!timer_timeout(`i` as UInt8)
+	`Timer_timeouts[i] = 0;
+		                }
+		            }
+		        }
+		    }
+		}`
+	end
+	function startTimer(id : UInt8, delay : UInt16) @id `36` do
+		`
+    	if (` & id & ` < NB_SOFT_TIMERS) {
+	        uint32_t current = ` & time_ms()& `;
+	        uint32_t timeout = current + ` & delay & `;
+	        if (timeout == 0) timeout = 1;
+	
+	        Timer_timeouts[` & id & `] = timeout;
+	        Timer_wraps[` & id & `] = (timeout > current) ? 0 : 1;
+	    }
+    `
+	end
+	function cancel(id : UInt8) @id `37` do
+		`
+        if (` & id & ` < NB_SOFT_TIMERS) {
+	        Timer_timeouts[` & id & `] = 0;
+	        Timer_wraps[` & id & `] = 0;
+	    }
+      `
+	end
+	statechart SoftTimer init default @id `24` {
+		on entry init_arrays()
+		state default @id `25` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+object TimerMap
+	@go_type `map[uint8]*time.Timer`
+	@id `21`
+thing TimerGo includes TimerMsgs @stl @go_import `time` {
+	provided port timer @id `15` {
+		sends timer_timeout receives timer_start receives timer_cancel
+	}
+	property Timers : TimerMap @id `43`
+	function initialize() @id `38` do
+		Timers = `make(map[uint8]*time.Timer)` as TimerMap
+	end
+	function startTimer(id : UInt8, delay : UInt16) @id `39` do
+		cancel(id)
+		`
+    	` & Timers & `[` & id & `] = time.AfterFunc(time.Millisecond*time.Duration(` & delay & `), func() {
+    		`
+		timer!timer_timeout(id)
+	`
+    	})
+    `
+	end
+	function cancel(id : UInt8) @id `40` do
+		`
+    	if t, ok := ` & Timers & `[` & id & `]; ok {
+    		t.Stop()
+    		delete(` & Timers & `, ` & id & `)
+    	}
+    `
+	end
+	statechart SoftTimer init default @id `26` {
+		on entry initialize()
+		state default @id `27` {
+			internal
+			event m : timer?timer_start
+			guard m.time > 0
+			action startTimer(m.id, m.time)
+			internal
+			event m : timer?timer_start
+			guard m.time == 0
+			action timer!timer_timeout(m.id)
+			internal cancel
+			event m : timer?timer_cancel
+			action cancel(m.id)
+		}
+	}
+}
+configuration test @arduino_stdout `Serial` @arduino_stdout_baudrate `250000` {
+	instance game : BreakoutGameArduino
+	instance log : ConsoleLogger
+	instance disp : HeadlessDisplay
+	instance timer : TimerArduino
+	instance ctrl : BasicIAController
+	connector game.log => log . log
+	connector game.clock => timer . timer
+	connector game.display => disp . display
+	connector game.req_game => game . pro_game
+	connector game.controller => ctrl . controls
+	connector ctrl.game => game . ia
+	set game.DEBUG_BIN_ID = 0
+	set log.ACTIVATE_ON_STARTUP = true
+	set log.HAS_SIGNED_BYTE = false
+}
