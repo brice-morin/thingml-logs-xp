@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-N=2
+N=50
 
-BINARY=1
-((BINARY)) && TOOL=monitor-bin
-((!BINARY)) && TOOL=monitor		 # posix/arduino cannot use string logging
+#BINARY=1
+#((BINARY)) && TOOL=monitor-bin
+#((!BINARY)) && TOOL=monitor		 # posix/arduino cannot use string logging
 
-WIN=1	#Set to 1 if running on Windows and having problems with Docker volumes or paths...
+WIN=0	#Set to 1 if running on Windows and having problems with Docker volumes or paths...
 
-LANGUAGES=(java graal nodejs nodejs_chakra go go_gccgo posix posix_clang) # Languages to use
+LANGUAGES=(java graal nodejs go posix posix_clang) # Languages to use
 MODES=(on off no) # Logging modes
 
 ((WIN)) && BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )"/../../../ && pwd -W)
