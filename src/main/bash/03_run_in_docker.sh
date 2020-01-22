@@ -27,14 +27,19 @@ function run
   done
 }
 
-mkdir -p $TARGETDIR/logs/$TOOL
-mkdir $TARGETDIR/logs/$TOOL/on
-mkdir $TARGETDIR/logs/$TOOL/off
-mkdir $TARGETDIR/logs/$TOOL/no
+mkdir -p $TARGETDIR/logs/monitor
+mkdir $TARGETDIR/logs/monitor/on
+mkdir $TARGETDIR/logs/monitor/off
+mkdir $TARGETDIR/logs/monitor/no
+
+mkdir -p $TARGETDIR/logs/monitor-bin
+mkdir $TARGETDIR/logs/monitor-bin/on
+mkdir $TARGETDIR/logs/monitor-bin/off
+mkdir $TARGETDIR/logs/monitor-bin/no
 
 for i in `seq 0 $((N-1))`; do
   for j in $(shuf --input-range=0-$(( ${#LANGUAGES[@]} - 1 ))); do
-    run ${LANGUAGES[j]} $i "monitor"
-    run ${LANGUAGES[j]} $i "monitor-bin"
+  	run ${LANGUAGES[j]} $i "monitor-bin"
+    run ${LANGUAGES[j]} $i "monitor"    
   done
 done

@@ -1,0 +1,13 @@
+package org.thingml.generated.api;
+
+import org.thingml.generated.api.*;
+
+public interface IConsoleLogger_log{
+void function_called_via_log(String LogMsgs_function_called_inst_var, String LogMsgs_function_called_fn_name_var, String LogMsgs_function_called_ty_var, String LogMsgs_function_called_returns_var, String LogMsgs_function_called_params_var);
+void property_changed_via_log(String LogMsgs_property_changed_inst_var, String LogMsgs_property_changed_prop_name_var, String LogMsgs_property_changed_ty_var, String LogMsgs_property_changed_old_value_var, String LogMsgs_property_changed_new_value_var);
+void message_lost_via_log(String LogMsgs_message_lost_inst_var, String LogMsgs_message_lost_port_name_var, String LogMsgs_message_lost_msg_name_var, String LogMsgs_message_lost_params_var);
+void message_handled_via_log(String LogMsgs_message_handled_inst_var, String LogMsgs_message_handled_source_var, String LogMsgs_message_handled_target_var, String LogMsgs_message_handled_port_name_var, String LogMsgs_message_handled_msg_name_var, String LogMsgs_message_handled_params_var);
+void message_sent_via_log(String LogMsgs_message_sent_inst_var, String LogMsgs_message_sent_port_name_var, String LogMsgs_message_sent_msg_name_var, String LogMsgs_message_sent_params_var);
+void log_on_via_log();
+void log_off_via_log();
+}
