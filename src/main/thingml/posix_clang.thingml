@@ -44,6 +44,7 @@ configuration test
 	instance game : BreakoutGamePosix
 	instance disp : HeadlessDisplay
 	instance timer : TimerPosix
+		set timer.SOFT_TIMER_PERIOD = 4
 
 	connector game.clock => timer.timer
 	connector game.display => disp.display
