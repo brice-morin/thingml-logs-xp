@@ -8,8 +8,8 @@ go_no:loc:1348
 go_no:bin:3392656
 posix_no:loc:2145
 posix_no:bin:50608
-arduino-due_no:loc:2472
-arduino-due_no:bin:17988
+arduino_due_no:loc:2472
+arduino_due_no:bin:17988
 
 
 nodejs-bin:loc:1959
@@ -22,8 +22,8 @@ go-bin:loc:2549
 go-bin:bin:3496440
 posix-bin:loc:2930
 posix-bin:bin:67824
-arduino-due-bin:loc:3341
-arduino-due-bin:bin:26476
+arduino_due-bin:loc:3341
+arduino_due-bin:bin:26476
 
 
 nodejs:loc:1959
@@ -36,5 +36,5 @@ go:loc:2855
 go:bin:3608736
 posix:loc:3035
 posix:bin:
-arduino-due:loc:3471
-arduino-due:bin:61440
+arduino_due:loc:3471
+arduino_due:bin:61440
