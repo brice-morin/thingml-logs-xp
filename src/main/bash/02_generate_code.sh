@@ -12,7 +12,8 @@ function generate
 }
 
 for LANGUAGE in ${LANGUAGES[@]}; do
-  generate $LANGUAGE "monitor" &
-  generate $LANGUAGE "monitor-bin" &
+  for TOOL in ${TOOLS[@]}; do
+    generate $LANGUAGE $TOOL &  
+  done
 done
 wait

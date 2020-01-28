@@ -37,9 +37,15 @@ mkdir $TARGETDIR/logs/monitor-bin/on
 mkdir $TARGETDIR/logs/monitor-bin/off
 mkdir $TARGETDIR/logs/monitor-bin/no
 
+mkdir -p $TARGETDIR/logs/monitor-bin_string
+mkdir $TARGETDIR/logs/monitor-bin_string/on
+mkdir $TARGETDIR/logs/monitor-bin_string/off
+mkdir $TARGETDIR/logs/monitor-bin_string/no
+
 for i in `seq 0 $((N-1))`; do
   for j in $(shuf --input-range=0-$(( ${#LANGUAGES[@]} - 1 ))); do
-  	run ${LANGUAGES[j]} $i "monitor-bin"
-    run ${LANGUAGES[j]} $i "monitor"    
+    for k in $(shuf --input-range=0-$(( ${#TOOLS[@]} - 1 ))); do
+  	  run ${LANGUAGES[j]} $i ${TOOLS[k]}    
+  	done
   done
 done
