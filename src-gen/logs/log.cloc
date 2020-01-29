@@ -34,13 +34,13 @@ arduino-due:loc:3471
 arduino-due:bin:61440
 
 
-nodejs-bin_string:loc:
-nodejs-bin_string:bin:
-java-bin_string:loc:
-java-bin_string:bin:
-go-bin_string:loc:
-go-bin_string:bin:
-posix-bin_string:loc:
-posix-bin_string:bin:
+nodejs-bin_string:loc:2835
+nodejs-bin_string:bin:6138
+java-bin_string:loc:3924
+java-bin_string:bin:111234
+go-bin_string:loc:3347
+go-bin_string:bin:3544040
+posix-bin_string:loc:4140
+posix-bin_string:bin:80312
 arduino-due-bin_string:loc:4812
 arduino-due-bin_string:bin:41348
