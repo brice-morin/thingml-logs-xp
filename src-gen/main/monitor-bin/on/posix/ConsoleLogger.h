@@ -27,23 +27,23 @@ uint16_t id_log;
 // Variables for the current instance state
 int Logger_State;
 // Variables for the properties of the instance
-bool Logger_HAS_SIGNED_BYTE_var;
 bool Logger_ACTIVATE_ON_STARTUP_var;
 bool ConsoleLogger_QUIET_var;
+bool Logger_HAS_SIGNED_BYTE_var;
 
 };
 // Declaration of prototypes outgoing messages :
 void Logger_OnEntry(int state, struct ConsoleLogger_Instance *_instance);
+void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance);
 void ConsoleLogger_handle_log_log(struct ConsoleLogger_Instance *_instance, uint8_t* payload, uint8_t size);
 void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance);
-void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance);
 // Declaration of callbacks for incoming messages:
 
 // Definition of the states:
-#define LOGGER_NULL_ON_STATE 0
-#define LOGGER_NULL_STARTUP_STATE 1
-#define LOGGER_NULL_OFF_STATE 2
-#define LOGGER_STATE 3
+#define LOGGER_NULL_OFF_STATE 0
+#define LOGGER_NULL_ON_STATE 1
+#define LOGGER_STATE 2
+#define LOGGER_NULL_STARTUP_STATE 3
 
 
 

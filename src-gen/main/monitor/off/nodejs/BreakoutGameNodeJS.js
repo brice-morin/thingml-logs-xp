@@ -38,10 +38,10 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.bus.emit('clock', new Event.Timer_start_TimerMsgs(this.name, 'clock', id_193_var, time_194_var));
 		const params_195_var = '' + ('id=' + (id_193_var + ',')) + ('time=' + (time_194_var + ','));
 		this.bus.emit('log', new Event.Message_sent_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'clock', 'timer_start', params_195_var));
-		const old_countdown_6_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
+		const old_countdown_14_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
 		this.BreakoutGame_SC_LAUNCH_countdown_var = 3;
-		const new_countdown_6_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'countdown', 'UInt8', old_countdown_6_var, new_countdown_6_var));
+		const new_countdown_14_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'countdown', 'UInt8', old_countdown_14_var, new_countdown_14_var));
 		this.drawScore();
 		this.drawLives();
 		this.bus.emit('display', new Event.Update_DisplayMsgs(this.name, 'display'));
@@ -60,10 +60,10 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.bus.emit('clock', new Event.Timer_start_TimerMsgs(this.name, 'clock', id_218_var, time_219_var));
 		const params_220_var = '' + ('id=' + (id_218_var + ',')) + ('time=' + (time_219_var + ','));
 		this.bus.emit('log', new Event.Message_sent_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'clock', 'timer_start', params_220_var));
-		const old_lives_4_var = '' + this.BreakoutGame_lives_var;
+		const old_lives_11_var = '' + this.BreakoutGame_lives_var;
 		this.BreakoutGame_lives_var = this.BreakoutGame_lives_var - 1;
-		const new_lives_4_var = '' + this.BreakoutGame_lives_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'lives', 'UInt8', old_lives_4_var, new_lives_4_var));
+		const new_lives_11_var = '' + this.BreakoutGame_lives_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'lives', 'UInt8', old_lives_11_var, new_lives_11_var));
 		this.eraseBall();
 		this.erasePad();
 		this.drawLives();
@@ -77,18 +77,18 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.bus.emit('clock', new Event.Timer_start_TimerMsgs(this.name, 'clock', id_221_var, time_222_var));
 		const params_223_var = '' + ('id=' + (id_221_var + ',')) + ('time=' + (time_222_var + ','));
 		this.bus.emit('log', new Event.Message_sent_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'clock', 'timer_start', params_223_var));
-		const old_level_5_var = '' + this.BreakoutGame_level_var;
+		const old_level_3_var = '' + this.BreakoutGame_level_var;
 		this.BreakoutGame_level_var = this.BreakoutGame_level_var + 1;
-		const new_level_5_var = '' + this.BreakoutGame_level_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'level', 'UInt8', old_level_5_var, new_level_5_var));
+		const new_level_3_var = '' + this.BreakoutGame_level_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'level', 'UInt8', old_level_3_var, new_level_3_var));
 		this.drawLevel();
 		this.eraseBall();
 		this.erasePad();
 		if((this.BreakoutGame_level_var % 2) === 0 && this.BreakoutGame_padlen_var > 5 * this.BreakoutGame_SCALE_var) {
-		const old_padlen_20_var = '' + this.BreakoutGame_padlen_var;
+		const old_padlen_12_var = '' + this.BreakoutGame_padlen_var;
 		this.BreakoutGame_padlen_var = this.BreakoutGame_padlen_var - (4 * this.BreakoutGame_SCALE_var);
-		const new_padlen_20_var = '' + this.BreakoutGame_padlen_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'padlen', 'Int16', old_padlen_20_var, new_padlen_20_var));
+		const new_padlen_12_var = '' + this.BreakoutGame_padlen_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'padlen', 'Int16', old_padlen_12_var, new_padlen_12_var));
 		
 		}
 		if((this.BreakoutGame_level_var % 2) === 1) {
@@ -173,10 +173,10 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		let center_var = (this.BreakoutGame_RIGHT_var - this.BreakoutGame_LEFT_var - this.BreakoutGame_padlen_var);
 		center_var = position.x * center_var;
 		center_var = Math.trunc(center_var / 200);
-		const old_padx_30_var = '' + this.BreakoutGame_padx_var;
+		const old_padx_8_var = '' + this.BreakoutGame_padx_var;
 		this.BreakoutGame_padx_var = (this.BreakoutGame_LEFT_var + center_var + Math.trunc((this.BreakoutGame_RIGHT_var - this.BreakoutGame_LEFT_var) / 2));
-		const new_padx_30_var = '' + this.BreakoutGame_padx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'padx', 'Int16', old_padx_30_var, new_padx_30_var));
+		const new_padx_8_var = '' + this.BreakoutGame_padx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'padx', 'Int16', old_padx_8_var, new_padx_8_var));
 	});
 	this._statemachine.on(Event.Timer_timeout).when((timer_timeout) => {
 		return timer_timeout.port === 'clock' && timer_timeout.type === 'timer_timeout' && (true);
@@ -227,10 +227,10 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.drawCountDown(Math.trunc(this.BreakoutGame_SC_LAUNCH_countdown_var / 30));
 		
 		}
-		const old_countdown_7_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
+		const old_countdown_15_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
 		this.BreakoutGame_SC_LAUNCH_countdown_var = this.BreakoutGame_SC_LAUNCH_countdown_var - 1;
-		const new_countdown_7_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'countdown', 'UInt8', old_countdown_7_var, new_countdown_7_var));
+		const new_countdown_15_var = '' + this.BreakoutGame_SC_LAUNCH_countdown_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'countdown', 'UInt8', old_countdown_15_var, new_countdown_15_var));
 		this.bus.emit('display', new Event.Update_DisplayMsgs(this.name, 'display'));
 		this.bus.emit('log', new Event.Message_sent_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'display', 'update', ''));
 	});
@@ -239,39 +239,39 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 	}).effect((timer_timeout) => {
 		const params_var = '' + ('id=' + (timer_timeout.id + ','));
 		this.bus.emit('log', new Event.Message_handled_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'SC.PLAY', '_', 'clock', 'timer_timeout', params_var));
-		const old_bx_17_var = '' + this.BreakoutGame_bx_var;
+		const old_bx_5_var = '' + this.BreakoutGame_bx_var;
 		this.BreakoutGame_bx_var = this.BreakoutGame_bx_var + this.BreakoutGame_dx_var;
-		const new_bx_17_var = '' + this.BreakoutGame_bx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_17_var, new_bx_17_var));
-		const old_by_1_var = '' + this.BreakoutGame_by_var;
+		const new_bx_5_var = '' + this.BreakoutGame_bx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_5_var, new_bx_5_var));
+		const old_by_18_var = '' + this.BreakoutGame_by_var;
 		this.BreakoutGame_by_var = this.BreakoutGame_by_var + this.BreakoutGame_dy_var;
-		const new_by_1_var = '' + this.BreakoutGame_by_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_1_var, new_by_1_var));
+		const new_by_18_var = '' + this.BreakoutGame_by_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_18_var, new_by_18_var));
 		let wl_var = this.BreakoutGame_LEFT_var + this.BreakoutGame_br_var;
 		let wr_var = this.BreakoutGame_RIGHT_var - this.BreakoutGame_br_var;
 		let wt_var = this.BreakoutGame_TOP_var + this.BreakoutGame_br_var;
 		let wb_var = this.BreakoutGame_BOTTOM_var - this.BreakoutGame_br_var;
 		if(this.BreakoutGame_bx_var < wl_var) {
-		const old_dx_9_var = '' + this.BreakoutGame_dx_var;
+		const old_dx_30_var = '' + this.BreakoutGame_dx_var;
 		this.BreakoutGame_dx_var =  -this.BreakoutGame_dx_var;
-		const new_dx_9_var = '' + this.BreakoutGame_dx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_9_var, new_dx_9_var));
-		const old_bx_18_var = '' + this.BreakoutGame_bx_var;
+		const new_dx_30_var = '' + this.BreakoutGame_dx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_30_var, new_dx_30_var));
+		const old_bx_6_var = '' + this.BreakoutGame_bx_var;
 		this.BreakoutGame_bx_var = 2 * wl_var - this.BreakoutGame_bx_var;
-		const new_bx_18_var = '' + this.BreakoutGame_bx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_18_var, new_bx_18_var));
+		const new_bx_6_var = '' + this.BreakoutGame_bx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_6_var, new_bx_6_var));
 		this.incrementScore( -1);
 		
 		} else {
 		if(this.BreakoutGame_bx_var > wr_var) {
-		const old_dx_10_var = '' + this.BreakoutGame_dx_var;
+		const old_dx_31_var = '' + this.BreakoutGame_dx_var;
 		this.BreakoutGame_dx_var =  -this.BreakoutGame_dx_var;
-		const new_dx_10_var = '' + this.BreakoutGame_dx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_10_var, new_dx_10_var));
-		const old_bx_19_var = '' + this.BreakoutGame_bx_var;
+		const new_dx_31_var = '' + this.BreakoutGame_dx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_31_var, new_dx_31_var));
+		const old_bx_7_var = '' + this.BreakoutGame_bx_var;
 		this.BreakoutGame_bx_var = 2 * wr_var - this.BreakoutGame_bx_var;
-		const new_bx_19_var = '' + this.BreakoutGame_bx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_19_var, new_bx_19_var));
+		const new_bx_7_var = '' + this.BreakoutGame_bx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_7_var, new_bx_7_var));
 		this.incrementScore( -1);
 		
 		}
@@ -282,10 +282,10 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.BreakoutGame_dy_var =  -this.BreakoutGame_dy_var;
 		const new_dy_25_var = '' + this.BreakoutGame_dy_var;
 		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dy', 'Int16', old_dy_25_var, new_dy_25_var));
-		const old_by_2_var = '' + this.BreakoutGame_by_var;
+		const old_by_19_var = '' + this.BreakoutGame_by_var;
 		this.BreakoutGame_by_var = 2 * wt_var - this.BreakoutGame_by_var;
-		const new_by_2_var = '' + this.BreakoutGame_by_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_2_var, new_by_2_var));
+		const new_by_19_var = '' + this.BreakoutGame_by_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_19_var, new_by_19_var));
 		this.incrementScore( -1);
 		
 		} else {
@@ -305,14 +305,14 @@ BreakoutGameNodeJS.prototype.build = function(session) {
 		this.BreakoutGame_dy_var =  -this.BreakoutGame_dy_var;
 		const new_dy_26_var = '' + this.BreakoutGame_dy_var;
 		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dy', 'Int16', old_dy_26_var, new_dy_26_var));
-		const old_by_3_var = '' + this.BreakoutGame_by_var;
+		const old_by_20_var = '' + this.BreakoutGame_by_var;
 		this.BreakoutGame_by_var = 2 * (this.BreakoutGame_pady_var - this.BreakoutGame_br_var) - this.BreakoutGame_by_var;
-		const new_by_3_var = '' + this.BreakoutGame_by_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_3_var, new_by_3_var));
-		const old_dx_11_var = '' + this.BreakoutGame_dx_var;
+		const new_by_20_var = '' + this.BreakoutGame_by_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_20_var, new_by_20_var));
+		const old_dx_32_var = '' + this.BreakoutGame_dx_var;
 		this.BreakoutGame_dx_var = Math.trunc(this.BreakoutGame_dx_var / 4) + Math.trunc((this.BreakoutGame_bx_var - this.BreakoutGame_padx_var) / 4);
-		const new_dx_11_var = '' + this.BreakoutGame_dx_var;
-		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_11_var, new_dx_11_var));
+		const new_dx_32_var = '' + this.BreakoutGame_dx_var;
+		this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_32_var, new_dx_32_var));
 		
 		}
 		
@@ -505,18 +505,18 @@ BreakoutGameNodeJS.prototype.initColors = function() {
 
 BreakoutGameNodeJS.prototype.resetBall = function() {
 	this.bus.emit('log', new Event.Function_called_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'resetBall', 'void_', '', ''));
-	const old_bx_16_var = '' + this.BreakoutGame_bx_var;
+	const old_bx_4_var = '' + this.BreakoutGame_bx_var;
 	this.BreakoutGame_bx_var = this.BreakoutGame_padx_var - Math.trunc(this.BreakoutGame_br_var / this.BreakoutGame_SCALE_var);
-	const new_bx_16_var = '' + this.BreakoutGame_bx_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_16_var, new_bx_16_var));
-	const old_by_0_var = '' + this.BreakoutGame_by_var;
+	const new_bx_4_var = '' + this.BreakoutGame_bx_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'bx', 'Int16', old_bx_4_var, new_bx_4_var));
+	const old_by_17_var = '' + this.BreakoutGame_by_var;
 	this.BreakoutGame_by_var = this.BreakoutGame_pady_var - Math.trunc(this.BreakoutGame_br_var / this.BreakoutGame_SCALE_var);
-	const new_by_0_var = '' + this.BreakoutGame_by_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_0_var, new_by_0_var));
-	const old_dx_8_var = '' + this.BreakoutGame_dx_var;
+	const new_by_17_var = '' + this.BreakoutGame_by_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'by', 'Int16', old_by_17_var, new_by_17_var));
+	const old_dx_29_var = '' + this.BreakoutGame_dx_var;
 	this.BreakoutGame_dx_var = (this.BreakoutGame_padx_var + this.BreakoutGame_prevBX_var + this.BreakoutGame_prevBY_var) % 300 - 150;
-	const new_dx_8_var = '' + this.BreakoutGame_dx_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_8_var, new_dx_8_var));
+	const new_dx_29_var = '' + this.BreakoutGame_dx_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'dx', 'Int16', old_dx_29_var, new_dx_29_var));
 	if(this.BreakoutGame_dy_var > 0) {
 	const old_dy_24_var = '' + this.BreakoutGame_dy_var;
 	this.BreakoutGame_dy_var =  -this.BreakoutGame_dy_var;
@@ -528,10 +528,10 @@ BreakoutGameNodeJS.prototype.resetBall = function() {
 	this.BreakoutGame_prevBX_var =  -1;
 	const new_prevBX_21_var = '' + this.BreakoutGame_prevBX_var;
 	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBX', 'Int16', old_prevBX_21_var, new_prevBX_21_var));
-	const old_prevBY_13_var = '' + this.BreakoutGame_prevBY_var;
+	const old_prevBY_0_var = '' + this.BreakoutGame_prevBY_var;
 	this.BreakoutGame_prevBY_var =  -1;
-	const new_prevBY_13_var = '' + this.BreakoutGame_prevBY_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_13_var, new_prevBY_13_var));
+	const new_prevBY_0_var = '' + this.BreakoutGame_prevBY_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_0_var, new_prevBY_0_var));
 }
 
 BreakoutGameNodeJS.prototype.eraseBall = function() {
@@ -557,10 +557,10 @@ BreakoutGameNodeJS.prototype.eraseBall = function() {
 	this.BreakoutGame_prevBX_var =  -1;
 	const new_prevBX_22_var = '' + this.BreakoutGame_prevBX_var;
 	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBX', 'Int16', old_prevBX_22_var, new_prevBX_22_var));
-	const old_prevBY_14_var = '' + this.BreakoutGame_prevBY_var;
+	const old_prevBY_1_var = '' + this.BreakoutGame_prevBY_var;
 	this.BreakoutGame_prevBY_var =  -1;
-	const new_prevBY_14_var = '' + this.BreakoutGame_prevBY_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_14_var, new_prevBY_14_var));
+	const new_prevBY_1_var = '' + this.BreakoutGame_prevBY_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_1_var, new_prevBY_1_var));
 }
 
 BreakoutGameNodeJS.prototype.drawBall = function() {
@@ -571,10 +571,10 @@ BreakoutGameNodeJS.prototype.drawBall = function() {
 	this.BreakoutGame_prevBX_var = Math.trunc((this.BreakoutGame_bx_var - this.BreakoutGame_br_var) / this.BreakoutGame_SCALE_var);
 	const new_prevBX_23_var = '' + this.BreakoutGame_prevBX_var;
 	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBX', 'Int16', old_prevBX_23_var, new_prevBX_23_var));
-	const old_prevBY_15_var = '' + this.BreakoutGame_prevBY_var;
+	const old_prevBY_2_var = '' + this.BreakoutGame_prevBY_var;
 	this.BreakoutGame_prevBY_var = Math.trunc((this.BreakoutGame_by_var - this.BreakoutGame_br_var) / this.BreakoutGame_SCALE_var);
-	const new_prevBY_15_var = '' + this.BreakoutGame_prevBY_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_15_var, new_prevBY_15_var));
+	const new_prevBY_2_var = '' + this.BreakoutGame_prevBY_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevBY', 'Int16', old_prevBY_2_var, new_prevBY_2_var));
 	const r_17_var = 183;
 	const g_18_var = 199;
 	const b_19_var = 111;
@@ -615,14 +615,14 @@ BreakoutGameNodeJS.prototype.drawPad = function() {
 	this.bus.emit('log', new Event.Function_called_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'drawPad', 'void_', '', ''));
 	let ps_var = Math.trunc(this.BreakoutGame_padlen_var / this.BreakoutGame_SCALE_var);
 	this.erasePad();
-	const old_prevPX_29_var = '' + this.BreakoutGame_prevPX_var;
+	const old_prevPX_13_var = '' + this.BreakoutGame_prevPX_var;
 	this.BreakoutGame_prevPX_var = Math.trunc((this.BreakoutGame_padx_var - (Math.trunc(this.BreakoutGame_padlen_var / 2))) / this.BreakoutGame_SCALE_var);
-	const new_prevPX_29_var = '' + this.BreakoutGame_prevPX_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevPX', 'Int16', old_prevPX_29_var, new_prevPX_29_var));
-	const old_prevPY_12_var = '' + this.BreakoutGame_prevPY_var;
+	const new_prevPX_13_var = '' + this.BreakoutGame_prevPX_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevPX', 'Int16', old_prevPX_13_var, new_prevPX_13_var));
+	const old_prevPY_16_var = '' + this.BreakoutGame_prevPY_var;
 	this.BreakoutGame_prevPY_var = Math.trunc(this.BreakoutGame_pady_var / this.BreakoutGame_SCALE_var);
-	const new_prevPY_12_var = '' + this.BreakoutGame_prevPY_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevPY', 'Int16', old_prevPY_12_var, new_prevPY_12_var));
+	const new_prevPY_16_var = '' + this.BreakoutGame_prevPY_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'prevPY', 'Int16', old_prevPY_16_var, new_prevPY_16_var));
 	const r_35_var = this.BreakoutGame_fgcolor_var[0];
 	const g_36_var = this.BreakoutGame_fgcolor_var[1];
 	const b_37_var = this.BreakoutGame_fgcolor_var[2];
@@ -888,15 +888,15 @@ BreakoutGameNodeJS.prototype.drawLevel = function() {
 BreakoutGameNodeJS.prototype.incrementScore = function(BreakoutGame_incrementScore_diff_var) {
 	const params_var = '' + ('diff=' + (BreakoutGame_incrementScore_diff_var + ','));
 	this.bus.emit('log', new Event.Function_called_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'incrementScore', 'void_', '', params_var));
-	const old_score_31_var = '' + this.BreakoutGame_score_var;
+	const old_score_9_var = '' + this.BreakoutGame_score_var;
 	this.BreakoutGame_score_var = this.BreakoutGame_score_var + BreakoutGame_incrementScore_diff_var;
-	const new_score_31_var = '' + this.BreakoutGame_score_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'score', 'Int16', old_score_31_var, new_score_31_var));
+	const new_score_9_var = '' + this.BreakoutGame_score_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'score', 'Int16', old_score_9_var, new_score_9_var));
 	if(this.BreakoutGame_score_var < 0) {
-	const old_score_32_var = '' + this.BreakoutGame_score_var;
+	const old_score_10_var = '' + this.BreakoutGame_score_var;
 	this.BreakoutGame_score_var = 0;
-	const new_score_32_var = '' + this.BreakoutGame_score_var;
-	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'score', 'Int16', old_score_32_var, new_score_32_var));
+	const new_score_10_var = '' + this.BreakoutGame_score_var;
+	this.bus.emit('log', new Event.Property_changed_LogMsgs(this.name, 'log', this.WithLog_DEBUG_ID_var, 'score', 'Int16', old_score_10_var, new_score_10_var));
 	
 	}
 	this.drawScore();

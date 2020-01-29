@@ -209,20 +209,6 @@ default: break;
 }
 
 // Event Handlers for incoming messages:
-void TimerPosix_handle_timer_timer_cancel(struct TimerPosix_Instance *_instance, uint8_t id) {
-if(!(_instance->active)) return;
-//Region SoftTimer
-uint8_t TimerPosix_SoftTimer_State_event_consumed = 0;
-if (_instance->TimerPosix_SoftTimer_State == TIMERPOSIX_SOFTTIMER_DEFAULT_STATE) {
-if (TimerPosix_SoftTimer_State_event_consumed == 0 && 1) {
-f_TimerPosix_cancel(_instance, id);
-TimerPosix_SoftTimer_State_event_consumed = 1;
-}
-}
-//End Region SoftTimer
-//End dsregion SoftTimer
-//Session list: 
-}
 void TimerPosix_handle_timer_timer_start(struct TimerPosix_Instance *_instance, uint8_t id, uint16_t time) {
 if(!(_instance->active)) return;
 //Region SoftTimer
@@ -234,6 +220,20 @@ TimerPosix_SoftTimer_State_event_consumed = 1;
 }
 else if (TimerPosix_SoftTimer_State_event_consumed == 0 && time == 0) {
 TimerPosix_send_timer_timer_timeout(_instance, id);
+TimerPosix_SoftTimer_State_event_consumed = 1;
+}
+}
+//End Region SoftTimer
+//End dsregion SoftTimer
+//Session list: 
+}
+void TimerPosix_handle_timer_timer_cancel(struct TimerPosix_Instance *_instance, uint8_t id) {
+if(!(_instance->active)) return;
+//Region SoftTimer
+uint8_t TimerPosix_SoftTimer_State_event_consumed = 0;
+if (_instance->TimerPosix_SoftTimer_State == TIMERPOSIX_SOFTTIMER_DEFAULT_STATE) {
+if (TimerPosix_SoftTimer_State_event_consumed == 0 && 1) {
+f_TimerPosix_cancel(_instance, id);
 TimerPosix_SoftTimer_State_event_consumed = 1;
 }
 }

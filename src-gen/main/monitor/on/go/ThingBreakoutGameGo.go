@@ -135,35 +135,35 @@ func (state *ThingBreakoutGameGo) resetBall() {
 		Returns: "",
 		Params: "",
 	})
-	var old_bx_16 string = "" + fmt.Sprintf("%d", int64(state.bx))
+	var old_bx_4 string = "" + fmt.Sprintf("%d", int64(state.bx))
 	state.bx = state.padx - state.br / state.SCALE
-	var new_bx_16 string = "" + fmt.Sprintf("%d", int64(state.bx))
+	var new_bx_4 string = "" + fmt.Sprintf("%d", int64(state.bx))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "bx",
 		Ty: "Int16",
-		Old_value: old_bx_16,
-		New_value: new_bx_16,
+		Old_value: old_bx_4,
+		New_value: new_bx_4,
 	})
-	var old_by_0 string = "" + fmt.Sprintf("%d", int64(state.by))
+	var old_by_17 string = "" + fmt.Sprintf("%d", int64(state.by))
 	state.by = state.pady - state.br / state.SCALE
-	var new_by_0 string = "" + fmt.Sprintf("%d", int64(state.by))
+	var new_by_17 string = "" + fmt.Sprintf("%d", int64(state.by))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "by",
 		Ty: "Int16",
-		Old_value: old_by_0,
-		New_value: new_by_0,
+		Old_value: old_by_17,
+		New_value: new_by_17,
 	})
-	var old_dx_8 string = "" + fmt.Sprintf("%d", int64(state.dx))
+	var old_dx_29 string = "" + fmt.Sprintf("%d", int64(state.dx))
 	state.dx = (state.padx + state.prevBX + state.prevBY) % 300 - 150
-	var new_dx_8 string = "" + fmt.Sprintf("%d", int64(state.dx))
+	var new_dx_29 string = "" + fmt.Sprintf("%d", int64(state.dx))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "dx",
 		Ty: "Int16",
-		Old_value: old_dx_8,
-		New_value: new_dx_8,
+		Old_value: old_dx_29,
+		New_value: new_dx_29,
 	})
 	if state.dy > 0 {
 		var old_dy_24 string = "" + fmt.Sprintf("%d", int64(state.dy))
@@ -187,15 +187,15 @@ func (state *ThingBreakoutGameGo) resetBall() {
 		Old_value: old_prevBX_21,
 		New_value: new_prevBX_21,
 	})
-	var old_prevBY_13 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var old_prevBY_0 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.prevBY =  -(1)
-	var new_prevBY_13 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var new_prevBY_0 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "prevBY",
 		Ty: "Int16",
-		Old_value: old_prevBY_13,
-		New_value: new_prevBY_13,
+		Old_value: old_prevBY_0,
+		New_value: new_prevBY_0,
 	})
 }
 func (state *ThingBreakoutGameGo) eraseBall() {
@@ -251,15 +251,15 @@ func (state *ThingBreakoutGameGo) eraseBall() {
 		Old_value: old_prevBX_22,
 		New_value: new_prevBX_22,
 	})
-	var old_prevBY_14 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var old_prevBY_1 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.prevBY =  -(1)
-	var new_prevBY_14 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var new_prevBY_1 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "prevBY",
 		Ty: "Int16",
-		Old_value: old_prevBY_14,
-		New_value: new_prevBY_14,
+		Old_value: old_prevBY_1,
+		New_value: new_prevBY_1,
 	})
 }
 func (state *ThingBreakoutGameGo) drawBall() {
@@ -282,15 +282,15 @@ func (state *ThingBreakoutGameGo) drawBall() {
 		Old_value: old_prevBX_23,
 		New_value: new_prevBX_23,
 	})
-	var old_prevBY_15 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var old_prevBY_2 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.prevBY = (state.by - state.br) / state.SCALE
-	var new_prevBY_15 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
+	var new_prevBY_2 string = "" + fmt.Sprintf("%d", int64(state.prevBY))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "prevBY",
 		Ty: "Int16",
-		Old_value: old_prevBY_15,
-		New_value: new_prevBY_15,
+		Old_value: old_prevBY_2,
+		New_value: new_prevBY_2,
 	})
 	var r_17 uint8 = 183
 	var g_18 uint8 = 199
@@ -379,25 +379,25 @@ func (state *ThingBreakoutGameGo) drawPad() {
 	})
 	var ps int16 = state.padlen / state.SCALE
 	state.erasePad()
-	var old_prevPX_29 string = "" + fmt.Sprintf("%d", int64(state.prevPX))
+	var old_prevPX_13 string = "" + fmt.Sprintf("%d", int64(state.prevPX))
 	state.prevPX = (state.padx - (state.padlen / 2)) / state.SCALE
-	var new_prevPX_29 string = "" + fmt.Sprintf("%d", int64(state.prevPX))
+	var new_prevPX_13 string = "" + fmt.Sprintf("%d", int64(state.prevPX))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "prevPX",
 		Ty: "Int16",
-		Old_value: old_prevPX_29,
-		New_value: new_prevPX_29,
+		Old_value: old_prevPX_13,
+		New_value: new_prevPX_13,
 	})
-	var old_prevPY_12 string = "" + fmt.Sprintf("%d", int64(state.prevPY))
+	var old_prevPY_16 string = "" + fmt.Sprintf("%d", int64(state.prevPY))
 	state.prevPY = state.pady / state.SCALE
-	var new_prevPY_12 string = "" + fmt.Sprintf("%d", int64(state.prevPY))
+	var new_prevPY_16 string = "" + fmt.Sprintf("%d", int64(state.prevPY))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "prevPY",
 		Ty: "Int16",
-		Old_value: old_prevPY_12,
-		New_value: new_prevPY_12,
+		Old_value: old_prevPY_16,
+		New_value: new_prevPY_16,
 	})
 	var r_35 uint8 = state.fgcolor[0]
 	var g_36 uint8 = state.fgcolor[1]
@@ -924,26 +924,26 @@ func (state *ThingBreakoutGameGo) incrementScore(diff int8) {
 		Returns: "",
 		Params: params,
 	})
-	var old_score_31 string = "" + fmt.Sprintf("%d", int64(state.score))
+	var old_score_9 string = "" + fmt.Sprintf("%d", int64(state.score))
 	state.score = state.score + int16(diff)
-	var new_score_31 string = "" + fmt.Sprintf("%d", int64(state.score))
+	var new_score_9 string = "" + fmt.Sprintf("%d", int64(state.score))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "score",
 		Ty: "Int16",
-		Old_value: old_score_31,
-		New_value: new_score_31,
+		Old_value: old_score_9,
+		New_value: new_score_9,
 	})
 	if state.score < 0 {
-		var old_score_32 string = "" + fmt.Sprintf("%d", int64(state.score))
+		var old_score_10 string = "" + fmt.Sprintf("%d", int64(state.score))
 		state.score = 0
-		var new_score_32 string = "" + fmt.Sprintf("%d", int64(state.score))
+		var new_score_10 string = "" + fmt.Sprintf("%d", int64(state.score))
 		state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 			Inst: state.DEBUG_ID,
 			Prop_name: "score",
 			Ty: "Int16",
-			Old_value: old_score_32,
-			New_value: new_score_32,
+			Old_value: old_score_10,
+			New_value: new_score_10,
 		})
 	}
 	state.drawScore()
@@ -1187,15 +1187,15 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 				var center int32 = (int32(state.RIGHT) - int32(state.LEFT) - int32(state.padlen))
 				center = int32(e.X) * center
 				center = center / 200
-				var old_padx_30 string = "" + fmt.Sprintf("%d", int64(state.padx))
+				var old_padx_8 string = "" + fmt.Sprintf("%d", int64(state.padx))
 				state.padx = int16((int32(state.LEFT) + center + (int32(state.RIGHT) - int32(state.LEFT)) / 2))
-				var new_padx_30 string = "" + fmt.Sprintf("%d", int64(state.padx))
+				var new_padx_8 string = "" + fmt.Sprintf("%d", int64(state.padx))
 				state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 					Inst: state.DEBUG_ID,
 					Prop_name: "padx",
 					Ty: "Int16",
-					Old_value: old_padx_30,
-					New_value: new_padx_30,
+					Old_value: old_padx_8,
+					New_value: new_padx_8,
 				})
 			}
 		}
@@ -1396,15 +1396,15 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) OnEntry() {
 		Msg_name: "timer_start",
 		Params: params_195,
 	})
-	var old_countdown_6 string = "" + fmt.Sprintf("%d", int64(state.countdown))
+	var old_countdown_14 string = "" + fmt.Sprintf("%d", int64(state.countdown))
 	state.countdown = 3
-	var new_countdown_6 string = "" + fmt.Sprintf("%d", int64(state.countdown))
+	var new_countdown_14 string = "" + fmt.Sprintf("%d", int64(state.countdown))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "countdown",
 		Ty: "UInt8",
-		Old_value: old_countdown_6,
-		New_value: new_countdown_6,
+		Old_value: old_countdown_14,
+		New_value: new_countdown_14,
 	})
 	state.drawScore()
 	state.drawLives()
@@ -1447,15 +1447,15 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 				if (state.countdown % 30) == 0 {
 					state.drawCountDown(int16(state.countdown) / 30)
 				}
-				var old_countdown_7 string = "" + fmt.Sprintf("%d", int64(state.countdown))
+				var old_countdown_15 string = "" + fmt.Sprintf("%d", int64(state.countdown))
 				state.countdown = state.countdown - 1
-				var new_countdown_7 string = "" + fmt.Sprintf("%d", int64(state.countdown))
+				var new_countdown_15 string = "" + fmt.Sprintf("%d", int64(state.countdown))
 				state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 					Inst: state.DEBUG_ID,
 					Prop_name: "countdown",
 					Ty: "UInt8",
-					Old_value: old_countdown_7,
-					New_value: new_countdown_7,
+					Old_value: old_countdown_15,
+					New_value: new_countdown_15,
 				})
 				state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
 				state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgmessage_sent{
@@ -1522,73 +1522,73 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 					Msg_name: "timer_timeout",
 					Params: params,
 				})
-				var old_bx_17 string = "" + fmt.Sprintf("%d", int64(state.bx))
+				var old_bx_5 string = "" + fmt.Sprintf("%d", int64(state.bx))
 				state.bx = state.bx + state.dx
-				var new_bx_17 string = "" + fmt.Sprintf("%d", int64(state.bx))
+				var new_bx_5 string = "" + fmt.Sprintf("%d", int64(state.bx))
 				state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 					Inst: state.DEBUG_ID,
 					Prop_name: "bx",
 					Ty: "Int16",
-					Old_value: old_bx_17,
-					New_value: new_bx_17,
+					Old_value: old_bx_5,
+					New_value: new_bx_5,
 				})
-				var old_by_1 string = "" + fmt.Sprintf("%d", int64(state.by))
+				var old_by_18 string = "" + fmt.Sprintf("%d", int64(state.by))
 				state.by = state.by + state.dy
-				var new_by_1 string = "" + fmt.Sprintf("%d", int64(state.by))
+				var new_by_18 string = "" + fmt.Sprintf("%d", int64(state.by))
 				state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 					Inst: state.DEBUG_ID,
 					Prop_name: "by",
 					Ty: "Int16",
-					Old_value: old_by_1,
-					New_value: new_by_1,
+					Old_value: old_by_18,
+					New_value: new_by_18,
 				})
 				var wl int16 = state.LEFT + state.br
 				var wr int16 = state.RIGHT - state.br
 				var wt int16 = state.TOP + state.br
 				var wb int16 = state.BOTTOM - state.br
 				if state.bx < wl {
-					var old_dx_9 string = "" + fmt.Sprintf("%d", int64(state.dx))
+					var old_dx_30 string = "" + fmt.Sprintf("%d", int64(state.dx))
 					state.dx =  -(state.dx)
-					var new_dx_9 string = "" + fmt.Sprintf("%d", int64(state.dx))
+					var new_dx_30 string = "" + fmt.Sprintf("%d", int64(state.dx))
 					state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 						Inst: state.DEBUG_ID,
 						Prop_name: "dx",
 						Ty: "Int16",
-						Old_value: old_dx_9,
-						New_value: new_dx_9,
+						Old_value: old_dx_30,
+						New_value: new_dx_30,
 					})
-					var old_bx_18 string = "" + fmt.Sprintf("%d", int64(state.bx))
+					var old_bx_6 string = "" + fmt.Sprintf("%d", int64(state.bx))
 					state.bx = 2 * wl - state.bx
-					var new_bx_18 string = "" + fmt.Sprintf("%d", int64(state.bx))
+					var new_bx_6 string = "" + fmt.Sprintf("%d", int64(state.bx))
 					state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 						Inst: state.DEBUG_ID,
 						Prop_name: "bx",
 						Ty: "Int16",
-						Old_value: old_bx_18,
-						New_value: new_bx_18,
+						Old_value: old_bx_6,
+						New_value: new_bx_6,
 					})
 					state.incrementScore( -(1))
 				} else {
 					if state.bx > wr {
-						var old_dx_10 string = "" + fmt.Sprintf("%d", int64(state.dx))
+						var old_dx_31 string = "" + fmt.Sprintf("%d", int64(state.dx))
 						state.dx =  -(state.dx)
-						var new_dx_10 string = "" + fmt.Sprintf("%d", int64(state.dx))
+						var new_dx_31 string = "" + fmt.Sprintf("%d", int64(state.dx))
 						state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 							Inst: state.DEBUG_ID,
 							Prop_name: "dx",
 							Ty: "Int16",
-							Old_value: old_dx_10,
-							New_value: new_dx_10,
+							Old_value: old_dx_31,
+							New_value: new_dx_31,
 						})
-						var old_bx_19 string = "" + fmt.Sprintf("%d", int64(state.bx))
+						var old_bx_7 string = "" + fmt.Sprintf("%d", int64(state.bx))
 						state.bx = 2 * wr - state.bx
-						var new_bx_19 string = "" + fmt.Sprintf("%d", int64(state.bx))
+						var new_bx_7 string = "" + fmt.Sprintf("%d", int64(state.bx))
 						state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 							Inst: state.DEBUG_ID,
 							Prop_name: "bx",
 							Ty: "Int16",
-							Old_value: old_bx_19,
-							New_value: new_bx_19,
+							Old_value: old_bx_7,
+							New_value: new_bx_7,
 						})
 						state.incrementScore( -(1))
 					}
@@ -1604,15 +1604,15 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 						Old_value: old_dy_25,
 						New_value: new_dy_25,
 					})
-					var old_by_2 string = "" + fmt.Sprintf("%d", int64(state.by))
+					var old_by_19 string = "" + fmt.Sprintf("%d", int64(state.by))
 					state.by = 2 * wt - state.by
-					var new_by_2 string = "" + fmt.Sprintf("%d", int64(state.by))
+					var new_by_19 string = "" + fmt.Sprintf("%d", int64(state.by))
 					state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 						Inst: state.DEBUG_ID,
 						Prop_name: "by",
 						Ty: "Int16",
-						Old_value: old_by_2,
-						New_value: new_by_2,
+						Old_value: old_by_19,
+						New_value: new_by_19,
 					})
 					state.incrementScore( -(1))
 				} else {
@@ -1646,25 +1646,25 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 								Old_value: old_dy_26,
 								New_value: new_dy_26,
 							})
-							var old_by_3 string = "" + fmt.Sprintf("%d", int64(state.by))
+							var old_by_20 string = "" + fmt.Sprintf("%d", int64(state.by))
 							state.by = 2 * (state.pady - state.br) - state.by
-							var new_by_3 string = "" + fmt.Sprintf("%d", int64(state.by))
+							var new_by_20 string = "" + fmt.Sprintf("%d", int64(state.by))
 							state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 								Inst: state.DEBUG_ID,
 								Prop_name: "by",
 								Ty: "Int16",
-								Old_value: old_by_3,
-								New_value: new_by_3,
+								Old_value: old_by_20,
+								New_value: new_by_20,
 							})
-							var old_dx_11 string = "" + fmt.Sprintf("%d", int64(state.dx))
+							var old_dx_32 string = "" + fmt.Sprintf("%d", int64(state.dx))
 							state.dx = state.dx / 4 + (state.bx - state.padx) / 4
-							var new_dx_11 string = "" + fmt.Sprintf("%d", int64(state.dx))
+							var new_dx_32 string = "" + fmt.Sprintf("%d", int64(state.dx))
 							state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 								Inst: state.DEBUG_ID,
 								Prop_name: "dx",
 								Ty: "Int16",
-								Old_value: old_dx_11,
-								New_value: new_dx_11,
+								Old_value: old_dx_32,
+								New_value: new_dx_32,
 							})
 						}
 					}
@@ -1854,15 +1854,15 @@ func (state *FragmentBreakoutGameStateChartSCStateLOSTBALL) OnEntry() {
 		Msg_name: "timer_start",
 		Params: params_220,
 	})
-	var old_lives_4 string = "" + fmt.Sprintf("%d", int64(state.lives))
+	var old_lives_11 string = "" + fmt.Sprintf("%d", int64(state.lives))
 	state.lives = state.lives - 1
-	var new_lives_4 string = "" + fmt.Sprintf("%d", int64(state.lives))
+	var new_lives_11 string = "" + fmt.Sprintf("%d", int64(state.lives))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "lives",
 		Ty: "UInt8",
-		Old_value: old_lives_4,
-		New_value: new_lives_4,
+		Old_value: old_lives_11,
+		New_value: new_lives_11,
 	})
 	state.eraseBall()
 	state.erasePad()
@@ -1924,29 +1924,29 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) OnEntry() {
 		Msg_name: "timer_start",
 		Params: params_223,
 	})
-	var old_level_5 string = "" + fmt.Sprintf("%d", int64(state.level))
+	var old_level_3 string = "" + fmt.Sprintf("%d", int64(state.level))
 	state.level = state.level + 1
-	var new_level_5 string = "" + fmt.Sprintf("%d", int64(state.level))
+	var new_level_3 string = "" + fmt.Sprintf("%d", int64(state.level))
 	state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 		Inst: state.DEBUG_ID,
 		Prop_name: "level",
 		Ty: "UInt8",
-		Old_value: old_level_5,
-		New_value: new_level_5,
+		Old_value: old_level_3,
+		New_value: new_level_3,
 	})
 	state.drawLevel()
 	state.eraseBall()
 	state.erasePad()
 	if (state.level % 2) == 0 && state.padlen > 5 * state.SCALE {
-		var old_padlen_20 string = "" + fmt.Sprintf("%d", int64(state.padlen))
+		var old_padlen_12 string = "" + fmt.Sprintf("%d", int64(state.padlen))
 		state.padlen = state.padlen - (4 * state.SCALE)
-		var new_padlen_20 string = "" + fmt.Sprintf("%d", int64(state.padlen))
+		var new_padlen_12 string = "" + fmt.Sprintf("%d", int64(state.padlen))
 		state.Send(BreakoutGameGo_WithLog_log, FragmentLogMsgsMsgproperty_changed{
 			Inst: state.DEBUG_ID,
 			Prop_name: "padlen",
 			Ty: "Int16",
-			Old_value: old_padlen_20,
-			New_value: new_padlen_20,
+			Old_value: old_padlen_12,
+			New_value: new_padlen_12,
 		})
 	}
 	if (state.level % 2) == 1 {

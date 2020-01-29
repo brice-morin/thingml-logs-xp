@@ -2,39 +2,45 @@ nodejs_no:loc:1198
 nodejs_no:bin:4501
 java_no:loc:2231
 java_no:bin:84535
-graal_no:loc:2231
-graal_no:bin:2783776
 go_no:loc:1348
 go_no:bin:3392656
 posix_no:loc:2145
 posix_no:bin:50608
-arduino_due_no:loc:2472
-arduino_due_no:bin:17988
+arduino-due_no:loc:2472
+arduino-due_no:bin:17988
 
 
 nodejs-bin:loc:1959
 nodejs-bin:bin:5262
 java-bin:loc:3133
 java-bin:bin:104552
-graal-bin:loc:3133
-graal-bin:bin:2882080
 go-bin:loc:2549
 go-bin:bin:3496440
 posix-bin:loc:2930
 posix-bin:bin:67824
-arduino_due-bin:loc:3341
-arduino_due-bin:bin:26476
+arduino-due-bin:loc:3341
+arduino-due-bin:bin:26476
 
 
 nodejs:loc:1959
 nodejs:bin:5262
 java:loc:3254
 java:bin:114083
-graal:loc:3254
-graal:bin:3000864
 go:loc:2855
 go:bin:3608736
 posix:loc:3035
 posix:bin:
-arduino_due:loc:3471
-arduino_due:bin:61440
+arduino-due:loc:3471
+arduino-due:bin:61440
+
+
+nodejs-bin_string:loc:
+nodejs-bin_string:bin:
+java-bin_string:loc:
+java-bin_string:bin:
+go-bin_string:loc:
+go-bin_string:bin:
+posix-bin_string:loc:
+posix-bin_string:bin:
+arduino-due-bin_string:loc:4812
+arduino-due-bin_string:bin:41348

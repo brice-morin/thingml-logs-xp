@@ -133,39 +133,39 @@ BreakoutGamePosix_send_log_log(_instance, initColors_log0, 4);
 }
 // Definition of function resetBall
 void f_BreakoutGamePosix_resetBall(struct BreakoutGamePosix_Instance *_instance) {
-int16_t old_bx_28 = _instance->BreakoutGame_bx_var;
+int16_t old_bx_10 = _instance->BreakoutGame_bx_var;
 _instance->BreakoutGame_bx_var = _instance->BreakoutGame_padx_var - _instance->BreakoutGame_br_var / _instance->BreakoutGame_SCALE_var;
-int16_t new_bx_28 = _instance->BreakoutGame_bx_var;
-uint8_t bx_log_28[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_28 >> 8) & 0xFF)), (((old_bx_28 >> 0) & 0xFF)), (((new_bx_28 >> 8) & 0xFF)), (((new_bx_28 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, bx_log_28, 7);
-int16_t old_by_10 = _instance->BreakoutGame_by_var;
+int16_t new_bx_10 = _instance->BreakoutGame_bx_var;
+uint8_t bx_log_10[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_10 >> 8) & 0xFF)), (((old_bx_10 >> 0) & 0xFF)), (((new_bx_10 >> 8) & 0xFF)), (((new_bx_10 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, bx_log_10, 7);
+int16_t old_by_6 = _instance->BreakoutGame_by_var;
 _instance->BreakoutGame_by_var = _instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var / _instance->BreakoutGame_SCALE_var;
-int16_t new_by_10 = _instance->BreakoutGame_by_var;
-uint8_t by_log_10[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_10 >> 8) & 0xFF)), (((old_by_10 >> 0) & 0xFF)), (((new_by_10 >> 8) & 0xFF)), (((new_by_10 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, by_log_10, 7);
-int16_t old_dx_24 = _instance->BreakoutGame_dx_var;
+int16_t new_by_6 = _instance->BreakoutGame_by_var;
+uint8_t by_log_6[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_6 >> 8) & 0xFF)), (((old_by_6 >> 0) & 0xFF)), (((new_by_6 >> 8) & 0xFF)), (((new_by_6 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, by_log_6, 7);
+int16_t old_dx_1 = _instance->BreakoutGame_dx_var;
 _instance->BreakoutGame_dx_var = (_instance->BreakoutGame_padx_var + _instance->BreakoutGame_prevBX_var + _instance->BreakoutGame_prevBY_var) % 300 - 150;
-int16_t new_dx_24 = _instance->BreakoutGame_dx_var;
-uint8_t dx_log_24[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_24 >> 8) & 0xFF)), (((old_dx_24 >> 0) & 0xFF)), (((new_dx_24 >> 8) & 0xFF)), (((new_dx_24 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dx_log_24, 7);
+int16_t new_dx_1 = _instance->BreakoutGame_dx_var;
+uint8_t dx_log_1[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_1 >> 8) & 0xFF)), (((old_dx_1 >> 0) & 0xFF)), (((new_dx_1 >> 8) & 0xFF)), (((new_dx_1 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dx_log_1, 7);
 if(_instance->BreakoutGame_dy_var > 0) {
-int16_t old_dy_1 = _instance->BreakoutGame_dy_var;
+int16_t old_dy_27 = _instance->BreakoutGame_dy_var;
 _instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-int16_t new_dy_1 = _instance->BreakoutGame_dy_var;
-uint8_t dy_log_1[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_1 >> 8) & 0xFF)), (((old_dy_1 >> 0) & 0xFF)), (((new_dy_1 >> 8) & 0xFF)), (((new_dy_1 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dy_log_1, 7);
+int16_t new_dy_27 = _instance->BreakoutGame_dy_var;
+uint8_t dy_log_27[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_27 >> 8) & 0xFF)), (((old_dy_27 >> 0) & 0xFF)), (((new_dy_27 >> 8) & 0xFF)), (((new_dy_27 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dy_log_27, 7);
 
 }
-int16_t old_prevBX_21 = _instance->BreakoutGame_prevBX_var;
+int16_t old_prevBX_24 = _instance->BreakoutGame_prevBX_var;
 _instance->BreakoutGame_prevBX_var =  -1;
-int16_t new_prevBX_21 = _instance->BreakoutGame_prevBX_var;
-uint8_t prevBX_log_21[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_21 >> 8) & 0xFF)), (((old_prevBX_21 >> 0) & 0xFF)), (((new_prevBX_21 >> 8) & 0xFF)), (((new_prevBX_21 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBX_log_21, 7);
-int16_t old_prevBY_7 = _instance->BreakoutGame_prevBY_var;
+int16_t new_prevBX_24 = _instance->BreakoutGame_prevBX_var;
+uint8_t prevBX_log_24[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_24 >> 8) & 0xFF)), (((old_prevBX_24 >> 0) & 0xFF)), (((new_prevBX_24 >> 8) & 0xFF)), (((new_prevBX_24 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBX_log_24, 7);
+int16_t old_prevBY_17 = _instance->BreakoutGame_prevBY_var;
 _instance->BreakoutGame_prevBY_var =  -1;
-int16_t new_prevBY_7 = _instance->BreakoutGame_prevBY_var;
-uint8_t prevBY_log_7[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_7 >> 8) & 0xFF)), (((old_prevBY_7 >> 0) & 0xFF)), (((new_prevBY_7 >> 8) & 0xFF)), (((new_prevBY_7 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBY_log_7, 7);
+int16_t new_prevBY_17 = _instance->BreakoutGame_prevBY_var;
+uint8_t prevBY_log_17[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_17 >> 8) & 0xFF)), (((old_prevBY_17 >> 0) & 0xFF)), (((new_prevBY_17 >> 8) & 0xFF)), (((new_prevBY_17 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBY_log_17, 7);
 uint8_t resetBall_log1[4] = {LOGTYPE_FUNCTION_CALLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x00};
 BreakoutGamePosix_send_log_log(_instance, resetBall_log1, 4);
 }
@@ -188,16 +188,16 @@ uint8_t fillRectsent_log_16[8] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog
 BreakoutGamePosix_send_log_log(_instance, fillRectsent_log_16, 8);
 
 }
-int16_t old_prevBX_22 = _instance->BreakoutGame_prevBX_var;
+int16_t old_prevBX_25 = _instance->BreakoutGame_prevBX_var;
 _instance->BreakoutGame_prevBX_var =  -1;
-int16_t new_prevBX_22 = _instance->BreakoutGame_prevBX_var;
-uint8_t prevBX_log_22[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_22 >> 8) & 0xFF)), (((old_prevBX_22 >> 0) & 0xFF)), (((new_prevBX_22 >> 8) & 0xFF)), (((new_prevBX_22 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBX_log_22, 7);
-int16_t old_prevBY_8 = _instance->BreakoutGame_prevBY_var;
+int16_t new_prevBX_25 = _instance->BreakoutGame_prevBX_var;
+uint8_t prevBX_log_25[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_25 >> 8) & 0xFF)), (((old_prevBX_25 >> 0) & 0xFF)), (((new_prevBX_25 >> 8) & 0xFF)), (((new_prevBX_25 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBX_log_25, 7);
+int16_t old_prevBY_18 = _instance->BreakoutGame_prevBY_var;
 _instance->BreakoutGame_prevBY_var =  -1;
-int16_t new_prevBY_8 = _instance->BreakoutGame_prevBY_var;
-uint8_t prevBY_log_8[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_8 >> 8) & 0xFF)), (((old_prevBY_8 >> 0) & 0xFF)), (((new_prevBY_8 >> 8) & 0xFF)), (((new_prevBY_8 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBY_log_8, 7);
+int16_t new_prevBY_18 = _instance->BreakoutGame_prevBY_var;
+uint8_t prevBY_log_18[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_18 >> 8) & 0xFF)), (((old_prevBY_18 >> 0) & 0xFF)), (((new_prevBY_18 >> 8) & 0xFF)), (((new_prevBY_18 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBY_log_18, 7);
 uint8_t eraseBall_log2[4] = {LOGTYPE_FUNCTION_CALLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x03, 0x00};
 BreakoutGamePosix_send_log_log(_instance, eraseBall_log2, 4);
 }
@@ -205,16 +205,16 @@ BreakoutGamePosix_send_log_log(_instance, eraseBall_log2, 4);
 void f_BreakoutGamePosix_drawBall(struct BreakoutGamePosix_Instance *_instance) {
 int16_t bs = (_instance->BreakoutGame_br_var * 2) / _instance->BreakoutGame_SCALE_var;
 f_BreakoutGamePosix_eraseBall(_instance);
-int16_t old_prevBX_23 = _instance->BreakoutGame_prevBX_var;
+int16_t old_prevBX_26 = _instance->BreakoutGame_prevBX_var;
 _instance->BreakoutGame_prevBX_var = (_instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var) / _instance->BreakoutGame_SCALE_var;
-int16_t new_prevBX_23 = _instance->BreakoutGame_prevBX_var;
-uint8_t prevBX_log_23[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_23 >> 8) & 0xFF)), (((old_prevBX_23 >> 0) & 0xFF)), (((new_prevBX_23 >> 8) & 0xFF)), (((new_prevBX_23 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBX_log_23, 7);
-int16_t old_prevBY_9 = _instance->BreakoutGame_prevBY_var;
+int16_t new_prevBX_26 = _instance->BreakoutGame_prevBX_var;
+uint8_t prevBX_log_26[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x11, (((old_prevBX_26 >> 8) & 0xFF)), (((old_prevBX_26 >> 0) & 0xFF)), (((new_prevBX_26 >> 8) & 0xFF)), (((new_prevBX_26 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBX_log_26, 7);
+int16_t old_prevBY_19 = _instance->BreakoutGame_prevBY_var;
 _instance->BreakoutGame_prevBY_var = (_instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) / _instance->BreakoutGame_SCALE_var;
-int16_t new_prevBY_9 = _instance->BreakoutGame_prevBY_var;
-uint8_t prevBY_log_9[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_9 >> 8) & 0xFF)), (((old_prevBY_9 >> 0) & 0xFF)), (((new_prevBY_9 >> 8) & 0xFF)), (((new_prevBY_9 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevBY_log_9, 7);
+int16_t new_prevBY_19 = _instance->BreakoutGame_prevBY_var;
+uint8_t prevBY_log_19[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x12, (((old_prevBY_19 >> 8) & 0xFF)), (((old_prevBY_19 >> 0) & 0xFF)), (((new_prevBY_19 >> 8) & 0xFF)), (((new_prevBY_19 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevBY_log_19, 7);
 uint8_t r_17 = 183;
 uint8_t g_18 = 199;
 uint8_t b_19 = 111;
@@ -257,11 +257,11 @@ BreakoutGamePosix_send_log_log(_instance, erasePad_log4, 4);
 void f_BreakoutGamePosix_drawPad(struct BreakoutGamePosix_Instance *_instance) {
 int16_t ps = _instance->BreakoutGame_padlen_var / _instance->BreakoutGame_SCALE_var;
 f_BreakoutGamePosix_erasePad(_instance);
-int16_t old_prevPX_6 = _instance->BreakoutGame_prevPX_var;
+int16_t old_prevPX_22 = _instance->BreakoutGame_prevPX_var;
 _instance->BreakoutGame_prevPX_var = (_instance->BreakoutGame_padx_var - (_instance->BreakoutGame_padlen_var / 2)) / _instance->BreakoutGame_SCALE_var;
-int16_t new_prevPX_6 = _instance->BreakoutGame_prevPX_var;
-uint8_t prevPX_log_6[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x16, (((old_prevPX_6 >> 8) & 0xFF)), (((old_prevPX_6 >> 0) & 0xFF)), (((new_prevPX_6 >> 8) & 0xFF)), (((new_prevPX_6 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, prevPX_log_6, 7);
+int16_t new_prevPX_22 = _instance->BreakoutGame_prevPX_var;
+uint8_t prevPX_log_22[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x16, (((old_prevPX_22 >> 8) & 0xFF)), (((old_prevPX_22 >> 0) & 0xFF)), (((new_prevPX_22 >> 8) & 0xFF)), (((new_prevPX_22 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, prevPX_log_22, 7);
 int16_t old_prevPY_0 = _instance->BreakoutGame_prevPY_var;
 _instance->BreakoutGame_prevPY_var = _instance->BreakoutGame_pady_var / _instance->BreakoutGame_SCALE_var;
 int16_t new_prevPY_0 = _instance->BreakoutGame_prevPY_var;
@@ -533,17 +533,17 @@ BreakoutGamePosix_send_log_log(_instance, drawLevel_log14, 4);
 }
 // Definition of function incrementScore
 void f_BreakoutGamePosix_incrementScore(struct BreakoutGamePosix_Instance *_instance, int8_t diff) {
-int16_t old_score_17 = _instance->BreakoutGame_score_var;
+int16_t old_score_14 = _instance->BreakoutGame_score_var;
 _instance->BreakoutGame_score_var = _instance->BreakoutGame_score_var + diff;
-int16_t new_score_17 = _instance->BreakoutGame_score_var;
-uint8_t score_log_17[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1B, (((old_score_17 >> 8) & 0xFF)), (((old_score_17 >> 0) & 0xFF)), (((new_score_17 >> 8) & 0xFF)), (((new_score_17 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, score_log_17, 7);
+int16_t new_score_14 = _instance->BreakoutGame_score_var;
+uint8_t score_log_14[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1B, (((old_score_14 >> 8) & 0xFF)), (((old_score_14 >> 0) & 0xFF)), (((new_score_14 >> 8) & 0xFF)), (((new_score_14 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, score_log_14, 7);
 if(_instance->BreakoutGame_score_var < 0) {
-int16_t old_score_18 = _instance->BreakoutGame_score_var;
+int16_t old_score_15 = _instance->BreakoutGame_score_var;
 _instance->BreakoutGame_score_var = 0;
-int16_t new_score_18 = _instance->BreakoutGame_score_var;
-uint8_t score_log_18[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1B, (((old_score_18 >> 8) & 0xFF)), (((old_score_18 >> 0) & 0xFF)), (((new_score_18 >> 8) & 0xFF)), (((new_score_18 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, score_log_18, 7);
+int16_t new_score_15 = _instance->BreakoutGame_score_var;
+uint8_t score_log_15[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1B, (((old_score_15 >> 8) & 0xFF)), (((old_score_15 >> 0) & 0xFF)), (((new_score_15 >> 8) & 0xFF)), (((new_score_15 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, score_log_15, 7);
 
 }
 f_BreakoutGamePosix_drawScore(_instance);
@@ -669,78 +669,6 @@ _instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_INIT_STATE;
 BreakoutGame_SC_OnEntry(_instance->BreakoutGame_SC_State, _instance);
 break;
 }
-case BREAKOUTGAME_SC_LAUNCH_STATE:{
-uint8_t id_194 = 0;
-uint16_t time_195 = _instance->BreakoutGame_period_var;
-BreakoutGamePosix_send_clock_timer_start(_instance, id_194, time_195);
-uint8_t timer_startsent_log_196[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_194, (((time_195 >> 8) & 0xFF)), (((time_195 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_196, 7);
-uint8_t old_countdown_19 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
-_instance->BreakoutGame_SC_LAUNCH_countdown_var = 3;
-uint8_t new_countdown_19 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
-uint8_t countdown_log_19[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1E, old_countdown_19, new_countdown_19};
-BreakoutGamePosix_send_log_log(_instance, countdown_log_19, 5);
-f_BreakoutGamePosix_drawScore(_instance);
-f_BreakoutGamePosix_drawLives(_instance);
-BreakoutGamePosix_send_display_update(_instance);
-uint8_t updatesent_log_197[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
-BreakoutGamePosix_send_log_log(_instance, updatesent_log_197, 4);
-break;
-}
-case BREAKOUTGAME_SC_INIT_STATE:{
-_instance->BreakoutGame_startTime_var = f_BreakoutGamePosix_timestamp(_instance);
-uint8_t xsize_172 = _instance->BreakoutGame_XDISPSIZE_var;
-uint8_t ysize_173 = _instance->BreakoutGame_YDISPSIZE_var;
-BreakoutGamePosix_send_display_create(_instance, xsize_172, ysize_173);
-uint8_t createsent_log_174[6] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0D, xsize_172, ysize_173};
-BreakoutGamePosix_send_log_log(_instance, createsent_log_174, 6);
-break;
-}
-case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
-uint8_t id_231 = 0;
-uint16_t time_232 = _instance->BreakoutGame_period_var;
-BreakoutGamePosix_send_clock_timer_start(_instance, id_231, time_232);
-uint8_t timer_startsent_log_233[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_231, (((time_232 >> 8) & 0xFF)), (((time_232 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_233, 7);
-uint8_t old_level_16 = _instance->BreakoutGame_level_var;
-_instance->BreakoutGame_level_var = _instance->BreakoutGame_level_var + 1;
-uint8_t new_level_16 = _instance->BreakoutGame_level_var;
-uint8_t level_log_16[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1D, old_level_16, new_level_16};
-BreakoutGamePosix_send_log_log(_instance, level_log_16, 5);
-f_BreakoutGamePosix_drawLevel(_instance);
-f_BreakoutGamePosix_eraseBall(_instance);
-f_BreakoutGamePosix_erasePad(_instance);
-if((_instance->BreakoutGame_level_var % 2) == 0 && _instance->BreakoutGame_padlen_var > 5 * _instance->BreakoutGame_SCALE_var) {
-int16_t old_padlen_14 = _instance->BreakoutGame_padlen_var;
-_instance->BreakoutGame_padlen_var = _instance->BreakoutGame_padlen_var - (4 * _instance->BreakoutGame_SCALE_var);
-int16_t new_padlen_14 = _instance->BreakoutGame_padlen_var;
-uint8_t padlen_log_14[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x10, (((old_padlen_14 >> 8) & 0xFF)), (((old_padlen_14 >> 0) & 0xFF)), (((new_padlen_14 >> 8) & 0xFF)), (((new_padlen_14 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, padlen_log_14, 7);
-
-}
-if((_instance->BreakoutGame_level_var % 2) == 1) {
-int16_t old_dy_5 = _instance->BreakoutGame_dy_var;
-_instance->BreakoutGame_dy_var = (_instance->BreakoutGame_dy_var * 3) / 2;
-int16_t new_dy_5 = _instance->BreakoutGame_dy_var;
-uint8_t dy_log_5[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_5 >> 8) & 0xFF)), (((old_dy_5 >> 0) & 0xFF)), (((new_dy_5 >> 8) & 0xFF)), (((new_dy_5 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dy_log_5, 7);
-
-}
-f_BreakoutGamePosix_drawLives(_instance);
-f_BreakoutGamePosix_createBricks(_instance);
-BreakoutGamePosix_send_display_update(_instance);
-uint8_t updatesent_log_234[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
-BreakoutGamePosix_send_log_log(_instance, updatesent_log_234, 4);
-break;
-}
-case BREAKOUTGAME_SC_PLAY_STATE:{
-uint8_t id_203 = 0;
-uint16_t time_204 = _instance->BreakoutGame_period_var;
-BreakoutGamePosix_send_clock_timer_start(_instance, id_203, time_204);
-uint8_t timer_startsent_log_205[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_203, (((time_204 >> 8) & 0xFF)), (((time_204 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_205, 7);
-break;
-}
 case BREAKOUTGAME_SC_GAMEOVER_STATE:{
 f_BreakoutGamePosix_eraseBall(_instance);
 f_BreakoutGamePosix_erasePad(_instance);
@@ -804,17 +732,52 @@ f_BreakoutGamePosix_quit(_instance);
 _instance->active = false;
 break;
 }
+case BREAKOUTGAME_SC_PLAY_STATE:{
+uint8_t id_203 = 0;
+uint16_t time_204 = _instance->BreakoutGame_period_var;
+BreakoutGamePosix_send_clock_timer_start(_instance, id_203, time_204);
+uint8_t timer_startsent_log_205[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_203, (((time_204 >> 8) & 0xFF)), (((time_204 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_205, 7);
+break;
+}
+case BREAKOUTGAME_SC_LAUNCH_STATE:{
+uint8_t id_194 = 0;
+uint16_t time_195 = _instance->BreakoutGame_period_var;
+BreakoutGamePosix_send_clock_timer_start(_instance, id_194, time_195);
+uint8_t timer_startsent_log_196[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_194, (((time_195 >> 8) & 0xFF)), (((time_195 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_196, 7);
+uint8_t old_countdown_20 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
+_instance->BreakoutGame_SC_LAUNCH_countdown_var = 3;
+uint8_t new_countdown_20 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
+uint8_t countdown_log_20[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1E, old_countdown_20, new_countdown_20};
+BreakoutGamePosix_send_log_log(_instance, countdown_log_20, 5);
+f_BreakoutGamePosix_drawScore(_instance);
+f_BreakoutGamePosix_drawLives(_instance);
+BreakoutGamePosix_send_display_update(_instance);
+uint8_t updatesent_log_197[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
+BreakoutGamePosix_send_log_log(_instance, updatesent_log_197, 4);
+break;
+}
+case BREAKOUTGAME_SC_INIT_STATE:{
+_instance->BreakoutGame_startTime_var = f_BreakoutGamePosix_timestamp(_instance);
+uint8_t xsize_172 = _instance->BreakoutGame_XDISPSIZE_var;
+uint8_t ysize_173 = _instance->BreakoutGame_YDISPSIZE_var;
+BreakoutGamePosix_send_display_create(_instance, xsize_172, ysize_173);
+uint8_t createsent_log_174[6] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0D, xsize_172, ysize_173};
+BreakoutGamePosix_send_log_log(_instance, createsent_log_174, 6);
+break;
+}
 case BREAKOUTGAME_SC_LOSTBALL_STATE:{
 uint8_t id_227 = 0;
 uint16_t time_228 = _instance->BreakoutGame_period_var;
 BreakoutGamePosix_send_clock_timer_start(_instance, id_227, time_228);
 uint8_t timer_startsent_log_229[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_227, (((time_228 >> 8) & 0xFF)), (((time_228 >> 0) & 0xFF))};
 BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_229, 7);
-uint8_t old_lives_15 = _instance->BreakoutGame_lives_var;
+uint8_t old_lives_16 = _instance->BreakoutGame_lives_var;
 _instance->BreakoutGame_lives_var = _instance->BreakoutGame_lives_var - 1;
-uint8_t new_lives_15 = _instance->BreakoutGame_lives_var;
-uint8_t lives_log_15[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1C, old_lives_15, new_lives_15};
-BreakoutGamePosix_send_log_log(_instance, lives_log_15, 5);
+uint8_t new_lives_16 = _instance->BreakoutGame_lives_var;
+uint8_t lives_log_16[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1C, old_lives_16, new_lives_16};
+BreakoutGamePosix_send_log_log(_instance, lives_log_16, 5);
 f_BreakoutGamePosix_eraseBall(_instance);
 f_BreakoutGamePosix_erasePad(_instance);
 f_BreakoutGamePosix_drawLives(_instance);
@@ -822,6 +785,43 @@ BreakoutGamePosix_send_display_update(_instance);
 uint8_t updatesent_log_230[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
 BreakoutGamePosix_send_log_log(_instance, updatesent_log_230, 4);
 f_BreakoutGamePosix_log(_instance, 1);
+break;
+}
+case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
+uint8_t id_231 = 0;
+uint16_t time_232 = _instance->BreakoutGame_period_var;
+BreakoutGamePosix_send_clock_timer_start(_instance, id_231, time_232);
+uint8_t timer_startsent_log_233[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_231, (((time_232 >> 8) & 0xFF)), (((time_232 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_233, 7);
+uint8_t old_level_23 = _instance->BreakoutGame_level_var;
+_instance->BreakoutGame_level_var = _instance->BreakoutGame_level_var + 1;
+uint8_t new_level_23 = _instance->BreakoutGame_level_var;
+uint8_t level_log_23[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1D, old_level_23, new_level_23};
+BreakoutGamePosix_send_log_log(_instance, level_log_23, 5);
+f_BreakoutGamePosix_drawLevel(_instance);
+f_BreakoutGamePosix_eraseBall(_instance);
+f_BreakoutGamePosix_erasePad(_instance);
+if((_instance->BreakoutGame_level_var % 2) == 0 && _instance->BreakoutGame_padlen_var > 5 * _instance->BreakoutGame_SCALE_var) {
+int16_t old_padlen_5 = _instance->BreakoutGame_padlen_var;
+_instance->BreakoutGame_padlen_var = _instance->BreakoutGame_padlen_var - (4 * _instance->BreakoutGame_SCALE_var);
+int16_t new_padlen_5 = _instance->BreakoutGame_padlen_var;
+uint8_t padlen_log_5[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x10, (((old_padlen_5 >> 8) & 0xFF)), (((old_padlen_5 >> 0) & 0xFF)), (((new_padlen_5 >> 8) & 0xFF)), (((new_padlen_5 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, padlen_log_5, 7);
+
+}
+if((_instance->BreakoutGame_level_var % 2) == 1) {
+int16_t old_dy_31 = _instance->BreakoutGame_dy_var;
+_instance->BreakoutGame_dy_var = (_instance->BreakoutGame_dy_var * 3) / 2;
+int16_t new_dy_31 = _instance->BreakoutGame_dy_var;
+uint8_t dy_log_31[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_31 >> 8) & 0xFF)), (((old_dy_31 >> 0) & 0xFF)), (((new_dy_31 >> 8) & 0xFF)), (((new_dy_31 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dy_log_31, 7);
+
+}
+f_BreakoutGamePosix_drawLives(_instance);
+f_BreakoutGamePosix_createBricks(_instance);
+BreakoutGamePosix_send_display_update(_instance);
+uint8_t updatesent_log_234[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
+BreakoutGamePosix_send_log_log(_instance, updatesent_log_234, 4);
 break;
 }
 default: break;
@@ -834,23 +834,260 @@ switch(state) {
 case BREAKOUTGAME_SC_STATE:{
 BreakoutGame_SC_OnExit(_instance->BreakoutGame_SC_State, _instance);
 break;}
+case BREAKOUTGAME_SC_GAMEOVER_STATE:{
+break;}
+case BREAKOUTGAME_SC_PLAY_STATE:{
+break;}
 case BREAKOUTGAME_SC_LAUNCH_STATE:{
 break;}
 case BREAKOUTGAME_SC_INIT_STATE:{
 break;}
-case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
-break;}
-case BREAKOUTGAME_SC_PLAY_STATE:{
-break;}
-case BREAKOUTGAME_SC_GAMEOVER_STATE:{
-break;}
 case BREAKOUTGAME_SC_LOSTBALL_STATE:{
+break;}
+case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
 break;}
 default: break;
 }
 }
 
 // Event Handlers for incoming messages:
+void BreakoutGamePosix_handle_clock_timer_timeout(struct BreakoutGamePosix_Instance *_instance, uint8_t id) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_LAUNCH_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_SC_LAUNCH_countdown_var == 0) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_PLAY_STATE;
+uint8_t timer_timeouthandled_log_272[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x02, 0x03, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_272, 7);
+f_BreakoutGamePosix_drawCountDown(_instance, 0);
+f_BreakoutGamePosix_resetBall(_instance);
+BreakoutGamePosix_send_display_update(_instance);
+uint8_t updatesent_log_202[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
+BreakoutGamePosix_send_log_log(_instance, updatesent_log_202, 4);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+else if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_SC_LAUNCH_countdown_var > 0) {
+uint8_t timer_timeouthandled_log_273[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x02, 0x00, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_273, 7);
+uint8_t id_198 = 0;
+uint16_t time_199 = _instance->BreakoutGame_period_var;
+BreakoutGamePosix_send_clock_timer_start(_instance, id_198, time_199);
+uint8_t timer_startsent_log_200[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_198, (((time_199 >> 8) & 0xFF)), (((time_199 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_200, 7);
+f_BreakoutGamePosix_drawPad(_instance);
+if((_instance->BreakoutGame_SC_LAUNCH_countdown_var % 30) == 0) {
+f_BreakoutGamePosix_drawCountDown(_instance, _instance->BreakoutGame_SC_LAUNCH_countdown_var / 30);
+
+}
+uint8_t old_countdown_21 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
+_instance->BreakoutGame_SC_LAUNCH_countdown_var = _instance->BreakoutGame_SC_LAUNCH_countdown_var - 1;
+uint8_t new_countdown_21 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
+uint8_t countdown_log_21[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1E, old_countdown_21, new_countdown_21};
+BreakoutGamePosix_send_log_log(_instance, countdown_log_21, 5);
+BreakoutGamePosix_send_display_update(_instance);
+uint8_t updatesent_log_201[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
+BreakoutGamePosix_send_log_log(_instance, updatesent_log_201, 4);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && id == 0) {
+uint8_t timer_timeouthandled_log_271[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x03, 0x00, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_271, 7);
+int16_t old_bx_11 = _instance->BreakoutGame_bx_var;
+_instance->BreakoutGame_bx_var = _instance->BreakoutGame_bx_var + _instance->BreakoutGame_dx_var;
+int16_t new_bx_11 = _instance->BreakoutGame_bx_var;
+uint8_t bx_log_11[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_11 >> 8) & 0xFF)), (((old_bx_11 >> 0) & 0xFF)), (((new_bx_11 >> 8) & 0xFF)), (((new_bx_11 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, bx_log_11, 7);
+int16_t old_by_7 = _instance->BreakoutGame_by_var;
+_instance->BreakoutGame_by_var = _instance->BreakoutGame_by_var + _instance->BreakoutGame_dy_var;
+int16_t new_by_7 = _instance->BreakoutGame_by_var;
+uint8_t by_log_7[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_7 >> 8) & 0xFF)), (((old_by_7 >> 0) & 0xFF)), (((new_by_7 >> 8) & 0xFF)), (((new_by_7 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, by_log_7, 7);
+int16_t wl = _instance->BreakoutGame_LEFT_var + _instance->BreakoutGame_br_var;
+int16_t wr = _instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_br_var;
+int16_t wt = _instance->BreakoutGame_TOP_var + _instance->BreakoutGame_br_var;
+int16_t wb = _instance->BreakoutGame_BOTTOM_var - _instance->BreakoutGame_br_var;
+if(_instance->BreakoutGame_bx_var < wl) {
+int16_t old_dx_2 = _instance->BreakoutGame_dx_var;
+_instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
+int16_t new_dx_2 = _instance->BreakoutGame_dx_var;
+uint8_t dx_log_2[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_2 >> 8) & 0xFF)), (((old_dx_2 >> 0) & 0xFF)), (((new_dx_2 >> 8) & 0xFF)), (((new_dx_2 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dx_log_2, 7);
+int16_t old_bx_12 = _instance->BreakoutGame_bx_var;
+_instance->BreakoutGame_bx_var = 2 * wl - _instance->BreakoutGame_bx_var;
+int16_t new_bx_12 = _instance->BreakoutGame_bx_var;
+uint8_t bx_log_12[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_12 >> 8) & 0xFF)), (((old_bx_12 >> 0) & 0xFF)), (((new_bx_12 >> 8) & 0xFF)), (((new_bx_12 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, bx_log_12, 7);
+f_BreakoutGamePosix_incrementScore(_instance,  -1);
+
+} else {
+if(_instance->BreakoutGame_bx_var > wr) {
+int16_t old_dx_3 = _instance->BreakoutGame_dx_var;
+_instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
+int16_t new_dx_3 = _instance->BreakoutGame_dx_var;
+uint8_t dx_log_3[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_3 >> 8) & 0xFF)), (((old_dx_3 >> 0) & 0xFF)), (((new_dx_3 >> 8) & 0xFF)), (((new_dx_3 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dx_log_3, 7);
+int16_t old_bx_13 = _instance->BreakoutGame_bx_var;
+_instance->BreakoutGame_bx_var = 2 * wr - _instance->BreakoutGame_bx_var;
+int16_t new_bx_13 = _instance->BreakoutGame_bx_var;
+uint8_t bx_log_13[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_13 >> 8) & 0xFF)), (((old_bx_13 >> 0) & 0xFF)), (((new_bx_13 >> 8) & 0xFF)), (((new_bx_13 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, bx_log_13, 7);
+f_BreakoutGamePosix_incrementScore(_instance,  -1);
+
+}
+
+}
+if(_instance->BreakoutGame_by_var < wt) {
+int16_t old_dy_28 = _instance->BreakoutGame_dy_var;
+_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
+int16_t new_dy_28 = _instance->BreakoutGame_dy_var;
+uint8_t dy_log_28[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_28 >> 8) & 0xFF)), (((old_dy_28 >> 0) & 0xFF)), (((new_dy_28 >> 8) & 0xFF)), (((new_dy_28 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dy_log_28, 7);
+int16_t old_by_8 = _instance->BreakoutGame_by_var;
+_instance->BreakoutGame_by_var = 2 * wt - _instance->BreakoutGame_by_var;
+int16_t new_by_8 = _instance->BreakoutGame_by_var;
+uint8_t by_log_8[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_8 >> 8) & 0xFF)), (((old_by_8 >> 0) & 0xFF)), (((new_by_8 >> 8) & 0xFF)), (((new_by_8 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, by_log_8, 7);
+f_BreakoutGamePosix_incrementScore(_instance,  -1);
+
+} else {
+if(_instance->BreakoutGame_by_var > wb) {
+BreakoutGamePosix_send_game_lostBall(_instance);
+uint8_t lostBallsent_log_206[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x01};
+BreakoutGamePosix_send_log_log(_instance, lostBallsent_log_206, 4);
+BreakoutGamePosix_send_req_game_lostBall(_instance);
+uint8_t lostBallsent_log_207[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x06, 0x01};
+BreakoutGamePosix_send_log_log(_instance, lostBallsent_log_207, 4);
+
+}
+
+}
+if(_instance->BreakoutGame_dy_var > 0) {
+if(_instance->BreakoutGame_by_var > _instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var && _instance->BreakoutGame_by_var < _instance->BreakoutGame_pady_var + _instance->BreakoutGame_br_var) {
+if(_instance->BreakoutGame_bx_var > _instance->BreakoutGame_padx_var - _instance->BreakoutGame_padlen_var / 2 && _instance->BreakoutGame_bx_var < _instance->BreakoutGame_padx_var + _instance->BreakoutGame_padlen_var / 2) {
+int16_t old_dy_29 = _instance->BreakoutGame_dy_var;
+_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
+int16_t new_dy_29 = _instance->BreakoutGame_dy_var;
+uint8_t dy_log_29[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_29 >> 8) & 0xFF)), (((old_dy_29 >> 0) & 0xFF)), (((new_dy_29 >> 8) & 0xFF)), (((new_dy_29 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dy_log_29, 7);
+int16_t old_by_9 = _instance->BreakoutGame_by_var;
+_instance->BreakoutGame_by_var = 2 * (_instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var) - _instance->BreakoutGame_by_var;
+int16_t new_by_9 = _instance->BreakoutGame_by_var;
+uint8_t by_log_9[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_9 >> 8) & 0xFF)), (((old_by_9 >> 0) & 0xFF)), (((new_by_9 >> 8) & 0xFF)), (((new_by_9 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, by_log_9, 7);
+int16_t old_dx_4 = _instance->BreakoutGame_dx_var;
+_instance->BreakoutGame_dx_var = _instance->BreakoutGame_dx_var / 4 + (_instance->BreakoutGame_bx_var - _instance->BreakoutGame_padx_var) / 4;
+int16_t new_dx_4 = _instance->BreakoutGame_dx_var;
+uint8_t dx_log_4[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_4 >> 8) & 0xFF)), (((old_dx_4 >> 0) & 0xFF)), (((new_dx_4 >> 8) & 0xFF)), (((new_dx_4 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dx_log_4, 7);
+
+}
+
+}
+
+}
+bool collision = f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var);
+if(collision) {
+int16_t old_dy_30 = _instance->BreakoutGame_dy_var;
+_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
+int16_t new_dy_30 = _instance->BreakoutGame_dy_var;
+uint8_t dy_log_30[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_30 >> 8) & 0xFF)), (((old_dy_30 >> 0) & 0xFF)), (((new_dy_30 >> 8) & 0xFF)), (((new_dy_30 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, dy_log_30, 7);
+f_BreakoutGamePosix_incrementScore(_instance, 10);
+if(f_BreakoutGamePosix_bricksLeft(_instance) == 0) {
+BreakoutGamePosix_send_game_nextLevel(_instance);
+uint8_t nextLevelsent_log_208[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02};
+BreakoutGamePosix_send_log_log(_instance, nextLevelsent_log_208, 4);
+BreakoutGamePosix_send_req_game_nextLevel(_instance);
+uint8_t nextLevelsent_log_209[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x06, 0x02};
+BreakoutGamePosix_send_log_log(_instance, nextLevelsent_log_209, 4);
+
+}
+
+}
+f_BreakoutGamePosix_drawBall(_instance);
+f_BreakoutGamePosix_drawPad(_instance);
+int16_t ballx_210 = _instance->BreakoutGame_bx_var;
+int16_t bally_211 = _instance->BreakoutGame_by_var;
+int16_t padx_212 = _instance->BreakoutGame_padx_var;
+int16_t pady_213 = _instance->BreakoutGame_pady_var;
+BreakoutGamePosix_send_ia_updateIA(_instance, ballx_210, bally_211, padx_212, pady_213);
+uint8_t updateIAsent_log_214[12] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x04, 0x13, (((ballx_210 >> 8) & 0xFF)), (((ballx_210 >> 0) & 0xFF)), (((bally_211 >> 8) & 0xFF)), (((bally_211 >> 0) & 0xFF)), (((padx_212 >> 8) & 0xFF)), (((padx_212 >> 0) & 0xFF)), (((pady_213 >> 8) & 0xFF)), (((pady_213 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, updateIAsent_log_214, 12);
+BreakoutGamePosix_send_display_update(_instance);
+uint8_t updatesent_log_215[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
+BreakoutGamePosix_send_log_log(_instance, updatesent_log_215, 4);
+f_BreakoutGamePosix_log(_instance, 0);
+uint8_t id_216 = 0;
+uint16_t time_217 = _instance->BreakoutGame_period_var;
+BreakoutGamePosix_send_clock_timer_start(_instance, id_216, time_217);
+uint8_t timer_startsent_log_218[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_216, (((time_217 >> 8) & 0xFF)), (((time_217 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_218, 7);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_LOSTBALL_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_lives_var > 0) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LAUNCH_STATE;
+uint8_t timer_timeouthandled_log_275[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x04, 0x02, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_275, 7);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+else if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_lives_var == 0) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_GAMEOVER_STATE;
+uint8_t timer_timeouthandled_log_276[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x04, 0x06, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_276, 7);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_GAMEOVER_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_NEXTLEVEL_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && id == 0) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LAUNCH_STATE;
+uint8_t timer_timeouthandled_log_274[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x05, 0x02, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_274, 7);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+uint8_t timer_timeoutlost_log_283[5] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, id};
+BreakoutGamePosix_send_log_log(_instance, timer_timeoutlost_log_283, 5);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGamePosix_handle_controller_position(struct BreakoutGamePosix_Instance *_instance, int16_t x, int16_t y) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+uint8_t positionhandled_log_278[10] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x03, 0x12, 0x00, 0x00, (((x >> 8) & 0xFF)), (((x >> 0) & 0xFF)), (((y >> 8) & 0xFF)), (((y >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, positionhandled_log_278, 10);
+int32_t center = (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var - _instance->BreakoutGame_padlen_var);
+center = x * center;
+center = center / 200;
+int16_t old_padx_32 = _instance->BreakoutGame_padx_var;
+_instance->BreakoutGame_padx_var = (_instance->BreakoutGame_LEFT_var + center + (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var) / 2);
+int16_t new_padx_32 = _instance->BreakoutGame_padx_var;
+uint8_t padx_log_32[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0E, (((old_padx_32 >> 8) & 0xFF)), (((old_padx_32 >> 0) & 0xFF)), (((new_padx_32 >> 8) & 0xFF)), (((new_padx_32 >> 0) & 0xFF))};
+BreakoutGamePosix_send_log_log(_instance, padx_log_32, 7);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
 void BreakoutGamePosix_handle_display_displayReady(struct BreakoutGamePosix_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region SC
@@ -907,33 +1144,6 @@ BreakoutGamePosix_send_log_log(_instance, displayReadylost_log_284, 4);
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }
-void BreakoutGamePosix_handle_pro_game_nextLevel(struct BreakoutGamePosix_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
-uint8_t nextLevelhandled_log_278[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x02, 0x03, 0x05};
-BreakoutGamePosix_send_log_log(_instance, nextLevelhandled_log_278, 6);
-uint8_t id_225 = 0;
-BreakoutGamePosix_send_clock_timer_cancel(_instance, id_225);
-uint8_t timer_cancelsent_log_226[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_225};
-BreakoutGamePosix_send_log_log(_instance, timer_cancelsent_log_226, 5);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-uint8_t nextLevellost_log_288[4] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x02};
-BreakoutGamePosix_send_log_log(_instance, nextLevellost_log_288, 4);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
 void BreakoutGamePosix_handle_pro_game_lostBall(struct BreakoutGamePosix_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region SC
@@ -942,8 +1152,8 @@ if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
 if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
 BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
 _instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
-uint8_t lostBallhandled_log_279[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x01, 0x03, 0x04};
-BreakoutGamePosix_send_log_log(_instance, lostBallhandled_log_279, 6);
+uint8_t lostBallhandled_log_282[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x01, 0x03, 0x04};
+BreakoutGamePosix_send_log_log(_instance, lostBallhandled_log_282, 6);
 uint8_t id_223 = 0;
 BreakoutGamePosix_send_clock_timer_cancel(_instance, id_223);
 uint8_t timer_cancelsent_log_224[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_223};
@@ -961,244 +1171,7 @@ BreakoutGamePosix_send_log_log(_instance, lostBalllost_log_287, 4);
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }
-void BreakoutGamePosix_handle_clock_timer_timeout(struct BreakoutGamePosix_Instance *_instance, uint8_t id) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_LAUNCH_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_SC_LAUNCH_countdown_var == 0) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_PLAY_STATE;
-uint8_t timer_timeouthandled_log_272[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x02, 0x03, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_272, 7);
-f_BreakoutGamePosix_drawCountDown(_instance, 0);
-f_BreakoutGamePosix_resetBall(_instance);
-BreakoutGamePosix_send_display_update(_instance);
-uint8_t updatesent_log_202[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
-BreakoutGamePosix_send_log_log(_instance, updatesent_log_202, 4);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-else if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_SC_LAUNCH_countdown_var > 0) {
-uint8_t timer_timeouthandled_log_273[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x02, 0x00, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_273, 7);
-uint8_t id_198 = 0;
-uint16_t time_199 = _instance->BreakoutGame_period_var;
-BreakoutGamePosix_send_clock_timer_start(_instance, id_198, time_199);
-uint8_t timer_startsent_log_200[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_198, (((time_199 >> 8) & 0xFF)), (((time_199 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_200, 7);
-f_BreakoutGamePosix_drawPad(_instance);
-if((_instance->BreakoutGame_SC_LAUNCH_countdown_var % 30) == 0) {
-f_BreakoutGamePosix_drawCountDown(_instance, _instance->BreakoutGame_SC_LAUNCH_countdown_var / 30);
-
-}
-uint8_t old_countdown_20 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
-_instance->BreakoutGame_SC_LAUNCH_countdown_var = _instance->BreakoutGame_SC_LAUNCH_countdown_var - 1;
-uint8_t new_countdown_20 = _instance->BreakoutGame_SC_LAUNCH_countdown_var;
-uint8_t countdown_log_20[5] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x1E, old_countdown_20, new_countdown_20};
-BreakoutGamePosix_send_log_log(_instance, countdown_log_20, 5);
-BreakoutGamePosix_send_display_update(_instance);
-uint8_t updatesent_log_201[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
-BreakoutGamePosix_send_log_log(_instance, updatesent_log_201, 4);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && id == 0) {
-uint8_t timer_timeouthandled_log_271[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x03, 0x00, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_271, 7);
-int16_t old_bx_29 = _instance->BreakoutGame_bx_var;
-_instance->BreakoutGame_bx_var = _instance->BreakoutGame_bx_var + _instance->BreakoutGame_dx_var;
-int16_t new_bx_29 = _instance->BreakoutGame_bx_var;
-uint8_t bx_log_29[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_29 >> 8) & 0xFF)), (((old_bx_29 >> 0) & 0xFF)), (((new_bx_29 >> 8) & 0xFF)), (((new_bx_29 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, bx_log_29, 7);
-int16_t old_by_11 = _instance->BreakoutGame_by_var;
-_instance->BreakoutGame_by_var = _instance->BreakoutGame_by_var + _instance->BreakoutGame_dy_var;
-int16_t new_by_11 = _instance->BreakoutGame_by_var;
-uint8_t by_log_11[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_11 >> 8) & 0xFF)), (((old_by_11 >> 0) & 0xFF)), (((new_by_11 >> 8) & 0xFF)), (((new_by_11 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, by_log_11, 7);
-int16_t wl = _instance->BreakoutGame_LEFT_var + _instance->BreakoutGame_br_var;
-int16_t wr = _instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_br_var;
-int16_t wt = _instance->BreakoutGame_TOP_var + _instance->BreakoutGame_br_var;
-int16_t wb = _instance->BreakoutGame_BOTTOM_var - _instance->BreakoutGame_br_var;
-if(_instance->BreakoutGame_bx_var < wl) {
-int16_t old_dx_25 = _instance->BreakoutGame_dx_var;
-_instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
-int16_t new_dx_25 = _instance->BreakoutGame_dx_var;
-uint8_t dx_log_25[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_25 >> 8) & 0xFF)), (((old_dx_25 >> 0) & 0xFF)), (((new_dx_25 >> 8) & 0xFF)), (((new_dx_25 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dx_log_25, 7);
-int16_t old_bx_30 = _instance->BreakoutGame_bx_var;
-_instance->BreakoutGame_bx_var = 2 * wl - _instance->BreakoutGame_bx_var;
-int16_t new_bx_30 = _instance->BreakoutGame_bx_var;
-uint8_t bx_log_30[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_30 >> 8) & 0xFF)), (((old_bx_30 >> 0) & 0xFF)), (((new_bx_30 >> 8) & 0xFF)), (((new_bx_30 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, bx_log_30, 7);
-f_BreakoutGamePosix_incrementScore(_instance,  -1);
-
-} else {
-if(_instance->BreakoutGame_bx_var > wr) {
-int16_t old_dx_26 = _instance->BreakoutGame_dx_var;
-_instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
-int16_t new_dx_26 = _instance->BreakoutGame_dx_var;
-uint8_t dx_log_26[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_26 >> 8) & 0xFF)), (((old_dx_26 >> 0) & 0xFF)), (((new_dx_26 >> 8) & 0xFF)), (((new_dx_26 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dx_log_26, 7);
-int16_t old_bx_31 = _instance->BreakoutGame_bx_var;
-_instance->BreakoutGame_bx_var = 2 * wr - _instance->BreakoutGame_bx_var;
-int16_t new_bx_31 = _instance->BreakoutGame_bx_var;
-uint8_t bx_log_31[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0A, (((old_bx_31 >> 8) & 0xFF)), (((old_bx_31 >> 0) & 0xFF)), (((new_bx_31 >> 8) & 0xFF)), (((new_bx_31 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, bx_log_31, 7);
-f_BreakoutGamePosix_incrementScore(_instance,  -1);
-
-}
-
-}
-if(_instance->BreakoutGame_by_var < wt) {
-int16_t old_dy_2 = _instance->BreakoutGame_dy_var;
-_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-int16_t new_dy_2 = _instance->BreakoutGame_dy_var;
-uint8_t dy_log_2[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_2 >> 8) & 0xFF)), (((old_dy_2 >> 0) & 0xFF)), (((new_dy_2 >> 8) & 0xFF)), (((new_dy_2 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dy_log_2, 7);
-int16_t old_by_12 = _instance->BreakoutGame_by_var;
-_instance->BreakoutGame_by_var = 2 * wt - _instance->BreakoutGame_by_var;
-int16_t new_by_12 = _instance->BreakoutGame_by_var;
-uint8_t by_log_12[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_12 >> 8) & 0xFF)), (((old_by_12 >> 0) & 0xFF)), (((new_by_12 >> 8) & 0xFF)), (((new_by_12 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, by_log_12, 7);
-f_BreakoutGamePosix_incrementScore(_instance,  -1);
-
-} else {
-if(_instance->BreakoutGame_by_var > wb) {
-BreakoutGamePosix_send_game_lostBall(_instance);
-uint8_t lostBallsent_log_206[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x01};
-BreakoutGamePosix_send_log_log(_instance, lostBallsent_log_206, 4);
-BreakoutGamePosix_send_req_game_lostBall(_instance);
-uint8_t lostBallsent_log_207[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x06, 0x01};
-BreakoutGamePosix_send_log_log(_instance, lostBallsent_log_207, 4);
-
-}
-
-}
-if(_instance->BreakoutGame_dy_var > 0) {
-if(_instance->BreakoutGame_by_var > _instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var && _instance->BreakoutGame_by_var < _instance->BreakoutGame_pady_var + _instance->BreakoutGame_br_var) {
-if(_instance->BreakoutGame_bx_var > _instance->BreakoutGame_padx_var - _instance->BreakoutGame_padlen_var / 2 && _instance->BreakoutGame_bx_var < _instance->BreakoutGame_padx_var + _instance->BreakoutGame_padlen_var / 2) {
-int16_t old_dy_3 = _instance->BreakoutGame_dy_var;
-_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-int16_t new_dy_3 = _instance->BreakoutGame_dy_var;
-uint8_t dy_log_3[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_3 >> 8) & 0xFF)), (((old_dy_3 >> 0) & 0xFF)), (((new_dy_3 >> 8) & 0xFF)), (((new_dy_3 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dy_log_3, 7);
-int16_t old_by_13 = _instance->BreakoutGame_by_var;
-_instance->BreakoutGame_by_var = 2 * (_instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var) - _instance->BreakoutGame_by_var;
-int16_t new_by_13 = _instance->BreakoutGame_by_var;
-uint8_t by_log_13[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0B, (((old_by_13 >> 8) & 0xFF)), (((old_by_13 >> 0) & 0xFF)), (((new_by_13 >> 8) & 0xFF)), (((new_by_13 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, by_log_13, 7);
-int16_t old_dx_27 = _instance->BreakoutGame_dx_var;
-_instance->BreakoutGame_dx_var = _instance->BreakoutGame_dx_var / 4 + (_instance->BreakoutGame_bx_var - _instance->BreakoutGame_padx_var) / 4;
-int16_t new_dx_27 = _instance->BreakoutGame_dx_var;
-uint8_t dx_log_27[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0C, (((old_dx_27 >> 8) & 0xFF)), (((old_dx_27 >> 0) & 0xFF)), (((new_dx_27 >> 8) & 0xFF)), (((new_dx_27 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dx_log_27, 7);
-
-}
-
-}
-
-}
-bool collision = f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var) || f_BreakoutGamePosix_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var);
-if(collision) {
-int16_t old_dy_4 = _instance->BreakoutGame_dy_var;
-_instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-int16_t new_dy_4 = _instance->BreakoutGame_dy_var;
-uint8_t dy_log_4[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0D, (((old_dy_4 >> 8) & 0xFF)), (((old_dy_4 >> 0) & 0xFF)), (((new_dy_4 >> 8) & 0xFF)), (((new_dy_4 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, dy_log_4, 7);
-f_BreakoutGamePosix_incrementScore(_instance, 10);
-if(f_BreakoutGamePosix_bricksLeft(_instance) == 0) {
-BreakoutGamePosix_send_game_nextLevel(_instance);
-uint8_t nextLevelsent_log_208[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02};
-BreakoutGamePosix_send_log_log(_instance, nextLevelsent_log_208, 4);
-BreakoutGamePosix_send_req_game_nextLevel(_instance);
-uint8_t nextLevelsent_log_209[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x06, 0x02};
-BreakoutGamePosix_send_log_log(_instance, nextLevelsent_log_209, 4);
-
-}
-
-}
-f_BreakoutGamePosix_drawBall(_instance);
-f_BreakoutGamePosix_drawPad(_instance);
-int16_t ballx_210 = _instance->BreakoutGame_bx_var;
-int16_t bally_211 = _instance->BreakoutGame_by_var;
-int16_t padx_212 = _instance->BreakoutGame_padx_var;
-int16_t pady_213 = _instance->BreakoutGame_pady_var;
-BreakoutGamePosix_send_ia_updateIA(_instance, ballx_210, bally_211, padx_212, pady_213);
-uint8_t updateIAsent_log_214[12] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x04, 0x13, (((ballx_210 >> 8) & 0xFF)), (((ballx_210 >> 0) & 0xFF)), (((bally_211 >> 8) & 0xFF)), (((bally_211 >> 0) & 0xFF)), (((padx_212 >> 8) & 0xFF)), (((padx_212 >> 0) & 0xFF)), (((pady_213 >> 8) & 0xFF)), (((pady_213 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, updateIAsent_log_214, 12);
-BreakoutGamePosix_send_display_update(_instance);
-uint8_t updatesent_log_215[4] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x02, 0x0F};
-BreakoutGamePosix_send_log_log(_instance, updatesent_log_215, 4);
-f_BreakoutGamePosix_log(_instance, 0);
-uint8_t id_216 = 0;
-uint16_t time_217 = _instance->BreakoutGame_period_var;
-BreakoutGamePosix_send_clock_timer_start(_instance, id_216, time_217);
-uint8_t timer_startsent_log_218[7] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x14, id_216, (((time_217 >> 8) & 0xFF)), (((time_217 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, timer_startsent_log_218, 7);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_LOSTBALL_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_lives_var > 0) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LAUNCH_STATE;
-uint8_t timer_timeouthandled_log_274[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x04, 0x02, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_274, 7);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-else if (BreakoutGame_SC_State_event_consumed == 0 && id == 0 && _instance->BreakoutGame_lives_var == 0) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_GAMEOVER_STATE;
-uint8_t timer_timeouthandled_log_275[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x04, 0x06, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_275, 7);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_GAMEOVER_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_NEXTLEVEL_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && id == 0) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LAUNCH_STATE;
-uint8_t timer_timeouthandled_log_276[7] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, 0x05, 0x02, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeouthandled_log_276, 7);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LAUNCH_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-uint8_t timer_timeoutlost_log_283[5] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x16, id};
-BreakoutGamePosix_send_log_log(_instance, timer_timeoutlost_log_283, 5);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGamePosix_handle_controller_position(struct BreakoutGamePosix_Instance *_instance, int16_t x, int16_t y) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-uint8_t positionhandled_log_280[10] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x03, 0x12, 0x00, 0x00, (((x >> 8) & 0xFF)), (((x >> 0) & 0xFF)), (((y >> 8) & 0xFF)), (((y >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, positionhandled_log_280, 10);
-int32_t center = (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var - _instance->BreakoutGame_padlen_var);
-center = x * center;
-center = center / 200;
-int16_t old_padx_32 = _instance->BreakoutGame_padx_var;
-_instance->BreakoutGame_padx_var = (_instance->BreakoutGame_LEFT_var + center + (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var) / 2);
-int16_t new_padx_32 = _instance->BreakoutGame_padx_var;
-uint8_t padx_log_32[7] = {LOGTYPE_PROPERTY_CHANGED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x0E, (((old_padx_32 >> 8) & 0xFF)), (((old_padx_32 >> 0) & 0xFF)), (((new_padx_32 >> 8) & 0xFF)), (((new_padx_32 >> 0) & 0xFF))};
-BreakoutGamePosix_send_log_log(_instance, padx_log_32, 7);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGamePosix_handle_game_nextLevel(struct BreakoutGamePosix_Instance *_instance) {
+void BreakoutGamePosix_handle_pro_game_nextLevel(struct BreakoutGamePosix_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region SC
 uint8_t BreakoutGame_SC_State_event_consumed = 0;
@@ -1206,12 +1179,12 @@ if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
 if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
 BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
 _instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
-uint8_t nextLevelhandled_log_281[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02, 0x03, 0x05};
+uint8_t nextLevelhandled_log_281[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x02, 0x03, 0x05};
 BreakoutGamePosix_send_log_log(_instance, nextLevelhandled_log_281, 6);
-uint8_t id_221 = 0;
-BreakoutGamePosix_send_clock_timer_cancel(_instance, id_221);
-uint8_t timer_cancelsent_log_222[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_221};
-BreakoutGamePosix_send_log_log(_instance, timer_cancelsent_log_222, 5);
+uint8_t id_225 = 0;
+BreakoutGamePosix_send_clock_timer_cancel(_instance, id_225);
+uint8_t timer_cancelsent_log_226[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_225};
+BreakoutGamePosix_send_log_log(_instance, timer_cancelsent_log_226, 5);
 BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
 BreakoutGame_SC_State_event_consumed = 1;
 }
@@ -1220,8 +1193,8 @@ BreakoutGame_SC_State_event_consumed = 1;
 //End dsregion SC
 //Session list: 
 if (1) {
-uint8_t nextLevellost_log_286[4] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02};
-BreakoutGamePosix_send_log_log(_instance, nextLevellost_log_286, 4);
+uint8_t nextLevellost_log_288[4] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x07, 0x02};
+BreakoutGamePosix_send_log_log(_instance, nextLevellost_log_288, 4);
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }
@@ -1233,8 +1206,8 @@ if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
 if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
 BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
 _instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
-uint8_t lostBallhandled_log_282[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x01, 0x03, 0x04};
-BreakoutGamePosix_send_log_log(_instance, lostBallhandled_log_282, 6);
+uint8_t lostBallhandled_log_280[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x01, 0x03, 0x04};
+BreakoutGamePosix_send_log_log(_instance, lostBallhandled_log_280, 6);
 uint8_t id_219 = 0;
 BreakoutGamePosix_send_clock_timer_cancel(_instance, id_219);
 uint8_t timer_cancelsent_log_220[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_219};
@@ -1249,6 +1222,33 @@ BreakoutGame_SC_State_event_consumed = 1;
 if (1) {
 uint8_t lostBalllost_log_285[4] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x01};
 BreakoutGamePosix_send_log_log(_instance, lostBalllost_log_285, 4);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGamePosix_handle_game_nextLevel(struct BreakoutGamePosix_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
+uint8_t nextLevelhandled_log_279[6] = {LOGTYPE_MESSAGE_HANDLED, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02, 0x03, 0x05};
+BreakoutGamePosix_send_log_log(_instance, nextLevelhandled_log_279, 6);
+uint8_t id_221 = 0;
+BreakoutGamePosix_send_clock_timer_cancel(_instance, id_221);
+uint8_t timer_cancelsent_log_222[5] = {LOGTYPE_MESSAGE_SENT, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x01, 0x15, id_221};
+BreakoutGamePosix_send_log_log(_instance, timer_cancelsent_log_222, 5);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+uint8_t nextLevellost_log_286[4] = {LOGTYPE_MESSAGE_LOST, _instance->WithBinaryLog_DEBUG_BIN_ID_var, 0x05, 0x02};
+BreakoutGamePosix_send_log_log(_instance, nextLevellost_log_286, 4);
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }

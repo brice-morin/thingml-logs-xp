@@ -130,22 +130,22 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 	function resetBall() do
 		log!function_called(DEBUG_ID, "resetBall", "void_", "", "")
 		do
-			readonly var old_bx_16 : String = "" + bx as String
+			readonly var old_bx_4 : String = "" + bx as String
 			bx = padx - br / SCALE
-			readonly var new_bx_16 : String = "" + bx as String
-			log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_16, new_bx_16)
+			readonly var new_bx_4 : String = "" + bx as String
+			log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_4, new_bx_4)
 		end
 		do
-			readonly var old_by_0 : String = "" + by as String
+			readonly var old_by_17 : String = "" + by as String
 			by = pady - br / SCALE
-			readonly var new_by_0 : String = "" + by as String
-			log!property_changed(DEBUG_ID, "by", "Int16", old_by_0, new_by_0)
+			readonly var new_by_17 : String = "" + by as String
+			log!property_changed(DEBUG_ID, "by", "Int16", old_by_17, new_by_17)
 		end
 		do
-			readonly var old_dx_8 : String = "" + dx as String
+			readonly var old_dx_29 : String = "" + dx as String
 			dx = (padx + prevBX + prevBY) % 300 - 150
-			readonly var new_dx_8 : String = "" + dx as String
-			log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_8, new_dx_8)
+			readonly var new_dx_29 : String = "" + dx as String
+			log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_29, new_dx_29)
 		end
 		if (dy > 0) do
 			readonly var old_dy_24 : String = "" + dy as String
@@ -160,10 +160,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_21, new_prevBX_21)
 		end
 		do
-			readonly var old_prevBY_13 : String = "" + prevBY as String
+			readonly var old_prevBY_0 : String = "" + prevBY as String
 			prevBY = -1
-			readonly var new_prevBY_13 : String = "" + prevBY as String
-			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_13, new_prevBY_13)
+			readonly var new_prevBY_0 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_0, new_prevBY_0)
 		end
 	end
 	function eraseBall() do
@@ -195,10 +195,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_22, new_prevBX_22)
 		end
 		do
-			readonly var old_prevBY_14 : String = "" + prevBY as String
+			readonly var old_prevBY_1 : String = "" + prevBY as String
 			prevBY = -1
-			readonly var new_prevBY_14 : String = "" + prevBY as String
-			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_14, new_prevBY_14)
+			readonly var new_prevBY_1 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_1, new_prevBY_1)
 		end
 	end
 	function drawBall() do
@@ -212,10 +212,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			log!property_changed(DEBUG_ID, "prevBX", "Int16", old_prevBX_23, new_prevBX_23)
 		end
 		do
-			readonly var old_prevBY_15 : String = "" + prevBY as String
+			readonly var old_prevBY_2 : String = "" + prevBY as String
 			prevBY = (by - br) / SCALE
-			readonly var new_prevBY_15 : String = "" + prevBY as String
-			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_15, new_prevBY_15)
+			readonly var new_prevBY_2 : String = "" + prevBY as String
+			log!property_changed(DEBUG_ID, "prevBY", "Int16", old_prevBY_2, new_prevBY_2)
 		end
 		do
 			readonly var r_17 : UInt8 = 183
@@ -263,16 +263,16 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 		var ps : Int16 = padlen / SCALE
 		erasePad()
 		do
-			readonly var old_prevPX_29 : String = "" + prevPX as String
+			readonly var old_prevPX_13 : String = "" + prevPX as String
 			prevPX = (padx - (padlen / 2)) / SCALE
-			readonly var new_prevPX_29 : String = "" + prevPX as String
-			log!property_changed(DEBUG_ID, "prevPX", "Int16", old_prevPX_29, new_prevPX_29)
+			readonly var new_prevPX_13 : String = "" + prevPX as String
+			log!property_changed(DEBUG_ID, "prevPX", "Int16", old_prevPX_13, new_prevPX_13)
 		end
 		do
-			readonly var old_prevPY_12 : String = "" + prevPY as String
+			readonly var old_prevPY_16 : String = "" + prevPY as String
 			prevPY = pady / SCALE
-			readonly var new_prevPY_12 : String = "" + prevPY as String
-			log!property_changed(DEBUG_ID, "prevPY", "Int16", old_prevPY_12, new_prevPY_12)
+			readonly var new_prevPY_16 : String = "" + prevPY as String
+			log!property_changed(DEBUG_ID, "prevPY", "Int16", old_prevPY_16, new_prevPY_16)
 		end
 		do
 			readonly var r_35 : UInt8 = fgcolor [0]
@@ -581,16 +581,16 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			log!function_called(DEBUG_ID, "incrementScore", "void_", "", params)
 		end
 		do
-			readonly var old_score_31 : String = "" + score as String
+			readonly var old_score_9 : String = "" + score as String
 			score = score + diff as Int16
-			readonly var new_score_31 : String = "" + score as String
-			log!property_changed(DEBUG_ID, "score", "Int16", old_score_31, new_score_31)
+			readonly var new_score_9 : String = "" + score as String
+			log!property_changed(DEBUG_ID, "score", "Int16", old_score_9, new_score_9)
 		end
 		if (score < 0) do
-			readonly var old_score_32 : String = "" + score as String
+			readonly var old_score_10 : String = "" + score as String
 			score = 0
-			readonly var new_score_32 : String = "" + score as String
-			log!property_changed(DEBUG_ID, "score", "Int16", old_score_32, new_score_32)
+			readonly var new_score_10 : String = "" + score as String
+			log!property_changed(DEBUG_ID, "score", "Int16", old_score_10, new_score_10)
 		end
 		drawScore()
 	end
@@ -737,10 +737,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!message_sent(DEBUG_ID, "clock", "timer_start", params_195)
 				end
 				do
-					readonly var old_countdown_6 : String = "" + countdown as String
+					readonly var old_countdown_14 : String = "" + countdown as String
 					countdown = 3
-					readonly var new_countdown_6 : String = "" + countdown as String
-					log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_6, new_countdown_6)
+					readonly var new_countdown_14 : String = "" + countdown as String
+					log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_14, new_countdown_14)
 				end
 				drawScore()
 				drawLives()
@@ -766,10 +766,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					drawPad()
 					if ((countdown % 30) == 0) drawCountDown(countdown as Int16 / 30)
 					do
-						readonly var old_countdown_7 : String = "" + countdown as String
+						readonly var old_countdown_15 : String = "" + countdown as String
 						countdown = countdown - 1
-						readonly var new_countdown_7 : String = "" + countdown as String
-						log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_7, new_countdown_7)
+						readonly var new_countdown_15 : String = "" + countdown as String
+						log!property_changed(DEBUG_ID, "countdown", "UInt8", old_countdown_15, new_countdown_15)
 					end
 					do
 						display!update()
@@ -811,16 +811,16 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 				log!message_handled(DEBUG_ID, "SC.PLAY", "_", "clock", "timer_timeout", params)
 				do
 					do
-						readonly var old_bx_17 : String = "" + bx as String
+						readonly var old_bx_5 : String = "" + bx as String
 						bx = bx + dx
-						readonly var new_bx_17 : String = "" + bx as String
-						log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_17, new_bx_17)
+						readonly var new_bx_5 : String = "" + bx as String
+						log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_5, new_bx_5)
 					end
 					do
-						readonly var old_by_1 : String = "" + by as String
+						readonly var old_by_18 : String = "" + by as String
 						by = by + dy
-						readonly var new_by_1 : String = "" + by as String
-						log!property_changed(DEBUG_ID, "by", "Int16", old_by_1, new_by_1)
+						readonly var new_by_18 : String = "" + by as String
+						log!property_changed(DEBUG_ID, "by", "Int16", old_by_18, new_by_18)
 					end
 					var wl : Int16 = LEFT + br
 					var wr : Int16 = RIGHT - br
@@ -828,31 +828,31 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					var wb : Int16 = BOTTOM - br
 					if (bx < wl) do
 						do
-							readonly var old_dx_9 : String = "" + dx as String
+							readonly var old_dx_30 : String = "" + dx as String
 							dx = -dx
-							readonly var new_dx_9 : String = "" + dx as String
-							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_9, new_dx_9)
+							readonly var new_dx_30 : String = "" + dx as String
+							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_30, new_dx_30)
 						end
 						do
-							readonly var old_bx_18 : String = "" + bx as String
+							readonly var old_bx_6 : String = "" + bx as String
 							bx = 2 * wl - bx
-							readonly var new_bx_18 : String = "" + bx as String
-							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_18, new_bx_18)
+							readonly var new_bx_6 : String = "" + bx as String
+							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_6, new_bx_6)
 						end
 						incrementScore(-1)
 					end
 					else if (bx > wr) do
 						do
-							readonly var old_dx_10 : String = "" + dx as String
+							readonly var old_dx_31 : String = "" + dx as String
 							dx = -dx
-							readonly var new_dx_10 : String = "" + dx as String
-							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_10, new_dx_10)
+							readonly var new_dx_31 : String = "" + dx as String
+							log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_31, new_dx_31)
 						end
 						do
-							readonly var old_bx_19 : String = "" + bx as String
+							readonly var old_bx_7 : String = "" + bx as String
 							bx = 2 * wr - bx
-							readonly var new_bx_19 : String = "" + bx as String
-							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_19, new_bx_19)
+							readonly var new_bx_7 : String = "" + bx as String
+							log!property_changed(DEBUG_ID, "bx", "Int16", old_bx_7, new_bx_7)
 						end
 						incrementScore(-1)
 					end
@@ -864,10 +864,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 							log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_25, new_dy_25)
 						end
 						do
-							readonly var old_by_2 : String = "" + by as String
+							readonly var old_by_19 : String = "" + by as String
 							by = 2 * wt - by
-							readonly var new_by_2 : String = "" + by as String
-							log!property_changed(DEBUG_ID, "by", "Int16", old_by_2, new_by_2)
+							readonly var new_by_19 : String = "" + by as String
+							log!property_changed(DEBUG_ID, "by", "Int16", old_by_19, new_by_19)
 						end
 						incrementScore(-1)
 					end
@@ -891,16 +891,16 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 									log!property_changed(DEBUG_ID, "dy", "Int16", old_dy_26, new_dy_26)
 								end
 								do
-									readonly var old_by_3 : String = "" + by as String
+									readonly var old_by_20 : String = "" + by as String
 									by = 2 * (pady - br) - by
-									readonly var new_by_3 : String = "" + by as String
-									log!property_changed(DEBUG_ID, "by", "Int16", old_by_3, new_by_3)
+									readonly var new_by_20 : String = "" + by as String
+									log!property_changed(DEBUG_ID, "by", "Int16", old_by_20, new_by_20)
 								end
 								do
-									readonly var old_dx_11 : String = "" + dx as String
+									readonly var old_dx_32 : String = "" + dx as String
 									dx = dx / 4 + (bx - padx) / 4
-									readonly var new_dx_11 : String = "" + dx as String
-									log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_11, new_dx_11)
+									readonly var new_dx_32 : String = "" + dx as String
+									log!property_changed(DEBUG_ID, "dx", "Int16", old_dx_32, new_dx_32)
 								end
 							end
 						end
@@ -1005,10 +1005,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!message_sent(DEBUG_ID, "clock", "timer_start", params_220)
 				end
 				do
-					readonly var old_lives_4 : String = "" + lives as String
+					readonly var old_lives_11 : String = "" + lives as String
 					lives = lives - 1
-					readonly var new_lives_4 : String = "" + lives as String
-					log!property_changed(DEBUG_ID, "lives", "UInt8", old_lives_4, new_lives_4)
+					readonly var new_lives_11 : String = "" + lives as String
+					log!property_changed(DEBUG_ID, "lives", "UInt8", old_lives_11, new_lives_11)
 				end
 				eraseBall()
 				erasePad()
@@ -1044,19 +1044,19 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!message_sent(DEBUG_ID, "clock", "timer_start", params_223)
 				end
 				do
-					readonly var old_level_5 : String = "" + level as String
+					readonly var old_level_3 : String = "" + level as String
 					level = level + 1
-					readonly var new_level_5 : String = "" + level as String
-					log!property_changed(DEBUG_ID, "level", "UInt8", old_level_5, new_level_5)
+					readonly var new_level_3 : String = "" + level as String
+					log!property_changed(DEBUG_ID, "level", "UInt8", old_level_3, new_level_3)
 				end
 				drawLevel()
 				eraseBall()
 				erasePad()
 				if ((level % 2) == 0 and padlen > 5 * SCALE) do
-					readonly var old_padlen_20 : String = "" + padlen as String
+					readonly var old_padlen_12 : String = "" + padlen as String
 					padlen = padlen - (4 * SCALE)
-					readonly var new_padlen_20 : String = "" + padlen as String
-					log!property_changed(DEBUG_ID, "padlen", "Int16", old_padlen_20, new_padlen_20)
+					readonly var new_padlen_12 : String = "" + padlen as String
+					log!property_changed(DEBUG_ID, "padlen", "Int16", old_padlen_12, new_padlen_12)
 				end
 				if ((level % 2) == 1) do
 					readonly var old_dy_28 : String = "" + dy as String
@@ -1169,10 +1169,10 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 				center = e.x as Int32 * center
 				center = center / 200
 				do
-					readonly var old_padx_30 : String = "" + padx as String
+					readonly var old_padx_8 : String = "" + padx as String
 					padx = (LEFT as Int32 + center + (RIGHT as Int32 - LEFT as Int32) / 2) as Int16
-					readonly var new_padx_30 : String = "" + padx as String
-					log!property_changed(DEBUG_ID, "padx", "Int16", old_padx_30, new_padx_30)
+					readonly var new_padx_8 : String = "" + padx as String
+					log!property_changed(DEBUG_ID, "padx", "Int16", old_padx_8, new_padx_8)
 				end
 			end
 		end
@@ -1217,33 +1217,40 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 }
 thing fragment LogMsgs {
 	message log_on()
+	@monitor `not`
 	message log_off()
+	@monitor `not`
 	message function_called(inst : String, fn_name : String, ty : String, returns : String, params : String)
+	@monitor `not`
 	message property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String)
+	@monitor `not`
 	message message_sent(inst : String, port_name : String, msg_name : String, params : String)
+	@monitor `not`
 	message message_lost(inst : String, port_name : String, msg_name : String, params : String)
+	@monitor `not`
 	message message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String)
+	@monitor `not`
 }
 thing fragment WithLog includes LogMsgs {
-	required port log @sync_send `true` {
+	required port log @sync_send `true` @monitor `not` {
 		sends function_called sends property_changed sends message_lost sends message_handled sends message_sent
 	}
-	readonly property DEBUG_ID : String
+	readonly property DEBUG_ID : String @monitor `not`
 }
-thing fragment Logger includes LogMsgs {
-	provided port log {
+thing fragment Logger includes LogMsgs @monitor `not` {
+	provided port log @monitor `not` {
 		receives function_called receives property_changed receives message_lost receives message_handled receives message_sent receives log_on receives log_off
 	}
-	readonly property ACTIVATE_ON_STARTUP : Boolean
-	abstract function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String)
+	readonly property ACTIVATE_ON_STARTUP : Boolean @monitor `not`
+	abstract function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String) @monitor `not`
 
-	abstract function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String)
+	abstract function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String) @monitor `not`
 
-	abstract function log_message_lost(inst : String, port_name : String, msg_name : String, params : String)
+	abstract function log_message_lost(inst : String, port_name : String, msg_name : String, params : String) @monitor `not`
 
-	abstract function log_message_sent(inst : String, port_name : String, msg_name : String, params : String)
+	abstract function log_message_sent(inst : String, port_name : String, msg_name : String, params : String) @monitor `not`
 
-	abstract function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String)
+	abstract function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String) @monitor `not`
 
 	statechart init STARTUP {
 		state STARTUP {
@@ -1275,12 +1282,12 @@ thing fragment Logger includes LogMsgs {
 		}
 	}
 }
-thing ConsoleLogger includes Logger @stdout_sync `true` {
-	function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String) println "function_called(" , inst , ", " , fn_name , ", " , ty , ", " , returns , ", " , params , ")"
-	function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String) println "property_changed(" , inst , ", " , prop_name , ", " , ty , ", " , old_value , ", " , new_value , ")"
-	function log_message_lost(inst : String, port_name : String, msg_name : String, params : String) println "message_lost(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
-	function log_message_sent(inst : String, port_name : String, msg_name : String, params : String) println "message_sent(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
-	function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String) println "message_handled(" , inst , ", " , source , ", " , target , ", " , port_name , ", " , msg_name , ", " , params , ")"
+thing ConsoleLogger includes Logger @stdout_sync `true` @monitor `not` {
+	function log_function_called(inst : String, fn_name : String, ty : String, returns : String, params : String) @monitor `not` println "function_called(" , inst , ", " , fn_name , ", " , ty , ", " , returns , ", " , params , ")"
+	function log_property_changed(inst : String, prop_name : String, ty : String, old_value : String, new_value : String) @monitor `not` println "property_changed(" , inst , ", " , prop_name , ", " , ty , ", " , old_value , ", " , new_value , ")"
+	function log_message_lost(inst : String, port_name : String, msg_name : String, params : String) @monitor `not` println "message_lost(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
+	function log_message_sent(inst : String, port_name : String, msg_name : String, params : String) @monitor `not` println "message_sent(" , inst , ", " , port_name , ", " , msg_name , ", " , params , ")"
+	function log_message_handled(inst : String, source : String, target : String, port_name : String, msg_name : String, params : String) @monitor `not` println "message_handled(" , inst , ", " , source , ", " , target , ", " , port_name , ", " , msg_name , ", " , params , ")"
 }
 thing fragment DisplayMsgs {
 	message clear()

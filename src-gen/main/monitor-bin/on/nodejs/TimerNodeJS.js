@@ -26,11 +26,6 @@ TimerNodeJS.prototype.build = function(session) {
 	let _initial_TimerNodeJS_SoftTimer = new StateJS.PseudoState('_initial', this._statemachine, StateJS.PseudoStateKind.Initial);
 	let TimerNodeJS_SoftTimer_default = new StateJS.State('default', this._statemachine);
 	_initial_TimerNodeJS_SoftTimer.to(TimerNodeJS_SoftTimer_default);
-	TimerNodeJS_SoftTimer_default.on(Event.Timer_cancel).when((timer_cancel) => {
-		return timer_cancel.port === 'timer' && timer_cancel.type === 'timer_cancel';
-	}).effect((timer_cancel) => {
-		this.cancel(timer_cancel.id);
-	});
 	TimerNodeJS_SoftTimer_default.on(Event.Timer_start).when((timer_start) => {
 		return timer_start.port === 'timer' && timer_start.type === 'timer_start' && (timer_start.time > 0);
 	}).effect((timer_start) => {
@@ -40,6 +35,11 @@ TimerNodeJS.prototype.build = function(session) {
 		return timer_start.port === 'timer' && timer_start.type === 'timer_start' && (timer_start.time === 0);
 	}).effect((timer_start) => {
 		this.bus.emit('timer', new Event.Timer_timeout_TimerMsgs(this.name, 'timer', timer_start.id));
+	});
+	TimerNodeJS_SoftTimer_default.on(Event.Timer_cancel).when((timer_cancel) => {
+		return timer_cancel.port === 'timer' && timer_cancel.type === 'timer_cancel';
+	}).effect((timer_cancel) => {
+		this.cancel(timer_cancel.id);
 	});
 }
 TimerNodeJS.prototype.startTimer = function(TimerNodeJS_startTimer_id_var, TimerNodeJS_startTimer_delay_var) {

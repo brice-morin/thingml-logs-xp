@@ -24,17 +24,6 @@ inst_game._receive(e)
 
 });
 /*Connecting ports...*/
-inst_ctrl.bus.on('controls', (e) => {
-setImmediate(() => {
-e.port = 'controller';
-inst_game._receive(e)
-});
-
-});
-inst_game.bus.on('log', (e) => {
-e.port = 'log';
-inst_log._receive(e)
-});
 inst_timer.bus.on('timer', (e) => {
 setImmediate(() => {
 e.port = 'clock';
@@ -56,6 +45,10 @@ inst_ctrl._receive(e)
 });
 
 });
+inst_game.bus.on('log', (e) => {
+e.port = 'log';
+inst_log._receive(e)
+});
 inst_disp.bus.on('display', (e) => {
 e.port = 'display';
 inst_game._receive(e)
@@ -63,6 +56,13 @@ inst_game._receive(e)
 inst_game.bus.on('display', (e) => {
 e.port = 'display';
 inst_disp._receive(e)
+});
+inst_ctrl.bus.on('controls', (e) => {
+setImmediate(() => {
+e.port = 'controller';
+inst_game._receive(e)
+});
+
 });
 var inst_game_bgcolor = [];
 var inst_game_bricks = [];
@@ -113,24 +113,24 @@ inst_timer.TimerNodeJS_Timeouts_var = {};
 inst_timer.TimerNodeJS_driftless_var = require('driftless');
 
 /*$PLUGINS_CONNECTORS$*/
-inst_ctrl._init();
-inst_log._init();
 inst_timer._init();
+inst_log._init();
 inst_disp._init();
+inst_ctrl._init();
 inst_game._init();
 /*$PLUGINS_END$*/
 
 function terminate() {
 	inst_game._stop();
 	inst_game._delete();
-	inst_disp._stop();
-	inst_disp._delete();
-	inst_timer._stop();
-	inst_timer._delete();
-	inst_log._stop();
-	inst_log._delete();
 	inst_ctrl._stop();
 	inst_ctrl._delete();
+	inst_disp._stop();
+	inst_disp._delete();
+	inst_log._stop();
+	inst_log._delete();
+	inst_timer._stop();
+	inst_timer._delete();
 };
 /*terminate all things on SIGINT (e.g. CTRL+C)*/
 if (process && process.on) {

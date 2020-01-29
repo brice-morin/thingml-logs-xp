@@ -1,14 +1,14 @@
 \Zh
-~Ã¡Â±}k
-KË†â€ºD_-h-~Ã¡Ã±}+*Ë†Ã»nD_HhLN~Â¡Ãˆ~`mJ	H]!}ÃƒË†n#mÃˆVI(xÃ·Å¸X^(a.Ë†â€º}QÃŠJ|%8â€”Â¿+x>Ka.HV^!Ë†Â¬YÅ’YV|Â§lJ~3Ã±}
-KË†â€ºnD_Zh
-~Ã¡Â±}k
-KË†â€ºD_-h-~Ã¡Ã±}+*Ë†Ã»nD_HhLN~Â¡Ã±]+*ÃˆÂ»7D_HH
-Ã˜Ã©Â¯ao'(a.Ë†â€º}QÃŠ%Ã±Å’	Ë†Â·^Â¿+e, display, fillÃ‘Â± x=86,y=89Â§lJ~3Ã±}
-KË†â€ºnD_Zh
-~Ã¡Â±}k
-KË†â€ºD_-h-~Ã¡Ã±}+*Ë†Ã»nD_HhLN~Â¡Ã±]+*ÃˆÂ»7D_HH
-Ã˜Ã©Â¯ao'(a.Ë†â€º}QÃŠ%Ã±Å’	Ë†Â·^Â¿+e, display, fillÃ‘Â± x=86,y=89,width=6,height=6,)
+~á±}k
+Kˆ›D_-h-~áñ}+*ˆûnD_HhLN~¡È~`mJ	H]!}Ãˆn#mÈVI(x÷ŸX^(a.ˆ›}QÊJ|%8—¿+x>Ka.HV^!ˆ¬YŒYV|§lJ~3ñ}
+Kˆ›nD_Zh
+~á±}k
+Kˆ›D_-h-~áñ}+*ˆûnD_HhLN~¡ñ]+*È»7D_HH
+Øé¯ao'(a.ˆ›}QÊ%ñŒ	ˆ·^¿+e, display, fillÑ± x=86,y=89§lJ~3ñ}
+Kˆ›nD_Zh
+~á±}k
+Kˆ›D_-h-~áñ}+*ˆûnD_HhLN~¡ñ]+*È»7D_HH
+Øé¯ao'(a.ˆ›}QÊ%ñŒ	ˆ·^¿+e, display, fillÑ± x=86,y=89,width=6,height=6,)
 function_called(game, drawPad, void_, , )
 function_called(game, erasePad, void_, , )
 message_sent(game, display, setColor, r=53,g=40,b=120,)

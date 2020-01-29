@@ -51,9 +51,9 @@ receive(_msg);
 }
 
 //Attributes
-private boolean ConsoleLogger_QUIET_var;
 private boolean Logger_ACTIVATE_ON_STARTUP_var;
 private boolean Logger_HAS_SIGNED_BYTE_var;
+private boolean ConsoleLogger_QUIET_var;
 //Ports
 private Port log_port;
 //Message types
@@ -66,15 +66,6 @@ super();
 }
 
 //Getters and Setters for non readonly/final attributes
-public boolean getConsoleLogger_QUIET_var() {
-return ConsoleLogger_QUIET_var;
-}
-
-public ConsoleLogger initConsoleLogger_QUIET_var(boolean ConsoleLogger_QUIET_var) {
-this.ConsoleLogger_QUIET_var = ConsoleLogger_QUIET_var;
-return this;
-}
-
 public boolean getLogger_ACTIVATE_ON_STARTUP_var() {
 return Logger_ACTIVATE_ON_STARTUP_var;
 }
@@ -93,6 +84,15 @@ this.Logger_HAS_SIGNED_BYTE_var = Logger_HAS_SIGNED_BYTE_var;
 return this;
 }
 
+public boolean getConsoleLogger_QUIET_var() {
+return ConsoleLogger_QUIET_var;
+}
+
+public ConsoleLogger initConsoleLogger_QUIET_var(boolean ConsoleLogger_QUIET_var) {
+this.ConsoleLogger_QUIET_var = ConsoleLogger_QUIET_var;
+return this;
+}
+
 //Getters for Ports
 public Port getLog_port() {
 return log_port;
@@ -101,35 +101,35 @@ private CompositeState buildLogger(){
 final AtomicState state_Logger_null_STARTUP = new AtomicState("STARTUP");
 final AtomicState state_Logger_null_ON = new AtomicState("ON");
 final AtomicState state_Logger_null_OFF = new AtomicState("OFF");
-Transition h501530336 = new Transition();
-h501530336.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
-h501530336.guard((Event e)->{
+Transition h1704065258 = new Transition();
+h1704065258.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
+h1704065258.guard((Event e)->{
 return getLogger_ACTIVATE_ON_STARTUP_var();
 });
 
-Transition h1019714562 = new Transition();
-h1019714562.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
-h1019714562.guard((Event e)->{
+Transition h664555067 = new Transition();
+h664555067.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
+h664555067.guard((Event e)->{
 return  !(getLogger_ACTIVATE_ON_STARTUP_var());
 });
 
-Handler h1373254373 = new Handler();
-h1373254373.from(state_Logger_null_ON);
-h1373254373.event(logType);
-h1373254373.port(log_port);
-h1373254373.action((Event e)->{
+Handler h936618636 = new Handler();
+h936618636.from(state_Logger_null_ON);
+h936618636.event(logType);
+h936618636.port(log_port);
+h936618636.action((Event e)->{
 final LogMessageType.LogMessage log = (LogMessageType.LogMessage) e;
 do_log((byte[]) (log.payload), (int) (log.size));
 });
 
-Transition h1760493989 = new Transition();
-h1760493989.from(state_Logger_null_ON).to(state_Logger_null_OFF);
-h1760493989.event(log_offType);
-h1760493989.port(log_port);
-Transition h1696136701 = new Transition();
-h1696136701.from(state_Logger_null_OFF).to(state_Logger_null_ON);
-h1696136701.event(log_onType);
-h1696136701.port(log_port);
+Transition h488654523 = new Transition();
+h488654523.from(state_Logger_null_ON).to(state_Logger_null_OFF);
+h488654523.event(log_offType);
+h488654523.port(log_port);
+Transition h1000119179 = new Transition();
+h1000119179.from(state_Logger_null_OFF).to(state_Logger_null_ON);
+h1000119179.event(log_onType);
+h1000119179.port(log_port);
 final CompositeState state_Logger = new CompositeState("null");
 state_Logger.onEntry(()->{
 });

@@ -34,6 +34,9 @@ ConsoleLogger.prototype.build = function(session) {
 	Logger_null_STARTUP.to(Logger_null_OFF).when(() => {
 		return (!(this.Logger_ACTIVATE_ON_STARTUP_var));
 	});
+	Logger_null_OFF.to(Logger_null_ON).on(Event.Log_on_LogMsgs).when((log_on) => {
+		return log_on.port === 'log' && log_on.type === 'log_on';
+	});
 	Logger_null_ON.to(Logger_null_OFF).on(Event.Log_off_LogMsgs).when((log_off) => {
 		return log_off.port === 'log' && log_off.type === 'log_off';
 	});
@@ -41,9 +44,6 @@ ConsoleLogger.prototype.build = function(session) {
 		return log.port === 'log' && log.type === 'log';
 	}).effect((log) => {
 		this.do_log(log.payload, log.size);
-	});
-	Logger_null_OFF.to(Logger_null_ON).on(Event.Log_on_LogMsgs).when((log_on) => {
-		return log_on.port === 'log' && log_on.type === 'log_on';
 	});
 }
 ConsoleLogger.prototype.do_log = function(ConsoleLogger_do_log_payload_var, ConsoleLogger_do_log_size_var) {
@@ -137,9 +137,9 @@ ConsoleLogger.prototype._receive = function(msg) {
 
 ConsoleLogger.prototype.toString = function() {
 	let result = 'instance ' + this.name + ':' + this.constructor.name + '\n';
-	result += '\n\tQUIET = ' + this.ConsoleLogger_QUIET_var;
 	result += '\n\tACTIVATE_ON_STARTUP = ' + this.Logger_ACTIVATE_ON_STARTUP_var;
 	result += '\n\tHAS_SIGNED_BYTE = ' + this.Logger_HAS_SIGNED_BYTE_var;
+	result += '\n\tQUIET = ' + this.ConsoleLogger_QUIET_var;
 	result += '';
 	return result;
 }

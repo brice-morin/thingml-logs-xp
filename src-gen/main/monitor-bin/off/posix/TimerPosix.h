@@ -38,21 +38,21 @@ uint16_t id_timer;
 // Variables for the current instance state
 int TimerPosix_SoftTimer_State;
 // Variables for the properties of the instance
-uint16_t TimerPosix_NB_SOFT_TIMERS_var;
 uint16_t TimerPosix_SOFT_TIMER_PERIOD_var;
+uint16_t TimerPosix_NB_SOFT_TIMERS_var;
 
 };
 // Declaration of prototypes outgoing messages :
 void TimerPosix_SoftTimer_OnEntry(int state, struct TimerPosix_Instance *_instance);
-void TimerPosix_handle_timer_timer_cancel(struct TimerPosix_Instance *_instance, uint8_t id);
 void TimerPosix_handle_timer_timer_start(struct TimerPosix_Instance *_instance, uint8_t id, uint16_t time);
+void TimerPosix_handle_timer_timer_cancel(struct TimerPosix_Instance *_instance, uint8_t id);
 // Declaration of callbacks for incoming messages:
 void register_TimerPosix_send_timer_timer_timeout_listener(void (*_listener)(struct TimerPosix_Instance *, uint8_t));
 void register_external_TimerPosix_send_timer_timer_timeout_listener(void (*_listener)(struct TimerPosix_Instance *, uint8_t));
 
 // Definition of the states:
-#define TIMERPOSIX_SOFTTIMER_DEFAULT_STATE 0
-#define TIMERPOSIX_SOFTTIMER_STATE 1
+#define TIMERPOSIX_SOFTTIMER_STATE 0
+#define TIMERPOSIX_SOFTTIMER_DEFAULT_STATE 1
 
 
 

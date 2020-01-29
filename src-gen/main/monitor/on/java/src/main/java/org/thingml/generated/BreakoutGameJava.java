@@ -740,12 +740,12 @@ sendTimer_start_via_clock((int) (id_193_var), (int) (time_194_var));
 final String params_195_var = (String) ("" + ("id=" + (id_193_var + ",")) + ("time=" + (time_194_var + ",")));
 
 sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("clock"), (String) ("timer_start"), (String) (params_195_var));
-final String old_countdown_6_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
+final String old_countdown_8_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
 
 BreakoutGame_SC_LAUNCH_countdown_var = (int) (3);
-final String new_countdown_6_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
+final String new_countdown_8_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("countdown"), (String) ("UInt8"), (String) (old_countdown_6_var), (String) (new_countdown_6_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("countdown"), (String) ("UInt8"), (String) (old_countdown_8_var), (String) (new_countdown_8_var));
 drawScore();
 drawLives();
 sendUpdate_via_display();
@@ -772,12 +772,12 @@ sendTimer_start_via_clock((int) (id_218_var), (int) (time_219_var));
 final String params_220_var = (String) ("" + ("id=" + (id_218_var + ",")) + ("time=" + (time_219_var + ",")));
 
 sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("clock"), (String) ("timer_start"), (String) (params_220_var));
-final String old_lives_21_var = (String) ("" + getBreakoutGame_lives_var());
+final String old_lives_10_var = (String) ("" + getBreakoutGame_lives_var());
 
 BreakoutGame_lives_var = (int) (getBreakoutGame_lives_var() - 1);
-final String new_lives_21_var = (String) ("" + getBreakoutGame_lives_var());
+final String new_lives_10_var = (String) ("" + getBreakoutGame_lives_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("lives"), (String) ("UInt8"), (String) (old_lives_21_var), (String) (new_lives_21_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("lives"), (String) ("UInt8"), (String) (old_lives_10_var), (String) (new_lives_10_var));
 eraseBall();
 erasePad();
 drawLives();
@@ -795,31 +795,31 @@ sendTimer_start_via_clock((int) (id_221_var), (int) (time_222_var));
 final String params_223_var = (String) ("" + ("id=" + (id_221_var + ",")) + ("time=" + (time_222_var + ",")));
 
 sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("clock"), (String) ("timer_start"), (String) (params_223_var));
-final String old_level_24_var = (String) ("" + getBreakoutGame_level_var());
+final String old_level_22_var = (String) ("" + getBreakoutGame_level_var());
 
 BreakoutGame_level_var = (int) (getBreakoutGame_level_var() + 1);
-final String new_level_24_var = (String) ("" + getBreakoutGame_level_var());
+final String new_level_22_var = (String) ("" + getBreakoutGame_level_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("level"), (String) ("UInt8"), (String) (old_level_24_var), (String) (new_level_24_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("level"), (String) ("UInt8"), (String) (old_level_22_var), (String) (new_level_22_var));
 drawLevel();
 eraseBall();
 erasePad();
 if((getBreakoutGame_level_var() % 2) == 0 && getBreakoutGame_padlen_var() > 5 * getBreakoutGame_SCALE_var()) {
-final String old_padlen_0_var = (String) ("" + getBreakoutGame_padlen_var());
+final String old_padlen_4_var = (String) ("" + getBreakoutGame_padlen_var());
 
 BreakoutGame_padlen_var = (int) (getBreakoutGame_padlen_var() - (4 * getBreakoutGame_SCALE_var()));
-final String new_padlen_0_var = (String) ("" + getBreakoutGame_padlen_var());
+final String new_padlen_4_var = (String) ("" + getBreakoutGame_padlen_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("padlen"), (String) ("Int16"), (String) (old_padlen_0_var), (String) (new_padlen_0_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("padlen"), (String) ("Int16"), (String) (old_padlen_4_var), (String) (new_padlen_4_var));
 
 }
 if((getBreakoutGame_level_var() % 2) == 1) {
-final String old_dy_17_var = (String) ("" + getBreakoutGame_dy_var());
+final String old_dy_27_var = (String) ("" + getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ((getBreakoutGame_dy_var() * 3) / 2);
-final String new_dy_17_var = (String) ("" + getBreakoutGame_dy_var());
+final String new_dy_27_var = (String) ("" + getBreakoutGame_dy_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_17_var), (String) (new_dy_17_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_27_var), (String) (new_dy_27_var));
 
 }
 drawLives();
@@ -1010,12 +1010,12 @@ if((getBreakoutGame_SC_LAUNCH_countdown_var() % 30) == 0) {
 drawCountDown((int) (getBreakoutGame_SC_LAUNCH_countdown_var() / 30));
 
 }
-final String old_countdown_7_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
+final String old_countdown_9_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
 
 BreakoutGame_SC_LAUNCH_countdown_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var() - 1);
-final String new_countdown_7_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
+final String new_countdown_9_var = (String) ("" + getBreakoutGame_SC_LAUNCH_countdown_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("countdown"), (String) ("UInt8"), (String) (old_countdown_7_var), (String) (new_countdown_7_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("countdown"), (String) ("UInt8"), (String) (old_countdown_9_var), (String) (new_countdown_9_var));
 sendUpdate_via_display();
 sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("display"), (String) ("update"), (String) (""));
 });
@@ -1054,18 +1054,18 @@ final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeo
 final String params_var = (String) ("" + ("id=" + (timer_timeout.id + ",")));
 
 sendMessage_handled_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("SC.PLAY"), (String) ("_"), (String) ("clock"), (String) ("timer_timeout"), (String) (params_var));
-final String old_bx_26_var = (String) ("" + getBreakoutGame_bx_var());
+final String old_bx_1_var = (String) ("" + getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (getBreakoutGame_bx_var() + getBreakoutGame_dx_var());
-final String new_bx_26_var = (String) ("" + getBreakoutGame_bx_var());
+final String new_bx_1_var = (String) ("" + getBreakoutGame_bx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_26_var), (String) (new_bx_26_var));
-final String old_by_3_var = (String) ("" + getBreakoutGame_by_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_1_var), (String) (new_bx_1_var));
+final String old_by_30_var = (String) ("" + getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (getBreakoutGame_by_var() + getBreakoutGame_dy_var());
-final String new_by_3_var = (String) ("" + getBreakoutGame_by_var());
+final String new_by_30_var = (String) ("" + getBreakoutGame_by_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_3_var), (String) (new_by_3_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_30_var), (String) (new_by_30_var));
 int wl_var = (int) (getBreakoutGame_LEFT_var() + getBreakoutGame_br_var());
 
 int wr_var = (int) (getBreakoutGame_RIGHT_var() - getBreakoutGame_br_var());
@@ -1075,52 +1075,52 @@ int wt_var = (int) (getBreakoutGame_TOP_var() + getBreakoutGame_br_var());
 int wb_var = (int) (getBreakoutGame_BOTTOM_var() - getBreakoutGame_br_var());
 
 if(getBreakoutGame_bx_var() < wl_var) {
-final String old_dx_9_var = (String) ("" + getBreakoutGame_dx_var());
+final String old_dx_15_var = (String) ("" + getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ( -getBreakoutGame_dx_var());
-final String new_dx_9_var = (String) ("" + getBreakoutGame_dx_var());
+final String new_dx_15_var = (String) ("" + getBreakoutGame_dx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_9_var), (String) (new_dx_9_var));
-final String old_bx_27_var = (String) ("" + getBreakoutGame_bx_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_15_var), (String) (new_dx_15_var));
+final String old_bx_2_var = (String) ("" + getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (2 * wl_var - getBreakoutGame_bx_var());
-final String new_bx_27_var = (String) ("" + getBreakoutGame_bx_var());
+final String new_bx_2_var = (String) ("" + getBreakoutGame_bx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_27_var), (String) (new_bx_27_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_2_var), (String) (new_bx_2_var));
 incrementScore((int) ( -1));
 
 } else {
 if(getBreakoutGame_bx_var() > wr_var) {
-final String old_dx_10_var = (String) ("" + getBreakoutGame_dx_var());
+final String old_dx_16_var = (String) ("" + getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ( -getBreakoutGame_dx_var());
-final String new_dx_10_var = (String) ("" + getBreakoutGame_dx_var());
+final String new_dx_16_var = (String) ("" + getBreakoutGame_dx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_10_var), (String) (new_dx_10_var));
-final String old_bx_28_var = (String) ("" + getBreakoutGame_bx_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_16_var), (String) (new_dx_16_var));
+final String old_bx_3_var = (String) ("" + getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (2 * wr_var - getBreakoutGame_bx_var());
-final String new_bx_28_var = (String) ("" + getBreakoutGame_bx_var());
+final String new_bx_3_var = (String) ("" + getBreakoutGame_bx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_28_var), (String) (new_bx_28_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_3_var), (String) (new_bx_3_var));
 incrementScore((int) ( -1));
 
 }
 
 }
 if(getBreakoutGame_by_var() < wt_var) {
-final String old_dy_14_var = (String) ("" + getBreakoutGame_dy_var());
+final String old_dy_24_var = (String) ("" + getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final String new_dy_14_var = (String) ("" + getBreakoutGame_dy_var());
+final String new_dy_24_var = (String) ("" + getBreakoutGame_dy_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_14_var), (String) (new_dy_14_var));
-final String old_by_4_var = (String) ("" + getBreakoutGame_by_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_24_var), (String) (new_dy_24_var));
+final String old_by_31_var = (String) ("" + getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (2 * wt_var - getBreakoutGame_by_var());
-final String new_by_4_var = (String) ("" + getBreakoutGame_by_var());
+final String new_by_31_var = (String) ("" + getBreakoutGame_by_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_4_var), (String) (new_by_4_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_31_var), (String) (new_by_31_var));
 incrementScore((int) ( -1));
 
 } else {
@@ -1136,24 +1136,24 @@ sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("req_ga
 if(getBreakoutGame_dy_var() > 0) {
 if(getBreakoutGame_by_var() > getBreakoutGame_pady_var() - getBreakoutGame_br_var() && getBreakoutGame_by_var() < getBreakoutGame_pady_var() + getBreakoutGame_br_var()) {
 if(getBreakoutGame_bx_var() > getBreakoutGame_padx_var() - getBreakoutGame_padlen_var() / 2 && getBreakoutGame_bx_var() < getBreakoutGame_padx_var() + getBreakoutGame_padlen_var() / 2) {
-final String old_dy_15_var = (String) ("" + getBreakoutGame_dy_var());
+final String old_dy_25_var = (String) ("" + getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final String new_dy_15_var = (String) ("" + getBreakoutGame_dy_var());
+final String new_dy_25_var = (String) ("" + getBreakoutGame_dy_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_15_var), (String) (new_dy_15_var));
-final String old_by_5_var = (String) ("" + getBreakoutGame_by_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_25_var), (String) (new_dy_25_var));
+final String old_by_32_var = (String) ("" + getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (2 * (getBreakoutGame_pady_var() - getBreakoutGame_br_var()) - getBreakoutGame_by_var());
-final String new_by_5_var = (String) ("" + getBreakoutGame_by_var());
+final String new_by_32_var = (String) ("" + getBreakoutGame_by_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_5_var), (String) (new_by_5_var));
-final String old_dx_11_var = (String) ("" + getBreakoutGame_dx_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_32_var), (String) (new_by_32_var));
+final String old_dx_17_var = (String) ("" + getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) (getBreakoutGame_dx_var() / 4 + (getBreakoutGame_bx_var() - getBreakoutGame_padx_var()) / 4);
-final String new_dx_11_var = (String) ("" + getBreakoutGame_dx_var());
+final String new_dx_17_var = (String) ("" + getBreakoutGame_dx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_11_var), (String) (new_dx_11_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_17_var), (String) (new_dx_17_var));
 
 }
 
@@ -1163,12 +1163,12 @@ sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx
 boolean collision_var = (boolean) (collideBrick((int) (getBreakoutGame_bx_var() - getBreakoutGame_br_var()), (int) (getBreakoutGame_by_var() - getBreakoutGame_br_var())) || collideBrick((int) (getBreakoutGame_bx_var() + getBreakoutGame_br_var()), (int) (getBreakoutGame_by_var() - getBreakoutGame_br_var())) || collideBrick((int) (getBreakoutGame_bx_var() + getBreakoutGame_br_var()), (int) (getBreakoutGame_by_var() + getBreakoutGame_br_var())) || collideBrick((int) (getBreakoutGame_bx_var() - getBreakoutGame_br_var()), (int) (getBreakoutGame_by_var() + getBreakoutGame_br_var())));
 
 if(collision_var) {
-final String old_dy_16_var = (String) ("" + getBreakoutGame_dy_var());
+final String old_dy_26_var = (String) ("" + getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final String new_dy_16_var = (String) ("" + getBreakoutGame_dy_var());
+final String new_dy_26_var = (String) ("" + getBreakoutGame_dy_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_16_var), (String) (new_dy_16_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_26_var), (String) (new_dy_26_var));
 incrementScore((int) (10));
 if(bricksLeft() == 0) {
 sendNextLevel_via_game();
@@ -1326,12 +1326,12 @@ long center_var = (long) ((getBreakoutGame_RIGHT_var() - getBreakoutGame_LEFT_va
 
 center_var = (long) (position.x * center_var);
 center_var = (long) (center_var / 200);
-final String old_padx_29_var = (String) ("" + getBreakoutGame_padx_var());
+final String old_padx_28_var = (String) ("" + getBreakoutGame_padx_var());
 
 BreakoutGame_padx_var = (int) ((getBreakoutGame_LEFT_var() + center_var + (getBreakoutGame_RIGHT_var() - getBreakoutGame_LEFT_var()) / 2));
-final String new_padx_29_var = (String) ("" + getBreakoutGame_padx_var());
+final String new_padx_28_var = (String) ("" + getBreakoutGame_padx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("padx"), (String) ("Int16"), (String) (old_padx_29_var), (String) (new_padx_29_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("padx"), (String) ("Int16"), (String) (old_padx_28_var), (String) (new_padx_28_var));
 });
 
 Handler h1054913783 = new Handler();
@@ -1506,31 +1506,31 @@ sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("displa
 }
  void resetBall() {
 sendFunction_called_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("resetBall"), (String) ("void_"), (String) (""), (String) (""));
-final String old_bx_25_var = (String) ("" + getBreakoutGame_bx_var());
+final String old_bx_0_var = (String) ("" + getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (getBreakoutGame_padx_var() - getBreakoutGame_br_var() / getBreakoutGame_SCALE_var());
-final String new_bx_25_var = (String) ("" + getBreakoutGame_bx_var());
+final String new_bx_0_var = (String) ("" + getBreakoutGame_bx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_25_var), (String) (new_bx_25_var));
-final String old_by_2_var = (String) ("" + getBreakoutGame_by_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("bx"), (String) ("Int16"), (String) (old_bx_0_var), (String) (new_bx_0_var));
+final String old_by_29_var = (String) ("" + getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (getBreakoutGame_pady_var() - getBreakoutGame_br_var() / getBreakoutGame_SCALE_var());
-final String new_by_2_var = (String) ("" + getBreakoutGame_by_var());
+final String new_by_29_var = (String) ("" + getBreakoutGame_by_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_2_var), (String) (new_by_2_var));
-final String old_dx_8_var = (String) ("" + getBreakoutGame_dx_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("by"), (String) ("Int16"), (String) (old_by_29_var), (String) (new_by_29_var));
+final String old_dx_14_var = (String) ("" + getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ((getBreakoutGame_padx_var() + getBreakoutGame_prevBX_var() + getBreakoutGame_prevBY_var()) % 300 - 150);
-final String new_dx_8_var = (String) ("" + getBreakoutGame_dx_var());
+final String new_dx_14_var = (String) ("" + getBreakoutGame_dx_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_8_var), (String) (new_dx_8_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dx"), (String) ("Int16"), (String) (old_dx_14_var), (String) (new_dx_14_var));
 if(getBreakoutGame_dy_var() > 0) {
-final String old_dy_13_var = (String) ("" + getBreakoutGame_dy_var());
+final String old_dy_23_var = (String) ("" + getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final String new_dy_13_var = (String) ("" + getBreakoutGame_dy_var());
+final String new_dy_23_var = (String) ("" + getBreakoutGame_dy_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_13_var), (String) (new_dy_13_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dy"), (String) ("Int16"), (String) (old_dy_23_var), (String) (new_dy_23_var));
 
 }
 final String old_prevBX_18_var = (String) ("" + getBreakoutGame_prevBX_var());
@@ -1539,12 +1539,12 @@ BreakoutGame_prevBX_var = (int) ( -1);
 final String new_prevBX_18_var = (String) ("" + getBreakoutGame_prevBX_var());
 
 sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBX"), (String) ("Int16"), (String) (old_prevBX_18_var), (String) (new_prevBX_18_var));
-final String old_prevBY_30_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String old_prevBY_11_var = (String) ("" + getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ( -1);
-final String new_prevBY_30_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String new_prevBY_11_var = (String) ("" + getBreakoutGame_prevBY_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_30_var), (String) (new_prevBY_30_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_11_var), (String) (new_prevBY_11_var));
 }
  void eraseBall() {
 sendFunction_called_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("eraseBall"), (String) ("void_"), (String) (""), (String) (""));
@@ -1581,12 +1581,12 @@ BreakoutGame_prevBX_var = (int) ( -1);
 final String new_prevBX_19_var = (String) ("" + getBreakoutGame_prevBX_var());
 
 sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBX"), (String) ("Int16"), (String) (old_prevBX_19_var), (String) (new_prevBX_19_var));
-final String old_prevBY_31_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String old_prevBY_12_var = (String) ("" + getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ( -1);
-final String new_prevBY_31_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String new_prevBY_12_var = (String) ("" + getBreakoutGame_prevBY_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_31_var), (String) (new_prevBY_31_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_12_var), (String) (new_prevBY_12_var));
 }
  void drawBall() {
 sendFunction_called_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("drawBall"), (String) ("void_"), (String) (""), (String) (""));
@@ -1599,12 +1599,12 @@ BreakoutGame_prevBX_var = (int) ((getBreakoutGame_bx_var() - getBreakoutGame_br_
 final String new_prevBX_20_var = (String) ("" + getBreakoutGame_prevBX_var());
 
 sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBX"), (String) ("Int16"), (String) (old_prevBX_20_var), (String) (new_prevBX_20_var));
-final String old_prevBY_32_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String old_prevBY_13_var = (String) ("" + getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ((getBreakoutGame_by_var() - getBreakoutGame_br_var()) / getBreakoutGame_SCALE_var());
-final String new_prevBY_32_var = (String) ("" + getBreakoutGame_prevBY_var());
+final String new_prevBY_13_var = (String) ("" + getBreakoutGame_prevBY_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_32_var), (String) (new_prevBY_32_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevBY"), (String) ("Int16"), (String) (old_prevBY_13_var), (String) (new_prevBY_13_var));
 final int r_17_var = (int) (183);
 
 final int g_18_var = (int) (199);
@@ -1663,18 +1663,18 @@ sendFunction_called_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("dra
 int ps_var = (int) (getBreakoutGame_padlen_var() / getBreakoutGame_SCALE_var());
 
 erasePad();
-final String old_prevPX_12_var = (String) ("" + getBreakoutGame_prevPX_var());
+final String old_prevPX_5_var = (String) ("" + getBreakoutGame_prevPX_var());
 
 BreakoutGame_prevPX_var = (int) ((getBreakoutGame_padx_var() - (getBreakoutGame_padlen_var() / 2)) / getBreakoutGame_SCALE_var());
-final String new_prevPX_12_var = (String) ("" + getBreakoutGame_prevPX_var());
+final String new_prevPX_5_var = (String) ("" + getBreakoutGame_prevPX_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevPX"), (String) ("Int16"), (String) (old_prevPX_12_var), (String) (new_prevPX_12_var));
-final String old_prevPY_1_var = (String) ("" + getBreakoutGame_prevPY_var());
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevPX"), (String) ("Int16"), (String) (old_prevPX_5_var), (String) (new_prevPX_5_var));
+final String old_prevPY_21_var = (String) ("" + getBreakoutGame_prevPY_var());
 
 BreakoutGame_prevPY_var = (int) (getBreakoutGame_pady_var() / getBreakoutGame_SCALE_var());
-final String new_prevPY_1_var = (String) ("" + getBreakoutGame_prevPY_var());
+final String new_prevPY_21_var = (String) ("" + getBreakoutGame_prevPY_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevPY"), (String) ("Int16"), (String) (old_prevPY_1_var), (String) (new_prevPY_1_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("prevPY"), (String) ("Int16"), (String) (old_prevPY_21_var), (String) (new_prevPY_21_var));
 final int r_35_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
 
 final int g_36_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
@@ -2067,19 +2067,19 @@ sendMessage_sent_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("displa
 final String params_var = (String) ("" + ("diff=" + (BreakoutGame_incrementScore_diff_var + ",")));
 
 sendFunction_called_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("incrementScore"), (String) ("void_"), (String) (""), (String) (params_var));
-final String old_score_22_var = (String) ("" + getBreakoutGame_score_var());
+final String old_score_6_var = (String) ("" + getBreakoutGame_score_var());
 
 BreakoutGame_score_var = (int) (getBreakoutGame_score_var() + BreakoutGame_incrementScore_diff_var);
-final String new_score_22_var = (String) ("" + getBreakoutGame_score_var());
+final String new_score_6_var = (String) ("" + getBreakoutGame_score_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("score"), (String) ("Int16"), (String) (old_score_22_var), (String) (new_score_22_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("score"), (String) ("Int16"), (String) (old_score_6_var), (String) (new_score_6_var));
 if(getBreakoutGame_score_var() < 0) {
-final String old_score_23_var = (String) ("" + getBreakoutGame_score_var());
+final String old_score_7_var = (String) ("" + getBreakoutGame_score_var());
 
 BreakoutGame_score_var = (int) (0);
-final String new_score_23_var = (String) ("" + getBreakoutGame_score_var());
+final String new_score_7_var = (String) ("" + getBreakoutGame_score_var());
 
-sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("score"), (String) ("Int16"), (String) (old_score_23_var), (String) (new_score_23_var));
+sendProperty_changed_via_log((String) (getWithLog_DEBUG_ID_var()), (String) ("score"), (String) ("Int16"), (String) (old_score_7_var), (String) (new_score_7_var));
 
 }
 drawScore();

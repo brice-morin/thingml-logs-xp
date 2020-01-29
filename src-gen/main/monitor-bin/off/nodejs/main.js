@@ -1,19 +1,19 @@
 'use strict';
 
 const Enum = require('./enums');
-const ConsoleLogger = require('./ConsoleLogger');
 const BasicIAController = require('./BasicIAController');
+const ConsoleLogger = require('./ConsoleLogger');
+const BreakoutGameNodeJS = require('./BreakoutGameNodeJS');
 const TimerNodeJS = require('./TimerNodeJS');
 const HeadlessDisplay = require('./HeadlessDisplay');
-const BreakoutGameNodeJS = require('./BreakoutGameNodeJS');
 /*$REQUIRE_PLUGINS$*/
 
 
-const inst_log = new ConsoleLogger('log', null);
 const inst_ctrl = new BasicIAController('ctrl', null);
+const inst_log = new ConsoleLogger('log', null);
+const inst_game = new BreakoutGameNodeJS('game', null);
 const inst_timer = new TimerNodeJS('timer', null);
 const inst_disp = new HeadlessDisplay('disp', null);
-const inst_game = new BreakoutGameNodeJS('game', null);
 /*$PLUGINS$*/
 /*Connecting internal ports...*/
 inst_game.bus.on('game', (e) => {
@@ -24,13 +24,6 @@ inst_game._receive(e)
 
 });
 /*Connecting ports...*/
-inst_ctrl.bus.on('controls', (e) => {
-setImmediate(() => {
-e.port = 'controller';
-inst_game._receive(e)
-});
-
-});
 inst_disp.bus.on('display', (e) => {
 e.port = 'display';
 inst_game._receive(e)
@@ -39,9 +32,19 @@ inst_game.bus.on('display', (e) => {
 e.port = 'display';
 inst_disp._receive(e)
 });
-inst_game.bus.on('log', (e) => {
-e.port = 'log';
-inst_log._receive(e)
+inst_game.bus.on('ia', (e) => {
+setImmediate(() => {
+e.port = 'game';
+inst_ctrl._receive(e)
+});
+
+});
+inst_ctrl.bus.on('controls', (e) => {
+setImmediate(() => {
+e.port = 'controller';
+inst_game._receive(e)
+});
+
 });
 inst_timer.bus.on('timer', (e) => {
 setImmediate(() => {
@@ -57,21 +60,15 @@ inst_timer._receive(e)
 });
 
 });
-inst_game.bus.on('ia', (e) => {
-setImmediate(() => {
-e.port = 'game';
-inst_ctrl._receive(e)
+inst_game.bus.on('log', (e) => {
+e.port = 'log';
+inst_log._receive(e)
 });
+inst_ctrl.BasicIAController_ctrlx_var = 0;
 
-});
 inst_log.Logger_ACTIVATE_ON_STARTUP_var = false;
 inst_log.Logger_HAS_SIGNED_BYTE_var = true;
 inst_log.ConsoleLogger_QUIET_var = true;
-
-inst_ctrl.BasicIAController_ctrlx_var = 0;
-
-inst_timer.TimerNodeJS_Timeouts_var = {};
-inst_timer.TimerNodeJS_driftless_var = require('driftless');
 
 var inst_game_fgcolor = [];
 var inst_game_bgcolor = [];
@@ -114,10 +111,13 @@ inst_game.BreakoutGame_lives_var = 3;
 inst_game.BreakoutGame_level_var = 1;
 inst_game.BreakoutGame_SC_LAUNCH_countdown_var = 0;
 
+inst_timer.TimerNodeJS_Timeouts_var = {};
+inst_timer.TimerNodeJS_driftless_var = require('driftless');
+
 /*$PLUGINS_CONNECTORS$*/
-inst_log._init();
 inst_disp._init();
 inst_timer._init();
+inst_log._init();
 inst_game._init();
 inst_ctrl._init();
 /*$PLUGINS_END$*/
@@ -127,12 +127,12 @@ function terminate() {
 	inst_ctrl._delete();
 	inst_game._stop();
 	inst_game._delete();
+	inst_log._stop();
+	inst_log._delete();
 	inst_timer._stop();
 	inst_timer._delete();
 	inst_disp._stop();
 	inst_disp._delete();
-	inst_log._stop();
-	inst_log._delete();
 };
 /*terminate all things on SIGINT (e.g. CTRL+C)*/
 if (process && process.on) {

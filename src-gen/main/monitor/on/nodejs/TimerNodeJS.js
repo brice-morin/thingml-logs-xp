@@ -95,8 +95,8 @@ TimerNodeJS.prototype._receive = function(msg) {
 
 TimerNodeJS.prototype.toString = function() {
 	let result = 'instance ' + this.name + ':' + this.constructor.name + '\n';
-	result += '\n\tTimeouts = ' + this.TimerNodeJS_Timeouts_var;
 	result += '\n\tdriftless = ' + this.TimerNodeJS_driftless_var;
+	result += '\n\tTimeouts = ' + this.TimerNodeJS_Timeouts_var;
 	result += '';
 	return result;
 }

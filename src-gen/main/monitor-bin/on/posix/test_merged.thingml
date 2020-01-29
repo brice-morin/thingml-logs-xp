@@ -1,3 +1,580 @@
+thing Binary2StringLogger includes Logger {
+	function get_byte(b : Byte) : Byte do
+		if (HAS_SIGNED_BYTE) return (`` & b & ` & 0xFF`) as Byte
+		else return b as Byte
+	end
+	function stateName(id : Byte) : String do
+		if (id == 0) return "BreakoutGame.SC"
+		else if (id == 1) return "BreakoutGame.SC.INIT"
+		else if (id == 2) return "BreakoutGame.SC.LAUNCH"
+		else if (id == 3) return "BreakoutGame.SC.PLAY"
+		else if (id == 4) return "BreakoutGame.SC.LOSTBALL"
+		else if (id == 5) return "BreakoutGame.SC.NEXTLEVEL"
+		else if (id == 6) return "BreakoutGame.SC.GAMEOVER"
+		else if (id == 7) return "Logger"
+		else if (id == 8) return "Logger.null.STARTUP"
+		else if (id == 9) return "Logger.null.ON"
+		else if (id == 10) return "Logger.null.OFF"
+		else if (id == 11) return "HeadlessDisplay"
+		else if (id == 12) return "HeadlessDisplay.null.INIT"
+		else if (id == 13) return "HeadlessDisplay.null.MOCK"
+		else if (id == 14) return "BasicIAController.SC"
+		else if (id == 15) return "BasicIAController.SC.Following"
+		else if (id == 16) return "TimerJava.SoftTimer"
+		else if (id == 17) return "TimerJava.SoftTimer.default"
+		else if (id == 18) return "TimerJS.SoftTimer"
+		else if (id == 19) return "TimerJS.SoftTimer.default"
+		else if (id == 20) return "TimerNodeJS.SoftTimer"
+		else if (id == 21) return "TimerNodeJS.SoftTimer.default"
+		else if (id == 22) return "TimerPosix.SoftTimer"
+		else if (id == 23) return "TimerPosix.SoftTimer.default"
+		else if (id == 24) return "TimerArduino.SoftTimer"
+		else if (id == 25) return "TimerArduino.SoftTimer.default"
+		else if (id == 26) return "TimerGo.SoftTimer"
+		else if (id == 27) return "TimerGo.SoftTimer.default"
+		return "unknown"
+	end
+	function do_log(payload : Byte [ ], size : UInt8) do
+		readonly var log_type : Byte = get_byte(payload [0])
+		readonly var inst : Byte = get_byte(payload [1])
+		if (log_type == LogType : function_called) do
+			readonly var func_ : Byte = get_byte(payload [2])
+			if (inst == 0) do
+				if (func_ == 1) do
+					println "function_called(BreakoutGame0, initColors, void" , ", _" , ")"
+				end
+				else if (func_ == 2) do
+					println "function_called(BreakoutGame0, resetBall, void" , ", _" , ")"
+				end
+				else if (func_ == 3) do
+					println "function_called(BreakoutGame0, eraseBall, void" , ", _" , ")"
+				end
+				else if (func_ == 4) do
+					println "function_called(BreakoutGame0, drawBall, void" , ", _" , ")"
+				end
+				else if (func_ == 5) do
+					println "function_called(BreakoutGame0, erasePad, void" , ", _" , ")"
+				end
+				else if (func_ == 6) do
+					println "function_called(BreakoutGame0, drawPad, void" , ", _" , ")"
+				end
+				else if (func_ == 7) do
+					readonly var bin_c : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var c : Int16 = (`` & bin_c [0] & ` << 8 | ` & bin_c [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) c = c + 256
+					println "function_called(BreakoutGame0, drawCountDown, void" , ", _" , ", c=" , c , ")"
+				end
+				else if (func_ == 8) do
+					println "function_called(BreakoutGame0, drawWalls, void" , ", _" , ")"
+				end
+				else if (func_ == 9) do
+					readonly var bin_result : Byte [ 1 ] = { get_byte(payload [size - 1 + 0])}
+					var result : Boolean = (`` & bin_result [0] & ` << 0`) as Integer != 0
+					readonly var bin_variable : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var variable : UInt8 = (`` & bin_variable [0] & ` << 0`) as UInt8
+					readonly var bin_bit : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var bit : UInt8 = (`` & bin_bit [0] & ` << 0`) as UInt8
+					println "function_called(BreakoutGame0, bitIsSet, Boolean" , ", " , result , ", variable=" , variable , ", bit=" , bit , ")"
+				end
+				else if (func_ == 10) do
+					println "function_called(BreakoutGame0, createBricks, void" , ", _" , ")"
+				end
+				else if (func_ == 11) do
+					readonly var bin_result : Byte [ 1 ] = { get_byte(payload [size - 1 + 0])}
+					var result : UInt8 = (`` & bin_result [0] & ` << 0`) as UInt8
+					println "function_called(BreakoutGame0, bricksLeft, UInt8" , ", " , result , ")"
+				end
+				else if (func_ == 12) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					println "function_called(BreakoutGame0, drawBrick, void" , ", _" , ", x=" , x , ", y=" , y , ")"
+				end
+				else if (func_ == 13) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					println "function_called(BreakoutGame0, removeBrick, void" , ", _" , ", x=" , x , ", y=" , y , ")"
+				end
+				else if (func_ == 14) do
+					readonly var bin_result : Byte [ 1 ] = { get_byte(payload [size - 1 + 0])}
+					var result : Boolean = (`` & bin_result [0] & ` << 0`) as Integer != 0
+					readonly var bin_xpos : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var xpos : Int16 = (`` & bin_xpos [0] & ` << 8 | ` & bin_xpos [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) xpos = xpos + 256
+					readonly var bin_ypos : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var ypos : Int16 = (`` & bin_ypos [0] & ` << 8 | ` & bin_ypos [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) ypos = ypos + 256
+					println "function_called(BreakoutGame0, collideBrick, Boolean" , ", " , result , ", xpos=" , xpos , ", ypos=" , ypos , ")"
+				end
+				else if (func_ == 15) do
+					println "function_called(BreakoutGame0, drawLevel, void" , ", _" , ")"
+				end
+				else if (func_ == 16) do
+					readonly var bin_diff : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var diff : Int8 = (`` & bin_diff [0] & ` << 0`) as Int8
+					if (not HAS_SIGNED_BYTE) diff = diff + 1
+					println "function_called(BreakoutGame0, incrementScore, void" , ", _" , ", diff=" , diff , ")"
+				end
+				else if (func_ == 17) do
+					println "function_called(BreakoutGame0, drawScore, void" , ", _" , ")"
+				end
+				else if (func_ == 18) do
+					println "function_called(BreakoutGame0, drawLives, void" , ", _" , ")"
+				end
+			end
+		end
+		else if (log_type == LogType : property_changed) do
+			readonly var prop : Byte = get_byte(payload [2])
+			if (inst == 0) do
+				if (prop == 0) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, XDISPSIZE, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 1) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, YDISPSIZE, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 2) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, SCALE, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 3) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, XMAX, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 4) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, YMAX, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 5) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, TOP, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 6) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, BOTTOM, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 7) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, LEFT, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 8) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, RIGHT, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 9) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, br, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 10) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, bx, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 11) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, by, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 12) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, dx, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 13) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, dy, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 14) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, padx, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 15) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, pady, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 16) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, padlen, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 17) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, prevBX, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 18) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, prevBY, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 19) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, bgcolor, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 20) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, fgcolor, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 21) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : UInt16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as UInt16
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : UInt16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as UInt16
+					println "property_changed(BreakoutGame0, period, UInt16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 22) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, prevPX, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 23) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, prevPY, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 24) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, BRICK_ROWS, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 25) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, BRICK_HEIGHT, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 26) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, bricks, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 27) do
+					readonly var bin_old : Byte [ 2 ] = { get_byte(payload [3 + 0]), get_byte(payload [3 + 1])}
+					var old : Int16 = (`` & bin_old [0] & ` << 8 | ` & bin_old [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) old = old + 256
+					readonly var bin_new_ : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var new_ : Int16 = (`` & bin_new_ [0] & ` << 8 | ` & bin_new_ [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) new_ = new_ + 256
+					println "property_changed(BreakoutGame0, score, Int16" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 28) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, lives, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+				else if (prop == 29) do
+					readonly var bin_old : Byte [ 1 ] = { get_byte(payload [3 + 0])}
+					var old : UInt8 = (`` & bin_old [0] & ` << 0`) as UInt8
+					readonly var bin_new_ : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var new_ : UInt8 = (`` & bin_new_ [0] & ` << 0`) as UInt8
+					println "property_changed(BreakoutGame0, level, UInt8" , ", " , old , ", " , new_ , ")"
+				end
+			end
+		end
+		else if (log_type == LogType : message_lost) do
+			readonly var portID : Byte = get_byte(payload [2])
+			readonly var messageID : Byte = get_byte(payload [3])
+			if (inst == 0) do
+				if (portID == 1 and messageID == 22) do
+					readonly var bin_id : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var id : UInt8 = (`` & bin_id [0] & ` << 0`) as UInt8
+					println "message_lost(BreakoutGame0, clock, timer_timeout" , ", id=" , id , ")"
+				end
+				else if (portID == 2 and messageID == 16) do
+					println "message_lost(BreakoutGame0, display, displayReady" , ")"
+				end
+				else if (portID == 3 and messageID == 18) do
+					readonly var bin_x : Byte [ 2 ] = { get_byte(payload [4 + 0]), get_byte(payload [4 + 1])}
+					var x : Int16 = (`` & bin_x [0] & ` << 8 | ` & bin_x [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) x = x + 256
+					readonly var bin_y : Byte [ 2 ] = { get_byte(payload [6 + 0]), get_byte(payload [6 + 1])}
+					var y : Int16 = (`` & bin_y [0] & ` << 8 | ` & bin_y [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) y = y + 256
+					println "message_lost(BreakoutGame0, controller, position" , ", x=" , x , ", y=" , y , ")"
+				end
+				else if (portID == 5 and messageID == 1) do
+					println "message_lost(BreakoutGame0, game, lostBall" , ")"
+				end
+				else if (portID == 7 and messageID == 1) do
+					println "message_lost(BreakoutGame0, pro_game, lostBall" , ")"
+				end
+				else if (portID == 5 and messageID == 2) do
+					println "message_lost(BreakoutGame0, game, nextLevel" , ")"
+				end
+				else if (portID == 7 and messageID == 2) do
+					println "message_lost(BreakoutGame0, pro_game, nextLevel" , ")"
+				end
+			end
+		end
+		else if (log_type == LogType : message_sent) do
+			readonly var portID : Byte = get_byte(payload [2])
+			readonly var messageID : Byte = get_byte(payload [3])
+			if (inst == 0) do
+				if (portID == 1 and messageID == 20) do
+					readonly var bin_id : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var id : UInt8 = (`` & bin_id [0] & ` << 0`) as UInt8
+					readonly var bin_time : Byte [ 2 ] = { get_byte(payload [5 + 0]), get_byte(payload [5 + 1])}
+					var time : UInt16 = (`` & bin_time [0] & ` << 8 | ` & bin_time [1] & ` << 0`) as UInt16
+					println "message_sent(BreakoutGame0, clock, timer_start" , ", id=" , id , ", time=" , time , ")"
+				end
+				else if (portID == 1 and messageID == 21) do
+					readonly var bin_id : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var id : UInt8 = (`` & bin_id [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, clock, timer_cancel" , ", id=" , id , ")"
+				end
+				else if (portID == 2 and messageID == 6) do
+					println "message_sent(BreakoutGame0, display, clear" , ")"
+				end
+				else if (portID == 2 and messageID == 7) do
+					readonly var bin_r : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var r : UInt8 = (`` & bin_r [0] & ` << 0`) as UInt8
+					readonly var bin_g : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var g : UInt8 = (`` & bin_g [0] & ` << 0`) as UInt8
+					readonly var bin_b : Byte [ 1 ] = { get_byte(payload [6 + 0])}
+					var b : UInt8 = (`` & bin_b [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, setColor" , ", r=" , r , ", g=" , g , ", b=" , b , ")"
+				end
+				else if (portID == 2 and messageID == 8) do
+					readonly var bin_r : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var r : UInt8 = (`` & bin_r [0] & ` << 0`) as UInt8
+					readonly var bin_g : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var g : UInt8 = (`` & bin_g [0] & ` << 0`) as UInt8
+					readonly var bin_b : Byte [ 1 ] = { get_byte(payload [6 + 0])}
+					var b : UInt8 = (`` & bin_b [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, setBGColor" , ", r=" , r , ", g=" , g , ", b=" , b , ")"
+				end
+				else if (portID == 2 and messageID == 9) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					readonly var bin_width : Byte [ 1 ] = { get_byte(payload [6 + 0])}
+					var width : UInt8 = (`` & bin_width [0] & ` << 0`) as UInt8
+					readonly var bin_height : Byte [ 1 ] = { get_byte(payload [7 + 0])}
+					var height : UInt8 = (`` & bin_height [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, drawRect" , ", x=" , x , ", y=" , y , ", width=" , width , ", height=" , height , ")"
+				end
+				else if (portID == 2 and messageID == 10) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					readonly var bin_width : Byte [ 1 ] = { get_byte(payload [6 + 0])}
+					var width : UInt8 = (`` & bin_width [0] & ` << 0`) as UInt8
+					readonly var bin_height : Byte [ 1 ] = { get_byte(payload [7 + 0])}
+					var height : UInt8 = (`` & bin_height [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, fillRect" , ", x=" , x , ", y=" , y , ", width=" , width , ", height=" , height , ")"
+				end
+				else if (portID == 2 and messageID == 11) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					readonly var bin_v : Byte [ 2 ] = { get_byte(payload [6 + 0]), get_byte(payload [6 + 1])}
+					var v : Int16 = (`` & bin_v [0] & ` << 8 | ` & bin_v [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) v = v + 256
+					readonly var bin_digits : Byte [ 1 ] = { get_byte(payload [8 + 0])}
+					var digits : UInt8 = (`` & bin_digits [0] & ` << 0`) as UInt8
+					readonly var bin_scale : Byte [ 1 ] = { get_byte(payload [9 + 0])}
+					var scale : UInt8 = (`` & bin_scale [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, drawInteger" , ", x=" , x , ", y=" , y , ", v=" , v , ", digits=" , digits , ", scale=" , scale , ")"
+				end
+				else if (portID == 2 and messageID == 12) do
+					readonly var bin_x : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var x : UInt8 = (`` & bin_x [0] & ` << 0`) as UInt8
+					readonly var bin_y : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var y : UInt8 = (`` & bin_y [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, drawThingML" , ", x=" , x , ", y=" , y , ")"
+				end
+				else if (portID == 2 and messageID == 13) do
+					readonly var bin_xsize : Byte [ 1 ] = { get_byte(payload [4 + 0])}
+					var xsize : UInt8 = (`` & bin_xsize [0] & ` << 0`) as UInt8
+					readonly var bin_ysize : Byte [ 1 ] = { get_byte(payload [5 + 0])}
+					var ysize : UInt8 = (`` & bin_ysize [0] & ` << 0`) as UInt8
+					println "message_sent(BreakoutGame0, display, create" , ", xsize=" , xsize , ", ysize=" , ysize , ")"
+				end
+				else if (portID == 2 and messageID == 15) do
+					println "message_sent(BreakoutGame0, display, update" , ")"
+				end
+				else if (portID == 4 and messageID == 19) do
+					readonly var bin_ballx : Byte [ 2 ] = { get_byte(payload [4 + 0]), get_byte(payload [4 + 1])}
+					var ballx : Int16 = (`` & bin_ballx [0] & ` << 8 | ` & bin_ballx [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) ballx = ballx + 256
+					readonly var bin_bally : Byte [ 2 ] = { get_byte(payload [6 + 0]), get_byte(payload [6 + 1])}
+					var bally : Int16 = (`` & bin_bally [0] & ` << 8 | ` & bin_bally [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) bally = bally + 256
+					readonly var bin_padx : Byte [ 2 ] = { get_byte(payload [8 + 0]), get_byte(payload [8 + 1])}
+					var padx : Int16 = (`` & bin_padx [0] & ` << 8 | ` & bin_padx [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) padx = padx + 256
+					readonly var bin_pady : Byte [ 2 ] = { get_byte(payload [10 + 0]), get_byte(payload [10 + 1])}
+					var pady : Int16 = (`` & bin_pady [0] & ` << 8 | ` & bin_pady [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) pady = pady + 256
+					println "message_sent(BreakoutGame0, ia, updateIA" , ", ballx=" , ballx , ", bally=" , bally , ", padx=" , padx , ", pady=" , pady , ")"
+				end
+				else if (portID == 5 and messageID == 1) do
+					println "message_sent(BreakoutGame0, game, lostBall" , ")"
+				end
+				else if (portID == 6 and messageID == 1) do
+					println "message_sent(BreakoutGame0, req_game, lostBall" , ")"
+				end
+				else if (portID == 5 and messageID == 2) do
+					println "message_sent(BreakoutGame0, game, nextLevel" , ")"
+				end
+				else if (portID == 6 and messageID == 2) do
+					println "message_sent(BreakoutGame0, req_game, nextLevel" , ")"
+				end
+			end
+		end
+		else if (log_type == LogType : message_handled) do
+			readonly var portID : Byte = get_byte(payload [2])
+			readonly var messageID : Byte = get_byte(payload [3])
+			readonly var sourceID : Byte = get_byte(payload [4])
+			readonly var targetID : Byte = get_byte(payload [5])
+			if (inst == 0) do
+				if (portID == 1 and messageID == 22) do
+					readonly var bin_id : Byte [ 1 ] = { get_byte(payload [6 + 0])}
+					var id : UInt8 = (`` & bin_id [0] & ` << 0`) as UInt8
+					println "message_handled(BreakoutGame0, clock, timer_timeout, " , stateName(sourceID), ", " , stateName(targetID), ", id=" , id , ")"
+				end
+				else if (portID == 2 and messageID == 16) do
+					println "message_handled(BreakoutGame0, display, displayReady, " , stateName(sourceID), ", " , stateName(targetID), ")"
+				end
+				else if (portID == 3 and messageID == 18) do
+					readonly var bin_x : Byte [ 2 ] = { get_byte(payload [6 + 0]), get_byte(payload [6 + 1])}
+					var x : Int16 = (`` & bin_x [0] & ` << 8 | ` & bin_x [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) x = x + 256
+					readonly var bin_y : Byte [ 2 ] = { get_byte(payload [8 + 0]), get_byte(payload [8 + 1])}
+					var y : Int16 = (`` & bin_y [0] & ` << 8 | ` & bin_y [1] & ` << 0`) as Int16
+					if (not HAS_SIGNED_BYTE) y = y + 256
+					println "message_handled(BreakoutGame0, controller, position, " , stateName(sourceID), ", " , stateName(targetID), ", x=" , x , ", y=" , y , ")"
+				end
+				else if (portID == 5 and messageID == 1) do
+					println "message_handled(BreakoutGame0, game, lostBall, " , stateName(sourceID), ", " , stateName(targetID), ")"
+				end
+				else if (portID == 7 and messageID == 1) do
+					println "message_handled(BreakoutGame0, pro_game, lostBall, " , stateName(sourceID), ", " , stateName(targetID), ")"
+				end
+				else if (portID == 5 and messageID == 2) do
+					println "message_handled(BreakoutGame0, game, nextLevel, " , stateName(sourceID), ", " , stateName(targetID), ")"
+				end
+				else if (portID == 7 and messageID == 2) do
+					println "message_handled(BreakoutGame0, pro_game, nextLevel, " , stateName(sourceID), ", " , stateName(targetID), ")"
+				end
+			end
+		end
+		else println "unknown"
+	end
+}
 thing BreakoutGamePosix includes BreakoutGame @c_header `#include <time.h>
 #include <stdlib.h>` @c_global `struct timespec t;
 
@@ -143,46 +720,46 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 	end
 	function resetBall() @id `2` do
 		do
-			readonly var old_bx_28 : Int16 = bx
+			readonly var old_bx_10 : Int16 = bx
 			bx = padx - br / SCALE
-			readonly var new_bx_28 : Int16 = bx
-			readonly var bx_log_28 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_28 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_28 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(bx_log_28, 7)
+			readonly var new_bx_10 : Int16 = bx
+			readonly var bx_log_10 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_10 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_10 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(bx_log_10, 7)
 		end
 		do
-			readonly var old_by_10 : Int16 = by
+			readonly var old_by_6 : Int16 = by
 			by = pady - br / SCALE
-			readonly var new_by_10 : Int16 = by
-			readonly var by_log_10 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_10 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_10 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_10 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(by_log_10, 7)
+			readonly var new_by_6 : Int16 = by
+			readonly var by_log_6 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_6 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_6 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(by_log_6, 7)
 		end
 		do
-			readonly var old_dx_24 : Int16 = dx
+			readonly var old_dx_1 : Int16 = dx
 			dx = (padx + prevBX + prevBY) % 300 - 150
-			readonly var new_dx_24 : Int16 = dx
-			readonly var dx_log_24 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_24 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_24 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(dx_log_24, 7)
+			readonly var new_dx_1 : Int16 = dx
+			readonly var dx_log_1 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_1 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_1 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(dx_log_1, 7)
 		end
 		if (dy > 0) do
-			readonly var old_dy_1 : Int16 = dy
+			readonly var old_dy_27 : Int16 = dy
 			dy = -dy
-			readonly var new_dy_1 : Int16 = dy
-			readonly var dy_log_1 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_1 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_1 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_1 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(dy_log_1, 7)
+			readonly var new_dy_27 : Int16 = dy
+			readonly var dy_log_27 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_27 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_27 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_27 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_27 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(dy_log_27, 7)
 		end
 		do
-			readonly var old_prevBX_21 : Int16 = prevBX
+			readonly var old_prevBX_24 : Int16 = prevBX
 			prevBX = -1
-			readonly var new_prevBX_21 : Int16 = prevBX
-			readonly var prevBX_log_21 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_21 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_21 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_21 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_21 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBX_log_21, 7)
+			readonly var new_prevBX_24 : Int16 = prevBX
+			readonly var prevBX_log_24 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_24 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_24 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_24 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_24, 7)
 		end
 		do
-			readonly var old_prevBY_7 : Int16 = prevBY
+			readonly var old_prevBY_17 : Int16 = prevBY
 			prevBY = -1
-			readonly var new_prevBY_7 : Int16 = prevBY
-			readonly var prevBY_log_7 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_7 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_7 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_7 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_7 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBY_log_7, 7)
+			readonly var new_prevBY_17 : Int16 = prevBY
+			readonly var prevBY_log_17 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_17 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_17 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_17, 7)
 		end
 		readonly var resetBall_log1 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x02 , 0x00 }
 		log!log(resetBall_log1, 4)
@@ -209,18 +786,18 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			end
 		end
 		do
-			readonly var old_prevBX_22 : Int16 = prevBX
+			readonly var old_prevBX_25 : Int16 = prevBX
 			prevBX = -1
-			readonly var new_prevBX_22 : Int16 = prevBX
-			readonly var prevBX_log_22 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_22 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_22 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBX_log_22, 7)
+			readonly var new_prevBX_25 : Int16 = prevBX
+			readonly var prevBX_log_25 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_25 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_25 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_25, 7)
 		end
 		do
-			readonly var old_prevBY_8 : Int16 = prevBY
+			readonly var old_prevBY_18 : Int16 = prevBY
 			prevBY = -1
-			readonly var new_prevBY_8 : Int16 = prevBY
-			readonly var prevBY_log_8 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_8 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_8 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBY_log_8, 7)
+			readonly var new_prevBY_18 : Int16 = prevBY
+			readonly var prevBY_log_18 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_18 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_18 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_18, 7)
 		end
 		readonly var eraseBall_log2 : Byte [ 4 ] = { LogType : function_called , DEBUG_BIN_ID , 0x03 , 0x00 }
 		log!log(eraseBall_log2, 4)
@@ -229,18 +806,18 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 		var bs : Int16 = (br * 2) / SCALE
 		eraseBall()
 		do
-			readonly var old_prevBX_23 : Int16 = prevBX
+			readonly var old_prevBX_26 : Int16 = prevBX
 			prevBX = (bx - br) / SCALE
-			readonly var new_prevBX_23 : Int16 = prevBX
-			readonly var prevBX_log_23 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_23 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_23 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_23 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_23 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBX_log_23, 7)
+			readonly var new_prevBX_26 : Int16 = prevBX
+			readonly var prevBX_log_26 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x11 , (`((` & old_prevBX_26 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBX_26 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBX_26 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBX_26 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBX_log_26, 7)
 		end
 		do
-			readonly var old_prevBY_9 : Int16 = prevBY
+			readonly var old_prevBY_19 : Int16 = prevBY
 			prevBY = (by - br) / SCALE
-			readonly var new_prevBY_9 : Int16 = prevBY
-			readonly var prevBY_log_9 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_9 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_9 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevBY_log_9, 7)
+			readonly var new_prevBY_19 : Int16 = prevBY
+			readonly var prevBY_log_19 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x12 , (`((` & old_prevBY_19 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevBY_19 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevBY_19 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevBY_19 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevBY_log_19, 7)
 		end
 		do
 			readonly var r_17 : UInt8 = 183
@@ -290,11 +867,11 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 		var ps : Int16 = padlen / SCALE
 		erasePad()
 		do
-			readonly var old_prevPX_6 : Int16 = prevPX
+			readonly var old_prevPX_22 : Int16 = prevPX
 			prevPX = (padx - (padlen / 2)) / SCALE
-			readonly var new_prevPX_6 : Int16 = prevPX
-			readonly var prevPX_log_6 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x16 , (`((` & old_prevPX_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevPX_6 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevPX_6 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevPX_6 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(prevPX_log_6, 7)
+			readonly var new_prevPX_22 : Int16 = prevPX
+			readonly var prevPX_log_22 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x16 , (`((` & old_prevPX_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_prevPX_22 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_prevPX_22 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_prevPX_22 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(prevPX_log_22, 7)
 		end
 		do
 			readonly var old_prevPY_0 : Int16 = prevPY
@@ -599,18 +1176,18 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 	end
 	function incrementScore(diff : Int8) @id `16` do
 		do
-			readonly var old_score_17 : Int16 = score
+			readonly var old_score_14 : Int16 = score
 			score = score + diff as Int16
-			readonly var new_score_17 : Int16 = score
-			readonly var score_log_17 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1B , (`((` & old_score_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_17 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_17 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_17 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(score_log_17, 7)
+			readonly var new_score_14 : Int16 = score
+			readonly var score_log_14 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1B , (`((` & old_score_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_14 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_14 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(score_log_14, 7)
 		end
 		if (score < 0) do
-			readonly var old_score_18 : Int16 = score
+			readonly var old_score_15 : Int16 = score
 			score = 0
-			readonly var new_score_18 : Int16 = score
-			readonly var score_log_18 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1B , (`((` & old_score_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_18 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_18 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_18 & ` >> 0) & 0xFF)`) as Byte }
-			log!log(score_log_18, 7)
+			readonly var new_score_15 : Int16 = score
+			readonly var score_log_15 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1B , (`((` & old_score_15 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_score_15 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_score_15 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_score_15 & ` >> 0) & 0xFF)`) as Byte }
+			log!log(score_log_15, 7)
 		end
 		drawScore()
 		readonly var incrementScore_log15 : Byte [ 5 ] = { LogType : function_called , DEBUG_BIN_ID , 0x10 , 0x00 , diff as Byte }
@@ -763,11 +1340,11 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!log(timer_startsent_log_196, 7)
 				end
 				do
-					readonly var old_countdown_19 : UInt8 = countdown
+					readonly var old_countdown_20 : UInt8 = countdown
 					countdown = 3
-					readonly var new_countdown_19 : UInt8 = countdown
-					readonly var countdown_log_19 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1E , old_countdown_19 as Byte , new_countdown_19 as Byte }
-					log!log(countdown_log_19, 5)
+					readonly var new_countdown_20 : UInt8 = countdown
+					readonly var countdown_log_20 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1E , old_countdown_20 as Byte , new_countdown_20 as Byte }
+					log!log(countdown_log_20, 5)
 				end
 				drawScore()
 				drawLives()
@@ -794,11 +1371,11 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					drawPad()
 					if ((countdown % 30) == 0) drawCountDown(countdown as Int16 / 30)
 					do
-						readonly var old_countdown_20 : UInt8 = countdown
+						readonly var old_countdown_21 : UInt8 = countdown
 						countdown = countdown - 1
-						readonly var new_countdown_20 : UInt8 = countdown
-						readonly var countdown_log_20 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1E , old_countdown_20 as Byte , new_countdown_20 as Byte }
-						log!log(countdown_log_20, 5)
+						readonly var new_countdown_21 : UInt8 = countdown
+						readonly var countdown_log_21 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1E , old_countdown_21 as Byte , new_countdown_21 as Byte }
+						log!log(countdown_log_21, 5)
 					end
 					do
 						display!update()
@@ -842,18 +1419,18 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 				log!log(timer_timeouthandled_log_271, 7)
 				do
 					do
-						readonly var old_bx_29 : Int16 = bx
+						readonly var old_bx_11 : Int16 = bx
 						bx = bx + dx
-						readonly var new_bx_29 : Int16 = bx
-						readonly var bx_log_29 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_29 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_29 & ` >> 0) & 0xFF)`) as Byte }
-						log!log(bx_log_29, 7)
+						readonly var new_bx_11 : Int16 = bx
+						readonly var bx_log_11 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_11 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_11 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(bx_log_11, 7)
 					end
 					do
-						readonly var old_by_11 : Int16 = by
+						readonly var old_by_7 : Int16 = by
 						by = by + dy
-						readonly var new_by_11 : Int16 = by
-						readonly var by_log_11 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_11 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_11 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_11 & ` >> 0) & 0xFF)`) as Byte }
-						log!log(by_log_11, 7)
+						readonly var new_by_7 : Int16 = by
+						readonly var by_log_7 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_7 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_7 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_7 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_7 & ` >> 0) & 0xFF)`) as Byte }
+						log!log(by_log_7, 7)
 					end
 					var wl : Int16 = LEFT + br
 					var wr : Int16 = RIGHT - br
@@ -861,52 +1438,52 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					var wb : Int16 = BOTTOM - br
 					if (bx < wl) do
 						do
-							readonly var old_dx_25 : Int16 = dx
+							readonly var old_dx_2 : Int16 = dx
 							dx = -dx
-							readonly var new_dx_25 : Int16 = dx
-							readonly var dx_log_25 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_25 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_25 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_25 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(dx_log_25, 7)
+							readonly var new_dx_2 : Int16 = dx
+							readonly var dx_log_2 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_2 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_2 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dx_log_2, 7)
 						end
 						do
-							readonly var old_bx_30 : Int16 = bx
+							readonly var old_bx_12 : Int16 = bx
 							bx = 2 * wl - bx
-							readonly var new_bx_30 : Int16 = bx
-							readonly var bx_log_30 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_30 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_30 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(bx_log_30, 7)
+							readonly var new_bx_12 : Int16 = bx
+							readonly var bx_log_12 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_12 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_12 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(bx_log_12, 7)
 						end
 						incrementScore(-1)
 					end
 					else if (bx > wr) do
 						do
-							readonly var old_dx_26 : Int16 = dx
+							readonly var old_dx_3 : Int16 = dx
 							dx = -dx
-							readonly var new_dx_26 : Int16 = dx
-							readonly var dx_log_26 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_26 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_26 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_26 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_26 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(dx_log_26, 7)
+							readonly var new_dx_3 : Int16 = dx
+							readonly var dx_log_3 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_3 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_3 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dx_log_3, 7)
 						end
 						do
-							readonly var old_bx_31 : Int16 = bx
+							readonly var old_bx_13 : Int16 = bx
 							bx = 2 * wr - bx
-							readonly var new_bx_31 : Int16 = bx
-							readonly var bx_log_31 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_31 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_31 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(bx_log_31, 7)
+							readonly var new_bx_13 : Int16 = bx
+							readonly var bx_log_13 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0A , (`((` & old_bx_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_bx_13 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_bx_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_bx_13 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(bx_log_13, 7)
 						end
 						incrementScore(-1)
 					end
 					if (by < wt) do
 						do
-							readonly var old_dy_2 : Int16 = dy
+							readonly var old_dy_28 : Int16 = dy
 							dy = -dy
-							readonly var new_dy_2 : Int16 = dy
-							readonly var dy_log_2 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_2 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_2 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_2 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(dy_log_2, 7)
+							readonly var new_dy_28 : Int16 = dy
+							readonly var dy_log_28 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_28 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_28 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_28 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dy_log_28, 7)
 						end
 						do
-							readonly var old_by_12 : Int16 = by
+							readonly var old_by_8 : Int16 = by
 							by = 2 * wt - by
-							readonly var new_by_12 : Int16 = by
-							readonly var by_log_12 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_12 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_12 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_12 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(by_log_12, 7)
+							readonly var new_by_8 : Int16 = by
+							readonly var by_log_8 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_8 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_8 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_8 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(by_log_8, 7)
 						end
 						incrementScore(-1)
 					end
@@ -926,25 +1503,25 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 						if (by > pady - br and by < pady + br) do
 							if (bx > padx - padlen / 2 and bx < padx + padlen / 2) do
 								do
-									readonly var old_dy_3 : Int16 = dy
+									readonly var old_dy_29 : Int16 = dy
 									dy = -dy
-									readonly var new_dy_3 : Int16 = dy
-									readonly var dy_log_3 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_3 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_3 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_3 & ` >> 0) & 0xFF)`) as Byte }
-									log!log(dy_log_3, 7)
+									readonly var new_dy_29 : Int16 = dy
+									readonly var dy_log_29 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_29 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_29 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_29 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(dy_log_29, 7)
 								end
 								do
-									readonly var old_by_13 : Int16 = by
+									readonly var old_by_9 : Int16 = by
 									by = 2 * (pady - br) - by
-									readonly var new_by_13 : Int16 = by
-									readonly var by_log_13 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_13 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_13 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_13 & ` >> 0) & 0xFF)`) as Byte }
-									log!log(by_log_13, 7)
+									readonly var new_by_9 : Int16 = by
+									readonly var by_log_9 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0B , (`((` & old_by_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_by_9 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_by_9 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_by_9 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(by_log_9, 7)
 								end
 								do
-									readonly var old_dx_27 : Int16 = dx
+									readonly var old_dx_4 : Int16 = dx
 									dx = dx / 4 + (bx - padx) / 4
-									readonly var new_dx_27 : Int16 = dx
-									readonly var dx_log_27 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_27 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_27 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_27 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_27 & ` >> 0) & 0xFF)`) as Byte }
-									log!log(dx_log_27, 7)
+									readonly var new_dx_4 : Int16 = dx
+									readonly var dx_log_4 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0C , (`((` & old_dx_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dx_4 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dx_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dx_4 & ` >> 0) & 0xFF)`) as Byte }
+									log!log(dx_log_4, 7)
 								end
 							end
 						end
@@ -952,11 +1529,11 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					var collision : Boolean = collideBrick(bx - br, by - br)or collideBrick(bx + br, by - br)or collideBrick(bx + br, by + br)or collideBrick(bx - br, by + br)
 					if (collision) do
 						do
-							readonly var old_dy_4 : Int16 = dy
+							readonly var old_dy_30 : Int16 = dy
 							dy = -dy
-							readonly var new_dy_4 : Int16 = dy
-							readonly var dy_log_4 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_4 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_4 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_4 & ` >> 0) & 0xFF)`) as Byte }
-							log!log(dy_log_4, 7)
+							readonly var new_dy_30 : Int16 = dy
+							readonly var dy_log_30 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_30 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_30 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_30 & ` >> 0) & 0xFF)`) as Byte }
+							log!log(dy_log_30, 7)
 						end
 						incrementScore(10)
 						if (bricksLeft()== 0) do
@@ -1001,8 +1578,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			transition -> LOSTBALL
 			event game?lostBall
 			action do
-				readonly var lostBallhandled_log_282 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x01 , 0x03 , 0x04 }
-				log!log(lostBallhandled_log_282, 6)
+				readonly var lostBallhandled_log_280 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x01 , 0x03 , 0x04 }
+				log!log(lostBallhandled_log_280, 6)
 				do
 					readonly var id_219 : UInt8 = 0
 					clock!timer_cancel(id_219)
@@ -1013,8 +1590,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			transition -> NEXTLEVEL
 			event game?nextLevel
 			action do
-				readonly var nextLevelhandled_log_281 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x02 , 0x03 , 0x05 }
-				log!log(nextLevelhandled_log_281, 6)
+				readonly var nextLevelhandled_log_279 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x05 , 0x02 , 0x03 , 0x05 }
+				log!log(nextLevelhandled_log_279, 6)
 				do
 					readonly var id_221 : UInt8 = 0
 					clock!timer_cancel(id_221)
@@ -1025,8 +1602,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			transition -> LOSTBALL
 			event pro_game?lostBall
 			action do
-				readonly var lostBallhandled_log_279 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x01 , 0x03 , 0x04 }
-				log!log(lostBallhandled_log_279, 6)
+				readonly var lostBallhandled_log_282 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x01 , 0x03 , 0x04 }
+				log!log(lostBallhandled_log_282, 6)
 				do
 					readonly var id_223 : UInt8 = 0
 					clock!timer_cancel(id_223)
@@ -1037,8 +1614,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			transition -> NEXTLEVEL
 			event pro_game?nextLevel
 			action do
-				readonly var nextLevelhandled_log_278 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x02 , 0x03 , 0x05 }
-				log!log(nextLevelhandled_log_278, 6)
+				readonly var nextLevelhandled_log_281 : Byte [ 6 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x07 , 0x02 , 0x03 , 0x05 }
+				log!log(nextLevelhandled_log_281, 6)
 				do
 					readonly var id_225 : UInt8 = 0
 					clock!timer_cancel(id_225)
@@ -1057,11 +1634,11 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!log(timer_startsent_log_229, 7)
 				end
 				do
-					readonly var old_lives_15 : UInt8 = lives
+					readonly var old_lives_16 : UInt8 = lives
 					lives = lives - 1
-					readonly var new_lives_15 : UInt8 = lives
-					readonly var lives_log_15 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1C , old_lives_15 as Byte , new_lives_15 as Byte }
-					log!log(lives_log_15, 5)
+					readonly var new_lives_16 : UInt8 = lives
+					readonly var lives_log_16 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1C , old_lives_16 as Byte , new_lives_16 as Byte }
+					log!log(lives_log_16, 5)
 				end
 				eraseBall()
 				erasePad()
@@ -1077,15 +1654,15 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			event t : clock?timer_timeout
 			guard t.id == 0 and lives > 0
 			action do
-				readonly var timer_timeouthandled_log_274 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x02 , t.id as Byte }
-				log!log(timer_timeouthandled_log_274, 7)
+				readonly var timer_timeouthandled_log_275 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x02 , t.id as Byte }
+				log!log(timer_timeouthandled_log_275, 7)
 			end
 			transition -> GAMEOVER
 			event t : clock?timer_timeout
 			guard t.id == 0 and lives == 0
 			action do
-				readonly var timer_timeouthandled_log_275 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x06 , t.id as Byte }
-				log!log(timer_timeouthandled_log_275, 7)
+				readonly var timer_timeouthandled_log_276 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x04 , 0x06 , t.id as Byte }
+				log!log(timer_timeouthandled_log_276, 7)
 			end
 		}
 		state NEXTLEVEL @id `5` {
@@ -1098,28 +1675,28 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 					log!log(timer_startsent_log_233, 7)
 				end
 				do
-					readonly var old_level_16 : UInt8 = level
+					readonly var old_level_23 : UInt8 = level
 					level = level + 1
-					readonly var new_level_16 : UInt8 = level
-					readonly var level_log_16 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1D , old_level_16 as Byte , new_level_16 as Byte }
-					log!log(level_log_16, 5)
+					readonly var new_level_23 : UInt8 = level
+					readonly var level_log_23 : Byte [ 5 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x1D , old_level_23 as Byte , new_level_23 as Byte }
+					log!log(level_log_23, 5)
 				end
 				drawLevel()
 				eraseBall()
 				erasePad()
 				if ((level % 2) == 0 and padlen > 5 * SCALE) do
-					readonly var old_padlen_14 : Int16 = padlen
+					readonly var old_padlen_5 : Int16 = padlen
 					padlen = padlen - (4 * SCALE)
-					readonly var new_padlen_14 : Int16 = padlen
-					readonly var padlen_log_14 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x10 , (`((` & old_padlen_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_padlen_14 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_padlen_14 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_padlen_14 & ` >> 0) & 0xFF)`) as Byte }
-					log!log(padlen_log_14, 7)
+					readonly var new_padlen_5 : Int16 = padlen
+					readonly var padlen_log_5 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x10 , (`((` & old_padlen_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_padlen_5 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_padlen_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_padlen_5 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(padlen_log_5, 7)
 				end
 				if ((level % 2) == 1) do
-					readonly var old_dy_5 : Int16 = dy
+					readonly var old_dy_31 : Int16 = dy
 					dy = (dy * 3) / 2
-					readonly var new_dy_5 : Int16 = dy
-					readonly var dy_log_5 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_5 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_5 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_5 & ` >> 0) & 0xFF)`) as Byte }
-					log!log(dy_log_5, 7)
+					readonly var new_dy_31 : Int16 = dy
+					readonly var dy_log_31 : Byte [ 7 ] = { LogType : property_changed , DEBUG_BIN_ID , 0x0D , (`((` & old_dy_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & old_dy_31 & ` >> 0) & 0xFF)`) as Byte , (`((` & new_dy_31 & ` >> 8) & 0xFF)`) as Byte , (`((` & new_dy_31 & ` >> 0) & 0xFF)`) as Byte }
+					log!log(dy_log_31, 7)
 				end
 				drawLives()
 				createBricks()
@@ -1133,8 +1710,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 			event t : clock?timer_timeout
 			guard t.id == 0
 			action do
-				readonly var timer_timeouthandled_log_276 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x05 , 0x02 , t.id as Byte }
-				log!log(timer_timeouthandled_log_276, 7)
+				readonly var timer_timeouthandled_log_274 : Byte [ 7 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x01 , 0x16 , 0x05 , 0x02 , t.id as Byte }
+				log!log(timer_timeouthandled_log_274, 7)
 			end
 		}
 		final state GAMEOVER @id `6` {
@@ -1221,8 +1798,8 @@ thing fragment BreakoutGame includes TimerMsgs , DisplayMsgs , ControllerMsgs , 
 		internal
 		event e : controller?position
 		action do
-			readonly var positionhandled_log_280 : Byte [ 10 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x03 , 0x12 , 0x00 , 0x00 , (`((` & e.x & ` >> 8) & 0xFF)`) as Byte , (`((` & e.x & ` >> 0) & 0xFF)`) as Byte , (`((` & e.y & ` >> 8) & 0xFF)`) as Byte , (`((` & e.y & ` >> 0) & 0xFF)`) as Byte }
-			log!log(positionhandled_log_280, 10)
+			readonly var positionhandled_log_278 : Byte [ 10 ] = { LogType : message_handled , DEBUG_BIN_ID , 0x03 , 0x12 , 0x00 , 0x00 , (`((` & e.x & ` >> 8) & 0xFF)`) as Byte , (`((` & e.x & ` >> 0) & 0xFF)`) as Byte , (`((` & e.y & ` >> 8) & 0xFF)`) as Byte , (`((` & e.y & ` >> 0) & 0xFF)`) as Byte }
+			log!log(positionhandled_log_278, 10)
 			do
 				var center : Int32 = (RIGHT as Int32 - LEFT as Int32 - padlen as Int32)
 				center = e.x as Int32 * center
@@ -1290,25 +1867,25 @@ enumeration LogType as Byte @id `1`
 }
 thing fragment LogMsgs {
 	message log_on()
-	@id `3`
+	@monitor `not` @id `3`
 	message log_off()
-	@id `4`
+	@monitor `not` @id `4`
 	message log(payload : Byte [ ], size : UInt8)
-	@id `5`
+	@monitor `not` @id `5`
 }
 thing fragment WithBinaryLog includes LogMsgs {
-	required port log @sync_send `true` @id `8` {
+	required port log @sync_send `true` @monitor `not` @id `8` {
 		sends log
 	}
-	readonly property DEBUG_BIN_ID : Byte @id `31`
+	readonly property DEBUG_BIN_ID : Byte @monitor `not`
 }
-thing fragment Logger includes LogMsgs {
-	provided port log @id `9` {
+thing fragment Logger includes LogMsgs @monitor `not` {
+	provided port log @monitor `not` @id `9` {
 		receives log_on receives log_off receives log
 	}
-	readonly property ACTIVATE_ON_STARTUP : Boolean @id `32`
-	readonly property HAS_SIGNED_BYTE : Boolean @id `33`
-	abstract function do_log(payload : Byte [ ], size : UInt8)
+	readonly property ACTIVATE_ON_STARTUP : Boolean @monitor `not`
+	readonly property HAS_SIGNED_BYTE : Boolean @monitor `not`
+	abstract function do_log(payload : Byte [ ], size : UInt8) @monitor `not`
 
 	statechart init STARTUP @id `7` {
 		state STARTUP @id `8` {
@@ -1328,9 +1905,9 @@ thing fragment Logger includes LogMsgs {
 		}
 	}
 }
-thing ConsoleLogger includes Logger {
-	readonly property QUIET : Boolean = true @id `34`
-	function do_log(payload : Byte [ ], size : UInt8) @id `19` do
+thing ConsoleLogger includes Logger @monitor `not` {
+	readonly property QUIET : Boolean = true @monitor `not`
+	function do_log(payload : Byte [ ], size : UInt8) @monitor `not` do
 		if (not QUIET) do
 			readonly var log_type : Byte = payload [0]
 			if (log_type == LogType : function_called) print "log: function_called  ["
@@ -1380,7 +1957,7 @@ thing HeadlessDisplay includes DisplayMsgs {
 	provided port display @id `10` {
 		sends displayReady receives create receives destroy receives update receives clear receives setColor receives setBGColor receives drawRect receives fillRect receives drawInteger receives drawThingML
 	}
-	function mock() @id `20` do
+	function mock() @id `19` do
 	end
 	statechart init INIT @id `11` {
 		state INIT @id `12` {
@@ -1441,7 +2018,7 @@ thing fragment IAController includes Controller , IAControllerMsg {
 	}
 }
 thing BasicIAController includes IAController {
-	property ctrlx : Int16 = 0 @id `35`
+	property ctrlx : Int16 = 0 @id `31`
 	statechart SC init Following @id `14` {
 		state Following @id `15` {
 			on entry controls!position(ctrlx, 0)
@@ -1595,7 +2172,7 @@ thing fragment Timer includes TimerMsgs @stl {
 thing TimerJava includes Timer @stl @java_import `import java.util.*;` @java_features `
 	Hashtable<Integer, TimerTask> tasks = new Hashtable<Integer, TimerTask>();
 	Timer timer = new java.util.Timer();` {
-	function startTimer(id : UInt8, delay : UInt16) @id `21` do
+	function startTimer(id : UInt8, delay : UInt16) @id `20` do
 		cancel(id)
 		`final int t_id = ` & id & `;`
 	`TimerTask t =  new TimerTask() { public void run(){`
@@ -1605,7 +2182,7 @@ thing TimerJava includes Timer @stl @java_import `import java.util.*;` @java_fea
         tasks.put(t_id, t);
         timer.schedule(t, ` & delay & `);`
 	end
-	function cancel(id : UInt8) @id `22` do
+	function cancel(id : UInt8) @id `21` do
 		`TimerTask t = tasks.get(` & id & `);`
 	`if (t != null) t.cancel();`
 	`timer.purge();`
@@ -1628,8 +2205,8 @@ thing TimerJava includes Timer @stl @java_import `import java.util.*;` @java_fea
 }
 object JSArray @id `19`
 thing TimerJS includes Timer @stl {
-	property Timeouts : JSArray = `{}` as JSArray @id `36`
-	function startTimer(id : UInt8, delay : UInt16) @id `23` do
+	property Timeouts : JSArray = `{}` as JSArray @id `32`
+	function startTimer(id : UInt8, delay : UInt16) @id `22` do
 		`
       if (` & Timeouts & `[` & id & `] != undefined) {
         `
@@ -1645,7 +2222,7 @@ thing TimerJS includes Timer @stl {
       }, ` & delay & `);
     `
 	end
-	function cancel(id : UInt8) @id `24` do
+	function cancel(id : UInt8) @id `23` do
 		`
         if (` & Timeouts & `[` & id & `] != undefined) {
           clearTimeout(` & Timeouts & `[` & id & `]);
@@ -1671,9 +2248,9 @@ thing TimerJS includes Timer @stl {
 }
 object DriftLess @id `20`
 thing TimerNodeJS includes Timer @stl @js_dep `driftless:2.0.3` {
-	property Timeouts : JSArray = `{}` as JSArray @id `37`
-	readonly property driftless : DriftLess = `require('driftless')` as DriftLess @id `38`
-	function startTimer(id : UInt8, delay : UInt16) @id `25` do
+	property Timeouts : JSArray = `{}` as JSArray @id `33`
+	readonly property driftless : DriftLess = `require('driftless')` as DriftLess @id `34`
+	function startTimer(id : UInt8, delay : UInt16) @id `24` do
 		`
       if (` & Timeouts & `[` & id & `] != undefined) {
         `
@@ -1689,7 +2266,7 @@ thing TimerNodeJS includes Timer @stl @js_dep `driftless:2.0.3` {
       }, ` & delay & `);
     `
 	end
-	function cancel(id : UInt8) @id `26` do
+	function cancel(id : UInt8) @id `25` do
 		`
         if (` & Timeouts & `[` & id & `] != undefined) {
           ` & driftless & `.clearDriftless(` & Timeouts & `[` & id & `]);
@@ -1723,9 +2300,9 @@ thing TimerPosix includes Timer @stl @c_header `
 uint8_t  Timer_wraps[NB_SOFT_TIMERS];
 uint32_t Timer_prev;
 pthread_mutex_t Timer_mut;` {
-	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `39`
-	readonly property SOFT_TIMER_PERIOD : UInt16 = 50 @id `40`
-	function time_ms() : UInt32 @id `27` do
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `35`
+	readonly property SOFT_TIMER_PERIOD : UInt16 = 50 @id `36`
+	function time_ms() : UInt32 @id `26` do
 	`struct timespec current;
 		int res;
 		uint32_t millis = 0;
@@ -1739,13 +2316,13 @@ pthread_mutex_t Timer_mut;` {
 		}`
 		return `millis` as UInt32
 	end
-	function sleep_ms(timeout_ms : UInt16) @id `28` do
+	function sleep_ms(timeout_ms : UInt16) @id `27` do
 		`struct timeval tv;
         tv.tv_sec = ` & timeout_ms & `/1000;
         tv.tv_usec = (` & timeout_ms & `%1000) * 1000;
         select(0, NULL, NULL, NULL, &tv);`
 	end
-	function initialize() @id `29` do
+	function initialize() @id `28` do
 		`pthread_mutex_init(&Timer_mut, NULL);
 	    uint8_t i;
 	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
@@ -1754,7 +2331,7 @@ pthread_mutex_t Timer_mut;` {
 	    }`
 		start_soft_timer_process()
 	end
-	function start_soft_timer_process() @fork_linux_thread `true` @id `30` do
+	function start_soft_timer_process() @fork_linux_thread `true` @id `29` do
 		`Timer_prev = ` & time_ms()& `;`
 		while (true) do
 			sleep_ms(SOFT_TIMER_PERIOD)
@@ -1789,7 +2366,7 @@ pthread_mutex_t Timer_mut;` {
 	        pthread_mutex_unlock(&Timer_mut);`
 		end
 	end
-	function startTimer(id : UInt8, delay : UInt16) @id `31` do
+	function startTimer(id : UInt8, delay : UInt16) @id `30` do
 		`
     	if (` & id & ` < NB_SOFT_TIMERS) {
 	        uint32_t current = ` & time_ms()& `;
@@ -1803,7 +2380,7 @@ pthread_mutex_t Timer_mut;` {
 	    }
     `
 	end
-	function cancel(id : UInt8) @id `32` do
+	function cancel(id : UInt8) @id `31` do
 		`
         if (` & id & ` < NB_SOFT_TIMERS) {
 	        pthread_mutex_lock(&Timer_mut);
@@ -1835,11 +2412,11 @@ thing TimerArduino includes Timer @stl @c_header `
 ` @c_global `uint32_t Timer_timeouts[NB_SOFT_TIMERS];
 uint8_t  Timer_wraps[NB_SOFT_TIMERS];
 uint32_t Timer_prev;` {
-	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `41`
-	function time_ms() : UInt32 @id `33` do
+	readonly property NB_SOFT_TIMERS : UInt16 = `NB_SOFT_TIMERS` as UInt16 @id `37`
+	function time_ms() : UInt32 @id `32` do
 		return `millis()` as UInt32
 	end
-	function init_arrays() @id `34` do
+	function init_arrays() @id `33` do
 		`uint8_t i;
 	    for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
 	        Timer_timeouts[i] = 0;
@@ -1847,7 +2424,7 @@ uint32_t Timer_prev;` {
 	    }
 	    Timer_prev = ` & time_ms()& `;`
 	end
-	function poll_soft_timers() @scheduler_polling `true` @id `35` do
+	function poll_soft_timers() @scheduler_polling `true` @id `34` do
 		`uint32_t current = ` & time_ms()& `;
 		uint8_t i;
 		for (i = 0; i < ` & NB_SOFT_TIMERS & `; i++) {
@@ -1875,7 +2452,7 @@ uint32_t Timer_prev;` {
 		    }
 		}`
 	end
-	function startTimer(id : UInt8, delay : UInt16) @id `36` do
+	function startTimer(id : UInt8, delay : UInt16) @id `35` do
 		`
     	if (` & id & ` < NB_SOFT_TIMERS) {
 	        uint32_t current = ` & time_ms()& `;
@@ -1887,7 +2464,7 @@ uint32_t Timer_prev;` {
 	    }
     `
 	end
-	function cancel(id : UInt8) @id `37` do
+	function cancel(id : UInt8) @id `36` do
 		`
         if (` & id & ` < NB_SOFT_TIMERS) {
 	        Timer_timeouts[` & id & `] = 0;
@@ -1919,11 +2496,11 @@ thing TimerGo includes TimerMsgs @stl @go_import `time` {
 	provided port timer @id `15` {
 		sends timer_timeout receives timer_start receives timer_cancel
 	}
-	property Timers : TimerMap @id `42`
-	function initialize() @id `38` do
+	property Timers : TimerMap @id `38`
+	function initialize() @id `37` do
 		Timers = `make(map[uint8]*time.Timer)` as TimerMap
 	end
-	function startTimer(id : UInt8, delay : UInt16) @id `39` do
+	function startTimer(id : UInt8, delay : UInt16) @id `38` do
 		cancel(id)
 		`
     	` & Timers & `[` & id & `] = time.AfterFunc(time.Millisecond*time.Duration(` & delay & `), func() {
@@ -1933,7 +2510,7 @@ thing TimerGo includes TimerMsgs @stl @go_import `time` {
     	})
     `
 	end
-	function cancel(id : UInt8) @id `40` do
+	function cancel(id : UInt8) @id `39` do
 		`
     	if t, ok := ` & Timers & `[` & id & `]; ok {
     		t.Stop()
@@ -1974,7 +2551,6 @@ configuration test @docker {
 	set game.period = 3
 	set game.QUIET = true
 	set game.DEBUG_BIN_ID = 0
-	set log.QUIET = true
 	set log.HAS_SIGNED_BYTE = false
 	set log.ACTIVATE_ON_STARTUP = true
 }

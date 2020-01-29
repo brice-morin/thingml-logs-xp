@@ -93,13 +93,13 @@ _instance->Logger_State = LOGGER_NULL_STARTUP_STATE;
 Logger_OnEntry(_instance->Logger_State, _instance);
 break;
 }
-case LOGGER_NULL_ON_STATE:{
-break;
-}
 case LOGGER_NULL_STARTUP_STATE:{
 break;
 }
 case LOGGER_NULL_OFF_STATE:{
+break;
+}
+case LOGGER_NULL_ON_STATE:{
 break;
 }
 default: break;
@@ -112,11 +112,11 @@ switch(state) {
 case LOGGER_STATE:{
 Logger_OnExit(_instance->Logger_State, _instance);
 break;}
-case LOGGER_NULL_ON_STATE:{
-break;}
 case LOGGER_NULL_STARTUP_STATE:{
 break;}
 case LOGGER_NULL_OFF_STATE:{
+break;}
+case LOGGER_NULL_ON_STATE:{
 break;}
 default: break;
 }
@@ -137,22 +137,6 @@ Logger_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t Logger_State_event_consumed = 0;
-if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
-if (Logger_State_event_consumed == 0 && 1) {
-Logger_OnExit(LOGGER_NULL_ON_STATE, _instance);
-_instance->Logger_State = LOGGER_NULL_OFF_STATE;
-Logger_OnEntry(LOGGER_NULL_OFF_STATE, _instance);
-Logger_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
 void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region null
@@ -162,6 +146,22 @@ if (Logger_State_event_consumed == 0 && 1) {
 Logger_OnExit(LOGGER_NULL_OFF_STATE, _instance);
 _instance->Logger_State = LOGGER_NULL_ON_STATE;
 Logger_OnEntry(LOGGER_NULL_ON_STATE, _instance);
+Logger_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t Logger_State_event_consumed = 0;
+if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
+if (Logger_State_event_consumed == 0 && 1) {
+Logger_OnExit(LOGGER_NULL_ON_STATE, _instance);
+_instance->Logger_State = LOGGER_NULL_OFF_STATE;
+Logger_OnEntry(LOGGER_NULL_OFF_STATE, _instance);
 Logger_State_event_consumed = 1;
 }
 }

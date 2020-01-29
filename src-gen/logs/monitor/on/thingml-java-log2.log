@@ -1,6 +1,4 @@
 message_sent(game, display, create, xsize=160,ysize=128,)
-message_handled(game, SC, _, controller, position, x=0,y=0,)
-property_changed(game, padx, Int16, 4096, 5120)
 message_handled(game, SC.INIT, SC.LAUNCH, display, displayReady, _)
 message_sent(game, display, clear, )
 function_called(game, initColors, void_, , )
@@ -276,6 +274,8 @@ message_sent(game, display, fillRect, x=148,y=4,width=6,height=6,)
 message_sent(game, display, fillRect, x=136,y=4,width=6,height=6,)
 message_sent(game, display, fillRect, x=124,y=4,width=6,height=6,)
 message_sent(game, display, update, )
+message_handled(game, SC, _, controller, position, x=0,y=0,)
+property_changed(game, padx, Int16, 4096, 5120)
 message_handled(game, SC.LAUNCH, _, clock, timer_timeout, id=0,)
 message_sent(game, clock, timer_start, id=0,time=3,)
 function_called(game, drawPad, void_, , )
@@ -39996,6 +39996,6 @@ message_sent(game, display, setColor, r=158,g=209,b=130,)
 message_sent(game, display, drawInteger, x=23,y=40,v=349,digits=5,scale=6,)
 message_sent(game, display, drawThingML, x=26,y=87,)
 message_sent(game, display, update, )
->done in 4016ms!
+>done in 4009ms!
 >lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
->usedMem:750520
+>usedMem:748104

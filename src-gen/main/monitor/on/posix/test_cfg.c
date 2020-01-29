@@ -838,14 +838,6 @@ register_HeadlessDisplay_send_display_displayReady_listener(&enqueue_HeadlessDis
 // Network Initialization
 // End Network Initialization
 
-// Init the ID, state variables and properties for instance timer
-timer_var.active = true;
-timer_var.id_timer = add_instance( (void*) &timer_var);
-timer_var.TimerPosix_SoftTimer_State = TIMERPOSIX_SOFTTIMER_DEFAULT_STATE;
-timer_var.TimerPosix_NB_SOFT_TIMERS_var = NB_SOFT_TIMERS;
-timer_var.TimerPosix_SOFT_TIMER_PERIOD_var = 4;
-
-TimerPosix_SoftTimer_OnEntry(TIMERPOSIX_SOFTTIMER_STATE, &timer_var);
 // Init the ID, state variables and properties for instance ctrl
 ctrl_var.active = true;
 ctrl_var.id_controls = add_instance( (void*) &ctrl_var);
@@ -854,6 +846,14 @@ ctrl_var.BasicIAController_SC_State = BASICIACONTROLLER_SC_FOLLOWING_STATE;
 ctrl_var.BasicIAController_ctrlx_var = 0;
 
 BasicIAController_SC_OnEntry(BASICIACONTROLLER_SC_STATE, &ctrl_var);
+// Init the ID, state variables and properties for instance timer
+timer_var.active = true;
+timer_var.id_timer = add_instance( (void*) &timer_var);
+timer_var.TimerPosix_SoftTimer_State = TIMERPOSIX_SOFTTIMER_DEFAULT_STATE;
+timer_var.TimerPosix_NB_SOFT_TIMERS_var = NB_SOFT_TIMERS;
+timer_var.TimerPosix_SOFT_TIMER_PERIOD_var = 4;
+
+TimerPosix_SoftTimer_OnEntry(TIMERPOSIX_SOFTTIMER_STATE, &timer_var);
 // Init the ID, state variables and properties for instance disp
 disp_var.active = true;
 disp_var.id_display = add_instance( (void*) &disp_var);

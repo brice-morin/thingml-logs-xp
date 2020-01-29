@@ -43,9 +43,9 @@ void ConsoleLogger_handle_log_message_handled(struct ConsoleLogger_Instance *_in
 
 // Definition of the states:
 #define LOGGER_NULL_ON_STATE 0
-#define LOGGER_STATE 1
-#define LOGGER_NULL_STARTUP_STATE 2
-#define LOGGER_NULL_OFF_STATE 3
+#define LOGGER_NULL_STARTUP_STATE 1
+#define LOGGER_NULL_OFF_STATE 2
+#define LOGGER_STATE 3
 
 
 

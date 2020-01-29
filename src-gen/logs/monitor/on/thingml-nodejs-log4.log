@@ -39996,6 +39996,6 @@ message_sent(game, display, setColor, r=158,g=209,b=130,)
 message_sent(game, display, drawInteger, x=23,y=40,v=349,digits=5,scale=6,)
 message_sent(game, display, drawThingML, x=26,y=87,)
 message_sent(game, display, update, )
->done in 4659ms!
+>done in 4686ms!
 >lives:0,score:349,level:1,bx:8874,by:8658,padx:9035
->usedMem:4042328
+>usedMem:4104448

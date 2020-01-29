@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-N=1
+N=25
 
 WIN=1	#Set to 1 if running on Windows and having problems with Docker volumes or paths...
 
 LANGUAGES=(java nodejs go posix) # Languages to use
-#TOOLS=(monitor-bin monitor-bin_string monitor)
-TOOLS=(monitor-bin_string)
+TOOLS=(monitor-bin monitor-bin_string monitor)
 MODES=(on off no) # Logging modes
 
-#((WIN)) && BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )"/../../../ && pwd -W)
-#((!WIN)) && BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )"/../../../ && pwd)
 BASEDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )"/../../../ && pwd)
 chmod -R 777 $BASEDIR
 echo "BASEDIR set to $BASEDIR"

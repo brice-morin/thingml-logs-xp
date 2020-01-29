@@ -39,8 +39,8 @@ void register_BasicIAController_send_controls_position_listener(void (*_listener
 void register_external_BasicIAController_send_controls_position_listener(void (*_listener)(struct BasicIAController_Instance *, int16_t, int16_t));
 
 // Definition of the states:
-#define BASICIACONTROLLER_SC_FOLLOWING_STATE 0
-#define BASICIACONTROLLER_SC_STATE 1
+#define BASICIACONTROLLER_SC_STATE 0
+#define BASICIACONTROLLER_SC_FOLLOWING_STATE 1
 
 
 

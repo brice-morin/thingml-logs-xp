@@ -16,42 +16,42 @@ import org.thingml.generated.messages.*;
 import java.util.*;
 public class Main {
 //Things
-public static ConsoleLogger ConsoleLogger_log;
 public static BasicIAController BasicIAController_ctrl;
+public static ConsoleLogger ConsoleLogger_log;
+public static BreakoutGameJava BreakoutGameJava_game;
 public static TimerJava TimerJava_timer;
 public static HeadlessDisplay HeadlessDisplay_disp;
-public static BreakoutGameJava BreakoutGameJava_game;
 public static void main(String args[]) {
 //Things
-ConsoleLogger_log = (ConsoleLogger) new ConsoleLogger();
-ConsoleLogger_log.buildBehavior(null, null);
-ConsoleLogger_log.init();
 BasicIAController_ctrl = (BasicIAController) new BasicIAController();
 BasicIAController_ctrl.buildBehavior(null, null);
 BasicIAController_ctrl.init();
+ConsoleLogger_log = (ConsoleLogger) new ConsoleLogger();
+ConsoleLogger_log.buildBehavior(null, null);
+ConsoleLogger_log.init();
+BreakoutGameJava_game = (BreakoutGameJava) new BreakoutGameJava();
+BreakoutGameJava_game.buildBehavior(null, null);
+BreakoutGameJava_game.init();
 TimerJava_timer = (TimerJava) new TimerJava();
 TimerJava_timer.buildBehavior(null, null);
 TimerJava_timer.init();
 HeadlessDisplay_disp = (HeadlessDisplay) new HeadlessDisplay();
 HeadlessDisplay_disp.buildBehavior(null, null);
 HeadlessDisplay_disp.init();
-BreakoutGameJava_game = (BreakoutGameJava) new BreakoutGameJava();
-BreakoutGameJava_game.buildBehavior(null, null);
-BreakoutGameJava_game.init();
 //Connecting internal ports...
 BreakoutGameJava_game.getGame_port().addListener(BreakoutGameJava_game.getGame_port());
 //Connectors
-BreakoutGameJava_game.getLog_port().addListener(ConsoleLogger_log.getLog_port());
-HeadlessDisplay_disp.getDisplay_port().addListener(BreakoutGameJava_game.getDisplay_port());
-BreakoutGameJava_game.getDisplay_port().addListener(HeadlessDisplay_disp.getDisplay_port());
-BasicIAController_ctrl.getControls_port().addListener(BreakoutGameJava_game.getController_port());
 BreakoutGameJava_game.getIa_port().addListener(BasicIAController_ctrl.getGame_port());
+BreakoutGameJava_game.getLog_port().addListener(ConsoleLogger_log.getLog_port());
 TimerJava_timer.getTimer_port().addListener(BreakoutGameJava_game.getClock_port());
 BreakoutGameJava_game.getClock_port().addListener(TimerJava_timer.getTimer_port());
+BasicIAController_ctrl.getControls_port().addListener(BreakoutGameJava_game.getController_port());
+HeadlessDisplay_disp.getDisplay_port().addListener(BreakoutGameJava_game.getDisplay_port());
+BreakoutGameJava_game.getDisplay_port().addListener(HeadlessDisplay_disp.getDisplay_port());
+BasicIAController_ctrl.initBasicIAController_ctrlx_var((int) (0));
 ConsoleLogger_log.initLogger_ACTIVATE_ON_STARTUP_var((boolean) (true));
 ConsoleLogger_log.initLogger_HAS_SIGNED_BYTE_var((boolean) (true));
 ConsoleLogger_log.initConsoleLogger_QUIET_var((boolean) (true));
-BasicIAController_ctrl.initBasicIAController_ctrlx_var((int) (0));
 final int[] game_fgcolor_array = new int[3];
 final int[] game_bgcolor_array = new int[3];
 final int[] game_bricks_array = new int[5];
@@ -98,8 +98,8 @@ BreakoutGameJava_game.initBreakoutGame_bricks_var(game_bricks_array);
 /*$EXT CONNECTORS$*/
 /*$START$*/
 ConsoleLogger_log.start();
-HeadlessDisplay_disp.start();
 TimerJava_timer.start();
+HeadlessDisplay_disp.start();
 BreakoutGameJava_game.start();
 BasicIAController_ctrl.start();
 //Hook to stop instances following client/server dependencies (clients firsts)
@@ -107,8 +107,8 @@ Runtime.getRuntime().addShutdownHook(new Thread() {
 public void run() {
 BasicIAController_ctrl.stop();
 BreakoutGameJava_game.stop();
-TimerJava_timer.stop();
 HeadlessDisplay_disp.stop();
+TimerJava_timer.stop();
 ConsoleLogger_log.stop();
 /*$STOP$*/
 }

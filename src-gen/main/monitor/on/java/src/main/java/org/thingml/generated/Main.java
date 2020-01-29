@@ -41,13 +41,13 @@ TimerJava_timer.init();
 //Connecting internal ports...
 BreakoutGameJava_game.getGame_port().addListener(BreakoutGameJava_game.getGame_port());
 //Connectors
-BreakoutGameJava_game.getLog_port().addListener(ConsoleLogger_log.getLog_port());
-BasicIAController_ctrl.getControls_port().addListener(BreakoutGameJava_game.getController_port());
-TimerJava_timer.getTimer_port().addListener(BreakoutGameJava_game.getClock_port());
-BreakoutGameJava_game.getClock_port().addListener(TimerJava_timer.getTimer_port());
 HeadlessDisplay_disp.getDisplay_port().addListener(BreakoutGameJava_game.getDisplay_port());
 BreakoutGameJava_game.getDisplay_port().addListener(HeadlessDisplay_disp.getDisplay_port());
+TimerJava_timer.getTimer_port().addListener(BreakoutGameJava_game.getClock_port());
+BreakoutGameJava_game.getClock_port().addListener(TimerJava_timer.getTimer_port());
 BreakoutGameJava_game.getIa_port().addListener(BasicIAController_ctrl.getGame_port());
+BasicIAController_ctrl.getControls_port().addListener(BreakoutGameJava_game.getController_port());
+BreakoutGameJava_game.getLog_port().addListener(ConsoleLogger_log.getLog_port());
 final int[] game_bgcolor_array = new int[3];
 final int[] game_bricks_array = new int[5];
 final int[] game_fgcolor_array = new int[3];
@@ -95,19 +95,19 @@ ConsoleLogger_log.initLogger_ACTIVATE_ON_STARTUP_var((boolean) (true));
 //External Connectors
 /*$EXT CONNECTORS$*/
 /*$START$*/
-ConsoleLogger_log.start();
-BasicIAController_ctrl.start();
-TimerJava_timer.start();
 HeadlessDisplay_disp.start();
+TimerJava_timer.start();
+BasicIAController_ctrl.start();
+ConsoleLogger_log.start();
 BreakoutGameJava_game.start();
 //Hook to stop instances following client/server dependencies (clients firsts)
 Runtime.getRuntime().addShutdownHook(new Thread() {
 public void run() {
 BreakoutGameJava_game.stop();
-HeadlessDisplay_disp.stop();
-TimerJava_timer.stop();
-BasicIAController_ctrl.stop();
 ConsoleLogger_log.stop();
+BasicIAController_ctrl.stop();
+TimerJava_timer.stop();
+HeadlessDisplay_disp.stop();
 /*$STOP$*/
 }
 });

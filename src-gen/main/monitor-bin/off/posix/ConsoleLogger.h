@@ -35,15 +35,15 @@ bool ConsoleLogger_QUIET_var;
 // Declaration of prototypes outgoing messages :
 void Logger_OnEntry(int state, struct ConsoleLogger_Instance *_instance);
 void ConsoleLogger_handle_log_log(struct ConsoleLogger_Instance *_instance, uint8_t* payload, uint8_t size);
-void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance);
 void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance);
+void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance);
 // Declaration of callbacks for incoming messages:
 
 // Definition of the states:
-#define LOGGER_NULL_ON_STATE 0
-#define LOGGER_NULL_STARTUP_STATE 1
-#define LOGGER_NULL_OFF_STATE 2
-#define LOGGER_STATE 3
+#define LOGGER_NULL_STARTUP_STATE 0
+#define LOGGER_NULL_OFF_STATE 1
+#define LOGGER_STATE 2
+#define LOGGER_NULL_ON_STATE 3
 
 
 

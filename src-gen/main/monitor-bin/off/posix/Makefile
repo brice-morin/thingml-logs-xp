@@ -1,8 +1,8 @@
 # CC = /*CC*/
 LIBS = -lpthread 
 CFLAGS = -O2 -w
-SRCS = BasicIAController.c TimerPosix.c ConsoleLogger.c HeadlessDisplay.c BreakoutGamePosix.c test_cfg.c runtime.c
-OBJS = BasicIAController.o TimerPosix.o ConsoleLogger.o HeadlessDisplay.o BreakoutGamePosix.o test_cfg.o runtime.o
+SRCS = BreakoutGamePosix.c ConsoleLogger.c HeadlessDisplay.c TimerPosix.c BasicIAController.c test_cfg.c runtime.c
+OBJS = BreakoutGamePosix.o ConsoleLogger.o HeadlessDisplay.o TimerPosix.o BasicIAController.o test_cfg.o runtime.o
 
 all : test
 
