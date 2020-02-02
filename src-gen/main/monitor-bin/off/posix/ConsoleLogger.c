@@ -123,20 +123,6 @@ default: break;
 }
 
 // Event Handlers for incoming messages:
-void ConsoleLogger_handle_log_log(struct ConsoleLogger_Instance *_instance, uint8_t* payload, uint8_t size) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t Logger_State_event_consumed = 0;
-if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
-if (Logger_State_event_consumed == 0 && 1) {
-f_ConsoleLogger_do_log(_instance, payload, size);
-Logger_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
 void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region null
@@ -146,6 +132,20 @@ if (Logger_State_event_consumed == 0 && 1) {
 Logger_OnExit(LOGGER_NULL_OFF_STATE, _instance);
 _instance->Logger_State = LOGGER_NULL_ON_STATE;
 Logger_OnEntry(LOGGER_NULL_ON_STATE, _instance);
+Logger_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void ConsoleLogger_handle_log_log(struct ConsoleLogger_Instance *_instance, uint8_t* payload, uint8_t size) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t Logger_State_event_consumed = 0;
+if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
+if (Logger_State_event_consumed == 0 && 1) {
+f_ConsoleLogger_do_log(_instance, payload, size);
 Logger_State_event_consumed = 1;
 }
 }

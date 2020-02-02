@@ -33,11 +33,11 @@ _instance->HeadlessDisplay_State = HEADLESSDISPLAY_NULL_INIT_STATE;
 HeadlessDisplay_OnEntry(_instance->HeadlessDisplay_State, _instance);
 break;
 }
-case HEADLESSDISPLAY_NULL_INIT_STATE:{
-HeadlessDisplay_send_display_displayReady(_instance);
+case HEADLESSDISPLAY_NULL_MOCK_STATE:{
 break;
 }
-case HEADLESSDISPLAY_NULL_MOCK_STATE:{
+case HEADLESSDISPLAY_NULL_INIT_STATE:{
+HeadlessDisplay_send_display_displayReady(_instance);
 break;
 }
 default: break;
@@ -50,43 +50,15 @@ switch(state) {
 case HEADLESSDISPLAY_STATE:{
 HeadlessDisplay_OnExit(_instance->HeadlessDisplay_State, _instance);
 break;}
-case HEADLESSDISPLAY_NULL_INIT_STATE:{
-break;}
 case HEADLESSDISPLAY_NULL_MOCK_STATE:{
+break;}
+case HEADLESSDISPLAY_NULL_INIT_STATE:{
 break;}
 default: break;
 }
 }
 
 // Event Handlers for incoming messages:
-void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
 void HeadlessDisplay_handle_display_fillRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
 if(!(_instance->active)) return;
 //Region null
@@ -115,6 +87,34 @@ HeadlessDisplay_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
+void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
 void HeadlessDisplay_handle_display_drawThingML(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y) {
 if(!(_instance->active)) return;
 //Region null
@@ -129,21 +129,7 @@ HeadlessDisplay_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void HeadlessDisplay_handle_display_create(struct HeadlessDisplay_Instance *_instance, uint8_t xsize, uint8_t ysize) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t HeadlessDisplay_State_event_consumed = 0;
@@ -186,6 +172,20 @@ HeadlessDisplay_State_event_consumed = 1;
 //Session list: 
 }
 void HeadlessDisplay_handle_display_destroy(struct HeadlessDisplay_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_create(struct HeadlessDisplay_Instance *_instance, uint8_t xsize, uint8_t ysize) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t HeadlessDisplay_State_event_consumed = 0;

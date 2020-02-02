@@ -97,7 +97,7 @@ func (state *ThingBreakoutGameGo) initColors() {
 		G: g_1,
 		B: b_2,
 	})
-	var setBGColorsent_log_3 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x08, byte(r_0), byte(g_1), byte(b_2) }
+	var setBGColorsent_log_3 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x07, byte(r_0), byte(g_1), byte(b_2) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setBGColorsent_log_3,
 		Size: 7,
@@ -110,12 +110,12 @@ func (state *ThingBreakoutGameGo) initColors() {
 		G: g_5,
 		B: b_6,
 	})
-	var setColorsent_log_7 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_4), byte(g_5), byte(b_6) }
+	var setColorsent_log_7 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_4), byte(g_5), byte(b_6) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_7,
 		Size: 7,
 	})
-	var initColors_log0 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x01, 0x00 }
+	var initColors_log0 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x01 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: initColors_log0,
 		Size: 4,
@@ -124,24 +124,21 @@ func (state *ThingBreakoutGameGo) initColors() {
 func (state *ThingBreakoutGameGo) resetBall() {
 	var old_bx_21 int16 = state.bx
 	state.bx = state.padx - state.br / state.SCALE
-	var new_bx_21 int16 = state.bx
-	var bx_log_21 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_21 >> 8) & 0xFF))), byte((((old_bx_21 >> 0) & 0xFF))), byte((((new_bx_21 >> 8) & 0xFF))), byte((((new_bx_21 >> 0) & 0xFF))) }
+	var bx_log_21 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_21 >> 8) & 0xFF))), byte((((old_bx_21 >> 0) & 0xFF))), byte((((state.bx >> 8) & 0xFF))), byte((((state.bx >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: bx_log_21,
 		Size: 7,
 	})
 	var old_by_28 int16 = state.by
 	state.by = state.pady - state.br / state.SCALE
-	var new_by_28 int16 = state.by
-	var by_log_28 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_28 >> 8) & 0xFF))), byte((((old_by_28 >> 0) & 0xFF))), byte((((new_by_28 >> 8) & 0xFF))), byte((((new_by_28 >> 0) & 0xFF))) }
+	var by_log_28 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_28 >> 8) & 0xFF))), byte((((old_by_28 >> 0) & 0xFF))), byte((((state.by >> 8) & 0xFF))), byte((((state.by >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: by_log_28,
 		Size: 7,
 	})
 	var old_dx_1 int16 = state.dx
 	state.dx = (state.padx + state.prevBX + state.prevBY) % 300 - 150
-	var new_dx_1 int16 = state.dx
-	var dx_log_1 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_1 >> 8) & 0xFF))), byte((((old_dx_1 >> 0) & 0xFF))), byte((((new_dx_1 >> 8) & 0xFF))), byte((((new_dx_1 >> 0) & 0xFF))) }
+	var dx_log_1 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_1 >> 8) & 0xFF))), byte((((old_dx_1 >> 0) & 0xFF))), byte((((state.dx >> 8) & 0xFF))), byte((((state.dx >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: dx_log_1,
 		Size: 7,
@@ -149,8 +146,7 @@ func (state *ThingBreakoutGameGo) resetBall() {
 	if state.dy > 0 {
 		var old_dy_5 int16 = state.dy
 		state.dy =  -(state.dy)
-		var new_dy_5 int16 = state.dy
-		var dy_log_5 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_5 >> 8) & 0xFF))), byte((((old_dy_5 >> 0) & 0xFF))), byte((((new_dy_5 >> 8) & 0xFF))), byte((((new_dy_5 >> 0) & 0xFF))) }
+		var dy_log_5 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_5 >> 8) & 0xFF))), byte((((old_dy_5 >> 0) & 0xFF))), byte((((state.dy >> 8) & 0xFF))), byte((((state.dy >> 0) & 0xFF))) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: dy_log_5,
 			Size: 7,
@@ -158,21 +154,19 @@ func (state *ThingBreakoutGameGo) resetBall() {
 	}
 	var old_prevBX_13 int16 = state.prevBX
 	state.prevBX =  -(1)
-	var new_prevBX_13 int16 = state.prevBX
-	var prevBX_log_13 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_13 >> 8) & 0xFF))), byte((((old_prevBX_13 >> 0) & 0xFF))), byte((((new_prevBX_13 >> 8) & 0xFF))), byte((((new_prevBX_13 >> 0) & 0xFF))) }
+	var prevBX_log_13 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_13 >> 8) & 0xFF))), byte((((old_prevBX_13 >> 0) & 0xFF))), byte((((state.prevBX >> 8) & 0xFF))), byte((((state.prevBX >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBX_log_13,
 		Size: 7,
 	})
 	var old_prevBY_17 int16 = state.prevBY
 	state.prevBY =  -(1)
-	var new_prevBY_17 int16 = state.prevBY
-	var prevBY_log_17 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_17 >> 8) & 0xFF))), byte((((old_prevBY_17 >> 0) & 0xFF))), byte((((new_prevBY_17 >> 8) & 0xFF))), byte((((new_prevBY_17 >> 0) & 0xFF))) }
+	var prevBY_log_17 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_17 >> 8) & 0xFF))), byte((((old_prevBY_17 >> 0) & 0xFF))), byte((((state.prevBY >> 8) & 0xFF))), byte((((state.prevBY >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBY_log_17,
 		Size: 7,
 	})
-	var resetBall_log1 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x02, 0x00 }
+	var resetBall_log1 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x02 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: resetBall_log1,
 		Size: 4,
@@ -189,7 +183,7 @@ func (state *ThingBreakoutGameGo) eraseBall() {
 			G: g_9,
 			B: b_10,
 		})
-		var setColorsent_log_11 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_8), byte(g_9), byte(b_10) }
+		var setColorsent_log_11 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_8), byte(g_9), byte(b_10) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: setColorsent_log_11,
 			Size: 7,
@@ -204,7 +198,7 @@ func (state *ThingBreakoutGameGo) eraseBall() {
 			Width: width_14,
 			Height: height_15,
 		})
-		var fillRectsent_log_16 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_12), byte(y_13), byte(width_14), byte(height_15) }
+		var fillRectsent_log_16 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_12), byte(y_13), byte(width_14), byte(height_15) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: fillRectsent_log_16,
 			Size: 8,
@@ -212,21 +206,19 @@ func (state *ThingBreakoutGameGo) eraseBall() {
 	}
 	var old_prevBX_14 int16 = state.prevBX
 	state.prevBX =  -(1)
-	var new_prevBX_14 int16 = state.prevBX
-	var prevBX_log_14 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_14 >> 8) & 0xFF))), byte((((old_prevBX_14 >> 0) & 0xFF))), byte((((new_prevBX_14 >> 8) & 0xFF))), byte((((new_prevBX_14 >> 0) & 0xFF))) }
+	var prevBX_log_14 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_14 >> 8) & 0xFF))), byte((((old_prevBX_14 >> 0) & 0xFF))), byte((((state.prevBX >> 8) & 0xFF))), byte((((state.prevBX >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBX_log_14,
 		Size: 7,
 	})
 	var old_prevBY_18 int16 = state.prevBY
 	state.prevBY =  -(1)
-	var new_prevBY_18 int16 = state.prevBY
-	var prevBY_log_18 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_18 >> 8) & 0xFF))), byte((((old_prevBY_18 >> 0) & 0xFF))), byte((((new_prevBY_18 >> 8) & 0xFF))), byte((((new_prevBY_18 >> 0) & 0xFF))) }
+	var prevBY_log_18 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_18 >> 8) & 0xFF))), byte((((old_prevBY_18 >> 0) & 0xFF))), byte((((state.prevBY >> 8) & 0xFF))), byte((((state.prevBY >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBY_log_18,
 		Size: 7,
 	})
-	var eraseBall_log2 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x03, 0x00 }
+	var eraseBall_log2 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x03 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: eraseBall_log2,
 		Size: 4,
@@ -237,16 +229,14 @@ func (state *ThingBreakoutGameGo) drawBall() {
 	state.eraseBall()
 	var old_prevBX_15 int16 = state.prevBX
 	state.prevBX = (state.bx - state.br) / state.SCALE
-	var new_prevBX_15 int16 = state.prevBX
-	var prevBX_log_15 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_15 >> 8) & 0xFF))), byte((((old_prevBX_15 >> 0) & 0xFF))), byte((((new_prevBX_15 >> 8) & 0xFF))), byte((((new_prevBX_15 >> 0) & 0xFF))) }
+	var prevBX_log_15 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x11, byte((((old_prevBX_15 >> 8) & 0xFF))), byte((((old_prevBX_15 >> 0) & 0xFF))), byte((((state.prevBX >> 8) & 0xFF))), byte((((state.prevBX >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBX_log_15,
 		Size: 7,
 	})
 	var old_prevBY_19 int16 = state.prevBY
 	state.prevBY = (state.by - state.br) / state.SCALE
-	var new_prevBY_19 int16 = state.prevBY
-	var prevBY_log_19 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_19 >> 8) & 0xFF))), byte((((old_prevBY_19 >> 0) & 0xFF))), byte((((new_prevBY_19 >> 8) & 0xFF))), byte((((new_prevBY_19 >> 0) & 0xFF))) }
+	var prevBY_log_19 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x12, byte((((old_prevBY_19 >> 8) & 0xFF))), byte((((old_prevBY_19 >> 0) & 0xFF))), byte((((state.prevBY >> 8) & 0xFF))), byte((((state.prevBY >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevBY_log_19,
 		Size: 7,
@@ -259,7 +249,7 @@ func (state *ThingBreakoutGameGo) drawBall() {
 		G: g_18,
 		B: b_19,
 	})
-	var setColorsent_log_20 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_17), byte(g_18), byte(b_19) }
+	var setColorsent_log_20 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_17), byte(g_18), byte(b_19) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_20,
 		Size: 7,
@@ -274,12 +264,12 @@ func (state *ThingBreakoutGameGo) drawBall() {
 		Width: width_23,
 		Height: height_24,
 	})
-	var fillRectsent_log_25 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_21), byte(y_22), byte(width_23), byte(height_24) }
+	var fillRectsent_log_25 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_21), byte(y_22), byte(width_23), byte(height_24) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_25,
 		Size: 8,
 	})
-	var drawBall_log3 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x04, 0x00 }
+	var drawBall_log3 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x04 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawBall_log3,
 		Size: 4,
@@ -296,7 +286,7 @@ func (state *ThingBreakoutGameGo) erasePad() {
 			G: g_27,
 			B: b_28,
 		})
-		var setColorsent_log_29 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_26), byte(g_27), byte(b_28) }
+		var setColorsent_log_29 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_26), byte(g_27), byte(b_28) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: setColorsent_log_29,
 			Size: 7,
@@ -311,13 +301,13 @@ func (state *ThingBreakoutGameGo) erasePad() {
 			Width: width_32,
 			Height: height_33,
 		})
-		var fillRectsent_log_34 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_30), byte(y_31), byte(width_32), byte(height_33) }
+		var fillRectsent_log_34 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_30), byte(y_31), byte(width_32), byte(height_33) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: fillRectsent_log_34,
 			Size: 8,
 		})
 	}
-	var erasePad_log4 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x05, 0x00 }
+	var erasePad_log4 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x05 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: erasePad_log4,
 		Size: 4,
@@ -328,16 +318,14 @@ func (state *ThingBreakoutGameGo) drawPad() {
 	state.erasePad()
 	var old_prevPX_25 int16 = state.prevPX
 	state.prevPX = (state.padx - (state.padlen / 2)) / state.SCALE
-	var new_prevPX_25 int16 = state.prevPX
-	var prevPX_log_25 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x16, byte((((old_prevPX_25 >> 8) & 0xFF))), byte((((old_prevPX_25 >> 0) & 0xFF))), byte((((new_prevPX_25 >> 8) & 0xFF))), byte((((new_prevPX_25 >> 0) & 0xFF))) }
+	var prevPX_log_25 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x16, byte((((old_prevPX_25 >> 8) & 0xFF))), byte((((old_prevPX_25 >> 0) & 0xFF))), byte((((state.prevPX >> 8) & 0xFF))), byte((((state.prevPX >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevPX_log_25,
 		Size: 7,
 	})
 	var old_prevPY_0 int16 = state.prevPY
 	state.prevPY = state.pady / state.SCALE
-	var new_prevPY_0 int16 = state.prevPY
-	var prevPY_log_0 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x17, byte((((old_prevPY_0 >> 8) & 0xFF))), byte((((old_prevPY_0 >> 0) & 0xFF))), byte((((new_prevPY_0 >> 8) & 0xFF))), byte((((new_prevPY_0 >> 0) & 0xFF))) }
+	var prevPY_log_0 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x17, byte((((old_prevPY_0 >> 8) & 0xFF))), byte((((old_prevPY_0 >> 0) & 0xFF))), byte((((state.prevPY >> 8) & 0xFF))), byte((((state.prevPY >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: prevPY_log_0,
 		Size: 7,
@@ -350,7 +338,7 @@ func (state *ThingBreakoutGameGo) drawPad() {
 		G: g_36,
 		B: b_37,
 	})
-	var setColorsent_log_38 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_35), byte(g_36), byte(b_37) }
+	var setColorsent_log_38 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_35), byte(g_36), byte(b_37) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_38,
 		Size: 7,
@@ -365,12 +353,12 @@ func (state *ThingBreakoutGameGo) drawPad() {
 		Width: width_41,
 		Height: height_42,
 	})
-	var fillRectsent_log_43 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_39), byte(y_40), byte(width_41), byte(height_42) }
+	var fillRectsent_log_43 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_39), byte(y_40), byte(width_41), byte(height_42) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_43,
 		Size: 8,
 	})
-	var drawPad_log5 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x06, 0x00 }
+	var drawPad_log5 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x06 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawPad_log5,
 		Size: 4,
@@ -385,7 +373,7 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 		G: g_45,
 		B: b_46,
 	})
-	var setColorsent_log_47 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_44), byte(g_45), byte(b_46) }
+	var setColorsent_log_47 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_44), byte(g_45), byte(b_46) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_47,
 		Size: 7,
@@ -399,7 +387,7 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 			G: g_49,
 			B: b_50,
 		})
-		var setColorsent_log_51 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_48), byte(g_49), byte(b_50) }
+		var setColorsent_log_51 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_48), byte(g_49), byte(b_50) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: setColorsent_log_51,
 			Size: 7,
@@ -412,7 +400,7 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 			G: g_53,
 			B: b_54,
 		})
-		var setBGColorsent_log_55 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x08, byte(r_52), byte(g_53), byte(b_54) }
+		var setBGColorsent_log_55 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x07, byte(r_52), byte(g_53), byte(b_54) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: setBGColorsent_log_55,
 			Size: 7,
@@ -429,7 +417,7 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 			Digits: digits_59,
 			Scale: scale_60,
 		})
-		var drawIntegersent_log_61 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0B, byte(x_56), byte(y_57), byte((((v_58 >> 8) & 0xFF))), byte((((v_58 >> 0) & 0xFF))), byte(digits_59), byte(scale_60) }
+		var drawIntegersent_log_61 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0A, byte(x_56), byte(y_57), byte((((v_58 >> 8) & 0xFF))), byte((((v_58 >> 0) & 0xFF))), byte(digits_59), byte(scale_60) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: drawIntegersent_log_61,
 			Size: 10,
@@ -443,7 +431,7 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 			G: g_63,
 			B: b_64,
 		})
-		var setColorsent_log_65 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_62), byte(g_63), byte(b_64) }
+		var setColorsent_log_65 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_62), byte(g_63), byte(b_64) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: setColorsent_log_65,
 			Size: 7,
@@ -458,13 +446,13 @@ func (state *ThingBreakoutGameGo) drawCountDown(c int16) {
 			Width: width_68,
 			Height: height_69,
 		})
-		var fillRectsent_log_70 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_66), byte(y_67), byte(width_68), byte(height_69) }
+		var fillRectsent_log_70 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_66), byte(y_67), byte(width_68), byte(height_69) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: fillRectsent_log_70,
 			Size: 8,
 		})
 	}
-	var drawCountDown_log6 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x07, 0x00, byte((((c >> 8) & 0xFF))), byte((((c >> 0) & 0xFF))) }
+	var drawCountDown_log6 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x07, byte((((c >> 8) & 0xFF))), byte((((c >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawCountDown_log6,
 		Size: 6,
@@ -479,7 +467,7 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 		G: g_72,
 		B: b_73,
 	})
-	var setColorsent_log_74 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_71), byte(g_72), byte(b_73) }
+	var setColorsent_log_74 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_71), byte(g_72), byte(b_73) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_74,
 		Size: 7,
@@ -500,7 +488,7 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 		Width: width_77,
 		Height: height_78,
 	})
-	var fillRectsent_log_79 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_75), byte(y_76), byte(width_77), byte(height_78) }
+	var fillRectsent_log_79 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_75), byte(y_76), byte(width_77), byte(height_78) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_79,
 		Size: 8,
@@ -515,7 +503,7 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 		Width: width_82,
 		Height: height_83,
 	})
-	var fillRectsent_log_84 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_80), byte(y_81), byte(width_82), byte(height_83) }
+	var fillRectsent_log_84 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_80), byte(y_81), byte(width_82), byte(height_83) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_84,
 		Size: 8,
@@ -530,7 +518,7 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 		Width: width_87,
 		Height: height_88,
 	})
-	var fillRectsent_log_89 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_85), byte(y_86), byte(width_87), byte(height_88) }
+	var fillRectsent_log_89 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_85), byte(y_86), byte(width_87), byte(height_88) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_89,
 		Size: 8,
@@ -545,12 +533,12 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 		Width: width_92,
 		Height: height_93,
 	})
-	var fillRectsent_log_94 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_90), byte(y_91), byte(width_92), byte(height_93) }
+	var fillRectsent_log_94 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_90), byte(y_91), byte(width_92), byte(height_93) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_94,
 		Size: 8,
 	})
-	var drawWalls_log7 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x08, 0x00 }
+	var drawWalls_log7 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x08 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawWalls_log7,
 		Size: 4,
@@ -558,7 +546,7 @@ func (state *ThingBreakoutGameGo) drawWalls() {
 }
 func (state *ThingBreakoutGameGo) bitIsSet(variable uint8, bit uint8)  bool {
 	var return_0 bool = bool((((1 << bit) & variable) != 0))
-	var bitIsSet_log8 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x09, 0x00, byte(variable), byte(bit), func() byte { if (return_0) { return 1 } else { return 0 } }() }
+	var bitIsSet_log8 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x09, byte(variable), byte(bit), func() byte { if (return_0) { return 1 } else { return 0 } }() }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: bitIsSet_log8,
 		Size: 7,
@@ -578,7 +566,7 @@ func (state *ThingBreakoutGameGo) createBricks() {
 		}
 		y = y + 1
 	}
-	var createBricks_log9 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0A, 0x00 }
+	var createBricks_log9 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0A }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: createBricks_log9,
 		Size: 4,
@@ -598,7 +586,7 @@ func (state *ThingBreakoutGameGo) bricksLeft()  uint8 {
 		y = y + 1
 	}
 	var return_3 uint8 = result
-	var bricksLeft_log10 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0B, 0x00, byte(return_3) }
+	var bricksLeft_log10 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0B, byte(return_3) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: bricksLeft_log10,
 		Size: 5,
@@ -618,7 +606,7 @@ func (state *ThingBreakoutGameGo) drawBrick(x uint8, y uint8) {
 		G: g_96,
 		B: b_97,
 	})
-	var setColorsent_log_98 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_95), byte(g_96), byte(b_97) }
+	var setColorsent_log_98 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_95), byte(g_96), byte(b_97) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_98,
 		Size: 7,
@@ -633,7 +621,7 @@ func (state *ThingBreakoutGameGo) drawBrick(x uint8, y uint8) {
 		Width: width_101,
 		Height: height_102,
 	})
-	var fillRectsent_log_103 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_99), byte(y_100), byte(width_101), byte(height_102) }
+	var fillRectsent_log_103 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_99), byte(y_100), byte(width_101), byte(height_102) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_103,
 		Size: 8,
@@ -646,7 +634,7 @@ func (state *ThingBreakoutGameGo) drawBrick(x uint8, y uint8) {
 		G: g_105,
 		B: b_106,
 	})
-	var setColorsent_log_107 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_104), byte(g_105), byte(b_106) }
+	var setColorsent_log_107 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_104), byte(g_105), byte(b_106) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_107,
 		Size: 7,
@@ -661,12 +649,12 @@ func (state *ThingBreakoutGameGo) drawBrick(x uint8, y uint8) {
 		Width: width_110,
 		Height: height_111,
 	})
-	var drawRectsent_log_112 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x09, byte(x_108), byte(y_109), byte(width_110), byte(height_111) }
+	var drawRectsent_log_112 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x08, byte(x_108), byte(y_109), byte(width_110), byte(height_111) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawRectsent_log_112,
 		Size: 8,
 	})
-	var drawBrick_log11 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0C, 0x00, byte(x), byte(y) }
+	var drawBrick_log11 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0C, byte(x), byte(y) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawBrick_log11,
 		Size: 6,
@@ -683,7 +671,7 @@ func (state *ThingBreakoutGameGo) removeBrick(x uint8, y uint8) {
 		G: g_114,
 		B: b_115,
 	})
-	var setColorsent_log_116 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_113), byte(g_114), byte(b_115) }
+	var setColorsent_log_116 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_113), byte(g_114), byte(b_115) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_116,
 		Size: 7,
@@ -698,13 +686,13 @@ func (state *ThingBreakoutGameGo) removeBrick(x uint8, y uint8) {
 		Width: width_119,
 		Height: height_120,
 	})
-	var fillRectsent_log_121 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_117), byte(y_118), byte(width_119), byte(height_120) }
+	var fillRectsent_log_121 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_117), byte(y_118), byte(width_119), byte(height_120) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_121,
 		Size: 8,
 	})
 	state.bricks[y] = state.unsetBit(state.bricks[y], x)
-	var removeBrick_log12 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0D, 0x00, byte(x), byte(y) }
+	var removeBrick_log12 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0D, byte(x), byte(y) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: removeBrick_log12,
 		Size: 6,
@@ -721,7 +709,7 @@ func (state *ThingBreakoutGameGo) collideBrick(xpos int16, ypos int16)  bool {
 		}
 	}
 	var return_3 bool = result
-	var collideBrick_log13 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0E, 0x00, byte((((xpos >> 8) & 0xFF))), byte((((xpos >> 0) & 0xFF))), byte((((ypos >> 8) & 0xFF))), byte((((ypos >> 0) & 0xFF))), func() byte { if (return_3) { return 1 } else { return 0 } }() }
+	var collideBrick_log13 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0E, byte((((xpos >> 8) & 0xFF))), byte((((xpos >> 0) & 0xFF))), byte((((ypos >> 8) & 0xFF))), byte((((ypos >> 0) & 0xFF))), func() byte { if (return_3) { return 1 } else { return 0 } }() }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: collideBrick_log13,
 		Size: 9,
@@ -737,7 +725,7 @@ func (state *ThingBreakoutGameGo) drawLevel() {
 		G: g_123,
 		B: b_124,
 	})
-	var setColorsent_log_125 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_122), byte(g_123), byte(b_124) }
+	var setColorsent_log_125 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_122), byte(g_123), byte(b_124) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_125,
 		Size: 7,
@@ -750,7 +738,7 @@ func (state *ThingBreakoutGameGo) drawLevel() {
 		G: g_127,
 		B: b_128,
 	})
-	var setBGColorsent_log_129 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x08, byte(r_126), byte(g_127), byte(b_128) }
+	var setBGColorsent_log_129 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x07, byte(r_126), byte(g_127), byte(b_128) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setBGColorsent_log_129,
 		Size: 7,
@@ -763,7 +751,7 @@ func (state *ThingBreakoutGameGo) drawLevel() {
 		G: g_131,
 		B: b_132,
 	})
-	var setColorsent_log_133 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_130), byte(g_131), byte(b_132) }
+	var setColorsent_log_133 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_130), byte(g_131), byte(b_132) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_133,
 		Size: 7,
@@ -780,12 +768,12 @@ func (state *ThingBreakoutGameGo) drawLevel() {
 		Digits: digits_137,
 		Scale: scale_138,
 	})
-	var drawIntegersent_log_139 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0B, byte(x_134), byte(y_135), byte((((v_136 >> 8) & 0xFF))), byte((((v_136 >> 0) & 0xFF))), byte(digits_137), byte(scale_138) }
+	var drawIntegersent_log_139 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0A, byte(x_134), byte(y_135), byte((((v_136 >> 8) & 0xFF))), byte((((v_136 >> 0) & 0xFF))), byte(digits_137), byte(scale_138) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawIntegersent_log_139,
 		Size: 10,
 	})
-	var drawLevel_log14 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0F, 0x00 }
+	var drawLevel_log14 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x0F }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawLevel_log14,
 		Size: 4,
@@ -794,8 +782,7 @@ func (state *ThingBreakoutGameGo) drawLevel() {
 func (state *ThingBreakoutGameGo) incrementScore(diff int8) {
 	var old_score_10 int16 = state.score
 	state.score = state.score + int16(diff)
-	var new_score_10 int16 = state.score
-	var score_log_10 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1B, byte((((old_score_10 >> 8) & 0xFF))), byte((((old_score_10 >> 0) & 0xFF))), byte((((new_score_10 >> 8) & 0xFF))), byte((((new_score_10 >> 0) & 0xFF))) }
+	var score_log_10 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1B, byte((((old_score_10 >> 8) & 0xFF))), byte((((old_score_10 >> 0) & 0xFF))), byte((((state.score >> 8) & 0xFF))), byte((((state.score >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: score_log_10,
 		Size: 7,
@@ -803,15 +790,14 @@ func (state *ThingBreakoutGameGo) incrementScore(diff int8) {
 	if state.score < 0 {
 		var old_score_11 int16 = state.score
 		state.score = 0
-		var new_score_11 int16 = state.score
-		var score_log_11 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1B, byte((((old_score_11 >> 8) & 0xFF))), byte((((old_score_11 >> 0) & 0xFF))), byte((((new_score_11 >> 8) & 0xFF))), byte((((new_score_11 >> 0) & 0xFF))) }
+		var score_log_11 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1B, byte((((old_score_11 >> 8) & 0xFF))), byte((((old_score_11 >> 0) & 0xFF))), byte((((state.score >> 8) & 0xFF))), byte((((state.score >> 0) & 0xFF))) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: score_log_11,
 			Size: 7,
 		})
 	}
 	state.drawScore()
-	var incrementScore_log15 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x10, 0x00, byte(diff) }
+	var incrementScore_log15 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x10, byte(diff) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: incrementScore_log15,
 		Size: 5,
@@ -826,7 +812,7 @@ func (state *ThingBreakoutGameGo) drawScore() {
 		G: g_141,
 		B: b_142,
 	})
-	var setColorsent_log_143 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_140), byte(g_141), byte(b_142) }
+	var setColorsent_log_143 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_140), byte(g_141), byte(b_142) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_143,
 		Size: 7,
@@ -839,7 +825,7 @@ func (state *ThingBreakoutGameGo) drawScore() {
 		G: g_145,
 		B: b_146,
 	})
-	var setBGColorsent_log_147 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x08, byte(r_144), byte(g_145), byte(b_146) }
+	var setBGColorsent_log_147 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x07, byte(r_144), byte(g_145), byte(b_146) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setBGColorsent_log_147,
 		Size: 7,
@@ -856,12 +842,12 @@ func (state *ThingBreakoutGameGo) drawScore() {
 		Digits: digits_151,
 		Scale: scale_152,
 	})
-	var drawIntegersent_log_153 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0B, byte(x_148), byte(y_149), byte((((v_150 >> 8) & 0xFF))), byte((((v_150 >> 0) & 0xFF))), byte(digits_151), byte(scale_152) }
+	var drawIntegersent_log_153 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0A, byte(x_148), byte(y_149), byte((((v_150 >> 8) & 0xFF))), byte((((v_150 >> 0) & 0xFF))), byte(digits_151), byte(scale_152) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawIntegersent_log_153,
 		Size: 10,
 	})
-	var drawScore_log16 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x11, 0x00 }
+	var drawScore_log16 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x11 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawScore_log16,
 		Size: 4,
@@ -876,7 +862,7 @@ func (state *ThingBreakoutGameGo) drawLives() {
 		G: g_155,
 		B: b_156,
 	})
-	var setColorsent_log_157 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_154), byte(g_155), byte(b_156) }
+	var setColorsent_log_157 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_154), byte(g_155), byte(b_156) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_157,
 		Size: 7,
@@ -891,7 +877,7 @@ func (state *ThingBreakoutGameGo) drawLives() {
 		Width: width_160,
 		Height: height_161,
 	})
-	var fillRectsent_log_162 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_158), byte(y_159), byte(width_160), byte(height_161) }
+	var fillRectsent_log_162 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_158), byte(y_159), byte(width_160), byte(height_161) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_162,
 		Size: 8,
@@ -904,7 +890,7 @@ func (state *ThingBreakoutGameGo) drawLives() {
 		G: g_164,
 		B: b_165,
 	})
-	var setColorsent_log_166 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_163), byte(g_164), byte(b_165) }
+	var setColorsent_log_166 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_163), byte(g_164), byte(b_165) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_166,
 		Size: 7,
@@ -921,14 +907,14 @@ func (state *ThingBreakoutGameGo) drawLives() {
 			Width: width_169,
 			Height: height_170,
 		})
-		var fillRectsent_log_171 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_167), byte(y_168), byte(width_169), byte(height_170) }
+		var fillRectsent_log_171 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_167), byte(y_168), byte(width_169), byte(height_170) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: fillRectsent_log_171,
 			Size: 8,
 		})
 		i = i + 1
 	}
-	var drawLives_log17 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x12, 0x00 }
+	var drawLives_log17 []byte = []byte{ LogType_function_called, state.DEBUG_BIN_ID, 0x12 }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawLives_log17,
 		Size: 4,
@@ -1026,7 +1012,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 	case FragmentControllerMsgsMsgposition:
 		if e := typedMessage; port == BreakoutGameGo_BreakoutGame_controller {
 			return true, true, state, func() {
-				var positionhandled_log_282 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x03, 0x12, 0x00, 0x00, byte((((e.X >> 8) & 0xFF))), byte((((e.X >> 0) & 0xFF))), byte((((e.Y >> 8) & 0xFF))), byte((((e.Y >> 0) & 0xFF))) }
+				var positionhandled_log_282 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x00, byte((((e.X >> 8) & 0xFF))), byte((((e.X >> 0) & 0xFF))), byte((((e.Y >> 8) & 0xFF))), byte((((e.Y >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: positionhandled_log_282,
 					Size: 10,
@@ -1036,8 +1022,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 				center = center / 200
 				var old_padx_32 int16 = state.padx
 				state.padx = int16((int32(state.LEFT) + center + (int32(state.RIGHT) - int32(state.LEFT)) / 2))
-				var new_padx_32 int16 = state.padx
-				var padx_log_32 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0E, byte((((old_padx_32 >> 8) & 0xFF))), byte((((old_padx_32 >> 0) & 0xFF))), byte((((new_padx_32 >> 8) & 0xFF))), byte((((new_padx_32 >> 0) & 0xFF))) }
+				var padx_log_32 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0E, byte((((old_padx_32 >> 8) & 0xFF))), byte((((old_padx_32 >> 0) & 0xFF))), byte((((state.padx >> 8) & 0xFF))), byte((((state.padx >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: padx_log_32,
 					Size: 7,
@@ -1047,7 +1032,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 	case FragmentTimerMsgsMsgtimer_timeout:
 		if e := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (true) {
 			return true, true, state, func() {
-				var timer_timeoutlost_log_283 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x01, 0x16, byte(e.Id) }
+				var timer_timeoutlost_log_283 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x00, 0x15, byte(e.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeoutlost_log_283,
 					Size: 5,
@@ -1057,7 +1042,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 	case FragmentDisplayMsgsMsgdisplayReady:
 		if port == BreakoutGameGo_BreakoutGame_display && (true) {
 			return true, true, state, func() {
-				var displayReadylost_log_284 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x02, 0x10 }
+				var displayReadylost_log_284 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x01, 0x0F }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: displayReadylost_log_284,
 					Size: 4,
@@ -1067,7 +1052,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 	case FragmentBreakoutGameMsglostBall:
 		if port == BreakoutGameGo_BreakoutGame_game && (true) {
 			return true, true, state, func() {
-				var lostBalllost_log_285 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x05, 0x01 }
+				var lostBalllost_log_285 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x04, 0x00 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: lostBalllost_log_285,
 					Size: 4,
@@ -1076,7 +1061,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 		}
 		if port == BreakoutGameGo_BreakoutGame_pro_game && (true) {
 			return true, true, state, func() {
-				var lostBalllost_log_287 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x07, 0x01 }
+				var lostBalllost_log_287 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x06, 0x00 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: lostBalllost_log_287,
 					Size: 4,
@@ -1086,7 +1071,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 	case FragmentBreakoutGameMsgnextLevel:
 		if port == BreakoutGameGo_BreakoutGame_game && (true) {
 			return true, true, state, func() {
-				var nextLevellost_log_286 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x05, 0x02 }
+				var nextLevellost_log_286 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x04, 0x01 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: nextLevellost_log_286,
 					Size: 4,
@@ -1095,7 +1080,7 @@ func (state *FragmentBreakoutGameStateChartSC) Handle(port gosm.Port, message in
 		}
 		if port == BreakoutGameGo_BreakoutGame_pro_game && (true) {
 			return true, true, state, func() {
-				var nextLevellost_log_288 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x07, 0x02 }
+				var nextLevellost_log_288 []byte = []byte{ LogType_message_lost, state.DEBUG_BIN_ID, 0x06, 0x01 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: nextLevellost_log_288,
 					Size: 4,
@@ -1117,7 +1102,7 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) OnEntry() {
 		Xsize: xsize_172,
 		Ysize: ysize_173,
 	})
-	var createsent_log_174 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0D, byte(xsize_172), byte(ysize_173) }
+	var createsent_log_174 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0C, byte(xsize_172), byte(ysize_173) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: createsent_log_174,
 		Size: 6,
@@ -1128,13 +1113,13 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) Handle(port gosm.Port, m
 	case FragmentDisplayMsgsMsgdisplayReady:
 		if port == BreakoutGameGo_BreakoutGame_display {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateLAUNCH, func() {
-				var displayReadyhandled_log_275 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x02, 0x10, 0x01, 0x02 }
+				var displayReadyhandled_log_275 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: displayReadyhandled_log_275,
 					Size: 6,
 				})
 				state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgclear{})
-				var clearsent_log_175 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x06 }
+				var clearsent_log_175 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x05 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: clearsent_log_175,
 					Size: 4,
@@ -1148,7 +1133,7 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) Handle(port gosm.Port, m
 					G: g_177,
 					B: b_178,
 				})
-				var setColorsent_log_179 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_176), byte(g_177), byte(b_178) }
+				var setColorsent_log_179 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_176), byte(g_177), byte(b_178) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: setColorsent_log_179,
 					Size: 7,
@@ -1163,7 +1148,7 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) Handle(port gosm.Port, m
 					Width: width_182,
 					Height: height_183,
 				})
-				var fillRectsent_log_184 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_180), byte(y_181), byte(width_182), byte(height_183) }
+				var fillRectsent_log_184 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_180), byte(y_181), byte(width_182), byte(height_183) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: fillRectsent_log_184,
 					Size: 8,
@@ -1176,7 +1161,7 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) Handle(port gosm.Port, m
 					G: g_186,
 					B: b_187,
 				})
-				var setColorsent_log_188 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_185), byte(g_186), byte(b_187) }
+				var setColorsent_log_188 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_185), byte(g_186), byte(b_187) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: setColorsent_log_188,
 					Size: 7,
@@ -1191,7 +1176,7 @@ func (state *FragmentBreakoutGameStateChartSCStateINIT) Handle(port gosm.Port, m
 					Width: width_191,
 					Height: height_192,
 				})
-				var fillRectsent_log_193 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_189), byte(y_190), byte(width_191), byte(height_192) }
+				var fillRectsent_log_193 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_189), byte(y_190), byte(width_191), byte(height_192) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: fillRectsent_log_193,
 					Size: 8,
@@ -1213,15 +1198,14 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) OnEntry() {
 		Id: id_194,
 		Time: time_195,
 	})
-	var timer_startsent_log_196 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_194), byte((((time_195 >> 8) & 0xFF))), byte((((time_195 >> 0) & 0xFF))) }
+	var timer_startsent_log_196 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_194), byte((((time_195 >> 8) & 0xFF))), byte((((time_195 >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: timer_startsent_log_196,
 		Size: 7,
 	})
 	var old_countdown_26 uint8 = state.countdown
 	state.countdown = 3
-	var new_countdown_26 uint8 = state.countdown
-	var countdown_log_26 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1E, byte(old_countdown_26), byte(new_countdown_26) }
+	var countdown_log_26 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1E, byte(old_countdown_26), byte(state.countdown) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: countdown_log_26,
 		Size: 5,
@@ -1229,7 +1213,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) OnEntry() {
 	state.drawScore()
 	state.drawLives()
 	state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-	var updatesent_log_197 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+	var updatesent_log_197 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: updatesent_log_197,
 		Size: 4,
@@ -1240,7 +1224,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 	case FragmentTimerMsgsMsgtimer_timeout:
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0 && state.countdown > 0) {
 			return true, true, state, func() {
-				var timer_timeouthandled_log_278 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x02, 0x00, byte(t.Id) }
+				var timer_timeouthandled_log_278 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x02, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_278,
 					Size: 7,
@@ -1251,7 +1235,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 					Id: id_198,
 					Time: time_199,
 				})
-				var timer_startsent_log_200 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_198), byte((((time_199 >> 8) & 0xFF))), byte((((time_199 >> 0) & 0xFF))) }
+				var timer_startsent_log_200 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_198), byte((((time_199 >> 8) & 0xFF))), byte((((time_199 >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_startsent_log_200,
 					Size: 7,
@@ -1262,14 +1246,13 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 				}
 				var old_countdown_27 uint8 = state.countdown
 				state.countdown = state.countdown - 1
-				var new_countdown_27 uint8 = state.countdown
-				var countdown_log_27 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1E, byte(old_countdown_27), byte(new_countdown_27) }
+				var countdown_log_27 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1E, byte(old_countdown_27), byte(state.countdown) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: countdown_log_27,
 					Size: 5,
 				})
 				state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-				var updatesent_log_201 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+				var updatesent_log_201 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: updatesent_log_201,
 					Size: 4,
@@ -1278,7 +1261,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 		}
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0 && state.countdown == 0) {
 			return true, false, state.FragmentBreakoutGameStateChartSCStatePLAY, func() {
-				var timer_timeouthandled_log_277 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x02, 0x03, byte(t.Id) }
+				var timer_timeouthandled_log_277 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x03, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_277,
 					Size: 7,
@@ -1286,7 +1269,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLAUNCH) Handle(port gosm.Port,
 				state.drawCountDown(0)
 				state.resetBall()
 				state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-				var updatesent_log_202 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+				var updatesent_log_202 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: updatesent_log_202,
 					Size: 4,
@@ -1305,7 +1288,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) OnEntry() {
 		Id: id_203,
 		Time: time_204,
 	})
-	var timer_startsent_log_205 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_203), byte((((time_204 >> 8) & 0xFF))), byte((((time_204 >> 0) & 0xFF))) }
+	var timer_startsent_log_205 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_203), byte((((time_204 >> 8) & 0xFF))), byte((((time_204 >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: timer_startsent_log_205,
 		Size: 7,
@@ -1316,23 +1299,21 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 	case FragmentTimerMsgsMsgtimer_timeout:
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0) {
 			return true, true, state, func() {
-				var timer_timeouthandled_log_279 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x03, 0x00, byte(t.Id) }
+				var timer_timeouthandled_log_279 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x04, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_279,
 					Size: 7,
 				})
 				var old_bx_22 int16 = state.bx
 				state.bx = state.bx + state.dx
-				var new_bx_22 int16 = state.bx
-				var bx_log_22 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_22 >> 8) & 0xFF))), byte((((old_bx_22 >> 0) & 0xFF))), byte((((new_bx_22 >> 8) & 0xFF))), byte((((new_bx_22 >> 0) & 0xFF))) }
+				var bx_log_22 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_22 >> 8) & 0xFF))), byte((((old_bx_22 >> 0) & 0xFF))), byte((((state.bx >> 8) & 0xFF))), byte((((state.bx >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: bx_log_22,
 					Size: 7,
 				})
 				var old_by_29 int16 = state.by
 				state.by = state.by + state.dy
-				var new_by_29 int16 = state.by
-				var by_log_29 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_29 >> 8) & 0xFF))), byte((((old_by_29 >> 0) & 0xFF))), byte((((new_by_29 >> 8) & 0xFF))), byte((((new_by_29 >> 0) & 0xFF))) }
+				var by_log_29 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_29 >> 8) & 0xFF))), byte((((old_by_29 >> 0) & 0xFF))), byte((((state.by >> 8) & 0xFF))), byte((((state.by >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: by_log_29,
 					Size: 7,
@@ -1344,16 +1325,14 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				if state.bx < wl {
 					var old_dx_2 int16 = state.dx
 					state.dx =  -(state.dx)
-					var new_dx_2 int16 = state.dx
-					var dx_log_2 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_2 >> 8) & 0xFF))), byte((((old_dx_2 >> 0) & 0xFF))), byte((((new_dx_2 >> 8) & 0xFF))), byte((((new_dx_2 >> 0) & 0xFF))) }
+					var dx_log_2 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_2 >> 8) & 0xFF))), byte((((old_dx_2 >> 0) & 0xFF))), byte((((state.dx >> 8) & 0xFF))), byte((((state.dx >> 0) & 0xFF))) }
 					state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 						Payload: dx_log_2,
 						Size: 7,
 					})
 					var old_bx_23 int16 = state.bx
 					state.bx = 2 * wl - state.bx
-					var new_bx_23 int16 = state.bx
-					var bx_log_23 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_23 >> 8) & 0xFF))), byte((((old_bx_23 >> 0) & 0xFF))), byte((((new_bx_23 >> 8) & 0xFF))), byte((((new_bx_23 >> 0) & 0xFF))) }
+					var bx_log_23 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_23 >> 8) & 0xFF))), byte((((old_bx_23 >> 0) & 0xFF))), byte((((state.bx >> 8) & 0xFF))), byte((((state.bx >> 0) & 0xFF))) }
 					state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 						Payload: bx_log_23,
 						Size: 7,
@@ -1363,16 +1342,14 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 					if state.bx > wr {
 						var old_dx_3 int16 = state.dx
 						state.dx =  -(state.dx)
-						var new_dx_3 int16 = state.dx
-						var dx_log_3 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_3 >> 8) & 0xFF))), byte((((old_dx_3 >> 0) & 0xFF))), byte((((new_dx_3 >> 8) & 0xFF))), byte((((new_dx_3 >> 0) & 0xFF))) }
+						var dx_log_3 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_3 >> 8) & 0xFF))), byte((((old_dx_3 >> 0) & 0xFF))), byte((((state.dx >> 8) & 0xFF))), byte((((state.dx >> 0) & 0xFF))) }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: dx_log_3,
 							Size: 7,
 						})
 						var old_bx_24 int16 = state.bx
 						state.bx = 2 * wr - state.bx
-						var new_bx_24 int16 = state.bx
-						var bx_log_24 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_24 >> 8) & 0xFF))), byte((((old_bx_24 >> 0) & 0xFF))), byte((((new_bx_24 >> 8) & 0xFF))), byte((((new_bx_24 >> 0) & 0xFF))) }
+						var bx_log_24 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0A, byte((((old_bx_24 >> 8) & 0xFF))), byte((((old_bx_24 >> 0) & 0xFF))), byte((((state.bx >> 8) & 0xFF))), byte((((state.bx >> 0) & 0xFF))) }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: bx_log_24,
 							Size: 7,
@@ -1383,16 +1360,14 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				if state.by < wt {
 					var old_dy_6 int16 = state.dy
 					state.dy =  -(state.dy)
-					var new_dy_6 int16 = state.dy
-					var dy_log_6 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_6 >> 8) & 0xFF))), byte((((old_dy_6 >> 0) & 0xFF))), byte((((new_dy_6 >> 8) & 0xFF))), byte((((new_dy_6 >> 0) & 0xFF))) }
+					var dy_log_6 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_6 >> 8) & 0xFF))), byte((((old_dy_6 >> 0) & 0xFF))), byte((((state.dy >> 8) & 0xFF))), byte((((state.dy >> 0) & 0xFF))) }
 					state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 						Payload: dy_log_6,
 						Size: 7,
 					})
 					var old_by_30 int16 = state.by
 					state.by = 2 * wt - state.by
-					var new_by_30 int16 = state.by
-					var by_log_30 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_30 >> 8) & 0xFF))), byte((((old_by_30 >> 0) & 0xFF))), byte((((new_by_30 >> 8) & 0xFF))), byte((((new_by_30 >> 0) & 0xFF))) }
+					var by_log_30 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_30 >> 8) & 0xFF))), byte((((old_by_30 >> 0) & 0xFF))), byte((((state.by >> 8) & 0xFF))), byte((((state.by >> 0) & 0xFF))) }
 					state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 						Payload: by_log_30,
 						Size: 7,
@@ -1401,13 +1376,13 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				} else {
 					if state.by > wb {
 						state.Send(BreakoutGameGo_BreakoutGame_game, FragmentBreakoutGameMsglostBall{})
-						var lostBallsent_log_206 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x05, 0x01 }
+						var lostBallsent_log_206 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x04, 0x00 }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: lostBallsent_log_206,
 							Size: 4,
 						})
 						state.Send(BreakoutGameGo_BreakoutGame_req_game, FragmentBreakoutGameMsglostBall{})
-						var lostBallsent_log_207 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x06, 0x01 }
+						var lostBallsent_log_207 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x05, 0x00 }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: lostBallsent_log_207,
 							Size: 4,
@@ -1419,24 +1394,21 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 						if state.bx > state.padx - state.padlen / 2 && state.bx < state.padx + state.padlen / 2 {
 							var old_dy_7 int16 = state.dy
 							state.dy =  -(state.dy)
-							var new_dy_7 int16 = state.dy
-							var dy_log_7 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_7 >> 8) & 0xFF))), byte((((old_dy_7 >> 0) & 0xFF))), byte((((new_dy_7 >> 8) & 0xFF))), byte((((new_dy_7 >> 0) & 0xFF))) }
+							var dy_log_7 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_7 >> 8) & 0xFF))), byte((((old_dy_7 >> 0) & 0xFF))), byte((((state.dy >> 8) & 0xFF))), byte((((state.dy >> 0) & 0xFF))) }
 							state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 								Payload: dy_log_7,
 								Size: 7,
 							})
 							var old_by_31 int16 = state.by
 							state.by = 2 * (state.pady - state.br) - state.by
-							var new_by_31 int16 = state.by
-							var by_log_31 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_31 >> 8) & 0xFF))), byte((((old_by_31 >> 0) & 0xFF))), byte((((new_by_31 >> 8) & 0xFF))), byte((((new_by_31 >> 0) & 0xFF))) }
+							var by_log_31 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0B, byte((((old_by_31 >> 8) & 0xFF))), byte((((old_by_31 >> 0) & 0xFF))), byte((((state.by >> 8) & 0xFF))), byte((((state.by >> 0) & 0xFF))) }
 							state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 								Payload: by_log_31,
 								Size: 7,
 							})
 							var old_dx_4 int16 = state.dx
 							state.dx = state.dx / 4 + (state.bx - state.padx) / 4
-							var new_dx_4 int16 = state.dx
-							var dx_log_4 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_4 >> 8) & 0xFF))), byte((((old_dx_4 >> 0) & 0xFF))), byte((((new_dx_4 >> 8) & 0xFF))), byte((((new_dx_4 >> 0) & 0xFF))) }
+							var dx_log_4 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0C, byte((((old_dx_4 >> 8) & 0xFF))), byte((((old_dx_4 >> 0) & 0xFF))), byte((((state.dx >> 8) & 0xFF))), byte((((state.dx >> 0) & 0xFF))) }
 							state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 								Payload: dx_log_4,
 								Size: 7,
@@ -1448,8 +1420,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				if collision {
 					var old_dy_8 int16 = state.dy
 					state.dy =  -(state.dy)
-					var new_dy_8 int16 = state.dy
-					var dy_log_8 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_8 >> 8) & 0xFF))), byte((((old_dy_8 >> 0) & 0xFF))), byte((((new_dy_8 >> 8) & 0xFF))), byte((((new_dy_8 >> 0) & 0xFF))) }
+					var dy_log_8 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_8 >> 8) & 0xFF))), byte((((old_dy_8 >> 0) & 0xFF))), byte((((state.dy >> 8) & 0xFF))), byte((((state.dy >> 0) & 0xFF))) }
 					state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 						Payload: dy_log_8,
 						Size: 7,
@@ -1457,13 +1428,13 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 					state.incrementScore(10)
 					if state.bricksLeft() == 0 {
 						state.Send(BreakoutGameGo_BreakoutGame_game, FragmentBreakoutGameMsgnextLevel{})
-						var nextLevelsent_log_208 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x05, 0x02 }
+						var nextLevelsent_log_208 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x04, 0x01 }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: nextLevelsent_log_208,
 							Size: 4,
 						})
 						state.Send(BreakoutGameGo_BreakoutGame_req_game, FragmentBreakoutGameMsgnextLevel{})
-						var nextLevelsent_log_209 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x06, 0x02 }
+						var nextLevelsent_log_209 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x05, 0x01 }
 						state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 							Payload: nextLevelsent_log_209,
 							Size: 4,
@@ -1482,13 +1453,13 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 					Padx: padx_212,
 					Pady: pady_213,
 				})
-				var updateIAsent_log_214 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x04, 0x13, byte((((ballx_210 >> 8) & 0xFF))), byte((((ballx_210 >> 0) & 0xFF))), byte((((bally_211 >> 8) & 0xFF))), byte((((bally_211 >> 0) & 0xFF))), byte((((padx_212 >> 8) & 0xFF))), byte((((padx_212 >> 0) & 0xFF))), byte((((pady_213 >> 8) & 0xFF))), byte((((pady_213 >> 0) & 0xFF))) }
+				var updateIAsent_log_214 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x03, 0x12, byte((((ballx_210 >> 8) & 0xFF))), byte((((ballx_210 >> 0) & 0xFF))), byte((((bally_211 >> 8) & 0xFF))), byte((((bally_211 >> 0) & 0xFF))), byte((((padx_212 >> 8) & 0xFF))), byte((((padx_212 >> 0) & 0xFF))), byte((((pady_213 >> 8) & 0xFF))), byte((((pady_213 >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: updateIAsent_log_214,
 					Size: 12,
 				})
 				state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-				var updatesent_log_215 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+				var updatesent_log_215 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: updatesent_log_215,
 					Size: 4,
@@ -1500,7 +1471,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 					Id: id_216,
 					Time: time_217,
 				})
-				var timer_startsent_log_218 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_216), byte((((time_217 >> 8) & 0xFF))), byte((((time_217 >> 0) & 0xFF))) }
+				var timer_startsent_log_218 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_216), byte((((time_217 >> 8) & 0xFF))), byte((((time_217 >> 0) & 0xFF))) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_startsent_log_218,
 					Size: 7,
@@ -1510,7 +1481,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 	case FragmentBreakoutGameMsglostBall:
 		if port == BreakoutGameGo_BreakoutGame_game {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateLOSTBALL, func() {
-				var lostBallhandled_log_273 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x05, 0x01, 0x03, 0x04 }
+				var lostBallhandled_log_273 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x05 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: lostBallhandled_log_273,
 					Size: 6,
@@ -1519,7 +1490,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				state.Send(BreakoutGameGo_BreakoutGame_clock, FragmentTimerMsgsMsgtimer_cancel{
 					Id: id_219,
 				})
-				var timer_cancelsent_log_220 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x15, byte(id_219) }
+				var timer_cancelsent_log_220 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x14, byte(id_219) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_cancelsent_log_220,
 					Size: 5,
@@ -1528,7 +1499,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 		}
 		if port == BreakoutGameGo_BreakoutGame_pro_game {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateLOSTBALL, func() {
-				var lostBallhandled_log_271 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x07, 0x01, 0x03, 0x04 }
+				var lostBallhandled_log_271 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x07 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: lostBallhandled_log_271,
 					Size: 6,
@@ -1537,7 +1508,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				state.Send(BreakoutGameGo_BreakoutGame_clock, FragmentTimerMsgsMsgtimer_cancel{
 					Id: id_223,
 				})
-				var timer_cancelsent_log_224 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x15, byte(id_223) }
+				var timer_cancelsent_log_224 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x14, byte(id_223) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_cancelsent_log_224,
 					Size: 5,
@@ -1547,7 +1518,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 	case FragmentBreakoutGameMsgnextLevel:
 		if port == BreakoutGameGo_BreakoutGame_game {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateNEXTLEVEL, func() {
-				var nextLevelhandled_log_274 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x05, 0x02, 0x03, 0x05 }
+				var nextLevelhandled_log_274 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x06 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: nextLevelhandled_log_274,
 					Size: 6,
@@ -1556,7 +1527,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				state.Send(BreakoutGameGo_BreakoutGame_clock, FragmentTimerMsgsMsgtimer_cancel{
 					Id: id_221,
 				})
-				var timer_cancelsent_log_222 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x15, byte(id_221) }
+				var timer_cancelsent_log_222 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x14, byte(id_221) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_cancelsent_log_222,
 					Size: 5,
@@ -1565,7 +1536,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 		}
 		if port == BreakoutGameGo_BreakoutGame_pro_game {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateNEXTLEVEL, func() {
-				var nextLevelhandled_log_272 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x07, 0x02, 0x03, 0x05 }
+				var nextLevelhandled_log_272 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x08 }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: nextLevelhandled_log_272,
 					Size: 6,
@@ -1574,7 +1545,7 @@ func (state *FragmentBreakoutGameStateChartSCStatePLAY) Handle(port gosm.Port, m
 				state.Send(BreakoutGameGo_BreakoutGame_clock, FragmentTimerMsgsMsgtimer_cancel{
 					Id: id_225,
 				})
-				var timer_cancelsent_log_226 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x15, byte(id_225) }
+				var timer_cancelsent_log_226 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x14, byte(id_225) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_cancelsent_log_226,
 					Size: 5,
@@ -1593,15 +1564,14 @@ func (state *FragmentBreakoutGameStateChartSCStateLOSTBALL) OnEntry() {
 		Id: id_227,
 		Time: time_228,
 	})
-	var timer_startsent_log_229 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_227), byte((((time_228 >> 8) & 0xFF))), byte((((time_228 >> 0) & 0xFF))) }
+	var timer_startsent_log_229 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_227), byte((((time_228 >> 8) & 0xFF))), byte((((time_228 >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: timer_startsent_log_229,
 		Size: 7,
 	})
 	var old_lives_12 uint8 = state.lives
 	state.lives = state.lives - 1
-	var new_lives_12 uint8 = state.lives
-	var lives_log_12 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1C, byte(old_lives_12), byte(new_lives_12) }
+	var lives_log_12 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1C, byte(old_lives_12), byte(state.lives) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: lives_log_12,
 		Size: 5,
@@ -1610,7 +1580,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLOSTBALL) OnEntry() {
 	state.erasePad()
 	state.drawLives()
 	state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-	var updatesent_log_230 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+	var updatesent_log_230 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: updatesent_log_230,
 		Size: 4,
@@ -1622,7 +1592,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLOSTBALL) Handle(port gosm.Por
 	case FragmentTimerMsgsMsgtimer_timeout:
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0 && state.lives > 0) {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateLAUNCH, func() {
-				var timer_timeouthandled_log_280 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x04, 0x02, byte(t.Id) }
+				var timer_timeouthandled_log_280 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x09, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_280,
 					Size: 7,
@@ -1631,7 +1601,7 @@ func (state *FragmentBreakoutGameStateChartSCStateLOSTBALL) Handle(port gosm.Por
 		}
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0 && state.lives == 0) {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateGAMEOVER, func() {
-				var timer_timeouthandled_log_281 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x04, 0x06, byte(t.Id) }
+				var timer_timeouthandled_log_281 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x0A, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_281,
 					Size: 7,
@@ -1650,15 +1620,14 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) OnEntry() {
 		Id: id_231,
 		Time: time_232,
 	})
-	var timer_startsent_log_233 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x14, byte(id_231), byte((((time_232 >> 8) & 0xFF))), byte((((time_232 >> 0) & 0xFF))) }
+	var timer_startsent_log_233 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x00, 0x13, byte(id_231), byte((((time_232 >> 8) & 0xFF))), byte((((time_232 >> 0) & 0xFF))) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: timer_startsent_log_233,
 		Size: 7,
 	})
 	var old_level_16 uint8 = state.level
 	state.level = state.level + 1
-	var new_level_16 uint8 = state.level
-	var level_log_16 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1D, byte(old_level_16), byte(new_level_16) }
+	var level_log_16 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x1D, byte(old_level_16), byte(state.level) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: level_log_16,
 		Size: 5,
@@ -1669,8 +1638,7 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) OnEntry() {
 	if (state.level % 2) == 0 && state.padlen > 5 * state.SCALE {
 		var old_padlen_20 int16 = state.padlen
 		state.padlen = state.padlen - (4 * state.SCALE)
-		var new_padlen_20 int16 = state.padlen
-		var padlen_log_20 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x10, byte((((old_padlen_20 >> 8) & 0xFF))), byte((((old_padlen_20 >> 0) & 0xFF))), byte((((new_padlen_20 >> 8) & 0xFF))), byte((((new_padlen_20 >> 0) & 0xFF))) }
+		var padlen_log_20 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x10, byte((((old_padlen_20 >> 8) & 0xFF))), byte((((old_padlen_20 >> 0) & 0xFF))), byte((((state.padlen >> 8) & 0xFF))), byte((((state.padlen >> 0) & 0xFF))) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: padlen_log_20,
 			Size: 7,
@@ -1679,8 +1647,7 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) OnEntry() {
 	if (state.level % 2) == 1 {
 		var old_dy_9 int16 = state.dy
 		state.dy = (state.dy * 3) / 2
-		var new_dy_9 int16 = state.dy
-		var dy_log_9 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_9 >> 8) & 0xFF))), byte((((old_dy_9 >> 0) & 0xFF))), byte((((new_dy_9 >> 8) & 0xFF))), byte((((new_dy_9 >> 0) & 0xFF))) }
+		var dy_log_9 []byte = []byte{ LogType_property_changed, state.DEBUG_BIN_ID, 0x0D, byte((((old_dy_9 >> 8) & 0xFF))), byte((((old_dy_9 >> 0) & 0xFF))), byte((((state.dy >> 8) & 0xFF))), byte((((state.dy >> 0) & 0xFF))) }
 		state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 			Payload: dy_log_9,
 			Size: 7,
@@ -1689,7 +1656,7 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) OnEntry() {
 	state.drawLives()
 	state.createBricks()
 	state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-	var updatesent_log_234 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+	var updatesent_log_234 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: updatesent_log_234,
 		Size: 4,
@@ -1700,7 +1667,7 @@ func (state *FragmentBreakoutGameStateChartSCStateNEXTLEVEL) Handle(port gosm.Po
 	case FragmentTimerMsgsMsgtimer_timeout:
 		if t := typedMessage; port == BreakoutGameGo_BreakoutGame_clock && (t.Id == 0) {
 			return true, false, state.FragmentBreakoutGameStateChartSCStateLAUNCH, func() {
-				var timer_timeouthandled_log_276 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x01, 0x16, 0x05, 0x02, byte(t.Id) }
+				var timer_timeouthandled_log_276 []byte = []byte{ LogType_message_handled, state.DEBUG_BIN_ID, 0x0B, byte(t.Id) }
 				state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 					Payload: timer_timeouthandled_log_276,
 					Size: 7,
@@ -1723,7 +1690,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		G: g_236,
 		B: b_237,
 	})
-	var setColorsent_log_238 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_235), byte(g_236), byte(b_237) }
+	var setColorsent_log_238 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_235), byte(g_236), byte(b_237) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_238,
 		Size: 7,
@@ -1738,7 +1705,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		Width: width_241,
 		Height: height_242,
 	})
-	var fillRectsent_log_243 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_239), byte(y_240), byte(width_241), byte(height_242) }
+	var fillRectsent_log_243 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_239), byte(y_240), byte(width_241), byte(height_242) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_243,
 		Size: 8,
@@ -1751,7 +1718,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		G: g_245,
 		B: b_246,
 	})
-	var setColorsent_log_247 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_244), byte(g_245), byte(b_246) }
+	var setColorsent_log_247 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_244), byte(g_245), byte(b_246) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_247,
 		Size: 7,
@@ -1766,7 +1733,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		Width: width_250,
 		Height: height_251,
 	})
-	var fillRectsent_log_252 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0A, byte(x_248), byte(y_249), byte(width_250), byte(height_251) }
+	var fillRectsent_log_252 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x09, byte(x_248), byte(y_249), byte(width_250), byte(height_251) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: fillRectsent_log_252,
 		Size: 8,
@@ -1779,7 +1746,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		G: g_254,
 		B: b_255,
 	})
-	var setBGColorsent_log_256 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x08, byte(r_253), byte(g_254), byte(b_255) }
+	var setBGColorsent_log_256 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x07, byte(r_253), byte(g_254), byte(b_255) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setBGColorsent_log_256,
 		Size: 7,
@@ -1792,7 +1759,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		G: g_258,
 		B: b_259,
 	})
-	var setColorsent_log_260 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x07, byte(r_257), byte(g_258), byte(b_259) }
+	var setColorsent_log_260 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x06, byte(r_257), byte(g_258), byte(b_259) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: setColorsent_log_260,
 		Size: 7,
@@ -1809,7 +1776,7 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		Digits: digits_264,
 		Scale: scale_265,
 	})
-	var drawIntegersent_log_266 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0B, byte(x_261), byte(y_262), byte((((v_263 >> 8) & 0xFF))), byte((((v_263 >> 0) & 0xFF))), byte(digits_264), byte(scale_265) }
+	var drawIntegersent_log_266 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0A, byte(x_261), byte(y_262), byte((((v_263 >> 8) & 0xFF))), byte((((v_263 >> 0) & 0xFF))), byte(digits_264), byte(scale_265) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawIntegersent_log_266,
 		Size: 10,
@@ -1820,13 +1787,13 @@ func (state *FragmentBreakoutGameStateChartSCStateGAMEOVER) OnEntry() {
 		X: x_267,
 		Y: y_268,
 	})
-	var drawThingMLsent_log_269 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0C, byte(x_267), byte(y_268) }
+	var drawThingMLsent_log_269 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0B, byte(x_267), byte(y_268) }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: drawThingMLsent_log_269,
 		Size: 6,
 	})
 	state.Send(BreakoutGameGo_BreakoutGame_display, FragmentDisplayMsgsMsgupdate{})
-	var updatesent_log_270 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x02, 0x0F }
+	var updatesent_log_270 []byte = []byte{ LogType_message_sent, state.DEBUG_BIN_ID, 0x01, 0x0E }
 	state.Send(BreakoutGameGo_WithBinaryLog_log, FragmentLogMsgsMsglog{
 		Payload: updatesent_log_270,
 		Size: 4,

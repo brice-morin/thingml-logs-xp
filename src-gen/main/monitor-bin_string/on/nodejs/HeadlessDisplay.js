@@ -35,9 +35,19 @@ HeadlessDisplay.prototype.build = function(session) {
 	}).effect((drawInteger) => {
 		this.mock();
 	});
+	HeadlessDisplay_null_MOCK.on(Event.DrawThingML).when((drawThingML) => {
+		return drawThingML.port === 'display' && drawThingML.type === 'drawThingML';
+	}).effect((drawThingML) => {
+		this.mock();
+	});
 	HeadlessDisplay_null_MOCK.on(Event.SetBGColor).when((setBGColor) => {
 		return setBGColor.port === 'display' && setBGColor.type === 'setBGColor';
 	}).effect((setBGColor) => {
+		this.mock();
+	});
+	HeadlessDisplay_null_MOCK.on(Event.DrawRect).when((drawRect) => {
+		return drawRect.port === 'display' && drawRect.type === 'drawRect';
+	}).effect((drawRect) => {
 		this.mock();
 	});
 	HeadlessDisplay_null_MOCK.on(Event.Create).when((create) => {
@@ -50,16 +60,6 @@ HeadlessDisplay.prototype.build = function(session) {
 	}).effect((clear) => {
 		this.mock();
 	});
-	HeadlessDisplay_null_MOCK.on(Event.Destroy).when((destroy) => {
-		return destroy.port === 'display' && destroy.type === 'destroy';
-	}).effect((destroy) => {
-		this.mock();
-	});
-	HeadlessDisplay_null_MOCK.on(Event.Update).when((update) => {
-		return update.port === 'display' && update.type === 'update';
-	}).effect((update) => {
-		this.mock();
-	});
 	HeadlessDisplay_null_MOCK.on(Event.SetColor).when((setColor) => {
 		return setColor.port === 'display' && setColor.type === 'setColor';
 	}).effect((setColor) => {
@@ -70,14 +70,14 @@ HeadlessDisplay.prototype.build = function(session) {
 	}).effect((fillRect) => {
 		this.mock();
 	});
-	HeadlessDisplay_null_MOCK.on(Event.DrawRect).when((drawRect) => {
-		return drawRect.port === 'display' && drawRect.type === 'drawRect';
-	}).effect((drawRect) => {
+	HeadlessDisplay_null_MOCK.on(Event.Update).when((update) => {
+		return update.port === 'display' && update.type === 'update';
+	}).effect((update) => {
 		this.mock();
 	});
-	HeadlessDisplay_null_MOCK.on(Event.DrawThingML).when((drawThingML) => {
-		return drawThingML.port === 'display' && drawThingML.type === 'drawThingML';
-	}).effect((drawThingML) => {
+	HeadlessDisplay_null_MOCK.on(Event.Destroy).when((destroy) => {
+		return destroy.port === 'display' && destroy.type === 'destroy';
+	}).effect((destroy) => {
 		this.mock();
 	});
 }

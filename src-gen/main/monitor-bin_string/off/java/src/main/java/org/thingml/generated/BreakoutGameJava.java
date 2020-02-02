@@ -176,43 +176,43 @@ req_game_port.send(nextLevelType.instantiate());
 }
 
 //Attributes
-private int BreakoutGame_BRICK_HEIGHT_var;
-private boolean BreakoutGame_QUIET_var;
-private int BreakoutGame_bx_var;
-private int BreakoutGame_dy_var;
-private int BreakoutGame_XMAX_var;
-private int BreakoutGame_padlen_var;
-private int BreakoutGame_prevBY_var;
-private long BreakoutGame_startTime_var;
-private int BreakoutGame_XDISPSIZE_var;
-private int BreakoutGame_prevPY_var;
-private int BreakoutGame_pady_var;
-private int BreakoutGame_BRICK_ROWS_var;
-private int[] BreakoutGame_fgcolor_var;
-private int BreakoutGame_YDISPSIZE_var;
-private int[] BreakoutGame_bgcolor_var;
 private int BreakoutGame_counter_var;
-private int BreakoutGame_SCALE_var;
-private int BreakoutGame_RIGHT_var;
-private long BreakoutGame_stopTime_var;
-private int BreakoutGame_prevBX_var;
-private int BreakoutGame_TOP_var;
-private int BreakoutGame_SC_LAUNCH_countdown_var;
-private int BreakoutGame_prevPX_var;
-private int BreakoutGame_score_var;
+private boolean BreakoutGame_QUIET_var;
 private int BreakoutGame_level_var;
-private int BreakoutGame_YMAX_var;
-private int BreakoutGame_lives_var;
-private int BreakoutGame_period_var;
-private int BreakoutGame_BOTTOM_var;
+private int BreakoutGame_SC_LAUNCH_countdown_var;
 private byte WithBinaryLog_DEBUG_BIN_ID_var;
+private int BreakoutGame_YDISPSIZE_var;
+private int BreakoutGame_prevBY_var;
+private int BreakoutGame_TOP_var;
+private int BreakoutGame_YMAX_var;
+private int BreakoutGame_score_var;
+private int BreakoutGame_BOTTOM_var;
+private int BreakoutGame_dy_var;
+private int BreakoutGame_RIGHT_var;
+private int BreakoutGame_bx_var;
+private int BreakoutGame_SCALE_var;
+private int BreakoutGame_padlen_var;
 private int BreakoutGame_br_var;
-private int[] BreakoutGame_bricks_var;
-private int BreakoutGame_LEFT_var;
-private long BreakoutGame_lastTimestamp_var;
-private int BreakoutGame_by_var;
-private int BreakoutGame_dx_var;
+private long BreakoutGame_stopTime_var;
+private int BreakoutGame_pady_var;
+private int BreakoutGame_lives_var;
 private int BreakoutGame_padx_var;
+private int BreakoutGame_by_var;
+private int BreakoutGame_BRICK_HEIGHT_var;
+private int BreakoutGame_dx_var;
+private int BreakoutGame_period_var;
+private long BreakoutGame_startTime_var;
+private int BreakoutGame_prevBX_var;
+private int[] BreakoutGame_bgcolor_var;
+private int[] BreakoutGame_fgcolor_var;
+private int BreakoutGame_XMAX_var;
+private int BreakoutGame_prevPX_var;
+private int BreakoutGame_LEFT_var;
+private int[] BreakoutGame_bricks_var;
+private int BreakoutGame_prevPY_var;
+private long BreakoutGame_lastTimestamp_var;
+private int BreakoutGame_XDISPSIZE_var;
+private int BreakoutGame_BRICK_ROWS_var;
 //Ports
 private Port log_port;
 private Port clock_port;
@@ -251,177 +251,6 @@ super();
 }
 
 //Getters and Setters for non readonly/final attributes
-public int getBreakoutGame_BRICK_HEIGHT_var() {
-return BreakoutGame_BRICK_HEIGHT_var;
-}
-
-public BreakoutGameJava initBreakoutGame_BRICK_HEIGHT_var(int BreakoutGame_BRICK_HEIGHT_var) {
-this.BreakoutGame_BRICK_HEIGHT_var = BreakoutGame_BRICK_HEIGHT_var;
-return this;
-}
-
-public boolean getBreakoutGame_QUIET_var() {
-return BreakoutGame_QUIET_var;
-}
-
-public BreakoutGameJava initBreakoutGame_QUIET_var(boolean BreakoutGame_QUIET_var) {
-this.BreakoutGame_QUIET_var = BreakoutGame_QUIET_var;
-return this;
-}
-
-public int getBreakoutGame_bx_var() {
-return BreakoutGame_bx_var;
-}
-
-public void setBreakoutGame_bx_var(int BreakoutGame_bx_var) {
-this.BreakoutGame_bx_var = BreakoutGame_bx_var;
-}
-
-public BreakoutGameJava initBreakoutGame_bx_var(int BreakoutGame_bx_var) {
-this.BreakoutGame_bx_var = BreakoutGame_bx_var;
-return this;
-}
-
-public int getBreakoutGame_dy_var() {
-return BreakoutGame_dy_var;
-}
-
-public void setBreakoutGame_dy_var(int BreakoutGame_dy_var) {
-this.BreakoutGame_dy_var = BreakoutGame_dy_var;
-}
-
-public BreakoutGameJava initBreakoutGame_dy_var(int BreakoutGame_dy_var) {
-this.BreakoutGame_dy_var = BreakoutGame_dy_var;
-return this;
-}
-
-public int getBreakoutGame_XMAX_var() {
-return BreakoutGame_XMAX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_XMAX_var(int BreakoutGame_XMAX_var) {
-this.BreakoutGame_XMAX_var = BreakoutGame_XMAX_var;
-return this;
-}
-
-public int getBreakoutGame_padlen_var() {
-return BreakoutGame_padlen_var;
-}
-
-public void setBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
-this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
-}
-
-public BreakoutGameJava initBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
-this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
-return this;
-}
-
-public int getBreakoutGame_prevBY_var() {
-return BreakoutGame_prevBY_var;
-}
-
-public void setBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
-this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
-this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
-return this;
-}
-
-public long getBreakoutGame_startTime_var() {
-return BreakoutGame_startTime_var;
-}
-
-public void setBreakoutGame_startTime_var(long BreakoutGame_startTime_var) {
-this.BreakoutGame_startTime_var = BreakoutGame_startTime_var;
-}
-
-public BreakoutGameJava initBreakoutGame_startTime_var(long BreakoutGame_startTime_var) {
-this.BreakoutGame_startTime_var = BreakoutGame_startTime_var;
-return this;
-}
-
-public int getBreakoutGame_XDISPSIZE_var() {
-return BreakoutGame_XDISPSIZE_var;
-}
-
-public BreakoutGameJava initBreakoutGame_XDISPSIZE_var(int BreakoutGame_XDISPSIZE_var) {
-this.BreakoutGame_XDISPSIZE_var = BreakoutGame_XDISPSIZE_var;
-return this;
-}
-
-public int getBreakoutGame_prevPY_var() {
-return BreakoutGame_prevPY_var;
-}
-
-public void setBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
-this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
-this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
-return this;
-}
-
-public int getBreakoutGame_pady_var() {
-return BreakoutGame_pady_var;
-}
-
-public void setBreakoutGame_pady_var(int BreakoutGame_pady_var) {
-this.BreakoutGame_pady_var = BreakoutGame_pady_var;
-}
-
-public BreakoutGameJava initBreakoutGame_pady_var(int BreakoutGame_pady_var) {
-this.BreakoutGame_pady_var = BreakoutGame_pady_var;
-return this;
-}
-
-public int getBreakoutGame_BRICK_ROWS_var() {
-return BreakoutGame_BRICK_ROWS_var;
-}
-
-public BreakoutGameJava initBreakoutGame_BRICK_ROWS_var(int BreakoutGame_BRICK_ROWS_var) {
-this.BreakoutGame_BRICK_ROWS_var = BreakoutGame_BRICK_ROWS_var;
-return this;
-}
-
-public int[] getBreakoutGame_fgcolor_var() {
-return BreakoutGame_fgcolor_var;
-}
-
-public void setBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
-this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
-}
-
-public BreakoutGameJava initBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
-this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
-return this;
-}
-
-public int getBreakoutGame_YDISPSIZE_var() {
-return BreakoutGame_YDISPSIZE_var;
-}
-
-public BreakoutGameJava initBreakoutGame_YDISPSIZE_var(int BreakoutGame_YDISPSIZE_var) {
-this.BreakoutGame_YDISPSIZE_var = BreakoutGame_YDISPSIZE_var;
-return this;
-}
-
-public int[] getBreakoutGame_bgcolor_var() {
-return BreakoutGame_bgcolor_var;
-}
-
-public void setBreakoutGame_bgcolor_var(int[] BreakoutGame_bgcolor_var) {
-this.BreakoutGame_bgcolor_var = BreakoutGame_bgcolor_var;
-}
-
-public BreakoutGameJava initBreakoutGame_bgcolor_var(int[] BreakoutGame_bgcolor_var) {
-this.BreakoutGame_bgcolor_var = BreakoutGame_bgcolor_var;
-return this;
-}
-
 public int getBreakoutGame_counter_var() {
 return BreakoutGame_counter_var;
 }
@@ -435,95 +264,12 @@ this.BreakoutGame_counter_var = BreakoutGame_counter_var;
 return this;
 }
 
-public int getBreakoutGame_SCALE_var() {
-return BreakoutGame_SCALE_var;
+public boolean getBreakoutGame_QUIET_var() {
+return BreakoutGame_QUIET_var;
 }
 
-public BreakoutGameJava initBreakoutGame_SCALE_var(int BreakoutGame_SCALE_var) {
-this.BreakoutGame_SCALE_var = BreakoutGame_SCALE_var;
-return this;
-}
-
-public int getBreakoutGame_RIGHT_var() {
-return BreakoutGame_RIGHT_var;
-}
-
-public BreakoutGameJava initBreakoutGame_RIGHT_var(int BreakoutGame_RIGHT_var) {
-this.BreakoutGame_RIGHT_var = BreakoutGame_RIGHT_var;
-return this;
-}
-
-public long getBreakoutGame_stopTime_var() {
-return BreakoutGame_stopTime_var;
-}
-
-public void setBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
-this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
-}
-
-public BreakoutGameJava initBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
-this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
-return this;
-}
-
-public int getBreakoutGame_prevBX_var() {
-return BreakoutGame_prevBX_var;
-}
-
-public void setBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
-this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
-this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
-return this;
-}
-
-public int getBreakoutGame_TOP_var() {
-return BreakoutGame_TOP_var;
-}
-
-public BreakoutGameJava initBreakoutGame_TOP_var(int BreakoutGame_TOP_var) {
-this.BreakoutGame_TOP_var = BreakoutGame_TOP_var;
-return this;
-}
-
-public int getBreakoutGame_SC_LAUNCH_countdown_var() {
-return BreakoutGame_SC_LAUNCH_countdown_var;
-}
-
-public void setBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
-this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
-}
-
-public BreakoutGameJava initBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
-this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
-return this;
-}
-
-public int getBreakoutGame_prevPX_var() {
-return BreakoutGame_prevPX_var;
-}
-
-public void setBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
-this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
-}
-
-public BreakoutGameJava initBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
-this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
-return this;
-}
-
-public int getBreakoutGame_score_var() {
-return BreakoutGame_score_var;
-}
-
-public void setBreakoutGame_score_var(int BreakoutGame_score_var) {
-this.BreakoutGame_score_var = BreakoutGame_score_var;
-}
-
-public BreakoutGameJava initBreakoutGame_score_var(int BreakoutGame_score_var) {
-this.BreakoutGame_score_var = BreakoutGame_score_var;
+public BreakoutGameJava initBreakoutGame_QUIET_var(boolean BreakoutGame_QUIET_var) {
+this.BreakoutGame_QUIET_var = BreakoutGame_QUIET_var;
 return this;
 }
 
@@ -540,12 +286,179 @@ this.BreakoutGame_level_var = BreakoutGame_level_var;
 return this;
 }
 
+public int getBreakoutGame_SC_LAUNCH_countdown_var() {
+return BreakoutGame_SC_LAUNCH_countdown_var;
+}
+
+public void setBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
+this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
+}
+
+public BreakoutGameJava initBreakoutGame_SC_LAUNCH_countdown_var(int BreakoutGame_SC_LAUNCH_countdown_var) {
+this.BreakoutGame_SC_LAUNCH_countdown_var = BreakoutGame_SC_LAUNCH_countdown_var;
+return this;
+}
+
+public byte getWithBinaryLog_DEBUG_BIN_ID_var() {
+return WithBinaryLog_DEBUG_BIN_ID_var;
+}
+
+public BreakoutGameJava initWithBinaryLog_DEBUG_BIN_ID_var(byte WithBinaryLog_DEBUG_BIN_ID_var) {
+this.WithBinaryLog_DEBUG_BIN_ID_var = WithBinaryLog_DEBUG_BIN_ID_var;
+return this;
+}
+
+public int getBreakoutGame_YDISPSIZE_var() {
+return BreakoutGame_YDISPSIZE_var;
+}
+
+public BreakoutGameJava initBreakoutGame_YDISPSIZE_var(int BreakoutGame_YDISPSIZE_var) {
+this.BreakoutGame_YDISPSIZE_var = BreakoutGame_YDISPSIZE_var;
+return this;
+}
+
+public int getBreakoutGame_prevBY_var() {
+return BreakoutGame_prevBY_var;
+}
+
+public void setBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
+this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevBY_var(int BreakoutGame_prevBY_var) {
+this.BreakoutGame_prevBY_var = BreakoutGame_prevBY_var;
+return this;
+}
+
+public int getBreakoutGame_TOP_var() {
+return BreakoutGame_TOP_var;
+}
+
+public BreakoutGameJava initBreakoutGame_TOP_var(int BreakoutGame_TOP_var) {
+this.BreakoutGame_TOP_var = BreakoutGame_TOP_var;
+return this;
+}
+
 public int getBreakoutGame_YMAX_var() {
 return BreakoutGame_YMAX_var;
 }
 
 public BreakoutGameJava initBreakoutGame_YMAX_var(int BreakoutGame_YMAX_var) {
 this.BreakoutGame_YMAX_var = BreakoutGame_YMAX_var;
+return this;
+}
+
+public int getBreakoutGame_score_var() {
+return BreakoutGame_score_var;
+}
+
+public void setBreakoutGame_score_var(int BreakoutGame_score_var) {
+this.BreakoutGame_score_var = BreakoutGame_score_var;
+}
+
+public BreakoutGameJava initBreakoutGame_score_var(int BreakoutGame_score_var) {
+this.BreakoutGame_score_var = BreakoutGame_score_var;
+return this;
+}
+
+public int getBreakoutGame_BOTTOM_var() {
+return BreakoutGame_BOTTOM_var;
+}
+
+public BreakoutGameJava initBreakoutGame_BOTTOM_var(int BreakoutGame_BOTTOM_var) {
+this.BreakoutGame_BOTTOM_var = BreakoutGame_BOTTOM_var;
+return this;
+}
+
+public int getBreakoutGame_dy_var() {
+return BreakoutGame_dy_var;
+}
+
+public void setBreakoutGame_dy_var(int BreakoutGame_dy_var) {
+this.BreakoutGame_dy_var = BreakoutGame_dy_var;
+}
+
+public BreakoutGameJava initBreakoutGame_dy_var(int BreakoutGame_dy_var) {
+this.BreakoutGame_dy_var = BreakoutGame_dy_var;
+return this;
+}
+
+public int getBreakoutGame_RIGHT_var() {
+return BreakoutGame_RIGHT_var;
+}
+
+public BreakoutGameJava initBreakoutGame_RIGHT_var(int BreakoutGame_RIGHT_var) {
+this.BreakoutGame_RIGHT_var = BreakoutGame_RIGHT_var;
+return this;
+}
+
+public int getBreakoutGame_bx_var() {
+return BreakoutGame_bx_var;
+}
+
+public void setBreakoutGame_bx_var(int BreakoutGame_bx_var) {
+this.BreakoutGame_bx_var = BreakoutGame_bx_var;
+}
+
+public BreakoutGameJava initBreakoutGame_bx_var(int BreakoutGame_bx_var) {
+this.BreakoutGame_bx_var = BreakoutGame_bx_var;
+return this;
+}
+
+public int getBreakoutGame_SCALE_var() {
+return BreakoutGame_SCALE_var;
+}
+
+public BreakoutGameJava initBreakoutGame_SCALE_var(int BreakoutGame_SCALE_var) {
+this.BreakoutGame_SCALE_var = BreakoutGame_SCALE_var;
+return this;
+}
+
+public int getBreakoutGame_padlen_var() {
+return BreakoutGame_padlen_var;
+}
+
+public void setBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
+this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+}
+
+public BreakoutGameJava initBreakoutGame_padlen_var(int BreakoutGame_padlen_var) {
+this.BreakoutGame_padlen_var = BreakoutGame_padlen_var;
+return this;
+}
+
+public int getBreakoutGame_br_var() {
+return BreakoutGame_br_var;
+}
+
+public BreakoutGameJava initBreakoutGame_br_var(int BreakoutGame_br_var) {
+this.BreakoutGame_br_var = BreakoutGame_br_var;
+return this;
+}
+
+public long getBreakoutGame_stopTime_var() {
+return BreakoutGame_stopTime_var;
+}
+
+public void setBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
+this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
+}
+
+public BreakoutGameJava initBreakoutGame_stopTime_var(long BreakoutGame_stopTime_var) {
+this.BreakoutGame_stopTime_var = BreakoutGame_stopTime_var;
+return this;
+}
+
+public int getBreakoutGame_pady_var() {
+return BreakoutGame_pady_var;
+}
+
+public void setBreakoutGame_pady_var(int BreakoutGame_pady_var) {
+this.BreakoutGame_pady_var = BreakoutGame_pady_var;
+}
+
+public BreakoutGameJava initBreakoutGame_pady_var(int BreakoutGame_pady_var) {
+this.BreakoutGame_pady_var = BreakoutGame_pady_var;
 return this;
 }
 
@@ -562,74 +475,16 @@ this.BreakoutGame_lives_var = BreakoutGame_lives_var;
 return this;
 }
 
-public int getBreakoutGame_period_var() {
-return BreakoutGame_period_var;
+public int getBreakoutGame_padx_var() {
+return BreakoutGame_padx_var;
 }
 
-public BreakoutGameJava initBreakoutGame_period_var(int BreakoutGame_period_var) {
-this.BreakoutGame_period_var = BreakoutGame_period_var;
-return this;
+public void setBreakoutGame_padx_var(int BreakoutGame_padx_var) {
+this.BreakoutGame_padx_var = BreakoutGame_padx_var;
 }
 
-public int getBreakoutGame_BOTTOM_var() {
-return BreakoutGame_BOTTOM_var;
-}
-
-public BreakoutGameJava initBreakoutGame_BOTTOM_var(int BreakoutGame_BOTTOM_var) {
-this.BreakoutGame_BOTTOM_var = BreakoutGame_BOTTOM_var;
-return this;
-}
-
-public byte getWithBinaryLog_DEBUG_BIN_ID_var() {
-return WithBinaryLog_DEBUG_BIN_ID_var;
-}
-
-public BreakoutGameJava initWithBinaryLog_DEBUG_BIN_ID_var(byte WithBinaryLog_DEBUG_BIN_ID_var) {
-this.WithBinaryLog_DEBUG_BIN_ID_var = WithBinaryLog_DEBUG_BIN_ID_var;
-return this;
-}
-
-public int getBreakoutGame_br_var() {
-return BreakoutGame_br_var;
-}
-
-public BreakoutGameJava initBreakoutGame_br_var(int BreakoutGame_br_var) {
-this.BreakoutGame_br_var = BreakoutGame_br_var;
-return this;
-}
-
-public int[] getBreakoutGame_bricks_var() {
-return BreakoutGame_bricks_var;
-}
-
-public void setBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
-this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
-}
-
-public BreakoutGameJava initBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
-this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
-return this;
-}
-
-public int getBreakoutGame_LEFT_var() {
-return BreakoutGame_LEFT_var;
-}
-
-public BreakoutGameJava initBreakoutGame_LEFT_var(int BreakoutGame_LEFT_var) {
-this.BreakoutGame_LEFT_var = BreakoutGame_LEFT_var;
-return this;
-}
-
-public long getBreakoutGame_lastTimestamp_var() {
-return BreakoutGame_lastTimestamp_var;
-}
-
-public void setBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
-this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
-}
-
-public BreakoutGameJava initBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
-this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+public BreakoutGameJava initBreakoutGame_padx_var(int BreakoutGame_padx_var) {
+this.BreakoutGame_padx_var = BreakoutGame_padx_var;
 return this;
 }
 
@@ -646,6 +501,15 @@ this.BreakoutGame_by_var = BreakoutGame_by_var;
 return this;
 }
 
+public int getBreakoutGame_BRICK_HEIGHT_var() {
+return BreakoutGame_BRICK_HEIGHT_var;
+}
+
+public BreakoutGameJava initBreakoutGame_BRICK_HEIGHT_var(int BreakoutGame_BRICK_HEIGHT_var) {
+this.BreakoutGame_BRICK_HEIGHT_var = BreakoutGame_BRICK_HEIGHT_var;
+return this;
+}
+
 public int getBreakoutGame_dx_var() {
 return BreakoutGame_dx_var;
 }
@@ -659,16 +523,152 @@ this.BreakoutGame_dx_var = BreakoutGame_dx_var;
 return this;
 }
 
-public int getBreakoutGame_padx_var() {
-return BreakoutGame_padx_var;
+public int getBreakoutGame_period_var() {
+return BreakoutGame_period_var;
 }
 
-public void setBreakoutGame_padx_var(int BreakoutGame_padx_var) {
-this.BreakoutGame_padx_var = BreakoutGame_padx_var;
+public BreakoutGameJava initBreakoutGame_period_var(int BreakoutGame_period_var) {
+this.BreakoutGame_period_var = BreakoutGame_period_var;
+return this;
 }
 
-public BreakoutGameJava initBreakoutGame_padx_var(int BreakoutGame_padx_var) {
-this.BreakoutGame_padx_var = BreakoutGame_padx_var;
+public long getBreakoutGame_startTime_var() {
+return BreakoutGame_startTime_var;
+}
+
+public void setBreakoutGame_startTime_var(long BreakoutGame_startTime_var) {
+this.BreakoutGame_startTime_var = BreakoutGame_startTime_var;
+}
+
+public BreakoutGameJava initBreakoutGame_startTime_var(long BreakoutGame_startTime_var) {
+this.BreakoutGame_startTime_var = BreakoutGame_startTime_var;
+return this;
+}
+
+public int getBreakoutGame_prevBX_var() {
+return BreakoutGame_prevBX_var;
+}
+
+public void setBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
+this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevBX_var(int BreakoutGame_prevBX_var) {
+this.BreakoutGame_prevBX_var = BreakoutGame_prevBX_var;
+return this;
+}
+
+public int[] getBreakoutGame_bgcolor_var() {
+return BreakoutGame_bgcolor_var;
+}
+
+public void setBreakoutGame_bgcolor_var(int[] BreakoutGame_bgcolor_var) {
+this.BreakoutGame_bgcolor_var = BreakoutGame_bgcolor_var;
+}
+
+public BreakoutGameJava initBreakoutGame_bgcolor_var(int[] BreakoutGame_bgcolor_var) {
+this.BreakoutGame_bgcolor_var = BreakoutGame_bgcolor_var;
+return this;
+}
+
+public int[] getBreakoutGame_fgcolor_var() {
+return BreakoutGame_fgcolor_var;
+}
+
+public void setBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
+this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
+}
+
+public BreakoutGameJava initBreakoutGame_fgcolor_var(int[] BreakoutGame_fgcolor_var) {
+this.BreakoutGame_fgcolor_var = BreakoutGame_fgcolor_var;
+return this;
+}
+
+public int getBreakoutGame_XMAX_var() {
+return BreakoutGame_XMAX_var;
+}
+
+public BreakoutGameJava initBreakoutGame_XMAX_var(int BreakoutGame_XMAX_var) {
+this.BreakoutGame_XMAX_var = BreakoutGame_XMAX_var;
+return this;
+}
+
+public int getBreakoutGame_prevPX_var() {
+return BreakoutGame_prevPX_var;
+}
+
+public void setBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
+this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevPX_var(int BreakoutGame_prevPX_var) {
+this.BreakoutGame_prevPX_var = BreakoutGame_prevPX_var;
+return this;
+}
+
+public int getBreakoutGame_LEFT_var() {
+return BreakoutGame_LEFT_var;
+}
+
+public BreakoutGameJava initBreakoutGame_LEFT_var(int BreakoutGame_LEFT_var) {
+this.BreakoutGame_LEFT_var = BreakoutGame_LEFT_var;
+return this;
+}
+
+public int[] getBreakoutGame_bricks_var() {
+return BreakoutGame_bricks_var;
+}
+
+public void setBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
+this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
+}
+
+public BreakoutGameJava initBreakoutGame_bricks_var(int[] BreakoutGame_bricks_var) {
+this.BreakoutGame_bricks_var = BreakoutGame_bricks_var;
+return this;
+}
+
+public int getBreakoutGame_prevPY_var() {
+return BreakoutGame_prevPY_var;
+}
+
+public void setBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
+this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
+}
+
+public BreakoutGameJava initBreakoutGame_prevPY_var(int BreakoutGame_prevPY_var) {
+this.BreakoutGame_prevPY_var = BreakoutGame_prevPY_var;
+return this;
+}
+
+public long getBreakoutGame_lastTimestamp_var() {
+return BreakoutGame_lastTimestamp_var;
+}
+
+public void setBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
+this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+}
+
+public BreakoutGameJava initBreakoutGame_lastTimestamp_var(long BreakoutGame_lastTimestamp_var) {
+this.BreakoutGame_lastTimestamp_var = BreakoutGame_lastTimestamp_var;
+return this;
+}
+
+public int getBreakoutGame_XDISPSIZE_var() {
+return BreakoutGame_XDISPSIZE_var;
+}
+
+public BreakoutGameJava initBreakoutGame_XDISPSIZE_var(int BreakoutGame_XDISPSIZE_var) {
+this.BreakoutGame_XDISPSIZE_var = BreakoutGame_XDISPSIZE_var;
+return this;
+}
+
+public int getBreakoutGame_BRICK_ROWS_var() {
+return BreakoutGame_BRICK_ROWS_var;
+}
+
+public BreakoutGameJava initBreakoutGame_BRICK_ROWS_var(int BreakoutGame_BRICK_ROWS_var) {
+this.BreakoutGame_BRICK_ROWS_var = BreakoutGame_BRICK_ROWS_var;
 return this;
 }
 
@@ -706,7 +706,7 @@ final int xsize_172_var = (int) (getBreakoutGame_XDISPSIZE_var());
 final int ysize_173_var = (int) (getBreakoutGame_YDISPSIZE_var());
 
 sendCreate_via_display((int) (xsize_172_var), (int) (ysize_173_var));
-final byte[] createsent_log_174_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0D), (byte) (xsize_172_var), (byte) (ysize_173_var)});
+final byte[] createsent_log_174_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0C), (byte) (xsize_172_var), (byte) (ysize_173_var)});
 
 sendLog_via_log((byte[]) (createsent_log_174_var), (int) (6));
 });
@@ -717,21 +717,19 @@ final int id_194_var = (int) (0);
 final int time_195_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_194_var), (int) (time_195_var));
-final byte[] timer_startsent_log_196_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_194_var), (byte) ((((time_195_var >> 8) & 0xFF))), (byte) ((((time_195_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_196_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_194_var), (byte) ((((time_195_var >> 8) & 0xFF))), (byte) ((((time_195_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_196_var), (int) (7));
 final int old_countdown_11_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var());
 
 BreakoutGame_SC_LAUNCH_countdown_var = (int) (3);
-final int new_countdown_11_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var());
-
-final byte[] countdown_log_11_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1E), (byte) (old_countdown_11_var), (byte) (new_countdown_11_var)});
+final byte[] countdown_log_11_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1E), (byte) (old_countdown_11_var), (byte) (getBreakoutGame_SC_LAUNCH_countdown_var())});
 
 sendLog_via_log((byte[]) (countdown_log_11_var), (int) (5));
 drawScore();
 drawLives();
 sendUpdate_via_display();
-final byte[] updatesent_log_197_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_197_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_197_var), (int) (4));
 });
@@ -742,7 +740,7 @@ final int id_203_var = (int) (0);
 final int time_204_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_203_var), (int) (time_204_var));
-final byte[] timer_startsent_log_205_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_203_var), (byte) ((((time_204_var >> 8) & 0xFF))), (byte) ((((time_204_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_205_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_203_var), (byte) ((((time_204_var >> 8) & 0xFF))), (byte) ((((time_204_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_205_var), (int) (7));
 });
@@ -753,22 +751,20 @@ final int id_227_var = (int) (0);
 final int time_228_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_227_var), (int) (time_228_var));
-final byte[] timer_startsent_log_229_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_227_var), (byte) ((((time_228_var >> 8) & 0xFF))), (byte) ((((time_228_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_229_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_227_var), (byte) ((((time_228_var >> 8) & 0xFF))), (byte) ((((time_228_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_229_var), (int) (7));
 final int old_lives_19_var = (int) (getBreakoutGame_lives_var());
 
 BreakoutGame_lives_var = (int) (getBreakoutGame_lives_var() - 1);
-final int new_lives_19_var = (int) (getBreakoutGame_lives_var());
-
-final byte[] lives_log_19_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1C), (byte) (old_lives_19_var), (byte) (new_lives_19_var)});
+final byte[] lives_log_19_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1C), (byte) (old_lives_19_var), (byte) (getBreakoutGame_lives_var())});
 
 sendLog_via_log((byte[]) (lives_log_19_var), (int) (5));
 eraseBall();
 erasePad();
 drawLives();
 sendUpdate_via_display();
-final byte[] updatesent_log_230_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_230_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_230_var), (int) (4));
 log((boolean) (true));
@@ -780,15 +776,13 @@ final int id_231_var = (int) (0);
 final int time_232_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_231_var), (int) (time_232_var));
-final byte[] timer_startsent_log_233_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_231_var), (byte) ((((time_232_var >> 8) & 0xFF))), (byte) ((((time_232_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_233_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_231_var), (byte) ((((time_232_var >> 8) & 0xFF))), (byte) ((((time_232_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_233_var), (int) (7));
 final int old_level_10_var = (int) (getBreakoutGame_level_var());
 
 BreakoutGame_level_var = (int) (getBreakoutGame_level_var() + 1);
-final int new_level_10_var = (int) (getBreakoutGame_level_var());
-
-final byte[] level_log_10_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1D), (byte) (old_level_10_var), (byte) (new_level_10_var)});
+final byte[] level_log_10_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1D), (byte) (old_level_10_var), (byte) (getBreakoutGame_level_var())});
 
 sendLog_via_log((byte[]) (level_log_10_var), (int) (5));
 drawLevel();
@@ -798,9 +792,7 @@ if((getBreakoutGame_level_var() % 2) == 0 && getBreakoutGame_padlen_var() > 5 * 
 final int old_padlen_18_var = (int) (getBreakoutGame_padlen_var());
 
 BreakoutGame_padlen_var = (int) (getBreakoutGame_padlen_var() - (4 * getBreakoutGame_SCALE_var()));
-final int new_padlen_18_var = (int) (getBreakoutGame_padlen_var());
-
-final byte[] padlen_log_18_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x10), (byte) ((((old_padlen_18_var >> 8) & 0xFF))), (byte) ((((old_padlen_18_var >> 0) & 0xFF))), (byte) ((((new_padlen_18_var >> 8) & 0xFF))), (byte) ((((new_padlen_18_var >> 0) & 0xFF)))});
+final byte[] padlen_log_18_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x10), (byte) ((((old_padlen_18_var >> 8) & 0xFF))), (byte) ((((old_padlen_18_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_padlen_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_padlen_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (padlen_log_18_var), (int) (7));
 
@@ -809,9 +801,7 @@ if((getBreakoutGame_level_var() % 2) == 1) {
 final int old_dy_17_var = (int) (getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ((getBreakoutGame_dy_var() * 3) / 2);
-final int new_dy_17_var = (int) (getBreakoutGame_dy_var());
-
-final byte[] dy_log_17_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_17_var >> 8) & 0xFF))), (byte) ((((old_dy_17_var >> 0) & 0xFF))), (byte) ((((new_dy_17_var >> 8) & 0xFF))), (byte) ((((new_dy_17_var >> 0) & 0xFF)))});
+final byte[] dy_log_17_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_17_var >> 8) & 0xFF))), (byte) ((((old_dy_17_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dy_log_17_var), (int) (7));
 
@@ -819,7 +809,7 @@ sendLog_via_log((byte[]) (dy_log_17_var), (int) (7));
 drawLives();
 createBricks();
 sendUpdate_via_display();
-final byte[] updatesent_log_234_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_234_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_234_var), (int) (4));
 });
@@ -834,7 +824,7 @@ final int g_236_var = (int) (255);
 final int b_237_var = (int) (255);
 
 sendSetColor_via_display((int) (r_235_var), (int) (g_236_var), (int) (b_237_var));
-final byte[] setColorsent_log_238_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_235_var), (byte) (g_236_var), (byte) (b_237_var)});
+final byte[] setColorsent_log_238_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_235_var), (byte) (g_236_var), (byte) (b_237_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_238_var), (int) (7));
 final int x_239_var = (int) (8);
@@ -846,7 +836,7 @@ final int width_241_var = (int) (142);
 final int height_242_var = (int) (76);
 
 sendFillRect_via_display((int) (x_239_var), (int) (y_240_var), (int) (width_241_var), (int) (height_242_var));
-final byte[] fillRectsent_log_243_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_239_var), (byte) (y_240_var), (byte) (width_241_var), (byte) (height_242_var)});
+final byte[] fillRectsent_log_243_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_239_var), (byte) (y_240_var), (byte) (width_241_var), (byte) (height_242_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_243_var), (int) (8));
 final int r_244_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -856,7 +846,7 @@ final int g_245_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_246_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_244_var), (int) (g_245_var), (int) (b_246_var));
-final byte[] setColorsent_log_247_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_244_var), (byte) (g_245_var), (byte) (b_246_var)});
+final byte[] setColorsent_log_247_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_244_var), (byte) (g_245_var), (byte) (b_246_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_247_var), (int) (7));
 final int x_248_var = (int) (9);
@@ -868,7 +858,7 @@ final int width_250_var = (int) (140);
 final int height_251_var = (int) (50);
 
 sendFillRect_via_display((int) (x_248_var), (int) (y_249_var), (int) (width_250_var), (int) (height_251_var));
-final byte[] fillRectsent_log_252_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_248_var), (byte) (y_249_var), (byte) (width_250_var), (byte) (height_251_var)});
+final byte[] fillRectsent_log_252_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_248_var), (byte) (y_249_var), (byte) (width_250_var), (byte) (height_251_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_252_var), (int) (8));
 final int r_253_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -878,7 +868,7 @@ final int g_254_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_255_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetBGColor_via_display((int) (r_253_var), (int) (g_254_var), (int) (b_255_var));
-final byte[] setBGColorsent_log_256_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x08), (byte) (r_253_var), (byte) (g_254_var), (byte) (b_255_var)});
+final byte[] setBGColorsent_log_256_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x07), (byte) (r_253_var), (byte) (g_254_var), (byte) (b_255_var)});
 
 sendLog_via_log((byte[]) (setBGColorsent_log_256_var), (int) (7));
 final int r_257_var = (int) (158);
@@ -888,7 +878,7 @@ final int g_258_var = (int) (209);
 final int b_259_var = (int) (130);
 
 sendSetColor_via_display((int) (r_257_var), (int) (g_258_var), (int) (b_259_var));
-final byte[] setColorsent_log_260_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_257_var), (byte) (g_258_var), (byte) (b_259_var)});
+final byte[] setColorsent_log_260_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_257_var), (byte) (g_258_var), (byte) (b_259_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_260_var), (int) (7));
 final int x_261_var = (int) (23);
@@ -902,7 +892,7 @@ final int digits_264_var = (int) (5);
 final int scale_265_var = (int) (6);
 
 sendDrawInteger_via_display((int) (x_261_var), (int) (y_262_var), (int) (v_263_var), (int) (digits_264_var), (int) (scale_265_var));
-final byte[] drawIntegersent_log_266_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0B), (byte) (x_261_var), (byte) (y_262_var), (byte) ((((v_263_var >> 8) & 0xFF))), (byte) ((((v_263_var >> 0) & 0xFF))), (byte) (digits_264_var), (byte) (scale_265_var)});
+final byte[] drawIntegersent_log_266_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0A), (byte) (x_261_var), (byte) (y_262_var), (byte) ((((v_263_var >> 8) & 0xFF))), (byte) ((((v_263_var >> 0) & 0xFF))), (byte) (digits_264_var), (byte) (scale_265_var)});
 
 sendLog_via_log((byte[]) (drawIntegersent_log_266_var), (int) (10));
 final int x_267_var = (int) (26);
@@ -910,11 +900,11 @@ final int x_267_var = (int) (26);
 final int y_268_var = (int) (87);
 
 sendDrawThingML_via_display((int) (x_267_var), (int) (y_268_var));
-final byte[] drawThingMLsent_log_269_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0C), (byte) (x_267_var), (byte) (y_268_var)});
+final byte[] drawThingMLsent_log_269_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0B), (byte) (x_267_var), (byte) (y_268_var)});
 
 sendLog_via_log((byte[]) (drawThingMLsent_log_269_var), (int) (6));
 sendUpdate_via_display();
-final byte[] updatesent_log_270_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_270_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_270_var), (int) (4));
 log((boolean) (true));
@@ -923,16 +913,16 @@ quit();
 stop();
 delete();
 });
-Transition h1073564434 = new Transition();
-h1073564434.from(state_BreakoutGame_SC_INIT).to(state_BreakoutGame_SC_LAUNCH);
-h1073564434.event(displayReadyType);
-h1073564434.port(display_port);
-h1073564434.action((Event e)->{
-final byte[] displayReadyhandled_log_276_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x10), (byte) (0x01), (byte) (0x02)});
+Transition h688361522 = new Transition();
+h688361522.from(state_BreakoutGame_SC_INIT).to(state_BreakoutGame_SC_LAUNCH);
+h688361522.event(displayReadyType);
+h688361522.port(display_port);
+h688361522.action((Event e)->{
+final byte[] displayReadyhandled_log_276_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (displayReadyhandled_log_276_var), (int) (6));
 sendClear_via_display();
-final byte[] clearsent_log_175_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x06)});
+final byte[] clearsent_log_175_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x05)});
 
 sendLog_via_log((byte[]) (clearsent_log_175_var), (int) (4));
 initColors();
@@ -943,7 +933,7 @@ final int g_177_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_178_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_176_var), (int) (g_177_var), (int) (b_178_var));
-final byte[] setColorsent_log_179_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_176_var), (byte) (g_177_var), (byte) (b_178_var)});
+final byte[] setColorsent_log_179_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_176_var), (byte) (g_177_var), (byte) (b_178_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_179_var), (int) (7));
 final int x_180_var = (int) (0);
@@ -955,7 +945,7 @@ final int width_182_var = (int) (getBreakoutGame_XDISPSIZE_var());
 final int height_183_var = (int) (getBreakoutGame_YDISPSIZE_var());
 
 sendFillRect_via_display((int) (x_180_var), (int) (y_181_var), (int) (width_182_var), (int) (height_183_var));
-final byte[] fillRectsent_log_184_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_180_var), (byte) (y_181_var), (byte) (width_182_var), (byte) (height_183_var)});
+final byte[] fillRectsent_log_184_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_180_var), (byte) (y_181_var), (byte) (width_182_var), (byte) (height_183_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_184_var), (int) (8));
 final int r_185_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -965,7 +955,7 @@ final int g_186_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_187_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_185_var), (int) (g_186_var), (int) (b_187_var));
-final byte[] setColorsent_log_188_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_185_var), (byte) (g_186_var), (byte) (b_187_var)});
+final byte[] setColorsent_log_188_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_185_var), (byte) (g_186_var), (byte) (b_187_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_188_var), (int) (7));
 final int x_189_var = (int) (0);
@@ -977,7 +967,7 @@ final int width_191_var = (int) (getBreakoutGame_XDISPSIZE_var());
 final int height_192_var = (int) (14);
 
 sendFillRect_via_display((int) (x_189_var), (int) (y_190_var), (int) (width_191_var), (int) (height_192_var));
-final byte[] fillRectsent_log_193_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_189_var), (byte) (y_190_var), (byte) (width_191_var), (byte) (height_192_var)});
+final byte[] fillRectsent_log_193_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_189_var), (byte) (y_190_var), (byte) (width_191_var), (byte) (height_192_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_193_var), (int) (8));
 drawWalls();
@@ -985,18 +975,18 @@ createBricks();
 drawLevel();
 });
 
-Handler h1749250768 = new Handler();
-h1749250768.from(state_BreakoutGame_SC_LAUNCH);
-h1749250768.event(timer_timeoutType);
-h1749250768.guard((Event e)->{
+Handler h1394526584 = new Handler();
+h1394526584.from(state_BreakoutGame_SC_LAUNCH);
+h1394526584.event(timer_timeoutType);
+h1394526584.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_SC_LAUNCH_countdown_var() > 0;
 });
 
-h1749250768.port(clock_port);
-h1749250768.action((Event e)->{
+h1394526584.port(clock_port);
+h1394526584.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_278_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x02), (byte) (0x00), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_278_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_278_var), (int) (7));
 final int id_198_var = (int) (0);
@@ -1004,7 +994,7 @@ final int id_198_var = (int) (0);
 final int time_199_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_198_var), (int) (time_199_var));
-final byte[] timer_startsent_log_200_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_198_var), (byte) ((((time_199_var >> 8) & 0xFF))), (byte) ((((time_199_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_200_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_198_var), (byte) ((((time_199_var >> 8) & 0xFF))), (byte) ((((time_199_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_200_var), (int) (7));
 drawPad();
@@ -1015,67 +1005,61 @@ drawCountDown((int) (getBreakoutGame_SC_LAUNCH_countdown_var() / 30));
 final int old_countdown_12_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var());
 
 BreakoutGame_SC_LAUNCH_countdown_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var() - 1);
-final int new_countdown_12_var = (int) (getBreakoutGame_SC_LAUNCH_countdown_var());
-
-final byte[] countdown_log_12_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1E), (byte) (old_countdown_12_var), (byte) (new_countdown_12_var)});
+final byte[] countdown_log_12_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1E), (byte) (old_countdown_12_var), (byte) (getBreakoutGame_SC_LAUNCH_countdown_var())});
 
 sendLog_via_log((byte[]) (countdown_log_12_var), (int) (5));
 sendUpdate_via_display();
-final byte[] updatesent_log_201_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_201_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_201_var), (int) (4));
 });
 
-Transition h380034081 = new Transition();
-h380034081.from(state_BreakoutGame_SC_LAUNCH).to(state_BreakoutGame_SC_PLAY);
-h380034081.event(timer_timeoutType);
-h380034081.guard((Event e)->{
+Transition h1890777616 = new Transition();
+h1890777616.from(state_BreakoutGame_SC_LAUNCH).to(state_BreakoutGame_SC_PLAY);
+h1890777616.event(timer_timeoutType);
+h1890777616.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_SC_LAUNCH_countdown_var() == 0;
 });
 
-h380034081.port(clock_port);
-h380034081.action((Event e)->{
+h1890777616.port(clock_port);
+h1890777616.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_277_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x02), (byte) (0x03), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_277_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x03), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_277_var), (int) (7));
 drawCountDown((int) (0));
 resetBall();
 sendUpdate_via_display();
-final byte[] updatesent_log_202_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_202_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_202_var), (int) (4));
 });
 
-Handler h1518712038 = new Handler();
-h1518712038.from(state_BreakoutGame_SC_PLAY);
-h1518712038.event(timer_timeoutType);
-h1518712038.guard((Event e)->{
+Handler h798579452 = new Handler();
+h798579452.from(state_BreakoutGame_SC_PLAY);
+h798579452.event(timer_timeoutType);
+h798579452.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0;
 });
 
-h1518712038.port(clock_port);
-h1518712038.action((Event e)->{
+h798579452.port(clock_port);
+h798579452.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_280_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x03), (byte) (0x00), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_280_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_280_var), (int) (7));
 final int old_bx_25_var = (int) (getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (getBreakoutGame_bx_var() + getBreakoutGame_dx_var());
-final int new_bx_25_var = (int) (getBreakoutGame_bx_var());
-
-final byte[] bx_log_25_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_25_var >> 8) & 0xFF))), (byte) ((((old_bx_25_var >> 0) & 0xFF))), (byte) ((((new_bx_25_var >> 8) & 0xFF))), (byte) ((((new_bx_25_var >> 0) & 0xFF)))});
+final byte[] bx_log_25_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_25_var >> 8) & 0xFF))), (byte) ((((old_bx_25_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (bx_log_25_var), (int) (7));
 final int old_by_1_var = (int) (getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (getBreakoutGame_by_var() + getBreakoutGame_dy_var());
-final int new_by_1_var = (int) (getBreakoutGame_by_var());
-
-final byte[] by_log_1_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_1_var >> 8) & 0xFF))), (byte) ((((old_by_1_var >> 0) & 0xFF))), (byte) ((((new_by_1_var >> 8) & 0xFF))), (byte) ((((new_by_1_var >> 0) & 0xFF)))});
+final byte[] by_log_1_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_1_var >> 8) & 0xFF))), (byte) ((((old_by_1_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (by_log_1_var), (int) (7));
 int wl_var = (int) (getBreakoutGame_LEFT_var() + getBreakoutGame_br_var());
@@ -1090,17 +1074,13 @@ if(getBreakoutGame_bx_var() < wl_var) {
 final int old_dx_21_var = (int) (getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ( -getBreakoutGame_dx_var());
-final int new_dx_21_var = (int) (getBreakoutGame_dx_var());
-
-final byte[] dx_log_21_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_21_var >> 8) & 0xFF))), (byte) ((((old_dx_21_var >> 0) & 0xFF))), (byte) ((((new_dx_21_var >> 8) & 0xFF))), (byte) ((((new_dx_21_var >> 0) & 0xFF)))});
+final byte[] dx_log_21_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_21_var >> 8) & 0xFF))), (byte) ((((old_dx_21_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dx_log_21_var), (int) (7));
 final int old_bx_26_var = (int) (getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (2 * wl_var - getBreakoutGame_bx_var());
-final int new_bx_26_var = (int) (getBreakoutGame_bx_var());
-
-final byte[] bx_log_26_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_26_var >> 8) & 0xFF))), (byte) ((((old_bx_26_var >> 0) & 0xFF))), (byte) ((((new_bx_26_var >> 8) & 0xFF))), (byte) ((((new_bx_26_var >> 0) & 0xFF)))});
+final byte[] bx_log_26_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_26_var >> 8) & 0xFF))), (byte) ((((old_bx_26_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (bx_log_26_var), (int) (7));
 incrementScore((int) ( -1));
@@ -1110,17 +1090,13 @@ if(getBreakoutGame_bx_var() > wr_var) {
 final int old_dx_22_var = (int) (getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ( -getBreakoutGame_dx_var());
-final int new_dx_22_var = (int) (getBreakoutGame_dx_var());
-
-final byte[] dx_log_22_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_22_var >> 8) & 0xFF))), (byte) ((((old_dx_22_var >> 0) & 0xFF))), (byte) ((((new_dx_22_var >> 8) & 0xFF))), (byte) ((((new_dx_22_var >> 0) & 0xFF)))});
+final byte[] dx_log_22_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_22_var >> 8) & 0xFF))), (byte) ((((old_dx_22_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dx_log_22_var), (int) (7));
 final int old_bx_27_var = (int) (getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (2 * wr_var - getBreakoutGame_bx_var());
-final int new_bx_27_var = (int) (getBreakoutGame_bx_var());
-
-final byte[] bx_log_27_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_27_var >> 8) & 0xFF))), (byte) ((((old_bx_27_var >> 0) & 0xFF))), (byte) ((((new_bx_27_var >> 8) & 0xFF))), (byte) ((((new_bx_27_var >> 0) & 0xFF)))});
+final byte[] bx_log_27_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_27_var >> 8) & 0xFF))), (byte) ((((old_bx_27_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (bx_log_27_var), (int) (7));
 incrementScore((int) ( -1));
@@ -1132,17 +1108,13 @@ if(getBreakoutGame_by_var() < wt_var) {
 final int old_dy_14_var = (int) (getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final int new_dy_14_var = (int) (getBreakoutGame_dy_var());
-
-final byte[] dy_log_14_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_14_var >> 8) & 0xFF))), (byte) ((((old_dy_14_var >> 0) & 0xFF))), (byte) ((((new_dy_14_var >> 8) & 0xFF))), (byte) ((((new_dy_14_var >> 0) & 0xFF)))});
+final byte[] dy_log_14_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_14_var >> 8) & 0xFF))), (byte) ((((old_dy_14_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dy_log_14_var), (int) (7));
 final int old_by_2_var = (int) (getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (2 * wt_var - getBreakoutGame_by_var());
-final int new_by_2_var = (int) (getBreakoutGame_by_var());
-
-final byte[] by_log_2_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_2_var >> 8) & 0xFF))), (byte) ((((old_by_2_var >> 0) & 0xFF))), (byte) ((((new_by_2_var >> 8) & 0xFF))), (byte) ((((new_by_2_var >> 0) & 0xFF)))});
+final byte[] by_log_2_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_2_var >> 8) & 0xFF))), (byte) ((((old_by_2_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (by_log_2_var), (int) (7));
 incrementScore((int) ( -1));
@@ -1150,11 +1122,11 @@ incrementScore((int) ( -1));
 } else {
 if(getBreakoutGame_by_var() > wb_var) {
 sendLostBall_via_game();
-final byte[] lostBallsent_log_206_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x01)});
+final byte[] lostBallsent_log_206_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x00)});
 
 sendLog_via_log((byte[]) (lostBallsent_log_206_var), (int) (4));
 sendLostBall_via_req_game();
-final byte[] lostBallsent_log_207_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06), (byte) (0x01)});
+final byte[] lostBallsent_log_207_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x00)});
 
 sendLog_via_log((byte[]) (lostBallsent_log_207_var), (int) (4));
 
@@ -1167,25 +1139,19 @@ if(getBreakoutGame_bx_var() > getBreakoutGame_padx_var() - getBreakoutGame_padle
 final int old_dy_15_var = (int) (getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final int new_dy_15_var = (int) (getBreakoutGame_dy_var());
-
-final byte[] dy_log_15_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_15_var >> 8) & 0xFF))), (byte) ((((old_dy_15_var >> 0) & 0xFF))), (byte) ((((new_dy_15_var >> 8) & 0xFF))), (byte) ((((new_dy_15_var >> 0) & 0xFF)))});
+final byte[] dy_log_15_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_15_var >> 8) & 0xFF))), (byte) ((((old_dy_15_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dy_log_15_var), (int) (7));
 final int old_by_3_var = (int) (getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (2 * (getBreakoutGame_pady_var() - getBreakoutGame_br_var()) - getBreakoutGame_by_var());
-final int new_by_3_var = (int) (getBreakoutGame_by_var());
-
-final byte[] by_log_3_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_3_var >> 8) & 0xFF))), (byte) ((((old_by_3_var >> 0) & 0xFF))), (byte) ((((new_by_3_var >> 8) & 0xFF))), (byte) ((((new_by_3_var >> 0) & 0xFF)))});
+final byte[] by_log_3_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_3_var >> 8) & 0xFF))), (byte) ((((old_by_3_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (by_log_3_var), (int) (7));
 final int old_dx_23_var = (int) (getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) (getBreakoutGame_dx_var() / 4 + (getBreakoutGame_bx_var() - getBreakoutGame_padx_var()) / 4);
-final int new_dx_23_var = (int) (getBreakoutGame_dx_var());
-
-final byte[] dx_log_23_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_23_var >> 8) & 0xFF))), (byte) ((((old_dx_23_var >> 0) & 0xFF))), (byte) ((((new_dx_23_var >> 8) & 0xFF))), (byte) ((((new_dx_23_var >> 0) & 0xFF)))});
+final byte[] dx_log_23_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_23_var >> 8) & 0xFF))), (byte) ((((old_dx_23_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dx_log_23_var), (int) (7));
 
@@ -1200,19 +1166,17 @@ if(collision_var) {
 final int old_dy_16_var = (int) (getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final int new_dy_16_var = (int) (getBreakoutGame_dy_var());
-
-final byte[] dy_log_16_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_16_var >> 8) & 0xFF))), (byte) ((((old_dy_16_var >> 0) & 0xFF))), (byte) ((((new_dy_16_var >> 8) & 0xFF))), (byte) ((((new_dy_16_var >> 0) & 0xFF)))});
+final byte[] dy_log_16_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_16_var >> 8) & 0xFF))), (byte) ((((old_dy_16_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dy_log_16_var), (int) (7));
 incrementScore((int) (10));
 if(bricksLeft() == 0) {
 sendNextLevel_via_game();
-final byte[] nextLevelsent_log_208_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x02)});
+final byte[] nextLevelsent_log_208_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (nextLevelsent_log_208_var), (int) (4));
 sendNextLevel_via_req_game();
-final byte[] nextLevelsent_log_209_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06), (byte) (0x02)});
+final byte[] nextLevelsent_log_209_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (nextLevelsent_log_209_var), (int) (4));
 
@@ -1230,11 +1194,11 @@ final int padx_212_var = (int) (getBreakoutGame_padx_var());
 final int pady_213_var = (int) (getBreakoutGame_pady_var());
 
 sendUpdateIA_via_ia((int) (ballx_210_var), (int) (bally_211_var), (int) (padx_212_var), (int) (pady_213_var));
-final byte[] updateIAsent_log_214_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x13), (byte) ((((ballx_210_var >> 8) & 0xFF))), (byte) ((((ballx_210_var >> 0) & 0xFF))), (byte) ((((bally_211_var >> 8) & 0xFF))), (byte) ((((bally_211_var >> 0) & 0xFF))), (byte) ((((padx_212_var >> 8) & 0xFF))), (byte) ((((padx_212_var >> 0) & 0xFF))), (byte) ((((pady_213_var >> 8) & 0xFF))), (byte) ((((pady_213_var >> 0) & 0xFF)))});
+final byte[] updateIAsent_log_214_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x03), (byte) (0x12), (byte) ((((ballx_210_var >> 8) & 0xFF))), (byte) ((((ballx_210_var >> 0) & 0xFF))), (byte) ((((bally_211_var >> 8) & 0xFF))), (byte) ((((bally_211_var >> 0) & 0xFF))), (byte) ((((padx_212_var >> 8) & 0xFF))), (byte) ((((padx_212_var >> 0) & 0xFF))), (byte) ((((pady_213_var >> 8) & 0xFF))), (byte) ((((pady_213_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (updateIAsent_log_214_var), (int) (12));
 sendUpdate_via_display();
-final byte[] updatesent_log_215_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0F)});
+final byte[] updatesent_log_215_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0E)});
 
 sendLog_via_log((byte[]) (updatesent_log_215_var), (int) (4));
 log((boolean) (false));
@@ -1243,119 +1207,119 @@ final int id_216_var = (int) (0);
 final int time_217_var = (int) (getBreakoutGame_period_var());
 
 sendTimer_start_via_clock((int) (id_216_var), (int) (time_217_var));
-final byte[] timer_startsent_log_218_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x14), (byte) (id_216_var), (byte) ((((time_217_var >> 8) & 0xFF))), (byte) ((((time_217_var >> 0) & 0xFF)))});
+final byte[] timer_startsent_log_218_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x13), (byte) (id_216_var), (byte) ((((time_217_var >> 8) & 0xFF))), (byte) ((((time_217_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (timer_startsent_log_218_var), (int) (7));
 });
 
-Transition h1237856866 = new Transition();
-h1237856866.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
-h1237856866.event(lostBallType);
-h1237856866.port(game_port);
-h1237856866.action((Event e)->{
-final byte[] lostBallhandled_log_271_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x01), (byte) (0x03), (byte) (0x04)});
+Transition h1124987728 = new Transition();
+h1124987728.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
+h1124987728.event(lostBallType);
+h1124987728.port(game_port);
+h1124987728.action((Event e)->{
+final byte[] lostBallhandled_log_271_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05)});
 
 sendLog_via_log((byte[]) (lostBallhandled_log_271_var), (int) (6));
 final int id_219_var = (int) (0);
 
 sendTimer_cancel_via_clock((int) (id_219_var));
-final byte[] timer_cancelsent_log_220_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x15), (byte) (id_219_var)});
+final byte[] timer_cancelsent_log_220_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x14), (byte) (id_219_var)});
 
 sendLog_via_log((byte[]) (timer_cancelsent_log_220_var), (int) (5));
 });
 
-Transition h196161345 = new Transition();
-h196161345.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
-h196161345.event(nextLevelType);
-h196161345.port(game_port);
-h196161345.action((Event e)->{
-final byte[] nextLevelhandled_log_272_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x02), (byte) (0x03), (byte) (0x05)});
+Transition h293669143 = new Transition();
+h293669143.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
+h293669143.event(nextLevelType);
+h293669143.port(game_port);
+h293669143.action((Event e)->{
+final byte[] nextLevelhandled_log_272_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06)});
 
 sendLog_via_log((byte[]) (nextLevelhandled_log_272_var), (int) (6));
 final int id_221_var = (int) (0);
 
 sendTimer_cancel_via_clock((int) (id_221_var));
-final byte[] timer_cancelsent_log_222_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x15), (byte) (id_221_var)});
+final byte[] timer_cancelsent_log_222_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x14), (byte) (id_221_var)});
 
 sendLog_via_log((byte[]) (timer_cancelsent_log_222_var), (int) (5));
 });
 
-Transition h1305564302 = new Transition();
-h1305564302.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
-h1305564302.event(lostBallType);
-h1305564302.port(pro_game_port);
-h1305564302.action((Event e)->{
-final byte[] lostBallhandled_log_273_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) (0x01), (byte) (0x03), (byte) (0x04)});
+Transition h977320786 = new Transition();
+h977320786.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_LOSTBALL);
+h977320786.event(lostBallType);
+h977320786.port(pro_game_port);
+h977320786.action((Event e)->{
+final byte[] lostBallhandled_log_273_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07)});
 
 sendLog_via_log((byte[]) (lostBallhandled_log_273_var), (int) (6));
 final int id_223_var = (int) (0);
 
 sendTimer_cancel_via_clock((int) (id_223_var));
-final byte[] timer_cancelsent_log_224_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x15), (byte) (id_223_var)});
+final byte[] timer_cancelsent_log_224_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x14), (byte) (id_223_var)});
 
 sendLog_via_log((byte[]) (timer_cancelsent_log_224_var), (int) (5));
 });
 
-Transition h1496396949 = new Transition();
-h1496396949.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
-h1496396949.event(nextLevelType);
-h1496396949.port(pro_game_port);
-h1496396949.action((Event e)->{
-final byte[] nextLevelhandled_log_274_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) (0x02), (byte) (0x03), (byte) (0x05)});
+Transition h1296833449 = new Transition();
+h1296833449.from(state_BreakoutGame_SC_PLAY).to(state_BreakoutGame_SC_NEXTLEVEL);
+h1296833449.event(nextLevelType);
+h1296833449.port(pro_game_port);
+h1296833449.action((Event e)->{
+final byte[] nextLevelhandled_log_274_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x08)});
 
 sendLog_via_log((byte[]) (nextLevelhandled_log_274_var), (int) (6));
 final int id_225_var = (int) (0);
 
 sendTimer_cancel_via_clock((int) (id_225_var));
-final byte[] timer_cancelsent_log_226_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x15), (byte) (id_225_var)});
+final byte[] timer_cancelsent_log_226_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x14), (byte) (id_225_var)});
 
 sendLog_via_log((byte[]) (timer_cancelsent_log_226_var), (int) (5));
 });
 
-Transition h1563324258 = new Transition();
-h1563324258.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_LAUNCH);
-h1563324258.event(timer_timeoutType);
-h1563324258.guard((Event e)->{
+Transition h1835848160 = new Transition();
+h1835848160.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_LAUNCH);
+h1835848160.event(timer_timeoutType);
+h1835848160.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_lives_var() > 0;
 });
 
-h1563324258.port(clock_port);
-h1563324258.action((Event e)->{
+h1835848160.port(clock_port);
+h1835848160.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_281_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x04), (byte) (0x02), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_281_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x09), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_281_var), (int) (7));
 });
 
-Transition h1203651014 = new Transition();
-h1203651014.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_GAMEOVER);
-h1203651014.event(timer_timeoutType);
-h1203651014.guard((Event e)->{
+Transition h2094398708 = new Transition();
+h2094398708.from(state_BreakoutGame_SC_LOSTBALL).to(state_BreakoutGame_SC_GAMEOVER);
+h2094398708.event(timer_timeoutType);
+h2094398708.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0 && getBreakoutGame_lives_var() == 0;
 });
 
-h1203651014.port(clock_port);
-h1203651014.action((Event e)->{
+h2094398708.port(clock_port);
+h2094398708.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_282_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x04), (byte) (0x06), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_282_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_282_var), (int) (7));
 });
 
-Transition h1257704323 = new Transition();
-h1257704323.from(state_BreakoutGame_SC_NEXTLEVEL).to(state_BreakoutGame_SC_LAUNCH);
-h1257704323.event(timer_timeoutType);
-h1257704323.guard((Event e)->{
+Transition h133346202 = new Transition();
+h133346202.from(state_BreakoutGame_SC_NEXTLEVEL).to(state_BreakoutGame_SC_LAUNCH);
+h133346202.event(timer_timeoutType);
+h133346202.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return timer_timeout.id == 0;
 });
 
-h1257704323.port(clock_port);
-h1257704323.action((Event e)->{
+h133346202.port(clock_port);
+h133346202.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeouthandled_log_279_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (0x05), (byte) (0x02), (byte) (timer_timeout.id)});
+final byte[] timer_timeouthandled_log_279_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeouthandled_log_279_var), (int) (7));
 });
@@ -1363,13 +1327,13 @@ sendLog_via_log((byte[]) (timer_timeouthandled_log_279_var), (int) (7));
 final CompositeState state_BreakoutGame_SC = new CompositeState("SC");
 state_BreakoutGame_SC.onEntry(()->{
 });
-Handler h1863709994 = new Handler();
-h1863709994.from(state_BreakoutGame_SC);
-h1863709994.event(positionType);
-h1863709994.port(controller_port);
-h1863709994.action((Event e)->{
+Handler h568221863 = new Handler();
+h568221863.from(state_BreakoutGame_SC);
+h568221863.event(positionType);
+h568221863.port(controller_port);
+h568221863.action((Event e)->{
 final PositionMessageType.PositionMessage position = (PositionMessageType.PositionMessage) e;
-final byte[] positionhandled_log_275_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x03), (byte) (0x12), (byte) (0x00), (byte) (0x00), (byte) ((((position.x >> 8) & 0xFF))), (byte) ((((position.x >> 0) & 0xFF))), (byte) ((((position.y >> 8) & 0xFF))), (byte) ((((position.y >> 0) & 0xFF)))});
+final byte[] positionhandled_log_275_var = (byte[]) (new byte[]{(byte) (4), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) ((((position.x >> 8) & 0xFF))), (byte) ((((position.x >> 0) & 0xFF))), (byte) ((((position.y >> 8) & 0xFF))), (byte) ((((position.y >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (positionhandled_log_275_var), (int) (10));
 long center_var = (long) ((getBreakoutGame_RIGHT_var() - getBreakoutGame_LEFT_var() - getBreakoutGame_padlen_var()));
@@ -1379,95 +1343,93 @@ center_var = (long) (center_var / 200);
 final int old_padx_29_var = (int) (getBreakoutGame_padx_var());
 
 BreakoutGame_padx_var = (int) ((getBreakoutGame_LEFT_var() + center_var + (getBreakoutGame_RIGHT_var() - getBreakoutGame_LEFT_var()) / 2));
-final int new_padx_29_var = (int) (getBreakoutGame_padx_var());
-
-final byte[] padx_log_29_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0E), (byte) ((((old_padx_29_var >> 8) & 0xFF))), (byte) ((((old_padx_29_var >> 0) & 0xFF))), (byte) ((((new_padx_29_var >> 8) & 0xFF))), (byte) ((((new_padx_29_var >> 0) & 0xFF)))});
+final byte[] padx_log_29_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0E), (byte) ((((old_padx_29_var >> 8) & 0xFF))), (byte) ((((old_padx_29_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_padx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_padx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (padx_log_29_var), (int) (7));
 });
 
-Handler h1415835701 = new Handler();
-h1415835701.from(state_BreakoutGame_SC);
-h1415835701.event(timer_timeoutType);
-h1415835701.guard((Event e)->{
+Handler h1883269062 = new Handler();
+h1883269062.from(state_BreakoutGame_SC);
+h1883269062.event(timer_timeoutType);
+h1883269062.guard((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
 return true;
 });
 
-h1415835701.port(clock_port);
-h1415835701.action((Event e)->{
+h1883269062.port(clock_port);
+h1883269062.action((Event e)->{
 final Timer_timeoutMessageType.Timer_timeoutMessage timer_timeout = (Timer_timeoutMessageType.Timer_timeoutMessage) e;
-final byte[] timer_timeoutlost_log_283_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x16), (byte) (timer_timeout.id)});
+final byte[] timer_timeoutlost_log_283_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x00), (byte) (0x15), (byte) (timer_timeout.id)});
 
 sendLog_via_log((byte[]) (timer_timeoutlost_log_283_var), (int) (5));
 });
 
-Handler h1710483461 = new Handler();
-h1710483461.from(state_BreakoutGame_SC);
-h1710483461.event(displayReadyType);
-h1710483461.guard((Event e)->{
+Handler h104298781 = new Handler();
+h104298781.from(state_BreakoutGame_SC);
+h104298781.event(displayReadyType);
+h104298781.guard((Event e)->{
 return true;
 });
 
-h1710483461.port(display_port);
-h1710483461.action((Event e)->{
-final byte[] displayReadylost_log_284_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x10)});
+h104298781.port(display_port);
+h104298781.action((Event e)->{
+final byte[] displayReadylost_log_284_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0F)});
 
 sendLog_via_log((byte[]) (displayReadylost_log_284_var), (int) (4));
 });
 
-Handler h729787591 = new Handler();
-h729787591.from(state_BreakoutGame_SC);
-h729787591.event(lostBallType);
-h729787591.guard((Event e)->{
+Handler h60055669 = new Handler();
+h60055669.from(state_BreakoutGame_SC);
+h60055669.event(lostBallType);
+h60055669.guard((Event e)->{
 return true;
 });
 
-h729787591.port(game_port);
-h729787591.action((Event e)->{
-final byte[] lostBalllost_log_285_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x01)});
+h60055669.port(game_port);
+h60055669.action((Event e)->{
+final byte[] lostBalllost_log_285_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x00)});
 
 sendLog_via_log((byte[]) (lostBalllost_log_285_var), (int) (4));
 });
 
-Handler h1213626151 = new Handler();
-h1213626151.from(state_BreakoutGame_SC);
-h1213626151.event(nextLevelType);
-h1213626151.guard((Event e)->{
+Handler h409832049 = new Handler();
+h409832049.from(state_BreakoutGame_SC);
+h409832049.event(nextLevelType);
+h409832049.guard((Event e)->{
 return true;
 });
 
-h1213626151.port(game_port);
-h1213626151.action((Event e)->{
-final byte[] nextLevellost_log_286_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x02)});
+h409832049.port(game_port);
+h409832049.action((Event e)->{
+final byte[] nextLevellost_log_286_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (nextLevellost_log_286_var), (int) (4));
 });
 
-Handler h619002012 = new Handler();
-h619002012.from(state_BreakoutGame_SC);
-h619002012.event(lostBallType);
-h619002012.guard((Event e)->{
+Handler h423344137 = new Handler();
+h423344137.from(state_BreakoutGame_SC);
+h423344137.event(lostBallType);
+h423344137.guard((Event e)->{
 return true;
 });
 
-h619002012.port(pro_game_port);
-h619002012.action((Event e)->{
-final byte[] lostBalllost_log_287_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) (0x01)});
+h423344137.port(pro_game_port);
+h423344137.action((Event e)->{
+final byte[] lostBalllost_log_287_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06), (byte) (0x00)});
 
 sendLog_via_log((byte[]) (lostBalllost_log_287_var), (int) (4));
 });
 
-Handler h153500756 = new Handler();
-h153500756.from(state_BreakoutGame_SC);
-h153500756.event(nextLevelType);
-h153500756.guard((Event e)->{
+Handler h408551386 = new Handler();
+h408551386.from(state_BreakoutGame_SC);
+h408551386.event(nextLevelType);
+h408551386.guard((Event e)->{
 return true;
 });
 
-h153500756.port(pro_game_port);
-h153500756.action((Event e)->{
-final byte[] nextLevellost_log_288_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) (0x02)});
+h408551386.port(pro_game_port);
+h408551386.action((Event e)->{
+final byte[] nextLevellost_log_288_var = (byte[]) (new byte[]{(byte) (2), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (nextLevellost_log_288_var), (int) (4));
 });
@@ -1551,7 +1513,7 @@ final int g_1_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_2_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetBGColor_via_display((int) (r_0_var), (int) (g_1_var), (int) (b_2_var));
-final byte[] setBGColorsent_log_3_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x08), (byte) (r_0_var), (byte) (g_1_var), (byte) (b_2_var)});
+final byte[] setBGColorsent_log_3_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x07), (byte) (r_0_var), (byte) (g_1_var), (byte) (b_2_var)});
 
 sendLog_via_log((byte[]) (setBGColorsent_log_3_var), (int) (7));
 final int r_4_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -1561,10 +1523,10 @@ final int g_5_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_6_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_4_var), (int) (g_5_var), (int) (b_6_var));
-final byte[] setColorsent_log_7_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_4_var), (byte) (g_5_var), (byte) (b_6_var)});
+final byte[] setColorsent_log_7_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_4_var), (byte) (g_5_var), (byte) (b_6_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_7_var), (int) (7));
-final byte[] initColors_log0_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x00)});
+final byte[] initColors_log0_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01)});
 
 sendLog_via_log((byte[]) (initColors_log0_var), (int) (4));
 }
@@ -1572,34 +1534,26 @@ sendLog_via_log((byte[]) (initColors_log0_var), (int) (4));
 final int old_bx_24_var = (int) (getBreakoutGame_bx_var());
 
 BreakoutGame_bx_var = (int) (getBreakoutGame_padx_var() - getBreakoutGame_br_var() / getBreakoutGame_SCALE_var());
-final int new_bx_24_var = (int) (getBreakoutGame_bx_var());
-
-final byte[] bx_log_24_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_24_var >> 8) & 0xFF))), (byte) ((((old_bx_24_var >> 0) & 0xFF))), (byte) ((((new_bx_24_var >> 8) & 0xFF))), (byte) ((((new_bx_24_var >> 0) & 0xFF)))});
+final byte[] bx_log_24_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) ((((old_bx_24_var >> 8) & 0xFF))), (byte) ((((old_bx_24_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_bx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (bx_log_24_var), (int) (7));
 final int old_by_0_var = (int) (getBreakoutGame_by_var());
 
 BreakoutGame_by_var = (int) (getBreakoutGame_pady_var() - getBreakoutGame_br_var() / getBreakoutGame_SCALE_var());
-final int new_by_0_var = (int) (getBreakoutGame_by_var());
-
-final byte[] by_log_0_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_0_var >> 8) & 0xFF))), (byte) ((((old_by_0_var >> 0) & 0xFF))), (byte) ((((new_by_0_var >> 8) & 0xFF))), (byte) ((((new_by_0_var >> 0) & 0xFF)))});
+final byte[] by_log_0_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) ((((old_by_0_var >> 8) & 0xFF))), (byte) ((((old_by_0_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_by_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (by_log_0_var), (int) (7));
 final int old_dx_20_var = (int) (getBreakoutGame_dx_var());
 
 BreakoutGame_dx_var = (int) ((getBreakoutGame_padx_var() + getBreakoutGame_prevBX_var() + getBreakoutGame_prevBY_var()) % 300 - 150);
-final int new_dx_20_var = (int) (getBreakoutGame_dx_var());
-
-final byte[] dx_log_20_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_20_var >> 8) & 0xFF))), (byte) ((((old_dx_20_var >> 0) & 0xFF))), (byte) ((((new_dx_20_var >> 8) & 0xFF))), (byte) ((((new_dx_20_var >> 0) & 0xFF)))});
+final byte[] dx_log_20_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) ((((old_dx_20_var >> 8) & 0xFF))), (byte) ((((old_dx_20_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dx_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dx_log_20_var), (int) (7));
 if(getBreakoutGame_dy_var() > 0) {
 final int old_dy_13_var = (int) (getBreakoutGame_dy_var());
 
 BreakoutGame_dy_var = (int) ( -getBreakoutGame_dy_var());
-final int new_dy_13_var = (int) (getBreakoutGame_dy_var());
-
-final byte[] dy_log_13_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_13_var >> 8) & 0xFF))), (byte) ((((old_dy_13_var >> 0) & 0xFF))), (byte) ((((new_dy_13_var >> 8) & 0xFF))), (byte) ((((new_dy_13_var >> 0) & 0xFF)))});
+final byte[] dy_log_13_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) ((((old_dy_13_var >> 8) & 0xFF))), (byte) ((((old_dy_13_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_dy_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (dy_log_13_var), (int) (7));
 
@@ -1607,20 +1561,16 @@ sendLog_via_log((byte[]) (dy_log_13_var), (int) (7));
 final int old_prevBX_7_var = (int) (getBreakoutGame_prevBX_var());
 
 BreakoutGame_prevBX_var = (int) ( -1);
-final int new_prevBX_7_var = (int) (getBreakoutGame_prevBX_var());
-
-final byte[] prevBX_log_7_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_7_var >> 8) & 0xFF))), (byte) ((((old_prevBX_7_var >> 0) & 0xFF))), (byte) ((((new_prevBX_7_var >> 8) & 0xFF))), (byte) ((((new_prevBX_7_var >> 0) & 0xFF)))});
+final byte[] prevBX_log_7_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_7_var >> 8) & 0xFF))), (byte) ((((old_prevBX_7_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBX_log_7_var), (int) (7));
 final int old_prevBY_4_var = (int) (getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ( -1);
-final int new_prevBY_4_var = (int) (getBreakoutGame_prevBY_var());
-
-final byte[] prevBY_log_4_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_4_var >> 8) & 0xFF))), (byte) ((((old_prevBY_4_var >> 0) & 0xFF))), (byte) ((((new_prevBY_4_var >> 8) & 0xFF))), (byte) ((((new_prevBY_4_var >> 0) & 0xFF)))});
+final byte[] prevBY_log_4_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_4_var >> 8) & 0xFF))), (byte) ((((old_prevBY_4_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBY_log_4_var), (int) (7));
-final byte[] resetBall_log1_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x00)});
+final byte[] resetBall_log1_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02)});
 
 sendLog_via_log((byte[]) (resetBall_log1_var), (int) (4));
 }
@@ -1635,7 +1585,7 @@ final int g_9_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_10_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_8_var), (int) (g_9_var), (int) (b_10_var));
-final byte[] setColorsent_log_11_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_8_var), (byte) (g_9_var), (byte) (b_10_var)});
+final byte[] setColorsent_log_11_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_8_var), (byte) (g_9_var), (byte) (b_10_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_11_var), (int) (7));
 final int x_12_var = (int) (getBreakoutGame_prevBX_var());
@@ -1647,7 +1597,7 @@ final int width_14_var = (int) (bs_var);
 final int height_15_var = (int) (bs_var);
 
 sendFillRect_via_display((int) (x_12_var), (int) (y_13_var), (int) (width_14_var), (int) (height_15_var));
-final byte[] fillRectsent_log_16_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_12_var), (byte) (y_13_var), (byte) (width_14_var), (byte) (height_15_var)});
+final byte[] fillRectsent_log_16_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_12_var), (byte) (y_13_var), (byte) (width_14_var), (byte) (height_15_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_16_var), (int) (8));
 
@@ -1655,20 +1605,16 @@ sendLog_via_log((byte[]) (fillRectsent_log_16_var), (int) (8));
 final int old_prevBX_8_var = (int) (getBreakoutGame_prevBX_var());
 
 BreakoutGame_prevBX_var = (int) ( -1);
-final int new_prevBX_8_var = (int) (getBreakoutGame_prevBX_var());
-
-final byte[] prevBX_log_8_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_8_var >> 8) & 0xFF))), (byte) ((((old_prevBX_8_var >> 0) & 0xFF))), (byte) ((((new_prevBX_8_var >> 8) & 0xFF))), (byte) ((((new_prevBX_8_var >> 0) & 0xFF)))});
+final byte[] prevBX_log_8_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_8_var >> 8) & 0xFF))), (byte) ((((old_prevBX_8_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBX_log_8_var), (int) (7));
 final int old_prevBY_5_var = (int) (getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ( -1);
-final int new_prevBY_5_var = (int) (getBreakoutGame_prevBY_var());
-
-final byte[] prevBY_log_5_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_5_var >> 8) & 0xFF))), (byte) ((((old_prevBY_5_var >> 0) & 0xFF))), (byte) ((((new_prevBY_5_var >> 8) & 0xFF))), (byte) ((((new_prevBY_5_var >> 0) & 0xFF)))});
+final byte[] prevBY_log_5_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_5_var >> 8) & 0xFF))), (byte) ((((old_prevBY_5_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBY_log_5_var), (int) (7));
-final byte[] eraseBall_log2_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x03), (byte) (0x00)});
+final byte[] eraseBall_log2_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x03)});
 
 sendLog_via_log((byte[]) (eraseBall_log2_var), (int) (4));
 }
@@ -1679,17 +1625,13 @@ eraseBall();
 final int old_prevBX_9_var = (int) (getBreakoutGame_prevBX_var());
 
 BreakoutGame_prevBX_var = (int) ((getBreakoutGame_bx_var() - getBreakoutGame_br_var()) / getBreakoutGame_SCALE_var());
-final int new_prevBX_9_var = (int) (getBreakoutGame_prevBX_var());
-
-final byte[] prevBX_log_9_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_9_var >> 8) & 0xFF))), (byte) ((((old_prevBX_9_var >> 0) & 0xFF))), (byte) ((((new_prevBX_9_var >> 8) & 0xFF))), (byte) ((((new_prevBX_9_var >> 0) & 0xFF)))});
+final byte[] prevBX_log_9_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) ((((old_prevBX_9_var >> 8) & 0xFF))), (byte) ((((old_prevBX_9_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBX_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBX_log_9_var), (int) (7));
 final int old_prevBY_6_var = (int) (getBreakoutGame_prevBY_var());
 
 BreakoutGame_prevBY_var = (int) ((getBreakoutGame_by_var() - getBreakoutGame_br_var()) / getBreakoutGame_SCALE_var());
-final int new_prevBY_6_var = (int) (getBreakoutGame_prevBY_var());
-
-final byte[] prevBY_log_6_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_6_var >> 8) & 0xFF))), (byte) ((((old_prevBY_6_var >> 0) & 0xFF))), (byte) ((((new_prevBY_6_var >> 8) & 0xFF))), (byte) ((((new_prevBY_6_var >> 0) & 0xFF)))});
+final byte[] prevBY_log_6_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) ((((old_prevBY_6_var >> 8) & 0xFF))), (byte) ((((old_prevBY_6_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevBY_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevBY_log_6_var), (int) (7));
 final int r_17_var = (int) (183);
@@ -1699,7 +1641,7 @@ final int g_18_var = (int) (199);
 final int b_19_var = (int) (111);
 
 sendSetColor_via_display((int) (r_17_var), (int) (g_18_var), (int) (b_19_var));
-final byte[] setColorsent_log_20_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_17_var), (byte) (g_18_var), (byte) (b_19_var)});
+final byte[] setColorsent_log_20_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_17_var), (byte) (g_18_var), (byte) (b_19_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_20_var), (int) (7));
 final int x_21_var = (int) (getBreakoutGame_prevBX_var());
@@ -1711,10 +1653,10 @@ final int width_23_var = (int) (bs_var);
 final int height_24_var = (int) (bs_var);
 
 sendFillRect_via_display((int) (x_21_var), (int) (y_22_var), (int) (width_23_var), (int) (height_24_var));
-final byte[] fillRectsent_log_25_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_21_var), (byte) (y_22_var), (byte) (width_23_var), (byte) (height_24_var)});
+final byte[] fillRectsent_log_25_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_21_var), (byte) (y_22_var), (byte) (width_23_var), (byte) (height_24_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_25_var), (int) (8));
-final byte[] drawBall_log3_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04), (byte) (0x00)});
+final byte[] drawBall_log3_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x04)});
 
 sendLog_via_log((byte[]) (drawBall_log3_var), (int) (4));
 }
@@ -1729,7 +1671,7 @@ final int g_27_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_28_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_26_var), (int) (g_27_var), (int) (b_28_var));
-final byte[] setColorsent_log_29_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_26_var), (byte) (g_27_var), (byte) (b_28_var)});
+final byte[] setColorsent_log_29_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_26_var), (byte) (g_27_var), (byte) (b_28_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_29_var), (int) (7));
 final int x_30_var = (int) (getBreakoutGame_prevPX_var());
@@ -1741,12 +1683,12 @@ final int width_32_var = (int) (ps_var);
 final int height_33_var = (int) (4);
 
 sendFillRect_via_display((int) (x_30_var), (int) (y_31_var), (int) (width_32_var), (int) (height_33_var));
-final byte[] fillRectsent_log_34_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_30_var), (byte) (y_31_var), (byte) (width_32_var), (byte) (height_33_var)});
+final byte[] fillRectsent_log_34_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_30_var), (byte) (y_31_var), (byte) (width_32_var), (byte) (height_33_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_34_var), (int) (8));
 
 }
-final byte[] erasePad_log4_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05), (byte) (0x00)});
+final byte[] erasePad_log4_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x05)});
 
 sendLog_via_log((byte[]) (erasePad_log4_var), (int) (4));
 }
@@ -1757,17 +1699,13 @@ erasePad();
 final int old_prevPX_28_var = (int) (getBreakoutGame_prevPX_var());
 
 BreakoutGame_prevPX_var = (int) ((getBreakoutGame_padx_var() - (getBreakoutGame_padlen_var() / 2)) / getBreakoutGame_SCALE_var());
-final int new_prevPX_28_var = (int) (getBreakoutGame_prevPX_var());
-
-final byte[] prevPX_log_28_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x16), (byte) ((((old_prevPX_28_var >> 8) & 0xFF))), (byte) ((((old_prevPX_28_var >> 0) & 0xFF))), (byte) ((((new_prevPX_28_var >> 8) & 0xFF))), (byte) ((((new_prevPX_28_var >> 0) & 0xFF)))});
+final byte[] prevPX_log_28_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x16), (byte) ((((old_prevPX_28_var >> 8) & 0xFF))), (byte) ((((old_prevPX_28_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevPX_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevPX_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevPX_log_28_var), (int) (7));
 final int old_prevPY_30_var = (int) (getBreakoutGame_prevPY_var());
 
 BreakoutGame_prevPY_var = (int) (getBreakoutGame_pady_var() / getBreakoutGame_SCALE_var());
-final int new_prevPY_30_var = (int) (getBreakoutGame_prevPY_var());
-
-final byte[] prevPY_log_30_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x17), (byte) ((((old_prevPY_30_var >> 8) & 0xFF))), (byte) ((((old_prevPY_30_var >> 0) & 0xFF))), (byte) ((((new_prevPY_30_var >> 8) & 0xFF))), (byte) ((((new_prevPY_30_var >> 0) & 0xFF)))});
+final byte[] prevPY_log_30_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x17), (byte) ((((old_prevPY_30_var >> 8) & 0xFF))), (byte) ((((old_prevPY_30_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_prevPY_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_prevPY_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (prevPY_log_30_var), (int) (7));
 final int r_35_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -1777,7 +1715,7 @@ final int g_36_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_37_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_35_var), (int) (g_36_var), (int) (b_37_var));
-final byte[] setColorsent_log_38_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_35_var), (byte) (g_36_var), (byte) (b_37_var)});
+final byte[] setColorsent_log_38_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_35_var), (byte) (g_36_var), (byte) (b_37_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_38_var), (int) (7));
 final int x_39_var = (int) (getBreakoutGame_prevPX_var());
@@ -1789,10 +1727,10 @@ final int width_41_var = (int) (ps_var);
 final int height_42_var = (int) (4);
 
 sendFillRect_via_display((int) (x_39_var), (int) (y_40_var), (int) (width_41_var), (int) (height_42_var));
-final byte[] fillRectsent_log_43_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_39_var), (byte) (y_40_var), (byte) (width_41_var), (byte) (height_42_var)});
+final byte[] fillRectsent_log_43_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_39_var), (byte) (y_40_var), (byte) (width_41_var), (byte) (height_42_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_43_var), (int) (8));
-final byte[] drawPad_log5_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06), (byte) (0x00)});
+final byte[] drawPad_log5_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x06)});
 
 sendLog_via_log((byte[]) (drawPad_log5_var), (int) (4));
 }
@@ -1804,7 +1742,7 @@ final int g_45_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_46_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_44_var), (int) (g_45_var), (int) (b_46_var));
-final byte[] setColorsent_log_47_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_44_var), (byte) (g_45_var), (byte) (b_46_var)});
+final byte[] setColorsent_log_47_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_44_var), (byte) (g_45_var), (byte) (b_46_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_47_var), (int) (7));
 if(BreakoutGame_drawCountDown_c_var > 0) {
@@ -1815,7 +1753,7 @@ final int g_49_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_50_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_48_var), (int) (g_49_var), (int) (b_50_var));
-final byte[] setColorsent_log_51_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_48_var), (byte) (g_49_var), (byte) (b_50_var)});
+final byte[] setColorsent_log_51_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_48_var), (byte) (g_49_var), (byte) (b_50_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_51_var), (int) (7));
 final int r_52_var = (int) (BreakoutGame_bgcolor_var[(int)(0)]);
@@ -1825,7 +1763,7 @@ final int g_53_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_54_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetBGColor_via_display((int) (r_52_var), (int) (g_53_var), (int) (b_54_var));
-final byte[] setBGColorsent_log_55_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x08), (byte) (r_52_var), (byte) (g_53_var), (byte) (b_54_var)});
+final byte[] setBGColorsent_log_55_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x07), (byte) (r_52_var), (byte) (g_53_var), (byte) (b_54_var)});
 
 sendLog_via_log((byte[]) (setBGColorsent_log_55_var), (int) (7));
 final int x_56_var = (int) (80 - 6);
@@ -1839,7 +1777,7 @@ final int digits_59_var = (int) (1);
 final int scale_60_var = (int) (4);
 
 sendDrawInteger_via_display((int) (x_56_var), (int) (y_57_var), (int) (v_58_var), (int) (digits_59_var), (int) (scale_60_var));
-final byte[] drawIntegersent_log_61_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0B), (byte) (x_56_var), (byte) (y_57_var), (byte) ((((v_58_var >> 8) & 0xFF))), (byte) ((((v_58_var >> 0) & 0xFF))), (byte) (digits_59_var), (byte) (scale_60_var)});
+final byte[] drawIntegersent_log_61_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0A), (byte) (x_56_var), (byte) (y_57_var), (byte) ((((v_58_var >> 8) & 0xFF))), (byte) ((((v_58_var >> 0) & 0xFF))), (byte) (digits_59_var), (byte) (scale_60_var)});
 
 sendLog_via_log((byte[]) (drawIntegersent_log_61_var), (int) (10));
 
@@ -1851,7 +1789,7 @@ final int g_63_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_64_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_62_var), (int) (g_63_var), (int) (b_64_var));
-final byte[] setColorsent_log_65_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_62_var), (byte) (g_63_var), (byte) (b_64_var)});
+final byte[] setColorsent_log_65_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_62_var), (byte) (g_63_var), (byte) (b_64_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_65_var), (int) (7));
 final int x_66_var = (int) (80 - 6);
@@ -1863,12 +1801,12 @@ final int width_68_var = (int) (12);
 final int height_69_var = (int) (20);
 
 sendFillRect_via_display((int) (x_66_var), (int) (y_67_var), (int) (width_68_var), (int) (height_69_var));
-final byte[] fillRectsent_log_70_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_66_var), (byte) (y_67_var), (byte) (width_68_var), (byte) (height_69_var)});
+final byte[] fillRectsent_log_70_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_66_var), (byte) (y_67_var), (byte) (width_68_var), (byte) (height_69_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_70_var), (int) (8));
 
 }
-final byte[] drawCountDown_log6_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) (0x00), (byte) ((((BreakoutGame_drawCountDown_c_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_drawCountDown_c_var >> 0) & 0xFF)))});
+final byte[] drawCountDown_log6_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x07), (byte) ((((BreakoutGame_drawCountDown_c_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_drawCountDown_c_var >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (drawCountDown_log6_var), (int) (6));
 }
@@ -1880,7 +1818,7 @@ final int g_72_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_73_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_71_var), (int) (g_72_var), (int) (b_73_var));
-final byte[] setColorsent_log_74_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_71_var), (byte) (g_72_var), (byte) (b_73_var)});
+final byte[] setColorsent_log_74_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_71_var), (byte) (g_72_var), (byte) (b_73_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_74_var), (int) (7));
 final int left_var = (int) ((getBreakoutGame_LEFT_var() / getBreakoutGame_SCALE_var()));
@@ -1904,7 +1842,7 @@ final int width_77_var = (int) (xcenter_var + 1);
 final int height_78_var = (int) (1);
 
 sendFillRect_via_display((int) (x_75_var), (int) (y_76_var), (int) (width_77_var), (int) (height_78_var));
-final byte[] fillRectsent_log_79_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_75_var), (byte) (y_76_var), (byte) (width_77_var), (byte) (height_78_var)});
+final byte[] fillRectsent_log_79_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_75_var), (byte) (y_76_var), (byte) (width_77_var), (byte) (height_78_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_79_var), (int) (8));
 final int x_80_var = (int) (left_var - 1);
@@ -1916,7 +1854,7 @@ final int width_82_var = (int) (xcenter_var + 1);
 final int height_83_var = (int) (1);
 
 sendFillRect_via_display((int) (x_80_var), (int) (y_81_var), (int) (width_82_var), (int) (height_83_var));
-final byte[] fillRectsent_log_84_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_80_var), (byte) (y_81_var), (byte) (width_82_var), (byte) (height_83_var)});
+final byte[] fillRectsent_log_84_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_80_var), (byte) (y_81_var), (byte) (width_82_var), (byte) (height_83_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_84_var), (int) (8));
 final int x_85_var = (int) (left_var - 1);
@@ -1928,7 +1866,7 @@ final int width_87_var = (int) (1);
 final int height_88_var = (int) (ycenter_var);
 
 sendFillRect_via_display((int) (x_85_var), (int) (y_86_var), (int) (width_87_var), (int) (height_88_var));
-final byte[] fillRectsent_log_89_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_85_var), (byte) (y_86_var), (byte) (width_87_var), (byte) (height_88_var)});
+final byte[] fillRectsent_log_89_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_85_var), (byte) (y_86_var), (byte) (width_87_var), (byte) (height_88_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_89_var), (int) (8));
 final int x_90_var = (int) (right_var);
@@ -1940,17 +1878,17 @@ final int width_92_var = (int) (1);
 final int height_93_var = (int) (ycenter_var);
 
 sendFillRect_via_display((int) (x_90_var), (int) (y_91_var), (int) (width_92_var), (int) (height_93_var));
-final byte[] fillRectsent_log_94_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_90_var), (byte) (y_91_var), (byte) (width_92_var), (byte) (height_93_var)});
+final byte[] fillRectsent_log_94_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_90_var), (byte) (y_91_var), (byte) (width_92_var), (byte) (height_93_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_94_var), (int) (8));
-final byte[] drawWalls_log7_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x08), (byte) (0x00)});
+final byte[] drawWalls_log7_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x08)});
 
 sendLog_via_log((byte[]) (drawWalls_log7_var), (int) (4));
 }
  boolean bitIsSet(final int BreakoutGame_bitIsSet_variable_var, final int BreakoutGame_bitIsSet_bit_var) {
 final boolean return_0_var = (boolean) ((((1 << BreakoutGame_bitIsSet_bit_var) & BreakoutGame_bitIsSet_variable_var) != 0));
 
-final byte[] bitIsSet_log8_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x09), (byte) (0x00), (byte) (BreakoutGame_bitIsSet_variable_var), (byte) (BreakoutGame_bitIsSet_bit_var), (byte) (((return_0_var)? 1 : 0))});
+final byte[] bitIsSet_log8_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x09), (byte) (BreakoutGame_bitIsSet_variable_var), (byte) (BreakoutGame_bitIsSet_bit_var), (byte) (((return_0_var)? 1 : 0))});
 
 sendLog_via_log((byte[]) (bitIsSet_log8_var), (int) (7));
 return (boolean) (return_0_var);
@@ -1973,7 +1911,7 @@ x_var = (int) (x_var + 1);
 y_var = (int) (y_var + 1);
 
 }
-final byte[] createBricks_log9_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A), (byte) (0x00)});
+final byte[] createBricks_log9_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0A)});
 
 sendLog_via_log((byte[]) (createBricks_log9_var), (int) (4));
 }
@@ -1998,7 +1936,7 @@ y_var = (int) (y_var + 1);
 }
 final int return_3_var = (int) (result_var);
 
-final byte[] bricksLeft_log10_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) (0x00), (byte) (return_3_var)});
+final byte[] bricksLeft_log10_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0B), (byte) (return_3_var)});
 
 sendLog_via_log((byte[]) (bricksLeft_log10_var), (int) (5));
 return (int) (return_3_var);
@@ -2019,7 +1957,7 @@ final int g_96_var = (int) (103);
 final int b_97_var = (int) (89);
 
 sendSetColor_via_display((int) (r_95_var), (int) (g_96_var), (int) (b_97_var));
-final byte[] setColorsent_log_98_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_95_var), (byte) (g_96_var), (byte) (b_97_var)});
+final byte[] setColorsent_log_98_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_95_var), (byte) (g_96_var), (byte) (b_97_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_98_var), (int) (7));
 final int x_99_var = (int) (bx_var);
@@ -2031,7 +1969,7 @@ final int width_101_var = (int) (w_var);
 final int height_102_var = (int) (h_var);
 
 sendFillRect_via_display((int) (x_99_var), (int) (y_100_var), (int) (width_101_var), (int) (height_102_var));
-final byte[] fillRectsent_log_103_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_99_var), (byte) (y_100_var), (byte) (width_101_var), (byte) (height_102_var)});
+final byte[] fillRectsent_log_103_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_99_var), (byte) (y_100_var), (byte) (width_101_var), (byte) (height_102_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_103_var), (int) (8));
 final int r_104_var = (int) (100);
@@ -2041,7 +1979,7 @@ final int g_105_var = (int) (56);
 final int b_106_var = (int) (43);
 
 sendSetColor_via_display((int) (r_104_var), (int) (g_105_var), (int) (b_106_var));
-final byte[] setColorsent_log_107_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_104_var), (byte) (g_105_var), (byte) (b_106_var)});
+final byte[] setColorsent_log_107_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_104_var), (byte) (g_105_var), (byte) (b_106_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_107_var), (int) (7));
 final int x_108_var = (int) (bx_var);
@@ -2053,10 +1991,10 @@ final int width_110_var = (int) (w_var);
 final int height_111_var = (int) (h_var);
 
 sendDrawRect_via_display((int) (x_108_var), (int) (y_109_var), (int) (width_110_var), (int) (height_111_var));
-final byte[] drawRectsent_log_112_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x09), (byte) (x_108_var), (byte) (y_109_var), (byte) (width_110_var), (byte) (height_111_var)});
+final byte[] drawRectsent_log_112_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x08), (byte) (x_108_var), (byte) (y_109_var), (byte) (width_110_var), (byte) (height_111_var)});
 
 sendLog_via_log((byte[]) (drawRectsent_log_112_var), (int) (8));
-final byte[] drawBrick_log11_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) (0x00), (byte) (BreakoutGame_drawBrick_x_var), (byte) (BreakoutGame_drawBrick_y_var)});
+final byte[] drawBrick_log11_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0C), (byte) (BreakoutGame_drawBrick_x_var), (byte) (BreakoutGame_drawBrick_y_var)});
 
 sendLog_via_log((byte[]) (drawBrick_log11_var), (int) (6));
 }
@@ -2072,7 +2010,7 @@ final int g_114_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_115_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_113_var), (int) (g_114_var), (int) (b_115_var));
-final byte[] setColorsent_log_116_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_113_var), (byte) (g_114_var), (byte) (b_115_var)});
+final byte[] setColorsent_log_116_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_113_var), (byte) (g_114_var), (byte) (b_115_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_116_var), (int) (7));
 final int x_117_var = (int) (bx_var);
@@ -2084,11 +2022,11 @@ final int width_119_var = (int) ((((getBreakoutGame_RIGHT_var() - getBreakoutGam
 final int height_120_var = (int) (getBreakoutGame_BRICK_HEIGHT_var() - 2);
 
 sendFillRect_via_display((int) (x_117_var), (int) (y_118_var), (int) (width_119_var), (int) (height_120_var));
-final byte[] fillRectsent_log_121_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_117_var), (byte) (y_118_var), (byte) (width_119_var), (byte) (height_120_var)});
+final byte[] fillRectsent_log_121_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_117_var), (byte) (y_118_var), (byte) (width_119_var), (byte) (height_120_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_121_var), (int) (8));
 BreakoutGame_bricks_var[(int)(BreakoutGame_removeBrick_y_var)] = (int) (unsetBit((int) (BreakoutGame_bricks_var[(int)(BreakoutGame_removeBrick_y_var)]), (int) (BreakoutGame_removeBrick_x_var)));
-final byte[] removeBrick_log12_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) (0x00), (byte) (BreakoutGame_removeBrick_x_var), (byte) (BreakoutGame_removeBrick_y_var)});
+final byte[] removeBrick_log12_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0D), (byte) (BreakoutGame_removeBrick_x_var), (byte) (BreakoutGame_removeBrick_y_var)});
 
 sendLog_via_log((byte[]) (removeBrick_log12_var), (int) (6));
 }
@@ -2109,7 +2047,7 @@ result_var = (boolean) (true);
 }
 final boolean return_3_var = (boolean) (result_var);
 
-final byte[] collideBrick_log13_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0E), (byte) (0x00), (byte) ((((BreakoutGame_collideBrick_xpos_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_xpos_var >> 0) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_ypos_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_ypos_var >> 0) & 0xFF))), (byte) (((return_3_var)? 1 : 0))});
+final byte[] collideBrick_log13_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0E), (byte) ((((BreakoutGame_collideBrick_xpos_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_xpos_var >> 0) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_ypos_var >> 8) & 0xFF))), (byte) ((((BreakoutGame_collideBrick_ypos_var >> 0) & 0xFF))), (byte) (((return_3_var)? 1 : 0))});
 
 sendLog_via_log((byte[]) (collideBrick_log13_var), (int) (9));
 return (boolean) (return_3_var);
@@ -2122,7 +2060,7 @@ final int g_123_var = (int) (209);
 final int b_124_var = (int) (130);
 
 sendSetColor_via_display((int) (r_122_var), (int) (g_123_var), (int) (b_124_var));
-final byte[] setColorsent_log_125_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_122_var), (byte) (g_123_var), (byte) (b_124_var)});
+final byte[] setColorsent_log_125_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_122_var), (byte) (g_123_var), (byte) (b_124_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_125_var), (int) (7));
 final int r_126_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -2132,7 +2070,7 @@ final int g_127_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_128_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetBGColor_via_display((int) (r_126_var), (int) (g_127_var), (int) (b_128_var));
-final byte[] setBGColorsent_log_129_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x08), (byte) (r_126_var), (byte) (g_127_var), (byte) (b_128_var)});
+final byte[] setBGColorsent_log_129_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x07), (byte) (r_126_var), (byte) (g_127_var), (byte) (b_128_var)});
 
 sendLog_via_log((byte[]) (setBGColorsent_log_129_var), (int) (7));
 final int r_130_var = (int) (BreakoutGame_bgcolor_var[(int)(0)]);
@@ -2142,7 +2080,7 @@ final int g_131_var = (int) (BreakoutGame_bgcolor_var[(int)(1)]);
 final int b_132_var = (int) (BreakoutGame_bgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_130_var), (int) (g_131_var), (int) (b_132_var));
-final byte[] setColorsent_log_133_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_130_var), (byte) (g_131_var), (byte) (b_132_var)});
+final byte[] setColorsent_log_133_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_130_var), (byte) (g_131_var), (byte) (b_132_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_133_var), (int) (7));
 final int x_134_var = (int) (6);
@@ -2156,10 +2094,10 @@ final int digits_137_var = (int) (2);
 final int scale_138_var = (int) (2);
 
 sendDrawInteger_via_display((int) (x_134_var), (int) (y_135_var), (int) (v_136_var), (int) (digits_137_var), (int) (scale_138_var));
-final byte[] drawIntegersent_log_139_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0B), (byte) (x_134_var), (byte) (y_135_var), (byte) ((((v_136_var >> 8) & 0xFF))), (byte) ((((v_136_var >> 0) & 0xFF))), (byte) (digits_137_var), (byte) (scale_138_var)});
+final byte[] drawIntegersent_log_139_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0A), (byte) (x_134_var), (byte) (y_135_var), (byte) ((((v_136_var >> 8) & 0xFF))), (byte) ((((v_136_var >> 0) & 0xFF))), (byte) (digits_137_var), (byte) (scale_138_var)});
 
 sendLog_via_log((byte[]) (drawIntegersent_log_139_var), (int) (10));
-final byte[] drawLevel_log14_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0F), (byte) (0x00)});
+final byte[] drawLevel_log14_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x0F)});
 
 sendLog_via_log((byte[]) (drawLevel_log14_var), (int) (4));
 }
@@ -2167,24 +2105,20 @@ sendLog_via_log((byte[]) (drawLevel_log14_var), (int) (4));
 final int old_score_31_var = (int) (getBreakoutGame_score_var());
 
 BreakoutGame_score_var = (int) (getBreakoutGame_score_var() + BreakoutGame_incrementScore_diff_var);
-final int new_score_31_var = (int) (getBreakoutGame_score_var());
-
-final byte[] score_log_31_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1B), (byte) ((((old_score_31_var >> 8) & 0xFF))), (byte) ((((old_score_31_var >> 0) & 0xFF))), (byte) ((((new_score_31_var >> 8) & 0xFF))), (byte) ((((new_score_31_var >> 0) & 0xFF)))});
+final byte[] score_log_31_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1B), (byte) ((((old_score_31_var >> 8) & 0xFF))), (byte) ((((old_score_31_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_score_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_score_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (score_log_31_var), (int) (7));
 if(getBreakoutGame_score_var() < 0) {
 final int old_score_32_var = (int) (getBreakoutGame_score_var());
 
 BreakoutGame_score_var = (int) (0);
-final int new_score_32_var = (int) (getBreakoutGame_score_var());
-
-final byte[] score_log_32_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1B), (byte) ((((old_score_32_var >> 8) & 0xFF))), (byte) ((((old_score_32_var >> 0) & 0xFF))), (byte) ((((new_score_32_var >> 8) & 0xFF))), (byte) ((((new_score_32_var >> 0) & 0xFF)))});
+final byte[] score_log_32_var = (byte[]) (new byte[]{(byte) (1), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x1B), (byte) ((((old_score_32_var >> 8) & 0xFF))), (byte) ((((old_score_32_var >> 0) & 0xFF))), (byte) ((((getBreakoutGame_score_var() >> 8) & 0xFF))), (byte) ((((getBreakoutGame_score_var() >> 0) & 0xFF)))});
 
 sendLog_via_log((byte[]) (score_log_32_var), (int) (7));
 
 }
 drawScore();
-final byte[] incrementScore_log15_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x10), (byte) (0x00), (byte) (BreakoutGame_incrementScore_diff_var)});
+final byte[] incrementScore_log15_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x10), (byte) (BreakoutGame_incrementScore_diff_var)});
 
 sendLog_via_log((byte[]) (incrementScore_log15_var), (int) (5));
 }
@@ -2196,7 +2130,7 @@ final int g_141_var = (int) (209);
 final int b_142_var = (int) (130);
 
 sendSetColor_via_display((int) (r_140_var), (int) (g_141_var), (int) (b_142_var));
-final byte[] setColorsent_log_143_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_140_var), (byte) (g_141_var), (byte) (b_142_var)});
+final byte[] setColorsent_log_143_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_140_var), (byte) (g_141_var), (byte) (b_142_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_143_var), (int) (7));
 final int r_144_var = (int) (BreakoutGame_fgcolor_var[(int)(0)]);
@@ -2206,7 +2140,7 @@ final int g_145_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_146_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetBGColor_via_display((int) (r_144_var), (int) (g_145_var), (int) (b_146_var));
-final byte[] setBGColorsent_log_147_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x08), (byte) (r_144_var), (byte) (g_145_var), (byte) (b_146_var)});
+final byte[] setBGColorsent_log_147_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x07), (byte) (r_144_var), (byte) (g_145_var), (byte) (b_146_var)});
 
 sendLog_via_log((byte[]) (setBGColorsent_log_147_var), (int) (7));
 final int x_148_var = (int) (58);
@@ -2220,10 +2154,10 @@ final int digits_151_var = (int) (5);
 final int scale_152_var = (int) (2);
 
 sendDrawInteger_via_display((int) (x_148_var), (int) (y_149_var), (int) (v_150_var), (int) (digits_151_var), (int) (scale_152_var));
-final byte[] drawIntegersent_log_153_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0B), (byte) (x_148_var), (byte) (y_149_var), (byte) ((((v_150_var >> 8) & 0xFF))), (byte) ((((v_150_var >> 0) & 0xFF))), (byte) (digits_151_var), (byte) (scale_152_var)});
+final byte[] drawIntegersent_log_153_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x0A), (byte) (x_148_var), (byte) (y_149_var), (byte) ((((v_150_var >> 8) & 0xFF))), (byte) ((((v_150_var >> 0) & 0xFF))), (byte) (digits_151_var), (byte) (scale_152_var)});
 
 sendLog_via_log((byte[]) (drawIntegersent_log_153_var), (int) (10));
-final byte[] drawScore_log16_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11), (byte) (0x00)});
+final byte[] drawScore_log16_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x11)});
 
 sendLog_via_log((byte[]) (drawScore_log16_var), (int) (4));
 }
@@ -2235,7 +2169,7 @@ final int g_155_var = (int) (BreakoutGame_fgcolor_var[(int)(1)]);
 final int b_156_var = (int) (BreakoutGame_fgcolor_var[(int)(2)]);
 
 sendSetColor_via_display((int) (r_154_var), (int) (g_155_var), (int) (b_156_var));
-final byte[] setColorsent_log_157_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_154_var), (byte) (g_155_var), (byte) (b_156_var)});
+final byte[] setColorsent_log_157_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_154_var), (byte) (g_155_var), (byte) (b_156_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_157_var), (int) (7));
 final int x_158_var = (int) (124);
@@ -2247,7 +2181,7 @@ final int width_160_var = (int) (24 + 6);
 final int height_161_var = (int) (6);
 
 sendFillRect_via_display((int) (x_158_var), (int) (y_159_var), (int) (width_160_var), (int) (height_161_var));
-final byte[] fillRectsent_log_162_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_158_var), (byte) (y_159_var), (byte) (width_160_var), (byte) (height_161_var)});
+final byte[] fillRectsent_log_162_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_158_var), (byte) (y_159_var), (byte) (width_160_var), (byte) (height_161_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_162_var), (int) (8));
 final int r_163_var = (int) (183);
@@ -2257,7 +2191,7 @@ final int g_164_var = (int) (199);
 final int b_165_var = (int) (111);
 
 sendSetColor_via_display((int) (r_163_var), (int) (g_164_var), (int) (b_165_var));
-final byte[] setColorsent_log_166_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x07), (byte) (r_163_var), (byte) (g_164_var), (byte) (b_165_var)});
+final byte[] setColorsent_log_166_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x06), (byte) (r_163_var), (byte) (g_164_var), (byte) (b_165_var)});
 
 sendLog_via_log((byte[]) (setColorsent_log_166_var), (int) (7));
 int i_var = (int) (0);
@@ -2272,13 +2206,13 @@ final int width_169_var = (int) (6);
 final int height_170_var = (int) (6);
 
 sendFillRect_via_display((int) (x_167_var), (int) (y_168_var), (int) (width_169_var), (int) (height_170_var));
-final byte[] fillRectsent_log_171_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x02), (byte) (0x0A), (byte) (x_167_var), (byte) (y_168_var), (byte) (width_169_var), (byte) (height_170_var)});
+final byte[] fillRectsent_log_171_var = (byte[]) (new byte[]{(byte) (3), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x01), (byte) (0x09), (byte) (x_167_var), (byte) (y_168_var), (byte) (width_169_var), (byte) (height_170_var)});
 
 sendLog_via_log((byte[]) (fillRectsent_log_171_var), (int) (8));
 i_var = (int) (i_var + 1);
 
 }
-final byte[] drawLives_log17_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12), (byte) (0x00)});
+final byte[] drawLives_log17_var = (byte[]) (new byte[]{(byte) (0), (byte) (getWithBinaryLog_DEBUG_BIN_ID_var()), (byte) (0x12)});
 
 sendLog_via_log((byte[]) (drawLives_log17_var), (int) (4));
 }

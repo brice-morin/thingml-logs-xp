@@ -90,35 +90,35 @@ private CompositeState buildLogger(){
 final AtomicState state_Logger_null_STARTUP = new AtomicState("STARTUP");
 final AtomicState state_Logger_null_ON = new AtomicState("ON");
 final AtomicState state_Logger_null_OFF = new AtomicState("OFF");
-Transition h1704065258 = new Transition();
-h1704065258.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
-h1704065258.guard((Event e)->{
+Transition h961525558 = new Transition();
+h961525558.from(state_Logger_null_STARTUP).to(state_Logger_null_ON);
+h961525558.guard((Event e)->{
 return getLogger_ACTIVATE_ON_STARTUP_var();
 });
 
-Transition h664555067 = new Transition();
-h664555067.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
-h664555067.guard((Event e)->{
+Transition h378098300 = new Transition();
+h378098300.from(state_Logger_null_STARTUP).to(state_Logger_null_OFF);
+h378098300.guard((Event e)->{
 return  !(getLogger_ACTIVATE_ON_STARTUP_var());
 });
 
-Handler h936618636 = new Handler();
-h936618636.from(state_Logger_null_ON);
-h936618636.event(logType);
-h936618636.port(log_port);
-h936618636.action((Event e)->{
+Handler h234988139 = new Handler();
+h234988139.from(state_Logger_null_ON);
+h234988139.event(logType);
+h234988139.port(log_port);
+h234988139.action((Event e)->{
 final LogMessageType.LogMessage log = (LogMessageType.LogMessage) e;
 do_log((byte[]) (log.payload), (int) (log.size));
 });
 
-Transition h488654523 = new Transition();
-h488654523.from(state_Logger_null_ON).to(state_Logger_null_OFF);
-h488654523.event(log_offType);
-h488654523.port(log_port);
-Transition h1000119179 = new Transition();
-h1000119179.from(state_Logger_null_OFF).to(state_Logger_null_ON);
-h1000119179.event(log_onType);
-h1000119179.port(log_port);
+Transition h46767245 = new Transition();
+h46767245.from(state_Logger_null_ON).to(state_Logger_null_OFF);
+h46767245.event(log_offType);
+h46767245.port(log_port);
+Transition h52513709 = new Transition();
+h52513709.from(state_Logger_null_OFF).to(state_Logger_null_ON);
+h52513709.event(log_onType);
+h52513709.port(log_port);
 final CompositeState state_Logger = new CompositeState("null");
 state_Logger.onEntry(()->{
 });
@@ -151,175 +151,6 @@ return (byte) ((Binary2StringLogger_get_byte_b_var & 0xFF));
 return (byte) (Binary2StringLogger_get_byte_b_var);
 
 }
-}
- String stateName(final byte Binary2StringLogger_stateName_id_var) {
-if(Binary2StringLogger_stateName_id_var == 0) {
-return (String) ("BreakoutGame.SC");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 1) {
-return (String) ("BreakoutGame.SC.INIT");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 2) {
-return (String) ("BreakoutGame.SC.LAUNCH");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 3) {
-return (String) ("BreakoutGame.SC.PLAY");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 4) {
-return (String) ("BreakoutGame.SC.LOSTBALL");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 5) {
-return (String) ("BreakoutGame.SC.NEXTLEVEL");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 6) {
-return (String) ("BreakoutGame.SC.GAMEOVER");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 7) {
-return (String) ("Logger");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 8) {
-return (String) ("Logger.null.STARTUP");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 9) {
-return (String) ("Logger.null.ON");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 10) {
-return (String) ("Logger.null.OFF");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 11) {
-return (String) ("HeadlessDisplay");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 12) {
-return (String) ("HeadlessDisplay.null.INIT");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 13) {
-return (String) ("HeadlessDisplay.null.MOCK");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 14) {
-return (String) ("BasicIAController.SC");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 15) {
-return (String) ("BasicIAController.SC.Following");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 16) {
-return (String) ("TimerJava.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 17) {
-return (String) ("TimerJava.SoftTimer.default");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 18) {
-return (String) ("TimerJS.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 19) {
-return (String) ("TimerJS.SoftTimer.default");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 20) {
-return (String) ("TimerNodeJS.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 21) {
-return (String) ("TimerNodeJS.SoftTimer.default");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 22) {
-return (String) ("TimerPosix.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 23) {
-return (String) ("TimerPosix.SoftTimer.default");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 24) {
-return (String) ("TimerArduino.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 25) {
-return (String) ("TimerArduino.SoftTimer.default");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 26) {
-return (String) ("TimerGo.SoftTimer");
-
-} else {
-if(Binary2StringLogger_stateName_id_var == 27) {
-return (String) ("TimerGo.SoftTimer.default");
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-
-}
-return (String) ("unknown");
 }
  void do_log(final byte[] Binary2StringLogger_do_log_payload_var, final int Binary2StringLogger_do_log_size_var) {
 final byte log_type_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(0)])));
@@ -355,15 +186,7 @@ System.out.println(""+("function_called(BreakoutGame0, drawPad, void")+(", _")+(
 
 } else {
 if(func__var == 7) {
-final byte[] bin_c_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int c_var = (int) ((bin_c_var[(int)(0)] << 8 | bin_c_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-c_var = (int) (c_var + 256);
-
-}
-System.out.println(""+("function_called(BreakoutGame0, drawCountDown, void")+(", _")+(", c=")+(c_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, drawCountDown, void")+(", _")+(", c=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
 } else {
 if(func__var == 8) {
@@ -371,19 +194,7 @@ System.out.println(""+("function_called(BreakoutGame0, drawWalls, void")+(", _")
 
 } else {
 if(func__var == 9) {
-final byte[] bin_result_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(Binary2StringLogger_do_log_size_var - 1 + 0)])))});
-
-boolean result_var = (boolean) ((bin_result_var[(int)(0)] << 0) != 0);
-
-final byte[] bin_variable_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int variable_var = (int) ((bin_variable_var[(int)(0)] << 0));
-
-final byte[] bin_bit_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int bit_var = (int) ((bin_bit_var[(int)(0)] << 0));
-
-System.out.println(""+("function_called(BreakoutGame0, bitIsSet, Boolean")+(", ")+(result_var)+(", variable=")+(variable_var)+(", bit=")+(bit_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, bitIsSet, Boolean")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0) != 0))+(", variable=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 0)))+(", bit=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
 } else {
 if(func__var == 10) {
@@ -391,59 +202,19 @@ System.out.println(""+("function_called(BreakoutGame0, createBricks, void")+(", 
 
 } else {
 if(func__var == 11) {
-final byte[] bin_result_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(Binary2StringLogger_do_log_size_var - 1 + 0)])))});
-
-int result_var = (int) ((bin_result_var[(int)(0)] << 0));
-
-System.out.println(""+("function_called(BreakoutGame0, bricksLeft, UInt8")+(", ")+(result_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, bricksLeft, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 0)))+(")"));
 
 } else {
 if(func__var == 12) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-System.out.println(""+("function_called(BreakoutGame0, drawBrick, void")+(", _")+(", x=")+(x_var)+(", y=")+(y_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, drawBrick, void")+(", _")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
 } else {
 if(func__var == 13) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-System.out.println(""+("function_called(BreakoutGame0, removeBrick, void")+(", _")+(", x=")+(x_var)+(", y=")+(y_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, removeBrick, void")+(", _")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
 } else {
 if(func__var == 14) {
-final byte[] bin_result_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(Binary2StringLogger_do_log_size_var - 1 + 0)])))});
-
-boolean result_var = (boolean) ((bin_result_var[(int)(0)] << 0) != 0);
-
-final byte[] bin_xpos_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int xpos_var = (int) ((bin_xpos_var[(int)(0)] << 8 | bin_xpos_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-xpos_var = (int) (xpos_var + 256);
-
-}
-final byte[] bin_ypos_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int ypos_var = (int) ((bin_ypos_var[(int)(0)] << 8 | bin_ypos_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-ypos_var = (int) (ypos_var + 256);
-
-}
-System.out.println(""+("function_called(BreakoutGame0, collideBrick, Boolean")+(", ")+(result_var)+(", xpos=")+(xpos_var)+(", ypos=")+(ypos_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, collideBrick, Boolean")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0) != 0))+(", xpos=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ypos=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(")"));
 
 } else {
 if(func__var == 15) {
@@ -451,15 +222,7 @@ System.out.println(""+("function_called(BreakoutGame0, drawLevel, void")+(", _")
 
 } else {
 if(func__var == 16) {
-final byte[] bin_diff_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int diff_var = (int) ((bin_diff_var[(int)(0)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-diff_var = (int) (diff_var + 1);
-
-}
-System.out.println(""+("function_called(BreakoutGame0, incrementScore, void")+(", _")+(", diff=")+(diff_var)+(")"));
+System.out.println(""+("function_called(BreakoutGame0, incrementScore, void")+(", _")+(", diff=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])) << 0)))+(")"));
 
 } else {
 if(func__var == 17) {
@@ -513,523 +276,123 @@ final byte prop_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payloa
 
 if(inst_var == 0) {
 if(prop_var == 0) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, XDISPSIZE, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, XDISPSIZE, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 1) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, YDISPSIZE, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, YDISPSIZE, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 2) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, SCALE, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, SCALE, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 3) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, XMAX, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, XMAX, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 4) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, YMAX, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, YMAX, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 5) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, TOP, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, TOP, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 6) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, BOTTOM, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, BOTTOM, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 7) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, LEFT, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, LEFT, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 8) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, RIGHT, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, RIGHT, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 9) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, br, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, br, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 10) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, bx, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, bx, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 11) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, by, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, by, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 12) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, dx, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, dx, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 13) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, dy, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, dy, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 14) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, padx, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, padx, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 15) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, pady, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, pady, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 16) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, padlen, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, padlen, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 17) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, prevBX, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, prevBX, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 18) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, prevBY, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, prevBY, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 19) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, bgcolor, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, bgcolor, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 20) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, fgcolor, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, fgcolor, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 21) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, period, UInt16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, period, UInt16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 22) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, prevPX, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, prevPX, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 23) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, prevPY, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, prevPY, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 24) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, BRICK_ROWS, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, BRICK_ROWS, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 25) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, BRICK_HEIGHT, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, BRICK_HEIGHT, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 26) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, bricks, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, bricks, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 27) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 1)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 8 | bin_old_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-old_var = (int) (old_var + 256);
-
-}
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 8 | bin_new__var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-new__var = (int) (new__var + 256);
-
-}
-System.out.println(""+("property_changed(BreakoutGame0, score, Int16")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, score, Int16")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 28) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, lives, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, lives, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
 if(prop_var == 29) {
-final byte[] bin_old_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3 + 0)])))});
-
-int old_var = (int) ((bin_old_var[(int)(0)] << 0));
-
-final byte[] bin_new__var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int new__var = (int) ((bin_new__var[(int)(0)] << 0));
-
-System.out.println(""+("property_changed(BreakoutGame0, level, UInt8")+(", ")+(old_var)+(", ")+(new__var)+(")"));
+System.out.println(""+("property_changed(BreakoutGame0, level, UInt8")+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(", ")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 }
 
@@ -1100,51 +463,31 @@ final byte portID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payl
 final byte messageID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])));
 
 if(inst_var == 0) {
-if(portID_var == 1 && messageID_var == 22) {
-final byte[] bin_id_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int id_var = (int) ((bin_id_var[(int)(0)] << 0));
-
-System.out.println(""+("message_lost(BreakoutGame0, clock, timer_timeout")+(", id=")+(id_var)+(")"));
+if(portID_var == 0 && messageID_var == 21) {
+System.out.println(""+("message_lost(BreakoutGame0, clock, timer_timeout")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 16) {
+if(portID_var == 1 && messageID_var == 15) {
 System.out.println(""+("message_lost(BreakoutGame0, display, displayReady")+(")"));
 
 } else {
-if(portID_var == 3 && messageID_var == 18) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 1)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 8 | bin_x_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-x_var = (int) (x_var + 256);
-
-}
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 1)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 8 | bin_y_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-y_var = (int) (y_var + 256);
-
-}
-System.out.println(""+("message_lost(BreakoutGame0, controller, position")+(", x=")+(x_var)+(", y=")+(y_var)+(")"));
+if(portID_var == 2 && messageID_var == 17) {
+System.out.println(""+("message_lost(BreakoutGame0, controller, position")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 5 && messageID_var == 1) {
+if(portID_var == 4 && messageID_var == 0) {
 System.out.println(""+("message_lost(BreakoutGame0, game, lostBall")+(")"));
 
 } else {
-if(portID_var == 7 && messageID_var == 1) {
+if(portID_var == 6 && messageID_var == 0) {
 System.out.println(""+("message_lost(BreakoutGame0, pro_game, lostBall")+(")"));
 
 } else {
-if(portID_var == 5 && messageID_var == 2) {
+if(portID_var == 4 && messageID_var == 1) {
 System.out.println(""+("message_lost(BreakoutGame0, game, nextLevel")+(")"));
 
 } else {
-if(portID_var == 7 && messageID_var == 2) {
+if(portID_var == 6 && messageID_var == 1) {
 System.out.println(""+("message_lost(BreakoutGame0, pro_game, nextLevel")+(")"));
 
 }
@@ -1170,207 +513,67 @@ final byte portID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payl
 final byte messageID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])));
 
 if(inst_var == 0) {
-if(portID_var == 1 && messageID_var == 20) {
-final byte[] bin_id_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int id_var = (int) ((bin_id_var[(int)(0)] << 0));
-
-final byte[] bin_time_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 1)])))});
-
-int time_var = (int) ((bin_time_var[(int)(0)] << 8 | bin_time_var[(int)(1)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, clock, timer_start")+(", id=")+(id_var)+(", time=")+(time_var)+(")"));
+if(portID_var == 0 && messageID_var == 19) {
+System.out.println(""+("message_sent(BreakoutGame0, clock, timer_start")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", time=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 1 && messageID_var == 21) {
-final byte[] bin_id_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int id_var = (int) ((bin_id_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, clock, timer_cancel")+(", id=")+(id_var)+(")"));
+if(portID_var == 0 && messageID_var == 20) {
+System.out.println(""+("message_sent(BreakoutGame0, clock, timer_cancel")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 6) {
+if(portID_var == 1 && messageID_var == 5) {
 System.out.println(""+("message_sent(BreakoutGame0, display, clear")+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 7) {
-final byte[] bin_r_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int r_var = (int) ((bin_r_var[(int)(0)] << 0));
-
-final byte[] bin_g_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int g_var = (int) ((bin_g_var[(int)(0)] << 0));
-
-final byte[] bin_b_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)])))});
-
-int b_var = (int) ((bin_b_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, setColor")+(", r=")+(r_var)+(", g=")+(g_var)+(", b=")+(b_var)+(")"));
+if(portID_var == 1 && messageID_var == 6) {
+System.out.println(""+("message_sent(BreakoutGame0, display, setColor")+(", r=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", g=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", b=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 8) {
-final byte[] bin_r_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int r_var = (int) ((bin_r_var[(int)(0)] << 0));
-
-final byte[] bin_g_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int g_var = (int) ((bin_g_var[(int)(0)] << 0));
-
-final byte[] bin_b_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)])))});
-
-int b_var = (int) ((bin_b_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, setBGColor")+(", r=")+(r_var)+(", g=")+(g_var)+(", b=")+(b_var)+(")"));
+if(portID_var == 1 && messageID_var == 7) {
+System.out.println(""+("message_sent(BreakoutGame0, display, setBGColor")+(", r=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", g=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", b=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 9) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-final byte[] bin_width_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)])))});
-
-int width_var = (int) ((bin_width_var[(int)(0)] << 0));
-
-final byte[] bin_height_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7 + 0)])))});
-
-int height_var = (int) ((bin_height_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, drawRect")+(", x=")+(x_var)+(", y=")+(y_var)+(", width=")+(width_var)+(", height=")+(height_var)+(")"));
+if(portID_var == 1 && messageID_var == 8) {
+System.out.println(""+("message_sent(BreakoutGame0, display, drawRect")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", width=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(", height=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 10) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-final byte[] bin_width_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)])))});
-
-int width_var = (int) ((bin_width_var[(int)(0)] << 0));
-
-final byte[] bin_height_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7 + 0)])))});
-
-int height_var = (int) ((bin_height_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, fillRect")+(", x=")+(x_var)+(", y=")+(y_var)+(", width=")+(width_var)+(", height=")+(height_var)+(")"));
+if(portID_var == 1 && messageID_var == 9) {
+System.out.println(""+("message_sent(BreakoutGame0, display, fillRect")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", width=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(", height=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 11) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-final byte[] bin_v_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 1)])))});
-
-int v_var = (int) ((bin_v_var[(int)(0)] << 8 | bin_v_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-v_var = (int) (v_var + 256);
-
-}
-final byte[] bin_digits_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8 + 0)])))});
-
-int digits_var = (int) ((bin_digits_var[(int)(0)] << 0));
-
-final byte[] bin_scale_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(9 + 0)])))});
-
-int scale_var = (int) ((bin_scale_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, drawInteger")+(", x=")+(x_var)+(", y=")+(y_var)+(", v=")+(v_var)+(", digits=")+(digits_var)+(", scale=")+(scale_var)+(")"));
+if(portID_var == 1 && messageID_var == 10) {
+System.out.println(""+("message_sent(BreakoutGame0, display, drawInteger")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", v=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7)])) << 0)))+(", digits=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8)])) << 0)))+(", scale=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(9)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 12) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int x_var = (int) ((bin_x_var[(int)(0)] << 0));
-
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, drawThingML")+(", x=")+(x_var)+(", y=")+(y_var)+(")"));
+if(portID_var == 1 && messageID_var == 11) {
+System.out.println(""+("message_sent(BreakoutGame0, display, drawThingML")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 13) {
-final byte[] bin_xsize_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)])))});
-
-int xsize_var = (int) ((bin_xsize_var[(int)(0)] << 0));
-
-final byte[] bin_ysize_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5 + 0)])))});
-
-int ysize_var = (int) ((bin_ysize_var[(int)(0)] << 0));
-
-System.out.println(""+("message_sent(BreakoutGame0, display, create")+(", xsize=")+(xsize_var)+(", ysize=")+(ysize_var)+(")"));
+if(portID_var == 1 && messageID_var == 12) {
+System.out.println(""+("message_sent(BreakoutGame0, display, create")+(", xsize=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", ysize=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 15) {
+if(portID_var == 1 && messageID_var == 14) {
 System.out.println(""+("message_sent(BreakoutGame0, display, update")+(")"));
 
 } else {
-if(portID_var == 4 && messageID_var == 19) {
-final byte[] bin_ballx_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4 + 1)])))});
-
-int ballx_var = (int) ((bin_ballx_var[(int)(0)] << 8 | bin_ballx_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-ballx_var = (int) (ballx_var + 256);
-
-}
-final byte[] bin_bally_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 1)])))});
-
-int bally_var = (int) ((bin_bally_var[(int)(0)] << 8 | bin_bally_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-bally_var = (int) (bally_var + 256);
-
-}
-final byte[] bin_padx_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8 + 1)])))});
-
-int padx_var = (int) ((bin_padx_var[(int)(0)] << 8 | bin_padx_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-padx_var = (int) (padx_var + 256);
-
-}
-final byte[] bin_pady_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(10 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(10 + 1)])))});
-
-int pady_var = (int) ((bin_pady_var[(int)(0)] << 8 | bin_pady_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-pady_var = (int) (pady_var + 256);
-
-}
-System.out.println(""+("message_sent(BreakoutGame0, ia, updateIA")+(", ballx=")+(ballx_var)+(", bally=")+(bally_var)+(", padx=")+(padx_var)+(", pady=")+(pady_var)+(")"));
+if(portID_var == 3 && messageID_var == 18) {
+System.out.println(""+("message_sent(BreakoutGame0, ia, updateIA")+(", ballx=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 0)))+(", bally=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(7)])) << 0)))+(", padx=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(9)])) << 0)))+(", pady=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(10)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(11)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 5 && messageID_var == 1) {
+if(portID_var == 4 && messageID_var == 0) {
 System.out.println(""+("message_sent(BreakoutGame0, game, lostBall")+(")"));
 
 } else {
-if(portID_var == 6 && messageID_var == 1) {
+if(portID_var == 5 && messageID_var == 0) {
 System.out.println(""+("message_sent(BreakoutGame0, req_game, lostBall")+(")"));
 
 } else {
-if(portID_var == 5 && messageID_var == 2) {
+if(portID_var == 4 && messageID_var == 1) {
 System.out.println(""+("message_sent(BreakoutGame0, game, nextLevel")+(")"));
 
 } else {
-if(portID_var == 6 && messageID_var == 2) {
+if(portID_var == 5 && messageID_var == 1) {
 System.out.println(""+("message_sent(BreakoutGame0, req_game, nextLevel")+(")"));
 
 }
@@ -1409,61 +612,65 @@ System.out.println(""+("message_sent(BreakoutGame0, req_game, nextLevel")+(")"))
 
 } else {
 if(log_type_var == 4) {
-final byte portID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])));
-
-final byte messageID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])));
-
-final byte sourceID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])));
-
-final byte targetID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])));
+final byte handlerID_var = (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(2)])));
 
 if(inst_var == 0) {
-if(portID_var == 1 && messageID_var == 22) {
-final byte[] bin_id_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)])))});
-
-int id_var = (int) ((bin_id_var[(int)(0)] << 0));
-
-System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(", id=")+(id_var)+(")"));
+if(handlerID_var == 0) {
+System.out.println(""+("message_handled(BreakoutGame0, controller, position, SC, _, ")+(", x=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(4)])) << 0)))+(", y=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(5)])) << 8 | get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6)])) << 0)))+(")"));
 
 } else {
-if(portID_var == 2 && messageID_var == 16) {
-System.out.println(""+("message_handled(BreakoutGame0, display, displayReady, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(")"));
+if(handlerID_var == 1) {
+System.out.println(""+("message_handled(BreakoutGame0, display, displayReady, INIT, LAUNCH, ")+(")"));
 
 } else {
-if(portID_var == 3 && messageID_var == 18) {
-final byte[] bin_x_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(6 + 1)])))});
+if(handlerID_var == 2) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, LAUNCH, _, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
-int x_var = (int) ((bin_x_var[(int)(0)] << 8 | bin_x_var[(int)(1)] << 0));
+} else {
+if(handlerID_var == 3) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, LAUNCH, PLAY, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-x_var = (int) (x_var + 256);
+} else {
+if(handlerID_var == 4) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, PLAY, _, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
+
+} else {
+if(handlerID_var == 5) {
+System.out.println(""+("message_handled(BreakoutGame0, game, lostBall, PLAY, LOSTBALL, ")+(")"));
+
+} else {
+if(handlerID_var == 6) {
+System.out.println(""+("message_handled(BreakoutGame0, game, nextLevel, PLAY, NEXTLEVEL, ")+(")"));
+
+} else {
+if(handlerID_var == 7) {
+System.out.println(""+("message_handled(BreakoutGame0, pro_game, lostBall, PLAY, LOSTBALL, ")+(")"));
+
+} else {
+if(handlerID_var == 8) {
+System.out.println(""+("message_handled(BreakoutGame0, pro_game, nextLevel, PLAY, NEXTLEVEL, ")+(")"));
+
+} else {
+if(handlerID_var == 9) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, LOSTBALL, LAUNCH, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
+
+} else {
+if(handlerID_var == 10) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, LOSTBALL, GAMEOVER, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
+
+} else {
+if(handlerID_var == 11) {
+System.out.println(""+("message_handled(BreakoutGame0, clock, timer_timeout, NEXTLEVEL, LAUNCH, ")+(", id=")+(((get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(3)])) << 0)))+(")"));
 
 }
-final byte[] bin_y_var = (byte[]) (new byte[]{(byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8 + 0)]))), (byte) (get_byte((byte) (Binary2StringLogger_do_log_payload_var[(int)(8 + 1)])))});
-
-int y_var = (int) ((bin_y_var[(int)(0)] << 8 | bin_y_var[(int)(1)] << 0));
-
-if( !(getLogger_HAS_SIGNED_BYTE_var())) {
-y_var = (int) (y_var + 256);
 
 }
-System.out.println(""+("message_handled(BreakoutGame0, controller, position, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(", x=")+(x_var)+(", y=")+(y_var)+(")"));
 
-} else {
-if(portID_var == 5 && messageID_var == 1) {
-System.out.println(""+("message_handled(BreakoutGame0, game, lostBall, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(")"));
+}
 
-} else {
-if(portID_var == 7 && messageID_var == 1) {
-System.out.println(""+("message_handled(BreakoutGame0, pro_game, lostBall, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(")"));
+}
 
-} else {
-if(portID_var == 5 && messageID_var == 2) {
-System.out.println(""+("message_handled(BreakoutGame0, game, nextLevel, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(")"));
-
-} else {
-if(portID_var == 7 && messageID_var == 2) {
-System.out.println(""+("message_handled(BreakoutGame0, pro_game, nextLevel, ")+(stateName((byte) (sourceID_var)))+(", ")+(stateName((byte) (targetID_var)))+(")"));
+}
 
 }
 

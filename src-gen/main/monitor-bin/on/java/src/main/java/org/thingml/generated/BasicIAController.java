@@ -80,11 +80,11 @@ final AtomicState state_BasicIAController_SC_Following = new AtomicState("Follow
 state_BasicIAController_SC_Following.onEntry(()->{
 sendPosition_via_controls((int) (getBasicIAController_ctrlx_var()), (int) (0));
 });
-Transition h1116648405 = new Transition();
-h1116648405.from(state_BasicIAController_SC_Following).to(state_BasicIAController_SC_Following);
-h1116648405.event(updateIAType);
-h1116648405.port(game_port);
-h1116648405.action((Event e)->{
+Transition h46727015 = new Transition();
+h46727015.from(state_BasicIAController_SC_Following).to(state_BasicIAController_SC_Following);
+h46727015.event(updateIAType);
+h46727015.port(game_port);
+h46727015.action((Event e)->{
 final UpdateIAMessageType.UpdateIAMessage updateIA = (UpdateIAMessageType.UpdateIAMessage) e;
 if(updateIA.ballx > updateIA.padx + 400) {
 BasicIAController_ctrlx_var = (int) (getBasicIAController_ctrlx_var() + 4);

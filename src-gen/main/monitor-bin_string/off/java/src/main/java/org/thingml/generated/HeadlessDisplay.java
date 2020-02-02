@@ -124,91 +124,91 @@ state_HeadlessDisplay_null_INIT.onEntry(()->{
 sendDisplayReady_via_display();
 });
 final AtomicState state_HeadlessDisplay_null_MOCK = new AtomicState("MOCK");
-Transition h581841594 = new Transition();
-h581841594.from(state_HeadlessDisplay_null_INIT).to(state_HeadlessDisplay_null_MOCK);
-Handler h1604700367 = new Handler();
-h1604700367.from(state_HeadlessDisplay_null_MOCK);
-h1604700367.event(createType);
-h1604700367.port(display_port);
-h1604700367.action((Event e)->{
+Transition h1583992583 = new Transition();
+h1583992583.from(state_HeadlessDisplay_null_INIT).to(state_HeadlessDisplay_null_MOCK);
+Handler h722929970 = new Handler();
+h722929970.from(state_HeadlessDisplay_null_MOCK);
+h722929970.event(createType);
+h722929970.port(display_port);
+h722929970.action((Event e)->{
 final CreateMessageType.CreateMessage create = (CreateMessageType.CreateMessage) e;
 mock();
 });
 
-Handler h312928493 = new Handler();
-h312928493.from(state_HeadlessDisplay_null_MOCK);
-h312928493.event(destroyType);
-h312928493.port(display_port);
-h312928493.action((Event e)->{
+Handler h1142350221 = new Handler();
+h1142350221.from(state_HeadlessDisplay_null_MOCK);
+h1142350221.event(destroyType);
+h1142350221.port(display_port);
+h1142350221.action((Event e)->{
 mock();
 });
 
-Handler h1614761534 = new Handler();
-h1614761534.from(state_HeadlessDisplay_null_MOCK);
-h1614761534.event(updateType);
-h1614761534.port(display_port);
-h1614761534.action((Event e)->{
+Handler h1891930552 = new Handler();
+h1891930552.from(state_HeadlessDisplay_null_MOCK);
+h1891930552.event(updateType);
+h1891930552.port(display_port);
+h1891930552.action((Event e)->{
 mock();
 });
 
-Handler h1503057650 = new Handler();
-h1503057650.from(state_HeadlessDisplay_null_MOCK);
-h1503057650.event(clearType);
-h1503057650.port(display_port);
-h1503057650.action((Event e)->{
+Handler h27325257 = new Handler();
+h27325257.from(state_HeadlessDisplay_null_MOCK);
+h27325257.event(clearType);
+h27325257.port(display_port);
+h27325257.action((Event e)->{
 mock();
 });
 
-Handler h1644213828 = new Handler();
-h1644213828.from(state_HeadlessDisplay_null_MOCK);
-h1644213828.event(setColorType);
-h1644213828.port(display_port);
-h1644213828.action((Event e)->{
+Handler h1009260571 = new Handler();
+h1009260571.from(state_HeadlessDisplay_null_MOCK);
+h1009260571.event(setColorType);
+h1009260571.port(display_port);
+h1009260571.action((Event e)->{
 final SetColorMessageType.SetColorMessage setColor = (SetColorMessageType.SetColorMessage) e;
 mock();
 });
 
-Handler h2047966658 = new Handler();
-h2047966658.from(state_HeadlessDisplay_null_MOCK);
-h2047966658.event(setBGColorType);
-h2047966658.port(display_port);
-h2047966658.action((Event e)->{
+Handler h1224970135 = new Handler();
+h1224970135.from(state_HeadlessDisplay_null_MOCK);
+h1224970135.event(setBGColorType);
+h1224970135.port(display_port);
+h1224970135.action((Event e)->{
 final SetBGColorMessageType.SetBGColorMessage setBGColor = (SetBGColorMessageType.SetBGColorMessage) e;
 mock();
 });
 
-Handler h454992345 = new Handler();
-h454992345.from(state_HeadlessDisplay_null_MOCK);
-h454992345.event(drawRectType);
-h454992345.port(display_port);
-h454992345.action((Event e)->{
+Handler h14093978 = new Handler();
+h14093978.from(state_HeadlessDisplay_null_MOCK);
+h14093978.event(drawRectType);
+h14093978.port(display_port);
+h14093978.action((Event e)->{
 final DrawRectMessageType.DrawRectMessage drawRect = (DrawRectMessageType.DrawRectMessage) e;
 mock();
 });
 
-Handler h1377456236 = new Handler();
-h1377456236.from(state_HeadlessDisplay_null_MOCK);
-h1377456236.event(fillRectType);
-h1377456236.port(display_port);
-h1377456236.action((Event e)->{
+Handler h2132762784 = new Handler();
+h2132762784.from(state_HeadlessDisplay_null_MOCK);
+h2132762784.event(fillRectType);
+h2132762784.port(display_port);
+h2132762784.action((Event e)->{
 final FillRectMessageType.FillRectMessage fillRect = (FillRectMessageType.FillRectMessage) e;
 mock();
 });
 
-Handler h1320260667 = new Handler();
-h1320260667.from(state_HeadlessDisplay_null_MOCK);
-h1320260667.event(drawIntegerType);
-h1320260667.port(display_port);
-h1320260667.action((Event e)->{
+Handler h863313225 = new Handler();
+h863313225.from(state_HeadlessDisplay_null_MOCK);
+h863313225.event(drawIntegerType);
+h863313225.port(display_port);
+h863313225.action((Event e)->{
 final DrawIntegerMessageType.DrawIntegerMessage drawInteger = (DrawIntegerMessageType.DrawIntegerMessage) e;
 mock();
 });
 
-Handler h2098738059 = new Handler();
-h2098738059.from(state_HeadlessDisplay_null_MOCK);
-h2098738059.event(drawThingMLType);
-h2098738059.port(display_port);
-h2098738059.action((Event e)->{
+Handler h1625094636 = new Handler();
+h1625094636.from(state_HeadlessDisplay_null_MOCK);
+h1625094636.event(drawThingMLType);
+h1625094636.port(display_port);
+h1625094636.action((Event e)->{
 final DrawThingMLMessageType.DrawThingMLMessage drawThingML = (DrawThingMLMessageType.DrawThingMLMessage) e;
 mock();
 });

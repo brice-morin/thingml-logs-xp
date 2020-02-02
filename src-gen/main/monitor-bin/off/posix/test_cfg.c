@@ -15,8 +15,8 @@
 #include "thingml_typedefs.h"
 #include "runtime.h"
 #include "BreakoutGamePosix.h"
-#include "ConsoleLogger.h"
 #include "HeadlessDisplay.h"
+#include "ConsoleLogger.h"
 #include "TimerPosix.h"
 #include "BasicIAController.h"
 
@@ -28,21 +28,21 @@
  * Definitions for configuration : test
  *****************************************************************************/
 
-uint8_t array_game_BreakoutGame_fgcolor_var[3];
 uint8_t array_game_BreakoutGame_bgcolor_var[3];
 uint8_t array_game_BreakoutGame_bricks_var[5];
+uint8_t array_game_BreakoutGame_fgcolor_var[3];
 //Declaration of instance variables
 //Instance game
 // Variables for the properties of the instance
 struct BreakoutGamePosix_Instance game_var;
 // Variables for the sessions of the instance
-//Instance log
-// Variables for the properties of the instance
-struct ConsoleLogger_Instance log_var;
-// Variables for the sessions of the instance
 //Instance disp
 // Variables for the properties of the instance
 struct HeadlessDisplay_Instance disp_var;
+// Variables for the sessions of the instance
+//Instance log
+// Variables for the properties of the instance
+struct ConsoleLogger_Instance log_var;
 // Variables for the sessions of the instance
 //Instance timer
 // Variables for the properties of the instance
@@ -284,7 +284,11 @@ fifo_unlock_and_notify();
 
 
 //New dispatcher for messages
-void dispatch_velocity(uint16_t sender, int16_t param_dx, int16_t param_dy) {
+void dispatch_timer_timeout(uint16_t sender, uint8_t param_id) {
+if (sender == timer_var.id_timer) {
+BreakoutGamePosix_handle_clock_timer_timeout(&game_var, param_id);
+
+}
 if (sender == game_var.id_game) {
 
 }
@@ -307,9 +311,9 @@ BreakoutGamePosix_handle_game_lostBall(&game_var);
 
 
 //New dispatcher for messages
-void dispatch_update(uint16_t sender) {
+void dispatch_drawRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
 if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_update(&disp_var);
+HeadlessDisplay_handle_display_drawRect(&disp_var, param_x, param_y, param_width, param_height);
 
 }
 if (sender == game_var.id_game) {
@@ -318,8 +322,8 @@ if (sender == game_var.id_game) {
 
 }
 
-void sync_dispatch_BreakoutGamePosix_send_display_update(struct BreakoutGamePosix_Instance *_instance){
-dispatch_update(_instance->id_display);
+void sync_dispatch_BreakoutGamePosix_send_display_drawRect(struct BreakoutGamePosix_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
+dispatch_drawRect(_instance->id_display, x, y, width, height);
 }
 
 //New dispatcher for messages
@@ -336,12 +340,25 @@ if (sender == game_var.id_game) {
 
 
 //New dispatcher for messages
-void dispatch_log(uint16_t sender, uint8_t* param_payload, uint8_t param_size) {
+void dispatch_timer_start(uint16_t sender, uint8_t param_id, uint16_t param_time) {
+if (sender == game_var.id_clock) {
+TimerPosix_handle_timer_timer_start(&timer_var, param_id, param_time);
+
+}
 if (sender == game_var.id_game) {
 
 }
+
+}
+
+
+//New dispatcher for messages
+void dispatch_log(uint16_t sender, uint8_t* param_payload, uint8_t param_size) {
 if (sender == game_var.id_log) {
 ConsoleLogger_handle_log_log(&log_var, param_payload, param_size);
+
+}
+if (sender == game_var.id_game) {
 
 }
 
@@ -352,7 +369,7 @@ dispatch_log(_instance->id_log, payload, size);
 }
 
 //New dispatcher for messages
-void dispatch_log_on(uint16_t sender) {
+void dispatch_destroy(uint16_t sender) {
 if (sender == game_var.id_game) {
 
 }
@@ -377,41 +394,6 @@ dispatch_drawInteger(_instance->id_display, x, y, v, digits, scale);
 }
 
 //New dispatcher for messages
-void dispatch_displayReady(uint16_t sender) {
-if (sender == disp_var.id_display) {
-BreakoutGamePosix_handle_display_displayReady(&game_var);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_destroy(uint16_t sender) {
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_timer_timeout(uint16_t sender, uint8_t param_id) {
-if (sender == timer_var.id_timer) {
-BreakoutGamePosix_handle_clock_timer_timeout(&game_var, param_id);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
 void dispatch_nextLevel(uint16_t sender) {
 if (sender == game_var.id_req_game) {
 BreakoutGamePosix_handle_pro_game_nextLevel(&game_var);
@@ -426,9 +408,9 @@ BreakoutGamePosix_handle_game_nextLevel(&game_var);
 
 
 //New dispatcher for messages
-void dispatch_timer_cancel(uint16_t sender, uint8_t param_id) {
-if (sender == game_var.id_clock) {
-TimerPosix_handle_timer_timer_cancel(&timer_var, param_id);
+void dispatch_displayReady(uint16_t sender) {
+if (sender == disp_var.id_display) {
+BreakoutGamePosix_handle_display_displayReady(&game_var);
 
 }
 if (sender == game_var.id_game) {
@@ -439,9 +421,9 @@ if (sender == game_var.id_game) {
 
 
 //New dispatcher for messages
-void dispatch_setColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
+void dispatch_update(uint16_t sender) {
 if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_setColor(&disp_var, param_r, param_g, param_b);
+HeadlessDisplay_handle_display_update(&disp_var);
 
 }
 if (sender == game_var.id_game) {
@@ -450,9 +432,18 @@ if (sender == game_var.id_game) {
 
 }
 
-void sync_dispatch_BreakoutGamePosix_send_display_setColor(struct BreakoutGamePosix_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
-dispatch_setColor(_instance->id_display, r, g, b);
+void sync_dispatch_BreakoutGamePosix_send_display_update(struct BreakoutGamePosix_Instance *_instance){
+dispatch_update(_instance->id_display);
 }
+
+//New dispatcher for messages
+void dispatch_log_on(uint16_t sender) {
+if (sender == game_var.id_game) {
+
+}
+
+}
+
 
 //New dispatcher for messages
 void dispatch_drawThingML(uint16_t sender, uint8_t param_x, uint8_t param_y) {
@@ -468,35 +459,6 @@ if (sender == game_var.id_game) {
 
 void sync_dispatch_BreakoutGamePosix_send_display_drawThingML(struct BreakoutGamePosix_Instance *_instance, uint8_t x, uint8_t y){
 dispatch_drawThingML(_instance->id_display, x, y);
-}
-
-//New dispatcher for messages
-void dispatch_updateIA(uint16_t sender, int16_t param_ballx, int16_t param_bally, int16_t param_padx, int16_t param_pady) {
-if (sender == game_var.id_game) {
-
-}
-if (sender == game_var.id_ia) {
-BasicIAController_handle_game_updateIA(&ctrl_var, param_ballx, param_bally, param_padx, param_pady);
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_clear(uint16_t sender) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_clear(&disp_var);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGamePosix_send_display_clear(struct BreakoutGamePosix_Instance *_instance){
-dispatch_clear(_instance->id_display);
 }
 
 //New dispatcher for messages
@@ -516,9 +478,9 @@ dispatch_create(_instance->id_display, xsize, ysize);
 }
 
 //New dispatcher for messages
-void dispatch_timer_start(uint16_t sender, uint8_t param_id, uint16_t param_time) {
-if (sender == game_var.id_clock) {
-TimerPosix_handle_timer_timer_start(&timer_var, param_id, param_time);
+void dispatch_clear(uint16_t sender) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_clear(&disp_var);
 
 }
 if (sender == game_var.id_game) {
@@ -527,6 +489,54 @@ if (sender == game_var.id_game) {
 
 }
 
+void sync_dispatch_BreakoutGamePosix_send_display_clear(struct BreakoutGamePosix_Instance *_instance){
+dispatch_clear(_instance->id_display);
+}
+
+//New dispatcher for messages
+void dispatch_updateIA(uint16_t sender, int16_t param_ballx, int16_t param_bally, int16_t param_padx, int16_t param_pady) {
+if (sender == game_var.id_ia) {
+BasicIAController_handle_game_updateIA(&ctrl_var, param_ballx, param_bally, param_padx, param_pady);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_fillRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_fillRect(&disp_var, param_x, param_y, param_width, param_height);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGamePosix_send_display_fillRect(struct BreakoutGamePosix_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
+dispatch_fillRect(_instance->id_display, x, y, width, height);
+}
+
+//New dispatcher for messages
+void dispatch_setColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_setColor(&disp_var, param_r, param_g, param_b);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGamePosix_send_display_setColor(struct BreakoutGamePosix_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
+dispatch_setColor(_instance->id_display, r, g, b);
+}
 
 //New dispatcher for messages
 void dispatch_setBGColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
@@ -545,25 +555,18 @@ dispatch_setBGColor(_instance->id_display, r, g, b);
 }
 
 //New dispatcher for messages
-void dispatch_drawRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_drawRect(&disp_var, param_x, param_y, param_width, param_height);
-
-}
+void dispatch_velocity(uint16_t sender, int16_t param_dx, int16_t param_dy) {
 if (sender == game_var.id_game) {
 
 }
 
 }
 
-void sync_dispatch_BreakoutGamePosix_send_display_drawRect(struct BreakoutGamePosix_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
-dispatch_drawRect(_instance->id_display, x, y, width, height);
-}
 
 //New dispatcher for messages
-void dispatch_fillRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_fillRect(&disp_var, param_x, param_y, param_width, param_height);
+void dispatch_timer_cancel(uint16_t sender, uint8_t param_id) {
+if (sender == game_var.id_clock) {
+TimerPosix_handle_timer_timer_cancel(&timer_var, param_id);
 
 }
 if (sender == game_var.id_game) {
@@ -572,9 +575,6 @@ if (sender == game_var.id_game) {
 
 }
 
-void sync_dispatch_BreakoutGamePosix_send_display_fillRect(struct BreakoutGamePosix_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
-dispatch_fillRect(_instance->id_display, x, y, width, height);
-}
 
 //New dispatcher for messages
 void dispatch_log_off(uint16_t sender) {
@@ -597,35 +597,27 @@ code += fifo_dequeue();
 
 // Switch to call the appropriate handler
 switch(code) {
+case 7:{
+byte mbuf[5 - 2];
+while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
+fifo_unlock();
+uint8_t mbufi_timer_timeout = 2;
+union u_timer_timeout_id_t {
+uint8_t p;
+byte bytebuffer[1];
+} u_timer_timeout_id;
+u_timer_timeout_id.bytebuffer[0] = mbuf[mbufi_timer_timeout + 0];
+mbufi_timer_timeout += 1;
+dispatch_timer_timeout((mbuf[0] << 8) + mbuf[1] /* instance port*/,
+ u_timer_timeout_id.p /* id */ );
+break;
+}
 case 4:{
 byte mbuf[4 - 2];
 while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
 fifo_unlock();
 uint8_t mbufi_lostBall = 2;
 dispatch_lostBall((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
-case 1:{
-byte mbuf[7 - 2];
-while (mbufi < (7 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_timer_start = 2;
-union u_timer_start_id_t {
-uint8_t p;
-byte bytebuffer[1];
-} u_timer_start_id;
-u_timer_start_id.bytebuffer[0] = mbuf[mbufi_timer_start + 0];
-mbufi_timer_start += 1;
-union u_timer_start_time_t {
-uint16_t p;
-byte bytebuffer[2];
-} u_timer_start_time;
-u_timer_start_time.bytebuffer[0] = mbuf[mbufi_timer_start + 0];
-u_timer_start_time.bytebuffer[1] = mbuf[mbufi_timer_start + 1];
-mbufi_timer_start += 2;
-dispatch_timer_start((mbuf[0] << 8) + mbuf[1] /* instance port*/,
- u_timer_start_id.p /* id */ ,
- u_timer_start_time.p /* time */ );
 break;
 }
 case 8:{
@@ -650,52 +642,6 @@ mbufi_position += 2;
 dispatch_position((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_position_x.p /* x */ ,
  u_position_y.p /* y */ );
-break;
-}
-case 6:{
-byte mbuf[4 - 2];
-while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_displayReady = 2;
-dispatch_displayReady((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
-case 5:{
-byte mbuf[4 - 2];
-while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_nextLevel = 2;
-dispatch_nextLevel((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
-case 7:{
-byte mbuf[5 - 2];
-while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_timer_timeout = 2;
-union u_timer_timeout_id_t {
-uint8_t p;
-byte bytebuffer[1];
-} u_timer_timeout_id;
-u_timer_timeout_id.bytebuffer[0] = mbuf[mbufi_timer_timeout + 0];
-mbufi_timer_timeout += 1;
-dispatch_timer_timeout((mbuf[0] << 8) + mbuf[1] /* instance port*/,
- u_timer_timeout_id.p /* id */ );
-break;
-}
-case 2:{
-byte mbuf[5 - 2];
-while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
-fifo_unlock();
-uint8_t mbufi_timer_cancel = 2;
-union u_timer_cancel_id_t {
-uint8_t p;
-byte bytebuffer[1];
-} u_timer_cancel_id;
-u_timer_cancel_id.bytebuffer[0] = mbuf[mbufi_timer_cancel + 0];
-mbufi_timer_cancel += 1;
-dispatch_timer_cancel((mbuf[0] << 8) + mbuf[1] /* instance port*/,
- u_timer_cancel_id.p /* id */ );
 break;
 }
 case 3:{
@@ -738,6 +684,60 @@ dispatch_updateIA((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_updateIA_pady.p /* pady */ );
 break;
 }
+case 1:{
+byte mbuf[7 - 2];
+while (mbufi < (7 - 2)) mbuf[mbufi++] = fifo_dequeue();
+fifo_unlock();
+uint8_t mbufi_timer_start = 2;
+union u_timer_start_id_t {
+uint8_t p;
+byte bytebuffer[1];
+} u_timer_start_id;
+u_timer_start_id.bytebuffer[0] = mbuf[mbufi_timer_start + 0];
+mbufi_timer_start += 1;
+union u_timer_start_time_t {
+uint16_t p;
+byte bytebuffer[2];
+} u_timer_start_time;
+u_timer_start_time.bytebuffer[0] = mbuf[mbufi_timer_start + 0];
+u_timer_start_time.bytebuffer[1] = mbuf[mbufi_timer_start + 1];
+mbufi_timer_start += 2;
+dispatch_timer_start((mbuf[0] << 8) + mbuf[1] /* instance port*/,
+ u_timer_start_id.p /* id */ ,
+ u_timer_start_time.p /* time */ );
+break;
+}
+case 5:{
+byte mbuf[4 - 2];
+while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
+fifo_unlock();
+uint8_t mbufi_nextLevel = 2;
+dispatch_nextLevel((mbuf[0] << 8) + mbuf[1] /* instance port*/);
+break;
+}
+case 6:{
+byte mbuf[4 - 2];
+while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
+fifo_unlock();
+uint8_t mbufi_displayReady = 2;
+dispatch_displayReady((mbuf[0] << 8) + mbuf[1] /* instance port*/);
+break;
+}
+case 2:{
+byte mbuf[5 - 2];
+while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
+fifo_unlock();
+uint8_t mbufi_timer_cancel = 2;
+union u_timer_cancel_id_t {
+uint8_t p;
+byte bytebuffer[1];
+} u_timer_cancel_id;
+u_timer_cancel_id.bytebuffer[0] = mbuf[mbufi_timer_cancel + 0];
+mbufi_timer_cancel += 1;
+dispatch_timer_cancel((mbuf[0] << 8) + mbuf[1] /* instance port*/,
+ u_timer_cancel_id.p /* id */ );
+break;
+}
 }
 return 1;
 }
@@ -750,15 +750,15 @@ void initialize_configuration_test() {
 register_BreakoutGamePosix_send_log_log_listener(&sync_dispatch_BreakoutGamePosix_send_log_log);
 register_BreakoutGamePosix_send_clock_timer_start_listener(&enqueue_BreakoutGamePosix_send_clock_timer_start);
 register_BreakoutGamePosix_send_clock_timer_cancel_listener(&enqueue_BreakoutGamePosix_send_clock_timer_cancel);
-register_BreakoutGamePosix_send_display_clear_listener(&sync_dispatch_BreakoutGamePosix_send_display_clear);
 register_BreakoutGamePosix_send_display_create_listener(&sync_dispatch_BreakoutGamePosix_send_display_create);
-register_BreakoutGamePosix_send_display_update_listener(&sync_dispatch_BreakoutGamePosix_send_display_update);
-register_BreakoutGamePosix_send_display_setBGColor_listener(&sync_dispatch_BreakoutGamePosix_send_display_setBGColor);
-register_BreakoutGamePosix_send_display_fillRect_listener(&sync_dispatch_BreakoutGamePosix_send_display_fillRect);
-register_BreakoutGamePosix_send_display_drawRect_listener(&sync_dispatch_BreakoutGamePosix_send_display_drawRect);
-register_BreakoutGamePosix_send_display_drawInteger_listener(&sync_dispatch_BreakoutGamePosix_send_display_drawInteger);
-register_BreakoutGamePosix_send_display_setColor_listener(&sync_dispatch_BreakoutGamePosix_send_display_setColor);
 register_BreakoutGamePosix_send_display_drawThingML_listener(&sync_dispatch_BreakoutGamePosix_send_display_drawThingML);
+register_BreakoutGamePosix_send_display_drawRect_listener(&sync_dispatch_BreakoutGamePosix_send_display_drawRect);
+register_BreakoutGamePosix_send_display_clear_listener(&sync_dispatch_BreakoutGamePosix_send_display_clear);
+register_BreakoutGamePosix_send_display_fillRect_listener(&sync_dispatch_BreakoutGamePosix_send_display_fillRect);
+register_BreakoutGamePosix_send_display_setColor_listener(&sync_dispatch_BreakoutGamePosix_send_display_setColor);
+register_BreakoutGamePosix_send_display_setBGColor_listener(&sync_dispatch_BreakoutGamePosix_send_display_setBGColor);
+register_BreakoutGamePosix_send_display_drawInteger_listener(&sync_dispatch_BreakoutGamePosix_send_display_drawInteger);
+register_BreakoutGamePosix_send_display_update_listener(&sync_dispatch_BreakoutGamePosix_send_display_update);
 register_BreakoutGamePosix_send_ia_updateIA_listener(&enqueue_BreakoutGamePosix_send_ia_updateIA);
 register_BreakoutGamePosix_send_req_game_lostBall_listener(&enqueue_BreakoutGamePosix_send_req_game_lostBall);
 register_BreakoutGamePosix_send_req_game_nextLevel_listener(&enqueue_BreakoutGamePosix_send_req_game_nextLevel);
@@ -776,21 +776,13 @@ disp_var.id_display = add_instance( (void*) &disp_var);
 disp_var.HeadlessDisplay_State = HEADLESSDISPLAY_NULL_INIT_STATE;
 
 HeadlessDisplay_OnEntry(HEADLESSDISPLAY_STATE, &disp_var);
-// Init the ID, state variables and properties for instance timer
-timer_var.active = true;
-timer_var.id_timer = add_instance( (void*) &timer_var);
-timer_var.TimerPosix_SoftTimer_State = TIMERPOSIX_SOFTTIMER_DEFAULT_STATE;
-timer_var.TimerPosix_SOFT_TIMER_PERIOD_var = 4;
-timer_var.TimerPosix_NB_SOFT_TIMERS_var = NB_SOFT_TIMERS;
-
-TimerPosix_SoftTimer_OnEntry(TIMERPOSIX_SOFTTIMER_STATE, &timer_var);
 // Init the ID, state variables and properties for instance log
 log_var.active = true;
 log_var.id_log = add_instance( (void*) &log_var);
 log_var.Logger_State = LOGGER_NULL_STARTUP_STATE;
+log_var.ConsoleLogger_QUIET_var = 1;
 log_var.Logger_HAS_SIGNED_BYTE_var = 0;
 log_var.Logger_ACTIVATE_ON_STARTUP_var = 0;
-log_var.ConsoleLogger_QUIET_var = 1;
 
 Logger_OnEntry(LOGGER_STATE, &log_var);
 // Init the ID, state variables and properties for instance ctrl
@@ -801,6 +793,14 @@ ctrl_var.BasicIAController_SC_State = BASICIACONTROLLER_SC_FOLLOWING_STATE;
 ctrl_var.BasicIAController_ctrlx_var = 0;
 
 BasicIAController_SC_OnEntry(BASICIACONTROLLER_SC_STATE, &ctrl_var);
+// Init the ID, state variables and properties for instance timer
+timer_var.active = true;
+timer_var.id_timer = add_instance( (void*) &timer_var);
+timer_var.TimerPosix_SoftTimer_State = TIMERPOSIX_SOFTTIMER_DEFAULT_STATE;
+timer_var.TimerPosix_NB_SOFT_TIMERS_var = NB_SOFT_TIMERS;
+timer_var.TimerPosix_SOFT_TIMER_PERIOD_var = 4;
+
+TimerPosix_SoftTimer_OnEntry(TIMERPOSIX_SOFTTIMER_STATE, &timer_var);
 // Init the ID, state variables and properties for instance game
 game_var.active = true;
 game_var.id_log = add_instance( (void*) &game_var);
@@ -812,43 +812,43 @@ game_var.id_game = add_instance( (void*) &game_var);
 game_var.id_req_game = add_instance( (void*) &game_var);
 game_var.id_pro_game = add_instance( (void*) &game_var);
 game_var.BreakoutGame_SC_State = BREAKOUTGAME_SC_INIT_STATE;
-game_var.BreakoutGame_prevPX_var =  -1;
-game_var.BreakoutGame_LEFT_var = 1 * 64;
-game_var.BreakoutGame_bx_var = 160 * 64 / 2;
 game_var.BreakoutGame_XDISPSIZE_var = 160;
-game_var.BreakoutGame_dy_var =  -160 * 64 / 65;
-game_var.BreakoutGame_pady_var = 128 * 64 - 6 * 64;
-game_var.BreakoutGame_dx_var = 160 * 64 / 98;
-game_var.BreakoutGame_period_var = 3;
-game_var.BreakoutGame_level_var = 1;
-game_var.BreakoutGame_prevBX_var =  -1;
-game_var.BreakoutGame_lastTimestamp_var = 0;
-game_var.BreakoutGame_padlen_var = 25 * 64;
-game_var.BreakoutGame_counter_var = 0;
-game_var.BreakoutGame_TOP_var = 14 * 64;
-game_var.WithBinaryLog_DEBUG_BIN_ID_var = 0;
-game_var.BreakoutGame_padx_var = 128 * 64 / 2;
-game_var.BreakoutGame_SCALE_var = 64;
-game_var.BreakoutGame_BRICK_ROWS_var = 5;
-game_var.BreakoutGame_YDISPSIZE_var = 128;
-game_var.BreakoutGame_BRICK_HEIGHT_var = 9;
-game_var.BreakoutGame_prevBY_var =  -1;
-game_var.BreakoutGame_lives_var = 3;
-game_var.BreakoutGame_XMAX_var = 160 * 64;
-game_var.BreakoutGame_BOTTOM_var = 128 * 64 + 8 * 64;
-game_var.BreakoutGame_prevPY_var =  -1;
-game_var.BreakoutGame_YMAX_var = 128 * 64;
 game_var.BreakoutGame_QUIET_var = 1;
-game_var.BreakoutGame_RIGHT_var = 160 * 64 - 1 * 64;
+game_var.BreakoutGame_SCALE_var = 64;
+game_var.BreakoutGame_BOTTOM_var = 128 * 64 + 8 * 64;
+game_var.BreakoutGame_TOP_var = 14 * 64;
+game_var.BreakoutGame_lives_var = 3;
+game_var.BreakoutGame_LEFT_var = 1 * 64;
+game_var.BreakoutGame_padx_var = 128 * 64 / 2;
 game_var.BreakoutGame_br_var = 3 * 64;
 game_var.BreakoutGame_by_var = 128 * 64;
+game_var.BreakoutGame_XMAX_var = 160 * 64;
+game_var.BreakoutGame_prevBX_var =  -1;
+game_var.BreakoutGame_bx_var = 160 * 64 / 2;
+game_var.BreakoutGame_lastTimestamp_var = 0;
+game_var.BreakoutGame_padlen_var = 25 * 64;
+game_var.BreakoutGame_level_var = 1;
+game_var.BreakoutGame_pady_var = 128 * 64 - 6 * 64;
+game_var.WithBinaryLog_DEBUG_BIN_ID_var = 0;
+game_var.BreakoutGame_dx_var = 160 * 64 / 98;
+game_var.BreakoutGame_dy_var =  -160 * 64 / 65;
+game_var.BreakoutGame_prevPX_var =  -1;
+game_var.BreakoutGame_prevBY_var =  -1;
+game_var.BreakoutGame_period_var = 3;
+game_var.BreakoutGame_YMAX_var = 128 * 64;
+game_var.BreakoutGame_prevPY_var =  -1;
+game_var.BreakoutGame_RIGHT_var = 160 * 64 - 1 * 64;
 game_var.BreakoutGame_score_var = 0;
-game_var.BreakoutGame_fgcolor_var = array_game_BreakoutGame_fgcolor_var;
-game_var.BreakoutGame_fgcolor_var_size = 3;
+game_var.BreakoutGame_BRICK_ROWS_var = 5;
+game_var.BreakoutGame_counter_var = 0;
+game_var.BreakoutGame_YDISPSIZE_var = 128;
+game_var.BreakoutGame_BRICK_HEIGHT_var = 9;
 game_var.BreakoutGame_bgcolor_var = array_game_BreakoutGame_bgcolor_var;
 game_var.BreakoutGame_bgcolor_var_size = 3;
 game_var.BreakoutGame_bricks_var = array_game_BreakoutGame_bricks_var;
 game_var.BreakoutGame_bricks_var_size = 5;
+game_var.BreakoutGame_fgcolor_var = array_game_BreakoutGame_fgcolor_var;
+game_var.BreakoutGame_fgcolor_var_size = 3;
 
 BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_STATE, &game_var);
 }
@@ -884,8 +884,8 @@ int main(int argc, char *argv[]) {
 int emptyEventConsumed = 1;
 while (emptyEventConsumed != 0) {
 emptyEventConsumed = 0;
-emptyEventConsumed += ConsoleLogger_handle_empty_event(&log_var);
 emptyEventConsumed += HeadlessDisplay_handle_empty_event(&disp_var);
+emptyEventConsumed += ConsoleLogger_handle_empty_event(&log_var);
 }
 
         processMessageQueue();

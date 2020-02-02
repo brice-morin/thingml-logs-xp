@@ -10,18 +10,6 @@ arduino_due_no:loc:2472
 arduino_due_no:bin:17988
 
 
-nodejs-bin:loc:1959
-nodejs-bin:bin:5262
-java-bin:loc:3133
-java-bin:bin:104552
-go-bin:loc:2549
-go-bin:bin:3496440
-posix-bin:loc:2930
-posix-bin:bin:67824
-arduino_due-bin:loc:3341
-arduino_due-bin:bin:26476
-
-
 nodejs:loc:1959
 nodejs:bin:5262
 java:loc:3254
@@ -33,7 +21,19 @@ posix:bin:
 arduino_due:loc:3471
 arduino_due:bin:61440
 
+#TODO: Redo
+nodejs-bin:loc:1959
+nodejs-bin:bin:5262
+java-bin:loc:3133
+java-bin:bin:104552
+go-bin:loc:2549
+go-bin:bin:3496440
+posix-bin:loc:2930
+posix-bin:bin:67824
+arduino_due-bin:loc:3341
+arduino_due-bin:bin:26476
 
+#TODO: Redo
 nodejs-bin_string:loc:2835
 nodejs-bin_string:bin:6138
 java-bin_string:loc:3924

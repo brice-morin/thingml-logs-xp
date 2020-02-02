@@ -40,55 +40,55 @@ uint16_t id_pro_game;
 // Variables for the current instance state
 int BreakoutGame_SC_State;
 // Variables for the properties of the instance
-int16_t BreakoutGame_prevPX_var;
-int16_t BreakoutGame_LEFT_var;
-int16_t BreakoutGame_bx_var;
 uint8_t BreakoutGame_XDISPSIZE_var;
-int16_t BreakoutGame_dy_var;
-int16_t BreakoutGame_pady_var;
-uint32_t BreakoutGame_stopTime_var;
-uint8_t * BreakoutGame_fgcolor_var;
-uint16_t BreakoutGame_fgcolor_var_size;
-int16_t BreakoutGame_dx_var;
-uint16_t BreakoutGame_period_var;
-uint8_t BreakoutGame_level_var;
-int16_t BreakoutGame_prevBX_var;
-uint32_t BreakoutGame_lastTimestamp_var;
-int16_t BreakoutGame_padlen_var;
 uint32_t BreakoutGame_startTime_var;
-uint8_t BreakoutGame_counter_var;
-int16_t BreakoutGame_TOP_var;
-uint8_t WithBinaryLog_DEBUG_BIN_ID_var;
-int16_t BreakoutGame_padx_var;
+bool BreakoutGame_QUIET_var;
 int16_t BreakoutGame_SCALE_var;
 uint8_t * BreakoutGame_bgcolor_var;
 uint16_t BreakoutGame_bgcolor_var_size;
-uint8_t BreakoutGame_SC_LAUNCH_countdown_var;
-uint8_t BreakoutGame_BRICK_ROWS_var;
-uint8_t * BreakoutGame_bricks_var;
-uint16_t BreakoutGame_bricks_var_size;
-uint8_t BreakoutGame_YDISPSIZE_var;
-uint8_t BreakoutGame_BRICK_HEIGHT_var;
-int16_t BreakoutGame_prevBY_var;
-uint8_t BreakoutGame_lives_var;
-int16_t BreakoutGame_XMAX_var;
 int16_t BreakoutGame_BOTTOM_var;
-int16_t BreakoutGame_prevPY_var;
-int16_t BreakoutGame_YMAX_var;
-bool BreakoutGame_QUIET_var;
-int16_t BreakoutGame_RIGHT_var;
+int16_t BreakoutGame_TOP_var;
+uint8_t BreakoutGame_lives_var;
+int16_t BreakoutGame_LEFT_var;
+int16_t BreakoutGame_padx_var;
 int16_t BreakoutGame_br_var;
 int16_t BreakoutGame_by_var;
+int16_t BreakoutGame_XMAX_var;
+int16_t BreakoutGame_prevBX_var;
+int16_t BreakoutGame_bx_var;
+uint32_t BreakoutGame_lastTimestamp_var;
+int16_t BreakoutGame_padlen_var;
+uint8_t BreakoutGame_level_var;
+int16_t BreakoutGame_pady_var;
+uint8_t WithBinaryLog_DEBUG_BIN_ID_var;
+int16_t BreakoutGame_dx_var;
+uint8_t * BreakoutGame_bricks_var;
+uint16_t BreakoutGame_bricks_var_size;
+int16_t BreakoutGame_dy_var;
+int16_t BreakoutGame_prevPX_var;
+uint32_t BreakoutGame_stopTime_var;
+int16_t BreakoutGame_prevBY_var;
+uint8_t * BreakoutGame_fgcolor_var;
+uint16_t BreakoutGame_fgcolor_var_size;
+uint16_t BreakoutGame_period_var;
+int16_t BreakoutGame_YMAX_var;
+int16_t BreakoutGame_prevPY_var;
+int16_t BreakoutGame_RIGHT_var;
 int16_t BreakoutGame_score_var;
+uint8_t BreakoutGame_SC_LAUNCH_countdown_var;
+uint8_t BreakoutGame_BRICK_ROWS_var;
+uint8_t BreakoutGame_counter_var;
+uint8_t BreakoutGame_YDISPSIZE_var;
+uint8_t BreakoutGame_BRICK_HEIGHT_var;
 
 };
 // Declaration of prototypes outgoing messages :
 void BreakoutGame_SC_OnEntry(int state, struct BreakoutGamePosix_Instance *_instance);
-void BreakoutGamePosix_handle_clock_timer_timeout(struct BreakoutGamePosix_Instance *_instance, uint8_t id);
 void BreakoutGamePosix_handle_controller_position(struct BreakoutGamePosix_Instance *_instance, int16_t x, int16_t y);
-void BreakoutGamePosix_handle_display_displayReady(struct BreakoutGamePosix_Instance *_instance);
 void BreakoutGamePosix_handle_pro_game_lostBall(struct BreakoutGamePosix_Instance *_instance);
 void BreakoutGamePosix_handle_pro_game_nextLevel(struct BreakoutGamePosix_Instance *_instance);
+void BreakoutGamePosix_handle_display_displayReady(struct BreakoutGamePosix_Instance *_instance);
+void BreakoutGamePosix_handle_clock_timer_timeout(struct BreakoutGamePosix_Instance *_instance, uint8_t id);
 void BreakoutGamePosix_handle_game_lostBall(struct BreakoutGamePosix_Instance *_instance);
 void BreakoutGamePosix_handle_game_nextLevel(struct BreakoutGamePosix_Instance *_instance);
 // Declaration of callbacks for incoming messages:
@@ -128,13 +128,13 @@ void register_BreakoutGamePosix_send_req_game_nextLevel_listener(void (*_listene
 void register_external_BreakoutGamePosix_send_req_game_nextLevel_listener(void (*_listener)(struct BreakoutGamePosix_Instance *));
 
 // Definition of the states:
-#define BREAKOUTGAME_SC_GAMEOVER_STATE 0
-#define BREAKOUTGAME_SC_PLAY_STATE 1
-#define BREAKOUTGAME_SC_LAUNCH_STATE 2
-#define BREAKOUTGAME_SC_INIT_STATE 3
-#define BREAKOUTGAME_SC_STATE 4
-#define BREAKOUTGAME_SC_LOSTBALL_STATE 5
-#define BREAKOUTGAME_SC_NEXTLEVEL_STATE 6
+#define BREAKOUTGAME_SC_LAUNCH_STATE 0
+#define BREAKOUTGAME_SC_STATE 1
+#define BREAKOUTGAME_SC_PLAY_STATE 2
+#define BREAKOUTGAME_SC_GAMEOVER_STATE 3
+#define BREAKOUTGAME_SC_NEXTLEVEL_STATE 4
+#define BREAKOUTGAME_SC_INIT_STATE 5
+#define BREAKOUTGAME_SC_LOSTBALL_STATE 6
 
 
 

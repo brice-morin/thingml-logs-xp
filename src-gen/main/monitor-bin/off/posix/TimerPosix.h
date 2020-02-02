@@ -38,8 +38,8 @@ uint16_t id_timer;
 // Variables for the current instance state
 int TimerPosix_SoftTimer_State;
 // Variables for the properties of the instance
-uint16_t TimerPosix_SOFT_TIMER_PERIOD_var;
 uint16_t TimerPosix_NB_SOFT_TIMERS_var;
+uint16_t TimerPosix_SOFT_TIMER_PERIOD_var;
 
 };
 // Declaration of prototypes outgoing messages :
