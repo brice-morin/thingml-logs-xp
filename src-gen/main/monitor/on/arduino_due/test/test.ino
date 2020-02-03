@@ -19,20 +19,20 @@ bool Logger_ACTIVATE_ON_STARTUP_var;
 };
 // Declaration of prototypes outgoing messages :
 void Logger_OnEntry(int state, struct ConsoleLogger_Instance *_instance);
-void ConsoleLogger_handle_log_function_called(struct ConsoleLogger_Instance *_instance, String inst, String fn_name, String ty, String returns, String params);
-void ConsoleLogger_handle_log_message_lost(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params);
-void ConsoleLogger_handle_log_message_sent(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params);
-void ConsoleLogger_handle_log_message_handled(struct ConsoleLogger_Instance *_instance, String inst, String source, String target, String port_name, String msg_name, String params);
-void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance);
-void ConsoleLogger_handle_log_property_changed(struct ConsoleLogger_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value);
 void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance);
+void ConsoleLogger_handle_log_property_changed(struct ConsoleLogger_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value);
+void ConsoleLogger_handle_log_message_handled(struct ConsoleLogger_Instance *_instance, String inst, String source, String target, String port_name, String msg_name, String params);
+void ConsoleLogger_handle_log_function_called(struct ConsoleLogger_Instance *_instance, String inst, String fn_name, String ty, String returns, String params);
+void ConsoleLogger_handle_log_message_sent(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params);
+void ConsoleLogger_handle_log_log_off(struct ConsoleLogger_Instance *_instance);
+void ConsoleLogger_handle_log_message_lost(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params);
 // Declaration of callbacks for incoming messages:
 
 // Definition of the states:
-#define LOGGER_NULL_ON_STATE 0
+#define LOGGER_STATE 0
 #define LOGGER_NULL_STARTUP_STATE 1
 #define LOGGER_NULL_OFF_STATE 2
-#define LOGGER_STATE 3
+#define LOGGER_NULL_ON_STATE 3
 
 
 /*****************************************************************************
@@ -53,24 +53,24 @@ int HeadlessDisplay_State;
 };
 // Declaration of prototypes outgoing messages :
 void HeadlessDisplay_OnEntry(int state, struct HeadlessDisplay_Instance *_instance);
-void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b);
+void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance);
+void HeadlessDisplay_handle_display_fillRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b);
+void HeadlessDisplay_handle_display_drawInteger(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale);
 void HeadlessDisplay_handle_display_create(struct HeadlessDisplay_Instance *_instance, uint8_t xsize, uint8_t ysize);
 void HeadlessDisplay_handle_display_destroy(struct HeadlessDisplay_Instance *_instance);
-void HeadlessDisplay_handle_display_clear(struct HeadlessDisplay_Instance *_instance);
-void HeadlessDisplay_handle_display_drawInteger(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale);
-void HeadlessDisplay_handle_display_fillRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height);
-void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance);
-void HeadlessDisplay_handle_display_drawThingML(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y);
 void HeadlessDisplay_handle_display_drawRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height);
-void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b);
+void HeadlessDisplay_handle_display_clear(struct HeadlessDisplay_Instance *_instance);
+void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b);
+void HeadlessDisplay_handle_display_drawThingML(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y);
 // Declaration of callbacks for incoming messages:
 void register_HeadlessDisplay_send_display_displayReady_listener(void (*_listener)(struct HeadlessDisplay_Instance *));
 void register_external_HeadlessDisplay_send_display_displayReady_listener(void (*_listener)(struct HeadlessDisplay_Instance *));
 
 // Definition of the states:
-#define HEADLESSDISPLAY_NULL_INIT_STATE 0
+#define HEADLESSDISPLAY_NULL_MOCK_STATE 0
 #define HEADLESSDISPLAY_STATE 1
-#define HEADLESSDISPLAY_NULL_MOCK_STATE 2
+#define HEADLESSDISPLAY_NULL_INIT_STATE 2
 
 
 /*****************************************************************************
@@ -99,8 +99,8 @@ void register_BasicIAController_send_controls_position_listener(void (*_listener
 void register_external_BasicIAController_send_controls_position_listener(void (*_listener)(struct BasicIAController_Instance *, int16_t, int16_t));
 
 // Definition of the states:
-#define BASICIACONTROLLER_SC_FOLLOWING_STATE 0
-#define BASICIACONTROLLER_SC_STATE 1
+#define BASICIACONTROLLER_SC_STATE 0
+#define BASICIACONTROLLER_SC_FOLLOWING_STATE 1
 
 
 /* Adds and instance to the runtime and returns its id */
@@ -157,8 +157,8 @@ void register_TimerArduino_send_timer_timer_timeout_listener(void (*_listener)(s
 void register_external_TimerArduino_send_timer_timer_timeout_listener(void (*_listener)(struct TimerArduino_Instance *, uint8_t));
 
 // Definition of the states:
-#define TIMERARDUINO_SOFTTIMER_STATE 0
-#define TIMERARDUINO_SOFTTIMER_DEFAULT_STATE 1
+#define TIMERARDUINO_SOFTTIMER_DEFAULT_STATE 0
+#define TIMERARDUINO_SOFTTIMER_STATE 1
 
 
 /*****************************************************************************
@@ -182,58 +182,58 @@ uint16_t id_pro_game;
 // Variables for the current instance state
 int BreakoutGame_SC_State;
 // Variables for the properties of the instance
+uint16_t BreakoutGame_period_var;
+uint8_t BreakoutGame_counter_var;
+uint32_t BreakoutGame_stopTime_var;
+int16_t BreakoutGame_prevPY_var;
+int16_t BreakoutGame_dy_var;
+int16_t BreakoutGame_by_var;
+uint32_t BreakoutGame_startTime_var;
+uint8_t BreakoutGame_level_var;
+int16_t BreakoutGame_TOP_var;
+int16_t BreakoutGame_padlen_var;
+uint8_t * BreakoutGame_fgcolor_var;
+uint16_t BreakoutGame_fgcolor_var_size;
+int16_t BreakoutGame_prevBX_var;
+uint8_t BreakoutGame_YDISPSIZE_var;
+int16_t BreakoutGame_padx_var;
+uint32_t BreakoutGameArduino_RAM_SIZE_var;
+int16_t BreakoutGame_br_var;
+int16_t BreakoutGame_bx_var;
+int16_t BreakoutGame_YMAX_var;
+int16_t BreakoutGame_pady_var;
+int16_t BreakoutGame_RIGHT_var;
+uint8_t BreakoutGame_BRICK_HEIGHT_var;
 uint8_t * BreakoutGame_bgcolor_var;
 uint16_t BreakoutGame_bgcolor_var_size;
-int16_t BreakoutGame_score_var;
-uint32_t BreakoutGameArduino_RAM_SIZE_var;
-int16_t BreakoutGame_padx_var;
+int16_t BreakoutGame_prevPX_var;
+uint32_t BreakoutGame_lastTimestamp_var;
 int16_t BreakoutGame_dx_var;
-int16_t BreakoutGame_prevBY_var;
-int16_t BreakoutGame_by_var;
+int16_t BreakoutGame_LEFT_var;
+int16_t BreakoutGame_XMAX_var;
 uint8_t BreakoutGame_XDISPSIZE_var;
-uint8_t BreakoutGame_BRICK_ROWS_var;
+uint8_t BreakoutGame_lives_var;
+uint8_t BreakoutGame_SC_LAUNCH_countdown_var;
+bool BreakoutGame_QUIET_var;
+int16_t BreakoutGame_score_var;
 int16_t BreakoutGame_BOTTOM_var;
 uint8_t * BreakoutGame_bricks_var;
 uint16_t BreakoutGame_bricks_var_size;
-bool BreakoutGame_QUIET_var;
-uint8_t BreakoutGame_BRICK_HEIGHT_var;
-uint8_t BreakoutGame_level_var;
-int16_t BreakoutGame_prevPY_var;
-int16_t BreakoutGame_pady_var;
-int16_t BreakoutGame_prevPX_var;
-int16_t BreakoutGame_prevBX_var;
-uint32_t BreakoutGame_stopTime_var;
-int16_t BreakoutGame_TOP_var;
+int16_t BreakoutGame_prevBY_var;
+uint8_t BreakoutGame_BRICK_ROWS_var;
 int16_t BreakoutGame_SCALE_var;
-uint8_t * BreakoutGame_fgcolor_var;
-uint16_t BreakoutGame_fgcolor_var_size;
-int16_t BreakoutGame_padlen_var;
-int16_t BreakoutGame_XMAX_var;
-uint32_t BreakoutGame_startTime_var;
-uint8_t BreakoutGame_YDISPSIZE_var;
-uint8_t BreakoutGame_counter_var;
-int16_t BreakoutGame_YMAX_var;
-int16_t BreakoutGame_LEFT_var;
-uint16_t BreakoutGame_period_var;
-uint32_t BreakoutGame_lastTimestamp_var;
-uint8_t BreakoutGame_SC_LAUNCH_countdown_var;
 String WithLog_DEBUG_ID_var;
-uint8_t BreakoutGame_lives_var;
-int16_t BreakoutGame_br_var;
-int16_t BreakoutGame_RIGHT_var;
-int16_t BreakoutGame_bx_var;
-int16_t BreakoutGame_dy_var;
 
 };
 // Declaration of prototypes outgoing messages :
 void BreakoutGame_SC_OnEntry(int state, struct BreakoutGameArduino_Instance *_instance);
-void BreakoutGameArduino_handle_clock_timer_timeout(struct BreakoutGameArduino_Instance *_instance, uint8_t id);
 void BreakoutGameArduino_handle_controller_position(struct BreakoutGameArduino_Instance *_instance, int16_t x, int16_t y);
-void BreakoutGameArduino_handle_game_lostBall(struct BreakoutGameArduino_Instance *_instance);
-void BreakoutGameArduino_handle_game_nextLevel(struct BreakoutGameArduino_Instance *_instance);
-void BreakoutGameArduino_handle_display_displayReady(struct BreakoutGameArduino_Instance *_instance);
 void BreakoutGameArduino_handle_pro_game_lostBall(struct BreakoutGameArduino_Instance *_instance);
 void BreakoutGameArduino_handle_pro_game_nextLevel(struct BreakoutGameArduino_Instance *_instance);
+void BreakoutGameArduino_handle_game_lostBall(struct BreakoutGameArduino_Instance *_instance);
+void BreakoutGameArduino_handle_game_nextLevel(struct BreakoutGameArduino_Instance *_instance);
+void BreakoutGameArduino_handle_clock_timer_timeout(struct BreakoutGameArduino_Instance *_instance, uint8_t id);
+void BreakoutGameArduino_handle_display_displayReady(struct BreakoutGameArduino_Instance *_instance);
 // Declaration of callbacks for incoming messages:
 void register_BreakoutGameArduino_send_log_function_called_listener(void (*_listener)(struct BreakoutGameArduino_Instance *, String, String, String, String, String));
 void register_external_BreakoutGameArduino_send_log_function_called_listener(void (*_listener)(struct BreakoutGameArduino_Instance *, String, String, String, String, String));
@@ -280,12 +280,12 @@ void register_external_BreakoutGameArduino_send_req_game_nextLevel_listener(void
 
 // Definition of the states:
 #define BREAKOUTGAME_SC_LOSTBALL_STATE 0
-#define BREAKOUTGAME_SC_GAMEOVER_STATE 1
-#define BREAKOUTGAME_SC_LAUNCH_STATE 2
-#define BREAKOUTGAME_SC_NEXTLEVEL_STATE 3
-#define BREAKOUTGAME_SC_STATE 4
-#define BREAKOUTGAME_SC_INIT_STATE 5
-#define BREAKOUTGAME_SC_PLAY_STATE 6
+#define BREAKOUTGAME_SC_NEXTLEVEL_STATE 1
+#define BREAKOUTGAME_SC_STATE 2
+#define BREAKOUTGAME_SC_PLAY_STATE 3
+#define BREAKOUTGAME_SC_INIT_STATE 4
+#define BREAKOUTGAME_SC_LAUNCH_STATE 5
+#define BREAKOUTGAME_SC_GAMEOVER_STATE 6
 
 
 // Definition of Enumeration  DigitalState
@@ -420,33 +420,33 @@ BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID
 // Definition of function resetBall
 void f_BreakoutGameArduino_resetBall(struct BreakoutGameArduino_Instance *_instance) {
 BreakoutGameArduino_send_log_function_called(_instance, _instance->WithLog_DEBUG_ID_var, "resetBall", "void_", "", "");
-String old_bx_0 = "" + String(_instance->BreakoutGame_bx_var);
+String old_bx_16 = "" + String(_instance->BreakoutGame_bx_var);
 _instance->BreakoutGame_bx_var = _instance->BreakoutGame_padx_var - _instance->BreakoutGame_br_var / _instance->BreakoutGame_SCALE_var;
-String new_bx_0 = "" + String(_instance->BreakoutGame_bx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_0, new_bx_0);
-String old_by_4 = "" + String(_instance->BreakoutGame_by_var);
+String new_bx_16 = "" + String(_instance->BreakoutGame_bx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_16, new_bx_16);
+String old_by_12 = "" + String(_instance->BreakoutGame_by_var);
 _instance->BreakoutGame_by_var = _instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var / _instance->BreakoutGame_SCALE_var;
-String new_by_4 = "" + String(_instance->BreakoutGame_by_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_4, new_by_4);
-String old_dx_8 = "" + String(_instance->BreakoutGame_dx_var);
+String new_by_12 = "" + String(_instance->BreakoutGame_by_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_12, new_by_12);
+String old_dx_20 = "" + String(_instance->BreakoutGame_dx_var);
 _instance->BreakoutGame_dx_var = (_instance->BreakoutGame_padx_var + _instance->BreakoutGame_prevBX_var + _instance->BreakoutGame_prevBY_var) % 300 - 150;
-String new_dx_8 = "" + String(_instance->BreakoutGame_dx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_8, new_dx_8);
+String new_dx_20 = "" + String(_instance->BreakoutGame_dx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_20, new_dx_20);
 if(_instance->BreakoutGame_dy_var > 0) {
-String old_dy_26 = "" + String(_instance->BreakoutGame_dy_var);
+String old_dy_2 = "" + String(_instance->BreakoutGame_dy_var);
 _instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-String new_dy_26 = "" + String(_instance->BreakoutGame_dy_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_26, new_dy_26);
+String new_dy_2 = "" + String(_instance->BreakoutGame_dy_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_2, new_dy_2);
 
 }
-String old_prevBX_20 = "" + String(_instance->BreakoutGame_prevBX_var);
+String old_prevBX_9 = "" + String(_instance->BreakoutGame_prevBX_var);
 _instance->BreakoutGame_prevBX_var =  -1;
-String new_prevBX_20 = "" + String(_instance->BreakoutGame_prevBX_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_20, new_prevBX_20);
-String old_prevBY_12 = "" + String(_instance->BreakoutGame_prevBY_var);
+String new_prevBX_9 = "" + String(_instance->BreakoutGame_prevBX_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_9, new_prevBX_9);
+String old_prevBY_25 = "" + String(_instance->BreakoutGame_prevBY_var);
 _instance->BreakoutGame_prevBY_var =  -1;
-String new_prevBY_12 = "" + String(_instance->BreakoutGame_prevBY_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_12, new_prevBY_12);
+String new_prevBY_25 = "" + String(_instance->BreakoutGame_prevBY_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_25, new_prevBY_25);
 }
 // Definition of function eraseBall
 void f_BreakoutGameArduino_eraseBall(struct BreakoutGameArduino_Instance *_instance) {
@@ -468,28 +468,28 @@ String params_16 = "" + ("x=" + (String(x_12) + ",")) + ("y=" + (String(y_13) + 
 BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "fillRect", params_16);
 
 }
-String old_prevBX_21 = "" + String(_instance->BreakoutGame_prevBX_var);
+String old_prevBX_10 = "" + String(_instance->BreakoutGame_prevBX_var);
 _instance->BreakoutGame_prevBX_var =  -1;
-String new_prevBX_21 = "" + String(_instance->BreakoutGame_prevBX_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_21, new_prevBX_21);
-String old_prevBY_13 = "" + String(_instance->BreakoutGame_prevBY_var);
+String new_prevBX_10 = "" + String(_instance->BreakoutGame_prevBX_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_10, new_prevBX_10);
+String old_prevBY_26 = "" + String(_instance->BreakoutGame_prevBY_var);
 _instance->BreakoutGame_prevBY_var =  -1;
-String new_prevBY_13 = "" + String(_instance->BreakoutGame_prevBY_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_13, new_prevBY_13);
+String new_prevBY_26 = "" + String(_instance->BreakoutGame_prevBY_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_26, new_prevBY_26);
 }
 // Definition of function drawBall
 void f_BreakoutGameArduino_drawBall(struct BreakoutGameArduino_Instance *_instance) {
 BreakoutGameArduino_send_log_function_called(_instance, _instance->WithLog_DEBUG_ID_var, "drawBall", "void_", "", "");
 int16_t bs = (_instance->BreakoutGame_br_var * 2) / _instance->BreakoutGame_SCALE_var;
 f_BreakoutGameArduino_eraseBall(_instance);
-String old_prevBX_22 = "" + String(_instance->BreakoutGame_prevBX_var);
+String old_prevBX_11 = "" + String(_instance->BreakoutGame_prevBX_var);
 _instance->BreakoutGame_prevBX_var = (_instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var) / _instance->BreakoutGame_SCALE_var;
-String new_prevBX_22 = "" + String(_instance->BreakoutGame_prevBX_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_22, new_prevBX_22);
-String old_prevBY_14 = "" + String(_instance->BreakoutGame_prevBY_var);
+String new_prevBX_11 = "" + String(_instance->BreakoutGame_prevBX_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBX", "Int16", old_prevBX_11, new_prevBX_11);
+String old_prevBY_27 = "" + String(_instance->BreakoutGame_prevBY_var);
 _instance->BreakoutGame_prevBY_var = (_instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) / _instance->BreakoutGame_SCALE_var;
-String new_prevBY_14 = "" + String(_instance->BreakoutGame_prevBY_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_14, new_prevBY_14);
+String new_prevBY_27 = "" + String(_instance->BreakoutGame_prevBY_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevBY", "Int16", old_prevBY_27, new_prevBY_27);
 uint8_t r_17 = 183;
 uint8_t g_18 = 199;
 uint8_t b_19 = 111;
@@ -530,14 +530,14 @@ void f_BreakoutGameArduino_drawPad(struct BreakoutGameArduino_Instance *_instanc
 BreakoutGameArduino_send_log_function_called(_instance, _instance->WithLog_DEBUG_ID_var, "drawPad", "void_", "", "");
 int16_t ps = _instance->BreakoutGame_padlen_var / _instance->BreakoutGame_SCALE_var;
 f_BreakoutGameArduino_erasePad(_instance);
-String old_prevPX_18 = "" + String(_instance->BreakoutGame_prevPX_var);
+String old_prevPX_7 = "" + String(_instance->BreakoutGame_prevPX_var);
 _instance->BreakoutGame_prevPX_var = (_instance->BreakoutGame_padx_var - (_instance->BreakoutGame_padlen_var / 2)) / _instance->BreakoutGame_SCALE_var;
-String new_prevPX_18 = "" + String(_instance->BreakoutGame_prevPX_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevPX", "Int16", old_prevPX_18, new_prevPX_18);
-String old_prevPY_19 = "" + String(_instance->BreakoutGame_prevPY_var);
+String new_prevPX_7 = "" + String(_instance->BreakoutGame_prevPX_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevPX", "Int16", old_prevPX_7, new_prevPX_7);
+String old_prevPY_8 = "" + String(_instance->BreakoutGame_prevPY_var);
 _instance->BreakoutGame_prevPY_var = _instance->BreakoutGame_pady_var / _instance->BreakoutGame_SCALE_var;
-String new_prevPY_19 = "" + String(_instance->BreakoutGame_prevPY_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevPY", "Int16", old_prevPY_19, new_prevPY_19);
+String new_prevPY_8 = "" + String(_instance->BreakoutGame_prevPY_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "prevPY", "Int16", old_prevPY_8, new_prevPY_8);
 uint8_t r_35 = _instance->BreakoutGame_fgcolor_var[0];
 uint8_t g_36 = _instance->BreakoutGame_fgcolor_var[1];
 uint8_t b_37 = _instance->BreakoutGame_fgcolor_var[2];
@@ -803,15 +803,15 @@ BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID
 void f_BreakoutGameArduino_incrementScore(struct BreakoutGameArduino_Instance *_instance, int8_t diff) {
 String params = "" + ("diff=" + (String(diff) + ","));
 BreakoutGameArduino_send_log_function_called(_instance, _instance->WithLog_DEBUG_ID_var, "incrementScore", "void_", "", params);
-String old_score_15 = "" + String(_instance->BreakoutGame_score_var);
+String old_score_30 = "" + String(_instance->BreakoutGame_score_var);
 _instance->BreakoutGame_score_var = _instance->BreakoutGame_score_var + diff;
-String new_score_15 = "" + String(_instance->BreakoutGame_score_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "score", "Int16", old_score_15, new_score_15);
+String new_score_30 = "" + String(_instance->BreakoutGame_score_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "score", "Int16", old_score_30, new_score_30);
 if(_instance->BreakoutGame_score_var < 0) {
-String old_score_16 = "" + String(_instance->BreakoutGame_score_var);
+String old_score_31 = "" + String(_instance->BreakoutGame_score_var);
 _instance->BreakoutGame_score_var = 0;
-String new_score_16 = "" + String(_instance->BreakoutGame_score_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "score", "Int16", old_score_16, new_score_16);
+String new_score_31 = "" + String(_instance->BreakoutGame_score_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "score", "Int16", old_score_31, new_score_31);
 
 }
 f_BreakoutGameArduino_drawScore(_instance);
@@ -929,16 +929,82 @@ uint16_t time_219 = _instance->BreakoutGame_period_var;
 BreakoutGameArduino_send_clock_timer_start(_instance, id_218, time_219);
 String params_220 = "" + ("id=" + (String(id_218) + ",")) + ("time=" + (String(time_219) + ","));
 BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_220);
-String old_lives_17 = "" + String(_instance->BreakoutGame_lives_var);
+String old_lives_1 = "" + String(_instance->BreakoutGame_lives_var);
 _instance->BreakoutGame_lives_var = _instance->BreakoutGame_lives_var - 1;
-String new_lives_17 = "" + String(_instance->BreakoutGame_lives_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "lives", "UInt8", old_lives_17, new_lives_17);
+String new_lives_1 = "" + String(_instance->BreakoutGame_lives_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "lives", "UInt8", old_lives_1, new_lives_1);
 f_BreakoutGameArduino_eraseBall(_instance);
 f_BreakoutGameArduino_erasePad(_instance);
 f_BreakoutGameArduino_drawLives(_instance);
 BreakoutGameArduino_send_display_update(_instance);
 BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
 f_BreakoutGameArduino_log(_instance, 1);
+break;
+}
+case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
+uint8_t id_221 = 0;
+uint16_t time_222 = _instance->BreakoutGame_period_var;
+BreakoutGameArduino_send_clock_timer_start(_instance, id_221, time_222);
+String params_223 = "" + ("id=" + (String(id_221) + ",")) + ("time=" + (String(time_222) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_223);
+String old_level_32 = "" + String(_instance->BreakoutGame_level_var);
+_instance->BreakoutGame_level_var = _instance->BreakoutGame_level_var + 1;
+String new_level_32 = "" + String(_instance->BreakoutGame_level_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "level", "UInt8", old_level_32, new_level_32);
+f_BreakoutGameArduino_drawLevel(_instance);
+f_BreakoutGameArduino_eraseBall(_instance);
+f_BreakoutGameArduino_erasePad(_instance);
+if((_instance->BreakoutGame_level_var % 2) == 0 && _instance->BreakoutGame_padlen_var > 5 * _instance->BreakoutGame_SCALE_var) {
+String old_padlen_24 = "" + String(_instance->BreakoutGame_padlen_var);
+_instance->BreakoutGame_padlen_var = _instance->BreakoutGame_padlen_var - (4 * _instance->BreakoutGame_SCALE_var);
+String new_padlen_24 = "" + String(_instance->BreakoutGame_padlen_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "padlen", "Int16", old_padlen_24, new_padlen_24);
+
+}
+if((_instance->BreakoutGame_level_var % 2) == 1) {
+String old_dy_6 = "" + String(_instance->BreakoutGame_dy_var);
+_instance->BreakoutGame_dy_var = (_instance->BreakoutGame_dy_var * 3) / 2;
+String new_dy_6 = "" + String(_instance->BreakoutGame_dy_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_6, new_dy_6);
+
+}
+f_BreakoutGameArduino_drawLives(_instance);
+f_BreakoutGameArduino_createBricks(_instance);
+BreakoutGameArduino_send_display_update(_instance);
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
+break;
+}
+case BREAKOUTGAME_SC_PLAY_STATE:{
+uint8_t id_199 = 0;
+uint16_t time_200 = _instance->BreakoutGame_period_var;
+BreakoutGameArduino_send_clock_timer_start(_instance, id_199, time_200);
+String params_201 = "" + ("id=" + (String(id_199) + ",")) + ("time=" + (String(time_200) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_201);
+break;
+}
+case BREAKOUTGAME_SC_INIT_STATE:{
+_instance->BreakoutGame_startTime_var = f_BreakoutGameArduino_timestamp(_instance);
+uint8_t xsize_172 = _instance->BreakoutGame_XDISPSIZE_var;
+uint8_t ysize_173 = _instance->BreakoutGame_YDISPSIZE_var;
+BreakoutGameArduino_send_display_create(_instance, xsize_172, ysize_173);
+String params_174 = "" + ("xsize=" + (String(xsize_172) + ",")) + ("ysize=" + (String(ysize_173) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "create", params_174);
+break;
+}
+case BREAKOUTGAME_SC_LAUNCH_STATE:{
+uint8_t id_193 = 0;
+uint16_t time_194 = _instance->BreakoutGame_period_var;
+BreakoutGameArduino_send_clock_timer_start(_instance, id_193, time_194);
+String params_195 = "" + ("id=" + (String(id_193) + ",")) + ("time=" + (String(time_194) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_195);
+String old_countdown_28 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
+_instance->BreakoutGame_SC_LAUNCH_countdown_var = 3;
+String new_countdown_28 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "countdown", "UInt8", old_countdown_28, new_countdown_28);
+f_BreakoutGameArduino_drawScore(_instance);
+f_BreakoutGameArduino_drawLives(_instance);
+BreakoutGameArduino_send_display_update(_instance);
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
 break;
 }
 case BREAKOUTGAME_SC_GAMEOVER_STATE:{
@@ -1003,72 +1069,6 @@ f_BreakoutGameArduino_quit(_instance);
 _instance->active = false;
 break;
 }
-case BREAKOUTGAME_SC_LAUNCH_STATE:{
-uint8_t id_193 = 0;
-uint16_t time_194 = _instance->BreakoutGame_period_var;
-BreakoutGameArduino_send_clock_timer_start(_instance, id_193, time_194);
-String params_195 = "" + ("id=" + (String(id_193) + ",")) + ("time=" + (String(time_194) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_195);
-String old_countdown_31 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
-_instance->BreakoutGame_SC_LAUNCH_countdown_var = 3;
-String new_countdown_31 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "countdown", "UInt8", old_countdown_31, new_countdown_31);
-f_BreakoutGameArduino_drawScore(_instance);
-f_BreakoutGameArduino_drawLives(_instance);
-BreakoutGameArduino_send_display_update(_instance);
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
-break;
-}
-case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
-uint8_t id_221 = 0;
-uint16_t time_222 = _instance->BreakoutGame_period_var;
-BreakoutGameArduino_send_clock_timer_start(_instance, id_221, time_222);
-String params_223 = "" + ("id=" + (String(id_221) + ",")) + ("time=" + (String(time_222) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_223);
-String old_level_23 = "" + String(_instance->BreakoutGame_level_var);
-_instance->BreakoutGame_level_var = _instance->BreakoutGame_level_var + 1;
-String new_level_23 = "" + String(_instance->BreakoutGame_level_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "level", "UInt8", old_level_23, new_level_23);
-f_BreakoutGameArduino_drawLevel(_instance);
-f_BreakoutGameArduino_eraseBall(_instance);
-f_BreakoutGameArduino_erasePad(_instance);
-if((_instance->BreakoutGame_level_var % 2) == 0 && _instance->BreakoutGame_padlen_var > 5 * _instance->BreakoutGame_SCALE_var) {
-String old_padlen_24 = "" + String(_instance->BreakoutGame_padlen_var);
-_instance->BreakoutGame_padlen_var = _instance->BreakoutGame_padlen_var - (4 * _instance->BreakoutGame_SCALE_var);
-String new_padlen_24 = "" + String(_instance->BreakoutGame_padlen_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "padlen", "Int16", old_padlen_24, new_padlen_24);
-
-}
-if((_instance->BreakoutGame_level_var % 2) == 1) {
-String old_dy_30 = "" + String(_instance->BreakoutGame_dy_var);
-_instance->BreakoutGame_dy_var = (_instance->BreakoutGame_dy_var * 3) / 2;
-String new_dy_30 = "" + String(_instance->BreakoutGame_dy_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_30, new_dy_30);
-
-}
-f_BreakoutGameArduino_drawLives(_instance);
-f_BreakoutGameArduino_createBricks(_instance);
-BreakoutGameArduino_send_display_update(_instance);
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
-break;
-}
-case BREAKOUTGAME_SC_INIT_STATE:{
-_instance->BreakoutGame_startTime_var = f_BreakoutGameArduino_timestamp(_instance);
-uint8_t xsize_172 = _instance->BreakoutGame_XDISPSIZE_var;
-uint8_t ysize_173 = _instance->BreakoutGame_YDISPSIZE_var;
-BreakoutGameArduino_send_display_create(_instance, xsize_172, ysize_173);
-String params_174 = "" + ("xsize=" + (String(xsize_172) + ",")) + ("ysize=" + (String(ysize_173) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "create", params_174);
-break;
-}
-case BREAKOUTGAME_SC_PLAY_STATE:{
-uint8_t id_199 = 0;
-uint16_t time_200 = _instance->BreakoutGame_period_var;
-BreakoutGameArduino_send_clock_timer_start(_instance, id_199, time_200);
-String params_201 = "" + ("id=" + (String(id_199) + ",")) + ("time=" + (String(time_200) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_start", params_201);
-break;
-}
 default: break;
 }
 }
@@ -1081,21 +1081,141 @@ BreakoutGame_SC_OnExit(_instance->BreakoutGame_SC_State, _instance);
 break;}
 case BREAKOUTGAME_SC_LOSTBALL_STATE:{
 break;}
-case BREAKOUTGAME_SC_GAMEOVER_STATE:{
-break;}
-case BREAKOUTGAME_SC_LAUNCH_STATE:{
-break;}
 case BREAKOUTGAME_SC_NEXTLEVEL_STATE:{
+break;}
+case BREAKOUTGAME_SC_PLAY_STATE:{
 break;}
 case BREAKOUTGAME_SC_INIT_STATE:{
 break;}
-case BREAKOUTGAME_SC_PLAY_STATE:{
+case BREAKOUTGAME_SC_LAUNCH_STATE:{
+break;}
+case BREAKOUTGAME_SC_GAMEOVER_STATE:{
 break;}
 default: break;
 }
 }
 
 // Event Handlers for incoming messages:
+void BreakoutGameArduino_handle_controller_position(struct BreakoutGameArduino_Instance *_instance, int16_t x, int16_t y) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+String params = "" + ("x=" + (String(x) + ",")) + ("y=" + (String(y) + ","));
+BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC", "_", "controller", "position", params);
+int32_t center = (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var - _instance->BreakoutGame_padlen_var);
+center = x * center;
+center = center / 200;
+String old_padx_0 = "" + String(_instance->BreakoutGame_padx_var);
+_instance->BreakoutGame_padx_var = (_instance->BreakoutGame_LEFT_var + center + (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var) / 2);
+String new_padx_0 = "" + String(_instance->BreakoutGame_padx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "padx", "Int16", old_padx_0, new_padx_0);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGameArduino_handle_pro_game_lostBall(struct BreakoutGameArduino_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
+BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.LOSTBALL", "pro_game", "lostBall", "_");
+uint8_t id_214 = 0;
+BreakoutGameArduino_send_clock_timer_cancel(_instance, id_214);
+String params_215 = "" + ("id=" + (String(id_214) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_215);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "pro_game", "lostBall", "");
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGameArduino_handle_pro_game_nextLevel(struct BreakoutGameArduino_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
+BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.NEXTLEVEL", "pro_game", "nextLevel", "_");
+uint8_t id_216 = 0;
+BreakoutGameArduino_send_clock_timer_cancel(_instance, id_216);
+String params_217 = "" + ("id=" + (String(id_216) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_217);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "pro_game", "nextLevel", "");
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGameArduino_handle_game_lostBall(struct BreakoutGameArduino_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
+BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.LOSTBALL", "game", "lostBall", "_");
+uint8_t id_210 = 0;
+BreakoutGameArduino_send_clock_timer_cancel(_instance, id_210);
+String params_211 = "" + ("id=" + (String(id_210) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_211);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "game", "lostBall", "");
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+void BreakoutGameArduino_handle_game_nextLevel(struct BreakoutGameArduino_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region SC
+uint8_t BreakoutGame_SC_State_event_consumed = 0;
+if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
+if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
+BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
+_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
+BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.NEXTLEVEL", "game", "nextLevel", "_");
+uint8_t id_212 = 0;
+BreakoutGameArduino_send_clock_timer_cancel(_instance, id_212);
+String params_213 = "" + ("id=" + (String(id_212) + ","));
+BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_213);
+BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
+//End Region SC
+//End dsregion SC
+//Session list: 
+if (1) {
+BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "game", "nextLevel", "");
+BreakoutGame_SC_State_event_consumed = 1;
+}
+}
 void BreakoutGameArduino_handle_clock_timer_timeout(struct BreakoutGameArduino_Instance *_instance, uint8_t id) {
 if(!(_instance->active)) return;
 //Region SC
@@ -1126,10 +1246,10 @@ if((_instance->BreakoutGame_SC_LAUNCH_countdown_var % 30) == 0) {
 f_BreakoutGameArduino_drawCountDown(_instance, _instance->BreakoutGame_SC_LAUNCH_countdown_var / 30);
 
 }
-String old_countdown_32 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
+String old_countdown_29 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
 _instance->BreakoutGame_SC_LAUNCH_countdown_var = _instance->BreakoutGame_SC_LAUNCH_countdown_var - 1;
-String new_countdown_32 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "countdown", "UInt8", old_countdown_32, new_countdown_32);
+String new_countdown_29 = "" + String(_instance->BreakoutGame_SC_LAUNCH_countdown_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "countdown", "UInt8", old_countdown_29, new_countdown_29);
 BreakoutGameArduino_send_display_update(_instance);
 BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "display", "update", "");
 BreakoutGame_SC_State_event_consumed = 1;
@@ -1139,53 +1259,53 @@ else if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
 if (BreakoutGame_SC_State_event_consumed == 0 && id == 0) {
 String params = "" + ("id=" + (String(id) + ","));
 BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "_", "clock", "timer_timeout", params);
-String old_bx_1 = "" + String(_instance->BreakoutGame_bx_var);
+String old_bx_17 = "" + String(_instance->BreakoutGame_bx_var);
 _instance->BreakoutGame_bx_var = _instance->BreakoutGame_bx_var + _instance->BreakoutGame_dx_var;
-String new_bx_1 = "" + String(_instance->BreakoutGame_bx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_1, new_bx_1);
-String old_by_5 = "" + String(_instance->BreakoutGame_by_var);
+String new_bx_17 = "" + String(_instance->BreakoutGame_bx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_17, new_bx_17);
+String old_by_13 = "" + String(_instance->BreakoutGame_by_var);
 _instance->BreakoutGame_by_var = _instance->BreakoutGame_by_var + _instance->BreakoutGame_dy_var;
-String new_by_5 = "" + String(_instance->BreakoutGame_by_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_5, new_by_5);
+String new_by_13 = "" + String(_instance->BreakoutGame_by_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_13, new_by_13);
 int16_t wl = _instance->BreakoutGame_LEFT_var + _instance->BreakoutGame_br_var;
 int16_t wr = _instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_br_var;
 int16_t wt = _instance->BreakoutGame_TOP_var + _instance->BreakoutGame_br_var;
 int16_t wb = _instance->BreakoutGame_BOTTOM_var - _instance->BreakoutGame_br_var;
 if(_instance->BreakoutGame_bx_var < wl) {
-String old_dx_9 = "" + String(_instance->BreakoutGame_dx_var);
+String old_dx_21 = "" + String(_instance->BreakoutGame_dx_var);
 _instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
-String new_dx_9 = "" + String(_instance->BreakoutGame_dx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_9, new_dx_9);
-String old_bx_2 = "" + String(_instance->BreakoutGame_bx_var);
+String new_dx_21 = "" + String(_instance->BreakoutGame_dx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_21, new_dx_21);
+String old_bx_18 = "" + String(_instance->BreakoutGame_bx_var);
 _instance->BreakoutGame_bx_var = 2 * wl - _instance->BreakoutGame_bx_var;
-String new_bx_2 = "" + String(_instance->BreakoutGame_bx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_2, new_bx_2);
+String new_bx_18 = "" + String(_instance->BreakoutGame_bx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_18, new_bx_18);
 f_BreakoutGameArduino_incrementScore(_instance,  -1);
 
 } else {
 if(_instance->BreakoutGame_bx_var > wr) {
-String old_dx_10 = "" + String(_instance->BreakoutGame_dx_var);
+String old_dx_22 = "" + String(_instance->BreakoutGame_dx_var);
 _instance->BreakoutGame_dx_var =  -_instance->BreakoutGame_dx_var;
-String new_dx_10 = "" + String(_instance->BreakoutGame_dx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_10, new_dx_10);
-String old_bx_3 = "" + String(_instance->BreakoutGame_bx_var);
+String new_dx_22 = "" + String(_instance->BreakoutGame_dx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_22, new_dx_22);
+String old_bx_19 = "" + String(_instance->BreakoutGame_bx_var);
 _instance->BreakoutGame_bx_var = 2 * wr - _instance->BreakoutGame_bx_var;
-String new_bx_3 = "" + String(_instance->BreakoutGame_bx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_3, new_bx_3);
+String new_bx_19 = "" + String(_instance->BreakoutGame_bx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "bx", "Int16", old_bx_19, new_bx_19);
 f_BreakoutGameArduino_incrementScore(_instance,  -1);
 
 }
 
 }
 if(_instance->BreakoutGame_by_var < wt) {
-String old_dy_27 = "" + String(_instance->BreakoutGame_dy_var);
+String old_dy_3 = "" + String(_instance->BreakoutGame_dy_var);
 _instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-String new_dy_27 = "" + String(_instance->BreakoutGame_dy_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_27, new_dy_27);
-String old_by_6 = "" + String(_instance->BreakoutGame_by_var);
+String new_dy_3 = "" + String(_instance->BreakoutGame_dy_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_3, new_dy_3);
+String old_by_14 = "" + String(_instance->BreakoutGame_by_var);
 _instance->BreakoutGame_by_var = 2 * wt - _instance->BreakoutGame_by_var;
-String new_by_6 = "" + String(_instance->BreakoutGame_by_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_6, new_by_6);
+String new_by_14 = "" + String(_instance->BreakoutGame_by_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_14, new_by_14);
 f_BreakoutGameArduino_incrementScore(_instance,  -1);
 
 } else {
@@ -1201,18 +1321,18 @@ BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID
 if(_instance->BreakoutGame_dy_var > 0) {
 if(_instance->BreakoutGame_by_var > _instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var && _instance->BreakoutGame_by_var < _instance->BreakoutGame_pady_var + _instance->BreakoutGame_br_var) {
 if(_instance->BreakoutGame_bx_var > _instance->BreakoutGame_padx_var - _instance->BreakoutGame_padlen_var / 2 && _instance->BreakoutGame_bx_var < _instance->BreakoutGame_padx_var + _instance->BreakoutGame_padlen_var / 2) {
-String old_dy_28 = "" + String(_instance->BreakoutGame_dy_var);
+String old_dy_4 = "" + String(_instance->BreakoutGame_dy_var);
 _instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-String new_dy_28 = "" + String(_instance->BreakoutGame_dy_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_28, new_dy_28);
-String old_by_7 = "" + String(_instance->BreakoutGame_by_var);
+String new_dy_4 = "" + String(_instance->BreakoutGame_dy_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_4, new_dy_4);
+String old_by_15 = "" + String(_instance->BreakoutGame_by_var);
 _instance->BreakoutGame_by_var = 2 * (_instance->BreakoutGame_pady_var - _instance->BreakoutGame_br_var) - _instance->BreakoutGame_by_var;
-String new_by_7 = "" + String(_instance->BreakoutGame_by_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_7, new_by_7);
-String old_dx_11 = "" + String(_instance->BreakoutGame_dx_var);
+String new_by_15 = "" + String(_instance->BreakoutGame_by_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "by", "Int16", old_by_15, new_by_15);
+String old_dx_23 = "" + String(_instance->BreakoutGame_dx_var);
 _instance->BreakoutGame_dx_var = _instance->BreakoutGame_dx_var / 4 + (_instance->BreakoutGame_bx_var - _instance->BreakoutGame_padx_var) / 4;
-String new_dx_11 = "" + String(_instance->BreakoutGame_dx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_11, new_dx_11);
+String new_dx_23 = "" + String(_instance->BreakoutGame_dx_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dx", "Int16", old_dx_23, new_dx_23);
 
 }
 
@@ -1221,10 +1341,10 @@ BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBU
 }
 bool collision = f_BreakoutGameArduino_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGameArduino_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var - _instance->BreakoutGame_br_var) || f_BreakoutGameArduino_collideBrick(_instance, _instance->BreakoutGame_bx_var + _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var) || f_BreakoutGameArduino_collideBrick(_instance, _instance->BreakoutGame_bx_var - _instance->BreakoutGame_br_var, _instance->BreakoutGame_by_var + _instance->BreakoutGame_br_var);
 if(collision) {
-String old_dy_29 = "" + String(_instance->BreakoutGame_dy_var);
+String old_dy_5 = "" + String(_instance->BreakoutGame_dy_var);
 _instance->BreakoutGame_dy_var =  -_instance->BreakoutGame_dy_var;
-String new_dy_29 = "" + String(_instance->BreakoutGame_dy_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_29, new_dy_29);
+String new_dy_5 = "" + String(_instance->BreakoutGame_dy_var);
+BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "dy", "Int16", old_dy_5, new_dy_5);
 f_BreakoutGameArduino_incrementScore(_instance, 10);
 if(f_BreakoutGameArduino_bricksLeft(_instance) == 0) {
 BreakoutGameArduino_send_game_nextLevel(_instance);
@@ -1292,76 +1412,6 @@ BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }
-void BreakoutGameArduino_handle_controller_position(struct BreakoutGameArduino_Instance *_instance, int16_t x, int16_t y) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-String params = "" + ("x=" + (String(x) + ",")) + ("y=" + (String(y) + ","));
-BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC", "_", "controller", "position", params);
-int32_t center = (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var - _instance->BreakoutGame_padlen_var);
-center = x * center;
-center = center / 200;
-String old_padx_25 = "" + String(_instance->BreakoutGame_padx_var);
-_instance->BreakoutGame_padx_var = (_instance->BreakoutGame_LEFT_var + center + (_instance->BreakoutGame_RIGHT_var - _instance->BreakoutGame_LEFT_var) / 2);
-String new_padx_25 = "" + String(_instance->BreakoutGame_padx_var);
-BreakoutGameArduino_send_log_property_changed(_instance, _instance->WithLog_DEBUG_ID_var, "padx", "Int16", old_padx_25, new_padx_25);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGameArduino_handle_game_lostBall(struct BreakoutGameArduino_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
-BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.LOSTBALL", "game", "lostBall", "_");
-uint8_t id_210 = 0;
-BreakoutGameArduino_send_clock_timer_cancel(_instance, id_210);
-String params_211 = "" + ("id=" + (String(id_210) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_211);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "game", "lostBall", "");
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGameArduino_handle_game_nextLevel(struct BreakoutGameArduino_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
-BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.NEXTLEVEL", "game", "nextLevel", "_");
-uint8_t id_212 = 0;
-BreakoutGameArduino_send_clock_timer_cancel(_instance, id_212);
-String params_213 = "" + ("id=" + (String(id_212) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_213);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "game", "nextLevel", "");
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
 void BreakoutGameArduino_handle_display_displayReady(struct BreakoutGameArduino_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region SC
@@ -1412,56 +1462,6 @@ BreakoutGame_SC_State_event_consumed = 1;
 //Session list: 
 if (1) {
 BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "display", "displayReady", "");
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGameArduino_handle_pro_game_lostBall(struct BreakoutGameArduino_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_LOSTBALL_STATE;
-BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.LOSTBALL", "pro_game", "lostBall", "_");
-uint8_t id_214 = 0;
-BreakoutGameArduino_send_clock_timer_cancel(_instance, id_214);
-String params_215 = "" + ("id=" + (String(id_214) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_215);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_LOSTBALL_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "pro_game", "lostBall", "");
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-void BreakoutGameArduino_handle_pro_game_nextLevel(struct BreakoutGameArduino_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region SC
-uint8_t BreakoutGame_SC_State_event_consumed = 0;
-if (_instance->BreakoutGame_SC_State == BREAKOUTGAME_SC_PLAY_STATE) {
-if (BreakoutGame_SC_State_event_consumed == 0 && 1) {
-BreakoutGame_SC_OnExit(BREAKOUTGAME_SC_PLAY_STATE, _instance);
-_instance->BreakoutGame_SC_State = BREAKOUTGAME_SC_NEXTLEVEL_STATE;
-BreakoutGameArduino_send_log_message_handled(_instance, _instance->WithLog_DEBUG_ID_var, "SC.PLAY", "SC.NEXTLEVEL", "pro_game", "nextLevel", "_");
-uint8_t id_216 = 0;
-BreakoutGameArduino_send_clock_timer_cancel(_instance, id_216);
-String params_217 = "" + ("id=" + (String(id_216) + ","));
-BreakoutGameArduino_send_log_message_sent(_instance, _instance->WithLog_DEBUG_ID_var, "clock", "timer_cancel", params_217);
-BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_NEXTLEVEL_STATE, _instance);
-BreakoutGame_SC_State_event_consumed = 1;
-}
-}
-//End Region SC
-//End dsregion SC
-//Session list: 
-if (1) {
-BreakoutGameArduino_send_log_message_lost(_instance, _instance->WithLog_DEBUG_ID_var, "pro_game", "nextLevel", "");
 BreakoutGame_SC_State_event_consumed = 1;
 }
 }
@@ -2117,11 +2117,11 @@ _instance->HeadlessDisplay_State = HEADLESSDISPLAY_NULL_INIT_STATE;
 HeadlessDisplay_OnEntry(_instance->HeadlessDisplay_State, _instance);
 break;
 }
-case HEADLESSDISPLAY_NULL_INIT_STATE:{
-HeadlessDisplay_send_display_displayReady(_instance);
+case HEADLESSDISPLAY_NULL_MOCK_STATE:{
 break;
 }
-case HEADLESSDISPLAY_NULL_MOCK_STATE:{
+case HEADLESSDISPLAY_NULL_INIT_STATE:{
+HeadlessDisplay_send_display_displayReady(_instance);
 break;
 }
 default: break;
@@ -2134,16 +2134,58 @@ switch(state) {
 case HEADLESSDISPLAY_STATE:{
 HeadlessDisplay_OnExit(_instance->HeadlessDisplay_State, _instance);
 break;}
-case HEADLESSDISPLAY_NULL_INIT_STATE:{
-break;}
 case HEADLESSDISPLAY_NULL_MOCK_STATE:{
+break;}
+case HEADLESSDISPLAY_NULL_INIT_STATE:{
 break;}
 default: break;
 }
 }
 
 // Event Handlers for incoming messages:
-void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_fillRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_drawInteger(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t HeadlessDisplay_State_event_consumed = 0;
@@ -2185,76 +2227,6 @@ HeadlessDisplay_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void HeadlessDisplay_handle_display_clear(struct HeadlessDisplay_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_drawInteger(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_fillRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_update(struct HeadlessDisplay_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void HeadlessDisplay_handle_display_drawThingML(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t HeadlessDisplay_State_event_consumed = 0;
-if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
-if (HeadlessDisplay_State_event_consumed == 0 && 1) {
-f_HeadlessDisplay_mock(_instance);
-HeadlessDisplay_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
 void HeadlessDisplay_handle_display_drawRect(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
 if(!(_instance->active)) return;
 //Region null
@@ -2269,7 +2241,35 @@ HeadlessDisplay_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void HeadlessDisplay_handle_display_setColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+void HeadlessDisplay_handle_display_clear(struct HeadlessDisplay_Instance *_instance) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_setBGColor(struct HeadlessDisplay_Instance *_instance, uint8_t r, uint8_t g, uint8_t b) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t HeadlessDisplay_State_event_consumed = 0;
+if (_instance->HeadlessDisplay_State == HEADLESSDISPLAY_NULL_MOCK_STATE) {
+if (HeadlessDisplay_State_event_consumed == 0 && 1) {
+f_HeadlessDisplay_mock(_instance);
+HeadlessDisplay_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void HeadlessDisplay_handle_display_drawThingML(struct HeadlessDisplay_Instance *_instance, uint8_t x, uint8_t y) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t HeadlessDisplay_State_event_consumed = 0;
@@ -2417,13 +2417,13 @@ _instance->Logger_State = LOGGER_NULL_STARTUP_STATE;
 Logger_OnEntry(_instance->Logger_State, _instance);
 break;
 }
-case LOGGER_NULL_ON_STATE:{
-break;
-}
 case LOGGER_NULL_STARTUP_STATE:{
 break;
 }
 case LOGGER_NULL_OFF_STATE:{
+break;
+}
+case LOGGER_NULL_ON_STATE:{
 break;
 }
 default: break;
@@ -2436,24 +2436,26 @@ switch(state) {
 case LOGGER_STATE:{
 Logger_OnExit(_instance->Logger_State, _instance);
 break;}
-case LOGGER_NULL_ON_STATE:{
-break;}
 case LOGGER_NULL_STARTUP_STATE:{
 break;}
 case LOGGER_NULL_OFF_STATE:{
+break;}
+case LOGGER_NULL_ON_STATE:{
 break;}
 default: break;
 }
 }
 
 // Event Handlers for incoming messages:
-void ConsoleLogger_handle_log_function_called(struct ConsoleLogger_Instance *_instance, String inst, String fn_name, String ty, String returns, String params) {
+void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t Logger_State_event_consumed = 0;
-if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
+if (_instance->Logger_State == LOGGER_NULL_OFF_STATE) {
 if (Logger_State_event_consumed == 0 && 1) {
-f_ConsoleLogger_log_function_called(_instance, inst, fn_name, ty, returns, params);
+Logger_OnExit(LOGGER_NULL_OFF_STATE, _instance);
+_instance->Logger_State = LOGGER_NULL_ON_STATE;
+Logger_OnEntry(LOGGER_NULL_ON_STATE, _instance);
 Logger_State_event_consumed = 1;
 }
 }
@@ -2461,27 +2463,13 @@ Logger_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void ConsoleLogger_handle_log_message_lost(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params) {
+void ConsoleLogger_handle_log_property_changed(struct ConsoleLogger_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t Logger_State_event_consumed = 0;
 if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
 if (Logger_State_event_consumed == 0 && 1) {
-f_ConsoleLogger_log_message_lost(_instance, inst, port_name, msg_name, params);
-Logger_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void ConsoleLogger_handle_log_message_sent(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t Logger_State_event_consumed = 0;
-if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
-if (Logger_State_event_consumed == 0 && 1) {
-f_ConsoleLogger_log_message_sent(_instance, inst, port_name, msg_name, params);
+f_ConsoleLogger_log_property_changed(_instance, inst, prop_name, ty, old_value, new_value);
 Logger_State_event_consumed = 1;
 }
 }
@@ -2496,6 +2484,34 @@ uint8_t Logger_State_event_consumed = 0;
 if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
 if (Logger_State_event_consumed == 0 && 1) {
 f_ConsoleLogger_log_message_handled(_instance, inst, source, target, port_name, msg_name, params);
+Logger_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void ConsoleLogger_handle_log_function_called(struct ConsoleLogger_Instance *_instance, String inst, String fn_name, String ty, String returns, String params) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t Logger_State_event_consumed = 0;
+if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
+if (Logger_State_event_consumed == 0 && 1) {
+f_ConsoleLogger_log_function_called(_instance, inst, fn_name, ty, returns, params);
+Logger_State_event_consumed = 1;
+}
+}
+//End Region null
+//End dsregion null
+//Session list: 
+}
+void ConsoleLogger_handle_log_message_sent(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params) {
+if(!(_instance->active)) return;
+//Region null
+uint8_t Logger_State_event_consumed = 0;
+if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
+if (Logger_State_event_consumed == 0 && 1) {
+f_ConsoleLogger_log_message_sent(_instance, inst, port_name, msg_name, params);
 Logger_State_event_consumed = 1;
 }
 }
@@ -2519,29 +2535,13 @@ Logger_State_event_consumed = 1;
 //End dsregion null
 //Session list: 
 }
-void ConsoleLogger_handle_log_property_changed(struct ConsoleLogger_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value) {
+void ConsoleLogger_handle_log_message_lost(struct ConsoleLogger_Instance *_instance, String inst, String port_name, String msg_name, String params) {
 if(!(_instance->active)) return;
 //Region null
 uint8_t Logger_State_event_consumed = 0;
 if (_instance->Logger_State == LOGGER_NULL_ON_STATE) {
 if (Logger_State_event_consumed == 0 && 1) {
-f_ConsoleLogger_log_property_changed(_instance, inst, prop_name, ty, old_value, new_value);
-Logger_State_event_consumed = 1;
-}
-}
-//End Region null
-//End dsregion null
-//Session list: 
-}
-void ConsoleLogger_handle_log_log_on(struct ConsoleLogger_Instance *_instance) {
-if(!(_instance->active)) return;
-//Region null
-uint8_t Logger_State_event_consumed = 0;
-if (_instance->Logger_State == LOGGER_NULL_OFF_STATE) {
-if (Logger_State_event_consumed == 0 && 1) {
-Logger_OnExit(LOGGER_NULL_OFF_STATE, _instance);
-_instance->Logger_State = LOGGER_NULL_ON_STATE;
-Logger_OnEntry(LOGGER_NULL_ON_STATE, _instance);
+f_ConsoleLogger_log_message_lost(_instance, inst, port_name, msg_name, params);
 Logger_State_event_consumed = 1;
 }
 }
@@ -2583,18 +2583,10 @@ return empty_event_consumed;
  * Definitions for configuration : test
  *****************************************************************************/
 
+uint8_t array_game_BreakoutGame_fgcolor_var[3];
 uint8_t array_game_BreakoutGame_bgcolor_var[3];
 uint8_t array_game_BreakoutGame_bricks_var[5];
-uint8_t array_game_BreakoutGame_fgcolor_var[3];
 //Declaration of instance variables
-//Instance log
-// Variables for the properties of the instance
-struct ConsoleLogger_Instance log_var;
-// Variables for the sessions of the instance
-//Instance game
-// Variables for the properties of the instance
-struct BreakoutGameArduino_Instance game_var;
-// Variables for the sessions of the instance
 //Instance disp
 // Variables for the properties of the instance
 struct HeadlessDisplay_Instance disp_var;
@@ -2607,14 +2599,84 @@ struct TimerArduino_Instance timer_var;
 // Variables for the properties of the instance
 struct BasicIAController_Instance ctrl_var;
 // Variables for the sessions of the instance
+//Instance log
+// Variables for the properties of the instance
+struct ConsoleLogger_Instance log_var;
+// Variables for the sessions of the instance
+//Instance game
+// Variables for the properties of the instance
+struct BreakoutGameArduino_Instance game_var;
+// Variables for the sessions of the instance
 
 
+// Enqueue of messages HeadlessDisplay::display::displayReady
+void enqueue_HeadlessDisplay_send_display_displayReady(struct HeadlessDisplay_Instance *_instance){
+if ( fifo_byte_available() > 4 ) {
+
+_fifo_enqueue( (1 >> 8) & 0xFF );
+_fifo_enqueue( 1 & 0xFF );
+
+// ID of the source port of the instance
+_fifo_enqueue( (_instance->id_display >> 8) & 0xFF );
+_fifo_enqueue( _instance->id_display & 0xFF );
+}
+}
+// Enqueue of messages TimerArduino::timer::timer_timeout
+void enqueue_TimerArduino_send_timer_timer_timeout(struct TimerArduino_Instance *_instance, uint8_t id){
+if ( fifo_byte_available() > 5 ) {
+
+_fifo_enqueue( (2 >> 8) & 0xFF );
+_fifo_enqueue( 2 & 0xFF );
+
+// ID of the source port of the instance
+_fifo_enqueue( (_instance->id_timer >> 8) & 0xFF );
+_fifo_enqueue( _instance->id_timer & 0xFF );
+
+// parameter id
+union u_id_t {
+uint8_t p;
+byte bytebuffer[1];
+} u_id;
+u_id.p = id;
+_fifo_enqueue(u_id.bytebuffer[0] & 0xFF );
+}
+}
+// Enqueue of messages BasicIAController::controls::position
+void enqueue_BasicIAController_send_controls_position(struct BasicIAController_Instance *_instance, int16_t x, int16_t y){
+if ( fifo_byte_available() > 8 ) {
+
+_fifo_enqueue( (3 >> 8) & 0xFF );
+_fifo_enqueue( 3 & 0xFF );
+
+// ID of the source port of the instance
+_fifo_enqueue( (_instance->id_controls >> 8) & 0xFF );
+_fifo_enqueue( _instance->id_controls & 0xFF );
+
+// parameter x
+union u_x_t {
+int16_t p;
+byte bytebuffer[2];
+} u_x;
+u_x.p = x;
+_fifo_enqueue(u_x.bytebuffer[0] & 0xFF );
+_fifo_enqueue(u_x.bytebuffer[1] & 0xFF );
+
+// parameter y
+union u_y_t {
+int16_t p;
+byte bytebuffer[2];
+} u_y;
+u_y.p = y;
+_fifo_enqueue(u_y.bytebuffer[0] & 0xFF );
+_fifo_enqueue(u_y.bytebuffer[1] & 0xFF );
+}
+}
 // Enqueue of messages BreakoutGameArduino::clock::timer_cancel
 void enqueue_BreakoutGameArduino_send_clock_timer_cancel(struct BreakoutGameArduino_Instance *_instance, uint8_t id){
 if ( fifo_byte_available() > 5 ) {
 
-_fifo_enqueue( (1 >> 8) & 0xFF );
-_fifo_enqueue( 1 & 0xFF );
+_fifo_enqueue( (4 >> 8) & 0xFF );
+_fifo_enqueue( 4 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_clock >> 8) & 0xFF );
@@ -2633,8 +2695,8 @@ _fifo_enqueue(u_id.bytebuffer[0] & 0xFF );
 void enqueue_BreakoutGameArduino_send_clock_timer_start(struct BreakoutGameArduino_Instance *_instance, uint8_t id, uint16_t time){
 if ( fifo_byte_available() > 7 ) {
 
-_fifo_enqueue( (2 >> 8) & 0xFF );
-_fifo_enqueue( 2 & 0xFF );
+_fifo_enqueue( (5 >> 8) & 0xFF );
+_fifo_enqueue( 5 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_clock >> 8) & 0xFF );
@@ -2662,8 +2724,8 @@ _fifo_enqueue(u_time.bytebuffer[1] & 0xFF );
 void enqueue_BreakoutGameArduino_send_ia_updateIA(struct BreakoutGameArduino_Instance *_instance, int16_t ballx, int16_t bally, int16_t padx, int16_t pady){
 if ( fifo_byte_available() > 12 ) {
 
-_fifo_enqueue( (3 >> 8) & 0xFF );
-_fifo_enqueue( 3 & 0xFF );
+_fifo_enqueue( (6 >> 8) & 0xFF );
+_fifo_enqueue( 6 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_ia >> 8) & 0xFF );
@@ -2710,8 +2772,8 @@ _fifo_enqueue(u_pady.bytebuffer[1] & 0xFF );
 void enqueue_BreakoutGameArduino_send_game_lostBall(struct BreakoutGameArduino_Instance *_instance){
 if ( fifo_byte_available() > 4 ) {
 
-_fifo_enqueue( (4 >> 8) & 0xFF );
-_fifo_enqueue( 4 & 0xFF );
+_fifo_enqueue( (7 >> 8) & 0xFF );
+_fifo_enqueue( 7 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_game >> 8) & 0xFF );
@@ -2722,8 +2784,8 @@ _fifo_enqueue( _instance->id_game & 0xFF );
 void enqueue_BreakoutGameArduino_send_game_nextLevel(struct BreakoutGameArduino_Instance *_instance){
 if ( fifo_byte_available() > 4 ) {
 
-_fifo_enqueue( (5 >> 8) & 0xFF );
-_fifo_enqueue( 5 & 0xFF );
+_fifo_enqueue( (8 >> 8) & 0xFF );
+_fifo_enqueue( 8 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_game >> 8) & 0xFF );
@@ -2734,8 +2796,8 @@ _fifo_enqueue( _instance->id_game & 0xFF );
 void enqueue_BreakoutGameArduino_send_req_game_lostBall(struct BreakoutGameArduino_Instance *_instance){
 if ( fifo_byte_available() > 4 ) {
 
-_fifo_enqueue( (4 >> 8) & 0xFF );
-_fifo_enqueue( 4 & 0xFF );
+_fifo_enqueue( (7 >> 8) & 0xFF );
+_fifo_enqueue( 7 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_req_game >> 8) & 0xFF );
@@ -2746,138 +2808,15 @@ _fifo_enqueue( _instance->id_req_game & 0xFF );
 void enqueue_BreakoutGameArduino_send_req_game_nextLevel(struct BreakoutGameArduino_Instance *_instance){
 if ( fifo_byte_available() > 4 ) {
 
-_fifo_enqueue( (5 >> 8) & 0xFF );
-_fifo_enqueue( 5 & 0xFF );
+_fifo_enqueue( (8 >> 8) & 0xFF );
+_fifo_enqueue( 8 & 0xFF );
 
 // ID of the source port of the instance
 _fifo_enqueue( (_instance->id_req_game >> 8) & 0xFF );
 _fifo_enqueue( _instance->id_req_game & 0xFF );
 }
 }
-// Enqueue of messages HeadlessDisplay::display::displayReady
-void enqueue_HeadlessDisplay_send_display_displayReady(struct HeadlessDisplay_Instance *_instance){
-if ( fifo_byte_available() > 4 ) {
 
-_fifo_enqueue( (6 >> 8) & 0xFF );
-_fifo_enqueue( 6 & 0xFF );
-
-// ID of the source port of the instance
-_fifo_enqueue( (_instance->id_display >> 8) & 0xFF );
-_fifo_enqueue( _instance->id_display & 0xFF );
-}
-}
-// Enqueue of messages TimerArduino::timer::timer_timeout
-void enqueue_TimerArduino_send_timer_timer_timeout(struct TimerArduino_Instance *_instance, uint8_t id){
-if ( fifo_byte_available() > 5 ) {
-
-_fifo_enqueue( (7 >> 8) & 0xFF );
-_fifo_enqueue( 7 & 0xFF );
-
-// ID of the source port of the instance
-_fifo_enqueue( (_instance->id_timer >> 8) & 0xFF );
-_fifo_enqueue( _instance->id_timer & 0xFF );
-
-// parameter id
-union u_id_t {
-uint8_t p;
-byte bytebuffer[1];
-} u_id;
-u_id.p = id;
-_fifo_enqueue(u_id.bytebuffer[0] & 0xFF );
-}
-}
-// Enqueue of messages BasicIAController::controls::position
-void enqueue_BasicIAController_send_controls_position(struct BasicIAController_Instance *_instance, int16_t x, int16_t y){
-if ( fifo_byte_available() > 8 ) {
-
-_fifo_enqueue( (8 >> 8) & 0xFF );
-_fifo_enqueue( 8 & 0xFF );
-
-// ID of the source port of the instance
-_fifo_enqueue( (_instance->id_controls >> 8) & 0xFF );
-_fifo_enqueue( _instance->id_controls & 0xFF );
-
-// parameter x
-union u_x_t {
-int16_t p;
-byte bytebuffer[2];
-} u_x;
-u_x.p = x;
-_fifo_enqueue(u_x.bytebuffer[0] & 0xFF );
-_fifo_enqueue(u_x.bytebuffer[1] & 0xFF );
-
-// parameter y
-union u_y_t {
-int16_t p;
-byte bytebuffer[2];
-} u_y;
-u_y.p = y;
-_fifo_enqueue(u_y.bytebuffer[0] & 0xFF );
-_fifo_enqueue(u_y.bytebuffer[1] & 0xFF );
-}
-}
-
-
-//New dispatcher for messages
-void dispatch_function_called(uint16_t sender, String param_inst, String param_fn_name, String param_ty, String param_returns, String param_params) {
-if (sender == game_var.id_log) {
-ConsoleLogger_handle_log_function_called(&log_var, param_inst, param_fn_name, param_ty, param_returns, param_params);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_log_function_called(struct BreakoutGameArduino_Instance *_instance, String inst, String fn_name, String ty, String returns, String params){
-dispatch_function_called(_instance->id_log, inst, fn_name, ty, returns, params);
-}
-
-//New dispatcher for messages
-void dispatch_setBGColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_setBGColor(&disp_var, param_r, param_g, param_b);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_display_setBGColor(struct BreakoutGameArduino_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
-dispatch_setBGColor(_instance->id_display, r, g, b);
-}
-
-//New dispatcher for messages
-void dispatch_timer_start(uint16_t sender, uint8_t param_id, uint16_t param_time) {
-if (sender == game_var.id_clock) {
-TimerArduino_handle_timer_timer_start(&timer_var, param_id, param_time);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_fillRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_fillRect(&disp_var, param_x, param_y, param_width, param_height);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_display_fillRect(struct BreakoutGameArduino_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
-dispatch_fillRect(_instance->id_display, x, y, width, height);
-}
 
 //New dispatcher for messages
 void dispatch_displayReady(uint16_t sender) {
@@ -2906,9 +2845,18 @@ if (sender == game_var.id_game) {
 
 
 //New dispatcher for messages
-void dispatch_updateIA(uint16_t sender, int16_t param_ballx, int16_t param_bally, int16_t param_padx, int16_t param_pady) {
-if (sender == game_var.id_ia) {
-BasicIAController_handle_game_updateIA(&ctrl_var, param_ballx, param_bally, param_padx, param_pady);
+void dispatch_log_on(uint16_t sender) {
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_timer_cancel(uint16_t sender, uint8_t param_id) {
+if (sender == game_var.id_clock) {
+TimerArduino_handle_timer_timer_cancel(&timer_var, param_id);
 
 }
 if (sender == game_var.id_game) {
@@ -2917,6 +2865,93 @@ if (sender == game_var.id_game) {
 
 }
 
+
+//New dispatcher for messages
+void dispatch_message_lost(uint16_t sender, String param_inst, String param_port_name, String param_msg_name, String param_params) {
+if (sender == game_var.id_game) {
+
+}
+if (sender == game_var.id_log) {
+ConsoleLogger_handle_log_message_lost(&log_var, param_inst, param_port_name, param_msg_name, param_params);
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_log_message_lost(struct BreakoutGameArduino_Instance *_instance, String inst, String port_name, String msg_name, String params){
+dispatch_message_lost(_instance->id_log, inst, port_name, msg_name, params);
+}
+
+//New dispatcher for messages
+void dispatch_velocity(uint16_t sender, int16_t param_dx, int16_t param_dy) {
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_lostBall(uint16_t sender) {
+if (sender == game_var.id_req_game) {
+BreakoutGameArduino_handle_pro_game_lostBall(&game_var);
+
+}
+if (sender == game_var.id_game) {
+BreakoutGameArduino_handle_game_lostBall(&game_var);
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_fillRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_fillRect(&disp_var, param_x, param_y, param_width, param_height);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_display_fillRect(struct BreakoutGameArduino_Instance *_instance, uint8_t x, uint8_t y, uint8_t width, uint8_t height){
+dispatch_fillRect(_instance->id_display, x, y, width, height);
+}
+
+//New dispatcher for messages
+void dispatch_setColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_setColor(&disp_var, param_r, param_g, param_b);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_display_setColor(struct BreakoutGameArduino_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
+dispatch_setColor(_instance->id_display, r, g, b);
+}
+
+//New dispatcher for messages
+void dispatch_message_handled(uint16_t sender, String param_inst, String param_source, String param_target, String param_port_name, String param_msg_name, String param_params) {
+if (sender == game_var.id_game) {
+
+}
+if (sender == game_var.id_log) {
+ConsoleLogger_handle_log_message_handled(&log_var, param_inst, param_source, param_target, param_port_name, param_msg_name, param_params);
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_log_message_handled(struct BreakoutGameArduino_Instance *_instance, String inst, String source, String target, String port_name, String msg_name, String params){
+dispatch_message_handled(_instance->id_log, inst, source, target, port_name, msg_name, params);
+}
 
 //New dispatcher for messages
 void dispatch_create(uint16_t sender, uint8_t param_xsize, uint8_t param_ysize) {
@@ -2935,13 +2970,85 @@ dispatch_create(_instance->id_display, xsize, ysize);
 }
 
 //New dispatcher for messages
-void dispatch_destroy(uint16_t sender) {
+void dispatch_function_called(uint16_t sender, String param_inst, String param_fn_name, String param_ty, String param_returns, String param_params) {
+if (sender == game_var.id_game) {
+
+}
+if (sender == game_var.id_log) {
+ConsoleLogger_handle_log_function_called(&log_var, param_inst, param_fn_name, param_ty, param_returns, param_params);
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_log_function_called(struct BreakoutGameArduino_Instance *_instance, String inst, String fn_name, String ty, String returns, String params){
+dispatch_function_called(_instance->id_log, inst, fn_name, ty, returns, params);
+}
+
+//New dispatcher for messages
+void dispatch_log_off(uint16_t sender) {
 if (sender == game_var.id_game) {
 
 }
 
 }
 
+
+//New dispatcher for messages
+void dispatch_timer_timeout(uint16_t sender, uint8_t param_id) {
+if (sender == timer_var.id_timer) {
+BreakoutGameArduino_handle_clock_timer_timeout(&game_var, param_id);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_timer_start(uint16_t sender, uint8_t param_id, uint16_t param_time) {
+if (sender == game_var.id_clock) {
+TimerArduino_handle_timer_timer_start(&timer_var, param_id, param_time);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_nextLevel(uint16_t sender) {
+if (sender == game_var.id_req_game) {
+BreakoutGameArduino_handle_pro_game_nextLevel(&game_var);
+
+}
+if (sender == game_var.id_game) {
+BreakoutGameArduino_handle_game_nextLevel(&game_var);
+
+}
+
+}
+
+
+//New dispatcher for messages
+void dispatch_setBGColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_setBGColor(&disp_var, param_r, param_g, param_b);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_display_setBGColor(struct BreakoutGameArduino_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
+dispatch_setBGColor(_instance->id_display, r, g, b);
+}
 
 //New dispatcher for messages
 void dispatch_drawThingML(uint16_t sender, uint8_t param_x, uint8_t param_y) {
@@ -2960,13 +3067,68 @@ dispatch_drawThingML(_instance->id_display, x, y);
 }
 
 //New dispatcher for messages
-void dispatch_log_on(uint16_t sender) {
+void dispatch_update(uint16_t sender) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_update(&disp_var);
+
+}
 if (sender == game_var.id_game) {
 
 }
 
 }
 
+void sync_dispatch_BreakoutGameArduino_send_display_update(struct BreakoutGameArduino_Instance *_instance){
+dispatch_update(_instance->id_display);
+}
+
+//New dispatcher for messages
+void dispatch_property_changed(uint16_t sender, String param_inst, String param_prop_name, String param_ty, String param_old_value, String param_new_value) {
+if (sender == game_var.id_game) {
+
+}
+if (sender == game_var.id_log) {
+ConsoleLogger_handle_log_property_changed(&log_var, param_inst, param_prop_name, param_ty, param_old_value, param_new_value);
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_log_property_changed(struct BreakoutGameArduino_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value){
+dispatch_property_changed(_instance->id_log, inst, prop_name, ty, old_value, new_value);
+}
+
+//New dispatcher for messages
+void dispatch_drawInteger(uint16_t sender, uint8_t param_x, uint8_t param_y, int16_t param_v, uint8_t param_digits, uint8_t param_scale) {
+if (sender == game_var.id_display) {
+HeadlessDisplay_handle_display_drawInteger(&disp_var, param_x, param_y, param_v, param_digits, param_scale);
+
+}
+if (sender == game_var.id_game) {
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_display_drawInteger(struct BreakoutGameArduino_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale){
+dispatch_drawInteger(_instance->id_display, x, y, v, digits, scale);
+}
+
+//New dispatcher for messages
+void dispatch_message_sent(uint16_t sender, String param_inst, String param_port_name, String param_msg_name, String param_params) {
+if (sender == game_var.id_game) {
+
+}
+if (sender == game_var.id_log) {
+ConsoleLogger_handle_log_message_sent(&log_var, param_inst, param_port_name, param_msg_name, param_params);
+
+}
+
+}
+
+void sync_dispatch_BreakoutGameArduino_send_log_message_sent(struct BreakoutGameArduino_Instance *_instance, String inst, String port_name, String msg_name, String params){
+dispatch_message_sent(_instance->id_log, inst, port_name, msg_name, params);
+}
 
 //New dispatcher for messages
 void dispatch_drawRect(uint16_t sender, uint8_t param_x, uint8_t param_y, uint8_t param_width, uint8_t param_height) {
@@ -2985,7 +3147,7 @@ dispatch_drawRect(_instance->id_display, x, y, width, height);
 }
 
 //New dispatcher for messages
-void dispatch_velocity(uint16_t sender, int16_t param_dx, int16_t param_dy) {
+void dispatch_destroy(uint16_t sender) {
 if (sender == game_var.id_game) {
 
 }
@@ -2994,9 +3156,9 @@ if (sender == game_var.id_game) {
 
 
 //New dispatcher for messages
-void dispatch_timer_cancel(uint16_t sender, uint8_t param_id) {
-if (sender == game_var.id_clock) {
-TimerArduino_handle_timer_timer_cancel(&timer_var, param_id);
+void dispatch_updateIA(uint16_t sender, int16_t param_ballx, int16_t param_bally, int16_t param_padx, int16_t param_pady) {
+if (sender == game_var.id_ia) {
+BasicIAController_handle_game_updateIA(&ctrl_var, param_ballx, param_bally, param_padx, param_pady);
 
 }
 if (sender == game_var.id_game) {
@@ -3022,168 +3184,6 @@ void sync_dispatch_BreakoutGameArduino_send_display_clear(struct BreakoutGameArd
 dispatch_clear(_instance->id_display);
 }
 
-//New dispatcher for messages
-void dispatch_update(uint16_t sender) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_update(&disp_var);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_display_update(struct BreakoutGameArduino_Instance *_instance){
-dispatch_update(_instance->id_display);
-}
-
-//New dispatcher for messages
-void dispatch_message_lost(uint16_t sender, String param_inst, String param_port_name, String param_msg_name, String param_params) {
-if (sender == game_var.id_log) {
-ConsoleLogger_handle_log_message_lost(&log_var, param_inst, param_port_name, param_msg_name, param_params);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_log_message_lost(struct BreakoutGameArduino_Instance *_instance, String inst, String port_name, String msg_name, String params){
-dispatch_message_lost(_instance->id_log, inst, port_name, msg_name, params);
-}
-
-//New dispatcher for messages
-void dispatch_property_changed(uint16_t sender, String param_inst, String param_prop_name, String param_ty, String param_old_value, String param_new_value) {
-if (sender == game_var.id_log) {
-ConsoleLogger_handle_log_property_changed(&log_var, param_inst, param_prop_name, param_ty, param_old_value, param_new_value);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_log_property_changed(struct BreakoutGameArduino_Instance *_instance, String inst, String prop_name, String ty, String old_value, String new_value){
-dispatch_property_changed(_instance->id_log, inst, prop_name, ty, old_value, new_value);
-}
-
-//New dispatcher for messages
-void dispatch_setColor(uint16_t sender, uint8_t param_r, uint8_t param_g, uint8_t param_b) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_setColor(&disp_var, param_r, param_g, param_b);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_display_setColor(struct BreakoutGameArduino_Instance *_instance, uint8_t r, uint8_t g, uint8_t b){
-dispatch_setColor(_instance->id_display, r, g, b);
-}
-
-//New dispatcher for messages
-void dispatch_lostBall(uint16_t sender) {
-if (sender == game_var.id_req_game) {
-BreakoutGameArduino_handle_pro_game_lostBall(&game_var);
-
-}
-if (sender == game_var.id_game) {
-BreakoutGameArduino_handle_game_lostBall(&game_var);
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_drawInteger(uint16_t sender, uint8_t param_x, uint8_t param_y, int16_t param_v, uint8_t param_digits, uint8_t param_scale) {
-if (sender == game_var.id_display) {
-HeadlessDisplay_handle_display_drawInteger(&disp_var, param_x, param_y, param_v, param_digits, param_scale);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_display_drawInteger(struct BreakoutGameArduino_Instance *_instance, uint8_t x, uint8_t y, int16_t v, uint8_t digits, uint8_t scale){
-dispatch_drawInteger(_instance->id_display, x, y, v, digits, scale);
-}
-
-//New dispatcher for messages
-void dispatch_timer_timeout(uint16_t sender, uint8_t param_id) {
-if (sender == timer_var.id_timer) {
-BreakoutGameArduino_handle_clock_timer_timeout(&game_var, param_id);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_message_sent(uint16_t sender, String param_inst, String param_port_name, String param_msg_name, String param_params) {
-if (sender == game_var.id_log) {
-ConsoleLogger_handle_log_message_sent(&log_var, param_inst, param_port_name, param_msg_name, param_params);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_log_message_sent(struct BreakoutGameArduino_Instance *_instance, String inst, String port_name, String msg_name, String params){
-dispatch_message_sent(_instance->id_log, inst, port_name, msg_name, params);
-}
-
-//New dispatcher for messages
-void dispatch_message_handled(uint16_t sender, String param_inst, String param_source, String param_target, String param_port_name, String param_msg_name, String param_params) {
-if (sender == game_var.id_log) {
-ConsoleLogger_handle_log_message_handled(&log_var, param_inst, param_source, param_target, param_port_name, param_msg_name, param_params);
-
-}
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-void sync_dispatch_BreakoutGameArduino_send_log_message_handled(struct BreakoutGameArduino_Instance *_instance, String inst, String source, String target, String port_name, String msg_name, String params){
-dispatch_message_handled(_instance->id_log, inst, source, target, port_name, msg_name, params);
-}
-
-//New dispatcher for messages
-void dispatch_log_off(uint16_t sender) {
-if (sender == game_var.id_game) {
-
-}
-
-}
-
-
-//New dispatcher for messages
-void dispatch_nextLevel(uint16_t sender) {
-if (sender == game_var.id_req_game) {
-BreakoutGameArduino_handle_pro_game_nextLevel(&game_var);
-
-}
-if (sender == game_var.id_game) {
-BreakoutGameArduino_handle_game_nextLevel(&game_var);
-
-}
-
-}
-
-
 int processMessageQueue() {
 if (fifo_empty()) return 0; // return 0 if there is nothing to do
 
@@ -3196,7 +3196,7 @@ code += fifo_dequeue();
 
 // Switch to call the appropriate handler
 switch(code) {
-case 1:{
+case 4:{
 byte mbuf[5 - 2];
 while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
 uint8_t mbufi_timer_cancel = 2;
@@ -3210,7 +3210,21 @@ dispatch_timer_cancel((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_timer_cancel_id.p /* id */ );
 break;
 }
-case 3:{
+case 2:{
+byte mbuf[5 - 2];
+while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
+uint8_t mbufi_timer_timeout = 2;
+union u_timer_timeout_id_t {
+uint8_t p;
+byte bytebuffer[1];
+} u_timer_timeout_id;
+u_timer_timeout_id.bytebuffer[0] = mbuf[mbufi_timer_timeout + 0];
+mbufi_timer_timeout += 1;
+dispatch_timer_timeout((mbuf[0] << 8) + mbuf[1] /* instance port*/,
+ u_timer_timeout_id.p /* id */ );
+break;
+}
+case 6:{
 byte mbuf[12 - 2];
 while (mbufi < (12 - 2)) mbuf[mbufi++] = fifo_dequeue();
 uint8_t mbufi_updateIA = 2;
@@ -3249,14 +3263,14 @@ dispatch_updateIA((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_updateIA_pady.p /* pady */ );
 break;
 }
-case 4:{
+case 1:{
 byte mbuf[4 - 2];
 while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-uint8_t mbufi_lostBall = 2;
-dispatch_lostBall((mbuf[0] << 8) + mbuf[1] /* instance port*/);
+uint8_t mbufi_displayReady = 2;
+dispatch_displayReady((mbuf[0] << 8) + mbuf[1] /* instance port*/);
 break;
 }
-case 2:{
+case 5:{
 byte mbuf[7 - 2];
 while (mbufi < (7 - 2)) mbuf[mbufi++] = fifo_dequeue();
 uint8_t mbufi_timer_start = 2;
@@ -3278,28 +3292,21 @@ dispatch_timer_start((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_timer_start_time.p /* time */ );
 break;
 }
-case 6:{
+case 7:{
 byte mbuf[4 - 2];
 while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-uint8_t mbufi_displayReady = 2;
-dispatch_displayReady((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
-case 7:{
-byte mbuf[5 - 2];
-while (mbufi < (5 - 2)) mbuf[mbufi++] = fifo_dequeue();
-uint8_t mbufi_timer_timeout = 2;
-union u_timer_timeout_id_t {
-uint8_t p;
-byte bytebuffer[1];
-} u_timer_timeout_id;
-u_timer_timeout_id.bytebuffer[0] = mbuf[mbufi_timer_timeout + 0];
-mbufi_timer_timeout += 1;
-dispatch_timer_timeout((mbuf[0] << 8) + mbuf[1] /* instance port*/,
- u_timer_timeout_id.p /* id */ );
+uint8_t mbufi_lostBall = 2;
+dispatch_lostBall((mbuf[0] << 8) + mbuf[1] /* instance port*/);
 break;
 }
 case 8:{
+byte mbuf[4 - 2];
+while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
+uint8_t mbufi_nextLevel = 2;
+dispatch_nextLevel((mbuf[0] << 8) + mbuf[1] /* instance port*/);
+break;
+}
+case 3:{
 byte mbuf[8 - 2];
 while (mbufi < (8 - 2)) mbuf[mbufi++] = fifo_dequeue();
 uint8_t mbufi_position = 2;
@@ -3322,13 +3329,6 @@ dispatch_position((mbuf[0] << 8) + mbuf[1] /* instance port*/,
  u_position_y.p /* y */ );
 break;
 }
-case 5:{
-byte mbuf[4 - 2];
-while (mbufi < (4 - 2)) mbuf[mbufi++] = fifo_dequeue();
-uint8_t mbufi_nextLevel = 2;
-dispatch_nextLevel((mbuf[0] << 8) + mbuf[1] /* instance port*/);
-break;
-}
 }
 return 1;
 }
@@ -3338,40 +3338,39 @@ return 1;
 
 void initialize_configuration_test() {
 // Initialize connectors
-register_BreakoutGameArduino_send_log_function_called_listener(&sync_dispatch_BreakoutGameArduino_send_log_function_called);
-register_BreakoutGameArduino_send_log_message_lost_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_lost);
-register_BreakoutGameArduino_send_log_message_handled_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_handled);
-register_BreakoutGameArduino_send_log_message_sent_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_sent);
-register_BreakoutGameArduino_send_log_property_changed_listener(&sync_dispatch_BreakoutGameArduino_send_log_property_changed);
-register_BreakoutGameArduino_send_clock_timer_cancel_listener(&enqueue_BreakoutGameArduino_send_clock_timer_cancel);
-register_BreakoutGameArduino_send_clock_timer_start_listener(&enqueue_BreakoutGameArduino_send_clock_timer_start);
-register_BreakoutGameArduino_send_display_setBGColor_listener(&sync_dispatch_BreakoutGameArduino_send_display_setBGColor);
-register_BreakoutGameArduino_send_display_create_listener(&sync_dispatch_BreakoutGameArduino_send_display_create);
-register_BreakoutGameArduino_send_display_clear_listener(&sync_dispatch_BreakoutGameArduino_send_display_clear);
-register_BreakoutGameArduino_send_display_drawInteger_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawInteger);
-register_BreakoutGameArduino_send_display_fillRect_listener(&sync_dispatch_BreakoutGameArduino_send_display_fillRect);
-register_BreakoutGameArduino_send_display_update_listener(&sync_dispatch_BreakoutGameArduino_send_display_update);
-register_BreakoutGameArduino_send_display_drawThingML_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawThingML);
-register_BreakoutGameArduino_send_display_drawRect_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawRect);
-register_BreakoutGameArduino_send_display_setColor_listener(&sync_dispatch_BreakoutGameArduino_send_display_setColor);
-register_BreakoutGameArduino_send_ia_updateIA_listener(&enqueue_BreakoutGameArduino_send_ia_updateIA);
-register_BreakoutGameArduino_send_req_game_lostBall_listener(&enqueue_BreakoutGameArduino_send_req_game_lostBall);
-register_BreakoutGameArduino_send_req_game_nextLevel_listener(&enqueue_BreakoutGameArduino_send_req_game_nextLevel);
 register_HeadlessDisplay_send_display_displayReady_listener(&enqueue_HeadlessDisplay_send_display_displayReady);
 register_TimerArduino_send_timer_timer_timeout_listener(&enqueue_TimerArduino_send_timer_timer_timeout);
 register_BasicIAController_send_controls_position_listener(&enqueue_BasicIAController_send_controls_position);
+register_BreakoutGameArduino_send_log_property_changed_listener(&sync_dispatch_BreakoutGameArduino_send_log_property_changed);
+register_BreakoutGameArduino_send_log_message_handled_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_handled);
+register_BreakoutGameArduino_send_log_function_called_listener(&sync_dispatch_BreakoutGameArduino_send_log_function_called);
+register_BreakoutGameArduino_send_log_message_sent_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_sent);
+register_BreakoutGameArduino_send_log_message_lost_listener(&sync_dispatch_BreakoutGameArduino_send_log_message_lost);
+register_BreakoutGameArduino_send_clock_timer_cancel_listener(&enqueue_BreakoutGameArduino_send_clock_timer_cancel);
+register_BreakoutGameArduino_send_clock_timer_start_listener(&enqueue_BreakoutGameArduino_send_clock_timer_start);
+register_BreakoutGameArduino_send_display_fillRect_listener(&sync_dispatch_BreakoutGameArduino_send_display_fillRect);
+register_BreakoutGameArduino_send_display_update_listener(&sync_dispatch_BreakoutGameArduino_send_display_update);
+register_BreakoutGameArduino_send_display_setColor_listener(&sync_dispatch_BreakoutGameArduino_send_display_setColor);
+register_BreakoutGameArduino_send_display_drawInteger_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawInteger);
+register_BreakoutGameArduino_send_display_create_listener(&sync_dispatch_BreakoutGameArduino_send_display_create);
+register_BreakoutGameArduino_send_display_drawRect_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawRect);
+register_BreakoutGameArduino_send_display_clear_listener(&sync_dispatch_BreakoutGameArduino_send_display_clear);
+register_BreakoutGameArduino_send_display_setBGColor_listener(&sync_dispatch_BreakoutGameArduino_send_display_setBGColor);
+register_BreakoutGameArduino_send_display_drawThingML_listener(&sync_dispatch_BreakoutGameArduino_send_display_drawThingML);
+register_BreakoutGameArduino_send_ia_updateIA_listener(&enqueue_BreakoutGameArduino_send_ia_updateIA);
+register_BreakoutGameArduino_send_req_game_lostBall_listener(&enqueue_BreakoutGameArduino_send_req_game_lostBall);
+register_BreakoutGameArduino_send_req_game_nextLevel_listener(&enqueue_BreakoutGameArduino_send_req_game_nextLevel);
 
 
 // Network Initialization
 // End Network Initialization
 
-// Init the ID, state variables and properties for instance log
-log_var.active = true;
-log_var.id_log = add_instance( (void*) &log_var);
-log_var.Logger_State = LOGGER_NULL_STARTUP_STATE;
-log_var.Logger_ACTIVATE_ON_STARTUP_var = 1;
+// Init the ID, state variables and properties for instance disp
+disp_var.active = true;
+disp_var.id_display = add_instance( (void*) &disp_var);
+disp_var.HeadlessDisplay_State = HEADLESSDISPLAY_NULL_INIT_STATE;
 
-Logger_OnEntry(LOGGER_STATE, &log_var);
+HeadlessDisplay_OnEntry(HEADLESSDISPLAY_STATE, &disp_var);
 // Init the ID, state variables and properties for instance timer
 timer_var.active = true;
 timer_var.id_timer = add_instance( (void*) &timer_var);
@@ -3379,20 +3378,13 @@ timer_var.TimerArduino_SoftTimer_State = TIMERARDUINO_SOFTTIMER_DEFAULT_STATE;
 timer_var.TimerArduino_NB_SOFT_TIMERS_var = NB_SOFT_TIMERS;
 
 TimerArduino_SoftTimer_OnEntry(TIMERARDUINO_SOFTTIMER_STATE, &timer_var);
-// Init the ID, state variables and properties for instance disp
-disp_var.active = true;
-disp_var.id_display = add_instance( (void*) &disp_var);
-disp_var.HeadlessDisplay_State = HEADLESSDISPLAY_NULL_INIT_STATE;
+// Init the ID, state variables and properties for instance log
+log_var.active = true;
+log_var.id_log = add_instance( (void*) &log_var);
+log_var.Logger_State = LOGGER_NULL_STARTUP_STATE;
+log_var.Logger_ACTIVATE_ON_STARTUP_var = 1;
 
-HeadlessDisplay_OnEntry(HEADLESSDISPLAY_STATE, &disp_var);
-// Init the ID, state variables and properties for instance ctrl
-ctrl_var.active = true;
-ctrl_var.id_controls = add_instance( (void*) &ctrl_var);
-ctrl_var.id_game = add_instance( (void*) &ctrl_var);
-ctrl_var.BasicIAController_SC_State = BASICIACONTROLLER_SC_FOLLOWING_STATE;
-ctrl_var.BasicIAController_ctrlx_var = 0;
-
-BasicIAController_SC_OnEntry(BASICIACONTROLLER_SC_STATE, &ctrl_var);
+Logger_OnEntry(LOGGER_STATE, &log_var);
 // Init the ID, state variables and properties for instance game
 game_var.active = true;
 game_var.id_log = add_instance( (void*) &game_var);
@@ -3404,46 +3396,54 @@ game_var.id_game = add_instance( (void*) &game_var);
 game_var.id_req_game = add_instance( (void*) &game_var);
 game_var.id_pro_game = add_instance( (void*) &game_var);
 game_var.BreakoutGame_SC_State = BREAKOUTGAME_SC_INIT_STATE;
-game_var.BreakoutGame_score_var = 0;
-game_var.BreakoutGameArduino_RAM_SIZE_var = 98304;
-game_var.BreakoutGame_padx_var = 128 * 64 / 2;
-game_var.BreakoutGame_dx_var = 160 * 64 / 98;
-game_var.BreakoutGame_prevBY_var =  -1;
-game_var.BreakoutGame_by_var = 128 * 64;
-game_var.BreakoutGame_XDISPSIZE_var = 160;
-game_var.BreakoutGame_BRICK_ROWS_var = 5;
-game_var.BreakoutGame_BOTTOM_var = 128 * 64 + 8 * 64;
-game_var.BreakoutGame_QUIET_var = 1;
-game_var.BreakoutGame_BRICK_HEIGHT_var = 9;
-game_var.BreakoutGame_level_var = 1;
-game_var.BreakoutGame_prevPY_var =  -1;
-game_var.BreakoutGame_pady_var = 128 * 64 - 6 * 64;
-game_var.BreakoutGame_prevPX_var =  -1;
-game_var.BreakoutGame_prevBX_var =  -1;
-game_var.BreakoutGame_TOP_var = 14 * 64;
-game_var.BreakoutGame_SCALE_var = 64;
-game_var.BreakoutGame_padlen_var = 25 * 64;
-game_var.BreakoutGame_XMAX_var = 160 * 64;
-game_var.BreakoutGame_YDISPSIZE_var = 128;
-game_var.BreakoutGame_counter_var = 0;
-game_var.BreakoutGame_YMAX_var = 128 * 64;
-game_var.BreakoutGame_LEFT_var = 1 * 64;
 game_var.BreakoutGame_period_var = 3;
-game_var.BreakoutGame_lastTimestamp_var = 0;
-game_var.WithLog_DEBUG_ID_var = "game";
-game_var.BreakoutGame_lives_var = 3;
-game_var.BreakoutGame_br_var = 3 * 64;
-game_var.BreakoutGame_RIGHT_var = 160 * 64 - 1 * 64;
-game_var.BreakoutGame_bx_var = 160 * 64 / 2;
+game_var.BreakoutGame_counter_var = 0;
+game_var.BreakoutGame_prevPY_var =  -1;
 game_var.BreakoutGame_dy_var =  -160 * 64 / 65;
+game_var.BreakoutGame_by_var = 128 * 64;
+game_var.BreakoutGame_level_var = 1;
+game_var.BreakoutGame_TOP_var = 14 * 64;
+game_var.BreakoutGame_padlen_var = 25 * 64;
+game_var.BreakoutGame_prevBX_var =  -1;
+game_var.BreakoutGame_YDISPSIZE_var = 128;
+game_var.BreakoutGame_padx_var = 128 * 64 / 2;
+game_var.BreakoutGameArduino_RAM_SIZE_var = 98304;
+game_var.BreakoutGame_br_var = 3 * 64;
+game_var.BreakoutGame_bx_var = 160 * 64 / 2;
+game_var.BreakoutGame_YMAX_var = 128 * 64;
+game_var.BreakoutGame_pady_var = 128 * 64 - 6 * 64;
+game_var.BreakoutGame_RIGHT_var = 160 * 64 - 1 * 64;
+game_var.BreakoutGame_BRICK_HEIGHT_var = 9;
+game_var.BreakoutGame_prevPX_var =  -1;
+game_var.BreakoutGame_lastTimestamp_var = 0;
+game_var.BreakoutGame_dx_var = 160 * 64 / 98;
+game_var.BreakoutGame_LEFT_var = 1 * 64;
+game_var.BreakoutGame_XMAX_var = 160 * 64;
+game_var.BreakoutGame_XDISPSIZE_var = 160;
+game_var.BreakoutGame_lives_var = 3;
+game_var.BreakoutGame_QUIET_var = 1;
+game_var.BreakoutGame_score_var = 0;
+game_var.BreakoutGame_BOTTOM_var = 128 * 64 + 8 * 64;
+game_var.BreakoutGame_prevBY_var =  -1;
+game_var.BreakoutGame_BRICK_ROWS_var = 5;
+game_var.BreakoutGame_SCALE_var = 64;
+game_var.WithLog_DEBUG_ID_var = "0";
+game_var.BreakoutGame_fgcolor_var = array_game_BreakoutGame_fgcolor_var;
+game_var.BreakoutGame_fgcolor_var_size = 3;
 game_var.BreakoutGame_bgcolor_var = array_game_BreakoutGame_bgcolor_var;
 game_var.BreakoutGame_bgcolor_var_size = 3;
 game_var.BreakoutGame_bricks_var = array_game_BreakoutGame_bricks_var;
 game_var.BreakoutGame_bricks_var_size = 5;
-game_var.BreakoutGame_fgcolor_var = array_game_BreakoutGame_fgcolor_var;
-game_var.BreakoutGame_fgcolor_var_size = 3;
 
 BreakoutGame_SC_OnEntry(BREAKOUTGAME_SC_STATE, &game_var);
+// Init the ID, state variables and properties for instance ctrl
+ctrl_var.active = true;
+ctrl_var.id_controls = add_instance( (void*) &ctrl_var);
+ctrl_var.id_game = add_instance( (void*) &ctrl_var);
+ctrl_var.BasicIAController_SC_State = BASICIACONTROLLER_SC_FOLLOWING_STATE;
+ctrl_var.BasicIAController_ctrlx_var = 0;
+
+BasicIAController_SC_OnEntry(BASICIACONTROLLER_SC_STATE, &ctrl_var);
 }
 
 
@@ -3462,8 +3462,8 @@ void loop() {
 int emptyEventConsumed = 1;
 while (emptyEventConsumed != 0) {
 emptyEventConsumed = 0;
-emptyEventConsumed += ConsoleLogger_handle_empty_event(&log_var);
 emptyEventConsumed += HeadlessDisplay_handle_empty_event(&disp_var);
+emptyEventConsumed += ConsoleLogger_handle_empty_event(&log_var);
 }
 f_TimerArduino_poll_soft_timers(&timer_var);
 

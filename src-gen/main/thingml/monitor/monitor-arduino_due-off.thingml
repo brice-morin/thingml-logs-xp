@@ -1859,16 +1859,16 @@ thing TimerGo includes TimerMsgs @stl @go_import `time` {
 }
 configuration test @arduino_stdout `Serial` @arduino_stdout_baudrate `250000` {
 	instance game : BreakoutGameArduino
+	set game.DEBUG_ID = "0"
 	instance log : ConsoleLogger
+	set log.ACTIVATE_ON_STARTUP = false
+	connector game.log => log.log
 	instance disp : HeadlessDisplay
 	instance timer : TimerArduino
 	instance ctrl : BasicIAController
-	connector game.log => log . log
 	connector game.clock => timer . timer
 	connector game.display => disp . display
 	connector game.req_game => game . pro_game
 	connector game.controller => ctrl . controls
 	connector ctrl.game => game . ia
-	set game.DEBUG_ID = "0"
-	set log.ACTIVATE_ON_STARTUP = true
 }

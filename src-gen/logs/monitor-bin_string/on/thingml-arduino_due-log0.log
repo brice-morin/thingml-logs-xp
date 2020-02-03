@@ -1,22 +1,10 @@
-k⸮?H.]⸮>⸮o⸮[⸮⸮	6|=⸮L
-h]^a=⸮^N?^H⸮?.]7J=q⸮%Q⸮-|-⸮^⸮+⸮?.]
-m⸮o⸮K⸮⸮I6|<}⸮}a]⸮~.>SH^-J⸮⸮^⸮+⸮?.]7J=q⸮
-x⸮Iъ⸮⸮+⸮?>Hn]7*m⸮/⸮-⸮⸮j*5Ȉ
-x⸮^⸮+⸮?.]7J=q⸮%Q⸮-|-⸮^⸮+⸮?.]
-m⸮o⸮K⸮⸮I6|<}⸮}a]⸮~.>SH^-J⸮⸮^⸮+⸮?.]7J=q⸮
-x⸮Iъ⸮⸮+⸮?>Hn]7*m⸮/⸮-⸮⸮j*m⸮I⸮l(h]>a]⸮~.>SH^aV⸮⸮~3?⸮}k⸮⸮>S⸮^.M5⸮⸮>s?⸮]+⸮⸮?⸮~(m5⸮J⸮J⸮⸮⸮>SH.
-}Q⸮%H⸮[⸮⸮⸮aO⸮?n]7
--⸮o⸮J⸮⸮j*m⸮I⸮l((]>a]⸮~?>H⸮⸮ void, _)
-message_sent(BreakoutGame0, ia, updateIA, ballx=2802, bally=3816, padx=2226, pady=7808)
-message_sent(BreakoutGame0, display, update)
-messagakoutGame0, contrme0, clock, timer_start, id=⸮⸮⸮⸮⸮3)
-message_lost(BreakoutGame0, clock, timer_timeout, id=0)
-message_handled(BreakoutGame0, controller, position, SC, _, , x=65472, y=0)
-property_changed(BreakoutGame0, padx, Int16, 2226, 2397)
+~!MŠ-?ˆMÊZˆŠJ—¿á?>SH.]ˆ]‡Øéï!Oè§?}9È“áN}_Ÿ·^?aÂ§?H}yÈ³ox·>mè§?(m9}QHqIHÈIO&bÊõ0)
+propert¡…¹�•‘¡BreakoutGame0, padx, Int16, 6481, 6311)
 message_handled(BreakoutGame0, clock, timer_timeout, PLAY, _, , id=0)
-property_changed(BreakoutGame0, bx, Int16, 2802, 2980)
-property_changed(BreakoutGame0, by, Int16, 3816, 3973)
-fu⸮message_handled(BreakoutGame0, display, displayReady, INIT, LAUNCH, )
+property_changed(BreakoutGame0, bx, Int16, 6019, 5863)
+property_changed(BreakoutGame0, by, Int16, 7491, 7334)
+function_called(BreakoutGame0, collideBrick, Boolean, 1, xpos=3606, ypos=10011)
+function_called(BreakoutGame0, collideBrick, Boolean, 1, xposmessage_handled(BreakoutGame0, display, displayReady, INIT, LAUNCH, )
 message_sent(BreakoutGame0, display, clear)
 message_sent(BreakoutGame0, display, setBGColor, r=53, g=40, b=120)
 message_sent(BreakoutGame0, display, setColor, r=107, g=94, b=174)
