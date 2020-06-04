@@ -22,7 +22,8 @@ thing BreakoutGameJava includes BreakoutGame
 }
 
 configuration test
-@docker
+@docker "perf"
+@docker_jre "adoptopenjdk:11-jre-hotspot"
 {
 	instance game : BreakoutGameJava
 	instance disp : HeadlessDisplay

@@ -23,6 +23,7 @@ thing BreakoutGameJava includes BreakoutGame
 
 configuration test
 @docker "perf"
+@docker_jre "adoptopenjdk:11-jre-openj9"
 {
 	instance game : BreakoutGameJava
 	instance disp : HeadlessDisplay
