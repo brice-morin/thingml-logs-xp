@@ -1,0 +1,34 @@
+import "pim/basic.thingml"
+
+thing BasicArduino includes Basic 
+@c_global `extern "C" char* sbrk(int incr);`
+{	
+	readonly property RAM_SIZE : UInt32 = 98304 //96kB
+	
+	function quit() @monitor "not" do
+
+	end
+	
+	function timestamp() : UInt32 @monitor "not" do
+		return `millis()` as UInt32
+	end
+	
+	function usedMemory() : UInt32 @monitor "not" do
+		`char top;`
+		return RAM_SIZE - `(&top - reinterpret_cast<char*>(sbrk(0)))` as UInt32
+	end	
+	
+	function sleep1ms() do
+		`sleep(1);`
+	end
+}
+
+configuration test
+@arduino_stdout "Serial"
+@arduino_stdout_baudrate "250000"
+{		
+	instance main : BasicArduino
+	connector main.p => main.p2
+}
+
+

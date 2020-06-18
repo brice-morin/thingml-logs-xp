@@ -1,8 +1,9 @@
-import "pim/BreakoutGame.thingml"
+import "pim/basic.thingml"
 
-thing BreakoutGamePosix includes BreakoutGame 
+thing BasicPosix includes Basic 
 @c_header "#include <time.h>
-#include <stdlib.h>"
+#include <stdlib.h>
+#include <errno.h>"
 @c_global "struct timespec t;
 
 typedef struct {
@@ -10,9 +11,6 @@ typedef struct {
 } statm_t;"
 {	
 	function quit() @monitor "not" do
-		println ">done in ", stopTime-startTime, "ms!"
-		println ">lives:", lives, ",score:", score, ",level:", level, ",bx:", bx, ",by:", by, ",padx:", padx
-		println ">usedMem:", usedMemory()
 		`exit(0);`
 	end
 	
@@ -34,24 +32,23 @@ typedef struct {
 		return `result.size` as UInt32
 	end
 	
-	function unsetBit(variable : UInt8, bit : UInt8) : UInt8 return (``&variable&` & ~(1 << `& bit &`)`) as UInt8
+	function sleep1ms() do
+		`struct timespec ts;
+    	int res;
+    	ts.tv_sec = 1 / 1000;
+    	ts.tv_nsec = 1 * 1000000;
+    	do {
+        	res = nanosleep(&ts, &ts);
+    	} while (res && errno == EINTR);
+		`
+	end
 }
 
 configuration test
-@docker "perf"
+@docker
 {		
-	instance main : BreakoutGamePosix
-	instance disp : HeadlessDisplay
-	instance timer : TimerPosix
-		set timer.SOFT_TIMER_PERIOD = 4
-
-	connector main.clock => timer.timer
-	connector main.display => disp.display
-	connector main.req_game => main.pro_game
-
-	instance ctrl : BasicIAController
-	connector game.controller => ctrl.controls
-	connector ctrl.game => main.ia
+	instance main : BasicPosix
+	connector main.p => main.p2
 }
 
 

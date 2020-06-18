@@ -41,18 +41,18 @@ configuration test
 @c_compiler "clang"
 @docker "perf"
 {		
-	instance game : BreakoutGamePosix
+	instance main : BreakoutGamePosix
 	instance disp : HeadlessDisplay
 	instance timer : TimerPosix
 		set timer.SOFT_TIMER_PERIOD = 4
 
-	connector game.clock => timer.timer
-	connector game.display => disp.display
-	connector game.req_game => game.pro_game
+	connector main.clock => timer.timer
+	connector main.display => disp.display
+	connector main.req_game => main.pro_game
 
 	instance ctrl : BasicIAController
 	connector game.controller => ctrl.controls
-	connector ctrl.game => game.ia
+	connector ctrl.game => main.ia
 }
 
 

@@ -1,0 +1,28 @@
+import "pim/basic.thingml"
+
+thing BasicJava includes Basic 
+@stdout_sync "true"
+{	
+	function quit() @monitor "not" do
+		`System.exit(0);`
+	end
+	
+	function timestamp() : UInt32 @monitor "not" return `System.currentTimeMillis()` as UInt32
+	
+	function usedMemory() : UInt32 @monitor "not" do
+		`System.gc();`
+		return `Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()` as UInt32
+	end	
+	
+	function sleep1ms() do
+		`try{Thread.sleep(1);} catch (Exception e){}`
+	end
+}
+
+configuration test
+@docker
+@docker_jre "adoptopenjdk:8-jre-hotspot"
+{
+	instance main : BasicJava
+	connector main.p => main.p2
+}

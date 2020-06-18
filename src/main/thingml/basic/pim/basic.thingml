@@ -1,0 +1,67 @@
+import "datatypes.thingml" from stl
+	
+thing fragment Basic 
+@monitor "functions"
+@monitor "properties"
+@monitor "events"
+{
+	
+	property start : UInt32 = 0
+	property counter : UInt32 = 0	
+	property memory : UInt32[3]
+	
+	message m()
+	message m2()
+	
+	required port p {
+		sends m, m2		
+	}
+	
+	provided port p2 {
+		receives m, m2
+	}
+	
+	function f() do
+		sleep1ms()
+		p!m()
+		p!m2()
+		if (counter == 2000) memory[1] = usedMemory()
+	end
+	
+	abstract function timestamp() : UInt32 @monitor "not"	
+	abstract function usedMemory() : UInt32 @monitor "not"	
+	abstract function quit() @monitor "not"
+	abstract function sleep1ms() @monitor "not"
+	
+	statechart SC init INIT {
+		
+		on entry do
+			memory[0] = usedMemory()
+			start = timestamp()
+		end
+		
+		state INIT {
+			
+			on entry f()
+			
+			on exit counter++
+			
+			transition -> INIT
+			event p2?m
+			guard counter < 4000
+			
+			transition -> STOP
+			event p2?m
+			guard counter == 4000
+		}
+		
+		final state STOP {
+			on entry do			
+				println ">done in ", (timestamp()-start) as UInt32, " ms!"
+				memory[2] = usedMemory()
+				println ">usedMem:", (memory[0]+memory[1]+memory[2])/3
+				quit()
+			end
+		}
+	}
+}

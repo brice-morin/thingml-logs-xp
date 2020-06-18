@@ -11,8 +11,11 @@ function instrument
   THINGMLTOOL=`echo $TOOL | cut -d'_' -f1`
 
   echo $BASEDIR
+  
+  ((BASIC)) && SOURCE=/thingml/src/main/thingml/basic/$LANG.thingml
+  ((!BASIC)) && SOURCE=/thingml/src/main/thingml/$LANG.thingml
 
-  _docker run -v /$BASEDIR:/thingml thingml --tool $THINGMLTOOL --output /thingml/src-gen/main/thingml --source /thingml/src/main/thingml/$LANG.thingml
+  _docker run -v /$BASEDIR:/thingml thingml --tool $THINGMLTOOL --output /thingml/src-gen/main/thingml --source $SOURCE
 
   cd $TARGETDIR/main/thingml/monitor/
 
@@ -40,15 +43,15 @@ function configure
   LOGGER=$4
 
   head -n -1 $THINGML_FILE > temp.thingml ; mv temp.thingml $THINGML_FILE
-  echo "set game.period = 3" >> $THINGML_FILE
-  echo "set game.QUIET = true" >> $THINGML_FILE
-  ((!BINARY)) && echo "set game.DEBUG_ID = \"game\"" >> $THINGML_FILE
-  ((BINARY)) && echo "set game.DEBUG_BIN_ID = 0" >> $THINGML_FILE
+  ((!BASIC)) && echo "set main.period = 3" >> $THINGML_FILE
+  ((!BASIC)) && echo "set main.QUIET = true" >> $THINGML_FILE
+  ((!BINARY)) && echo "set main.DEBUG_ID = \"game\"" >> $THINGML_FILE
+  ((BINARY)) && echo "set main.DEBUG_BIN_ID = 0" >> $THINGML_FILE
   echo "instance log : $LOGGER" >> $THINGML_FILE
   ((BINARY)) && ((HAS_SIGNED_BYTE)) && echo "set log.HAS_SIGNED_BYTE = true" >> $THINGML_FILE
   ((BINARY)) && ((!HAS_SIGNED_BYTE)) && echo "set log.HAS_SIGNED_BYTE = false" >> $THINGML_FILE
   echo "set log.ACTIVATE_ON_STARTUP = $IS_ON" >> $THINGML_FILE
-  echo "connector game.log => log.log" >> $THINGML_FILE
+  echo "connector main.log => log.log" >> $THINGML_FILE
   echo "}" >> $THINGML_FILE
 }
 

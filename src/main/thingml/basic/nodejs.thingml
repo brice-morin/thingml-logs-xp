@@ -1,0 +1,33 @@
+import "pim/basic.thingml"
+
+thing BasicNodeJS includes Basic {	
+	
+	function quit() @monitor "not" do
+		`process.exitCode = 1;`
+	end
+	
+	function timestamp() : UInt32 @monitor "not" return `Number(process.hrtime.bigint()/BigInt(1000000))` as UInt32
+	
+	function usedMemory() : UInt32 @monitor "not" do
+		`if (global.gc) {
+			global.gc();
+		}`
+		return `process.memoryUsage().heapUsed` as UInt32
+	end
+	
+	function sleep1ms() do
+		`
+		var stop = new Date().getTime();
+    	while(new Date().getTime() < stop + 1) {
+        	;
+    	}
+		`
+	end
+}
+
+configuration test
+@docker
+{
+	instance main : BasicNodeJS
+	connector main.p => main.p2
+}
