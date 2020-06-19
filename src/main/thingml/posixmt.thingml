@@ -38,7 +38,7 @@ typedef struct {
 }
 
 configuration test
-@docker "perf"
+@docker
 {		
 	instance main : BreakoutGamePosix
 	instance disp : HeadlessDisplay

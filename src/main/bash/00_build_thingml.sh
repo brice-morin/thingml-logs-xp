@@ -2,4 +2,4 @@
 source common.sh
 
 cd $BASEDIR/src/main/docker
-docker build -t thingml .
+docker build -q -t thingml .

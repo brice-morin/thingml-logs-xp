@@ -26,7 +26,7 @@ thing BreakoutGameGo includes BreakoutGame
 }
 
 configuration test
-@docker "perf"
+@docker
 {
 	instance main : BreakoutGameGo
 	instance disp : HeadlessDisplay

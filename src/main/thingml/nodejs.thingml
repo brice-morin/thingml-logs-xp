@@ -24,7 +24,7 @@ thing BreakoutGameNodeJS includes BreakoutGame {
 }
 
 configuration test
-@docker "perf"
+@docker
 {
 	instance main : BreakoutGameNodeJS
 	instance disp : HeadlessDisplay

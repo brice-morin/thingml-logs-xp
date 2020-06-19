@@ -1,14 +1,15 @@
 import "datatypes.thingml" from stl
 	
 thing fragment Basic 
+@stdout_sync "true"
 @monitor "functions"
 @monitor "properties"
 @monitor "events"
 {
 	
-	property start : UInt32 = 0
-	property counter : UInt32 = 0	
-	property memory : UInt32[3]
+	property start : UInt32 = 0 @monitor "not"
+	property counter : UInt16 = 0	
+	property memory : UInt32[3] @monitor "not"
 	
 	message m()
 	message m2()

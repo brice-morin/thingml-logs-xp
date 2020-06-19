@@ -32,7 +32,7 @@ thing BreakoutGameNodeJS includes BreakoutGame
 
 configuration test
 @docker_js "chakra"
-@docker "perf"
+@docker
 {
 	instance main : BreakoutGameNodeJS
 	instance disp : HeadlessDisplay

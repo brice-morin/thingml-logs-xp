@@ -39,7 +39,7 @@ typedef struct {
 
 configuration test
 @c_compiler "clang"
-@docker "perf"
+@docker
 {		
 	instance main : BreakoutGamePosix
 	instance disp : HeadlessDisplay
