@@ -51,7 +51,7 @@ configuration test
 	connector main.req_game => main.pro_game
 
 	instance ctrl : BasicIAController
-	connector game.controller => ctrl.controls
+	connector main.controller => ctrl.controls
 	connector ctrl.game => main.ia
 }
 

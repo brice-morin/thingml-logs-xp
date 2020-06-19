@@ -4,8 +4,8 @@ N=1
 
 WIN=1	#Set to 1 if running on Windows and having problems with Docker volumes or paths...
 
-#LANGUAGES=(java_8_hotspot nodejs go posix) # Languages to use
-LANGUAGES=(java_8_hotspot) # Languages to use
+LANGUAGES=(java_8_hotspot nodejs go posix) # Languages to use
+#LANGUAGES=(java_8_hotspot) # Languages to use
 TOOLS=(monitor monitor-bin monitor-bin_string)
 MODES=(on off no) # Logging modes
 
