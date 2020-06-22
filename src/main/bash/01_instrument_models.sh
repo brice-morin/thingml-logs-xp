@@ -15,7 +15,7 @@ function instrument
   ((BASIC)) && SOURCE=/thingml/src/main/thingml/basic/$LANG.thingml
   ((!BASIC)) && SOURCE=/thingml/src/main/thingml/$LANG.thingml
 
-  _docker run --rm -v /$BASEDIR:/thingml thingml --tool $THINGMLTOOL --output /thingml/src-gen/main/thingml --source $SOURCE
+  _docker run --rm -v $BASEDIR:/thingml thingml --tool $THINGMLTOOL --output /thingml/src-gen/main/thingml --source $SOURCE
 
   cd $TARGETDIR/main/thingml/monitor/
 

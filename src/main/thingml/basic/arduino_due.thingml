@@ -19,7 +19,7 @@ thing BasicArduino includes Basic
 	end	
 	
 	function sleep1ms() do
-		`sleep(1);`
+		`delay(1);`
 	end
 }
 

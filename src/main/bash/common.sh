@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-N=1
+N=25
 
 WIN=1	#Set to 1 if running on Windows and having problems with Docker volumes or paths...
 
